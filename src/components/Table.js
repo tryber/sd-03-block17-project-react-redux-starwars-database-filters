@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import Filters from './Filters';
 import A_fetchPlanets from '../store/actions/A_fetchPlanets';
 
 export class Table extends Component {
@@ -16,12 +17,53 @@ export class Table extends Component {
     A_fetchPlanets();
   }
 
+  renderTableHead() {
+    const { data } = this.props;
+    return (
+      <thead>
+        <tr>
+          {Object.keys(data[0]).map((key) => (
+            <th key={key}>
+              {key}
+            </th>
+          ))}
+        </tr>
+      </thead>
+    );
+  }
+
+  renderTableBody() {
+    const { data } = this.props;
+    return (
+      <tbody>
+        {data.map((planet) => (
+          <tr key={planet.name}>
+            {Object.values(planet).map((planetValue) => (
+              <td key={planetValue}>{planetValue}</td>))}
+          </tr>
+        ))}
+      </tbody>
+    );
+  }
+
+  renderTable() {
+    return (
+      <table border="1px">
+        {this.renderTableHead()}
+        {this.renderTableBody()}
+      </table>
+    );
+  }
+
+
   render() {
     const { loading, error, data } = this.props;
     if (!loading && data !== undefined) {
       return (
         <div>
-          {data.map((result) => <div>{result.name}</div>)}
+          <h1>StarWars Datatable with Filters:</h1>
+          <Filters />
+          {this.renderTable()}
         </div>
       );
     }

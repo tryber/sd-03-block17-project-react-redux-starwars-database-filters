@@ -3,9 +3,9 @@ import SW_API from '../../services/swAPI';
 
 const requestAPI = () => ({ type: types.REQUEST_API });
 
-const receiveSuccess = (response) => ({
+const receiveSuccess = (data) => ({
   type: types.RECEIVE_API_SUCCESS,
-  results: response.results,
+  data,
 });
 
 const receiveFailure = (error) => ({
@@ -18,7 +18,7 @@ export default function fetchPlanets() {
     dispatch(requestAPI());
     return SW_API()
       .then(
-        (response) => dispatch(receiveSuccess(response)),
+        (data) => dispatch(receiveSuccess(data)),
         (error) => dispatch(receiveFailure(error.message)),
       );
   };
