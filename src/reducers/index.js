@@ -1,5 +1,6 @@
-function emptyReducer() {
-  return {};
-}
+import { combineReducers } from 'react-redux';
+import planetsInfoReducer from './planetsInfoReducer';
 
-export default emptyReducer;
+const rootReducer = combineReducers({ planetsInfoReducer });
+
+export default rootReducer;
