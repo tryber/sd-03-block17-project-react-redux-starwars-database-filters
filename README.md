@@ -10,7 +10,7 @@ Você criará um projeto em React utilizando Redux para controle de estado. A ap
 
 ## Desenvolvimento
 
-Este repositório já contém um _template_ de uma aplicação React criado e configurado. Após clonar o projeto e instalar as dependências (mais sobre isso abaixo), você não precisará realizar nenhuma configuração adicional.
+Este repositório já contém um _template_ de uma aplicação React criado e configurado. Após clonar o projeto e instalar as dependências (mais sobre isso abaixo), você não precisará realizar nenhuma configuração adicional. A documentação da API pode ser encontrada [aqui](https://swapi-trybe.herokuapp.com/documentation).
 
 ## Requisitos do projeto
 
