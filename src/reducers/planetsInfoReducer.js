@@ -14,7 +14,7 @@ const planetsInfoReducer = (state = INITIAL_STATE, action) => {
     case REQUEST_PLANETS_INFORMATION:
       return { ...state, isLoading: action.loading };
     case PLANET_INFO_REQUEST_SUCESS:
-      return { ...state, isLoading: action.loading, data: action.data };
+      return { ...state, isLoading: action.loading, data: [...action.data] };
     case PLANET_INFO_REQUEST_FAILURE:
       return { ...state, isLoading: action.loading, error: action.error };
     default:
