@@ -3,10 +3,14 @@ import SW_API from '../../services/swAPI';
 
 const requestAPI = () => ({ type: types.REQUEST_API });
 
-const receiveSuccess = (data) => ({
-  type: types.RECEIVE_API_SUCCESS,
-  data,
-});
+const receiveSuccess = (json) => {
+  const data = json.results;
+  data.forEach((planet, index) => { delete data[index].residents; });
+  return {
+    type: types.RECEIVE_API_SUCCESS,
+    data,
+  };
+};
 
 const receiveFailure = (error) => ({
   type: types.RECEIVE_API_FAILURE,
@@ -18,7 +22,7 @@ export default function fetchPlanets() {
     dispatch(requestAPI());
     return SW_API()
       .then(
-        (data) => dispatch(receiveSuccess(data)),
+        (json) => dispatch(receiveSuccess(json)),
         (error) => dispatch(receiveFailure(error.message)),
       );
   };
