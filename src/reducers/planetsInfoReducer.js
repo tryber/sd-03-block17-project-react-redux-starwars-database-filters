@@ -2,7 +2,7 @@ import {
   REQUEST_PLANETS_INFORMATION,
   PLANET_INFO_REQUEST_SUCESS,
   PLANET_INFO_REQUEST_FAILURE,
-} from './actions';
+} from '../actions/actions';
 
 const INITIAL_STATE = {
   isLoading: false,
