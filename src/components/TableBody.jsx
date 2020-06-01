@@ -1,12 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export class TableBody extends Component {
   render() {
-    return (
-      <div>
-        tableText
-      </div>
-    )
+    return <div>tableText</div>;
   }
 }
 
