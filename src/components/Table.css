@@ -1,0 +1,4 @@
+.table-headers {
+  display:  flex;
+  justify-content: space-around;
+};
