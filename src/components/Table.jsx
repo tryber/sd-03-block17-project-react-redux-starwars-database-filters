@@ -5,12 +5,21 @@ import PropTypes from 'prop-types';
 import store from '../store/index';
 import fetchPlanets from '../actions/fetchPlanetsAction';
 import TableHeader from './TableHeader';
+import TableRow from './TableRow';
 
 const takeTitles = (planet) => (
   Object.keys(planet)
   .filter((key) => key !== 'residents')
 );
 
+const renderBody = (planets) => (
+  <tbody>
+    {
+      planets.map((planet) =>
+        <TableRow key={planet.name} planet={planet} headers={takeTitles(planet)} />)
+    }
+  </tbody>
+);
 
 class Table extends React.Component {
   componentDidMount() {
@@ -24,7 +33,13 @@ class Table extends React.Component {
     return (
       <table>
         <caption>Star Wars Planets</caption>
-        {isEmpty || <TableHeader headers={takeTitles(planets[0])} />}
+        {isEmpty
+        || 
+        <>
+          <TableHeader headers={takeTitles(planets[0])} />
+          {renderBody(planets)}
+        </>
+        }
       </table>
     );
   }
