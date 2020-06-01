@@ -12,13 +12,11 @@ import reducer from './reducers';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
-const renderApp = () => {
-  return render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-  );
-};
+const renderApp = () => render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+);
 
 const mockFetch = () => {
   const apiResponse = Promise.resolve(testData);
@@ -37,7 +35,7 @@ describe('1 - Fazer uma requisição para o endpoint /planets da API de Star War
   test('it uses SWAPI data', async () => {
     const { findByText, findAllByText } = renderApp();
     const planets = testData.results;
-    for (let planetIndex in planets) {
+    for (const planetIndex in planets) {
       const name = await findByText(planets[planetIndex].name);
       const rotationPeriod = await findAllByText(
         planets[planetIndex].rotation_period,
@@ -146,9 +144,9 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
       'surface_water',
     ];
 
-    let foundColumnFilterArray = [];
+    const foundColumnFilterArray = [];
 
-    for (let item of columnFilter.children) {
+    for (const item of columnFilter.children) {
       expect(item).toHaveProperty('nodeName', 'OPTION');
       foundColumnFilterArray.push(item.innerHTML);
     }
@@ -169,9 +167,9 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
 
     const expectedColumnComparisons = ['maior que', 'igual a', 'menor que'];
 
-    let foundComparisonFilterArray = [];
+    const foundComparisonFilterArray = [];
 
-    for (let item of comparisonFilter.children) {
+    for (const item of comparisonFilter.children) {
       expect(item).toHaveProperty('nodeName', 'OPTION');
       foundComparisonFilterArray.push(item.innerHTML);
     }
@@ -273,9 +271,9 @@ describe('4 -  Sua página deverá ser carregada com somente um filtro de valore
 
     const expectedColumnFilters = ['orbital_period', 'rotation_period'];
 
-    let foundColumnFilterArray = [];
+    const foundColumnFilterArray = [];
 
-    for (let filter of columnFilter.children) {
+    for (const filter of columnFilter.children) {
       foundColumnFilterArray.push(filter.innerHTML);
     }
 
@@ -296,7 +294,7 @@ describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao 
     const { findAllByTestId, queryAllByTestId } = renderApp();
     let selectedFilters = await findAllByTestId('filter');
 
-    for (let filter of selectedFilters) {
+    for (const filter of selectedFilters) {
       const removeButton = filter.querySelector('button');
       fireEvent.click(removeButton);
     }
@@ -311,15 +309,15 @@ describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao 
 describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou descendente', () => {
   test('check planet table starting order', async () => {
     let sortedPlanets = [];
-    for (let planet of testData.results) {
+    for (const planet of testData.results) {
       sortedPlanets.push(planet.name);
     }
     sortedPlanets = sortedPlanets.sort();
 
     const { findAllByRole } = renderApp();
     const rows = await findAllByRole('row');
-    let appPlanetList = [];
-    for (let row of rows) {
+    const appPlanetList = [];
+    for (const row of rows) {
       appPlanetList.push(row.children[0].innerHTML);
     }
     appPlanetList.shift();
@@ -330,7 +328,7 @@ describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou 
 
   test('change table order', async () => {
     let sortedPlanets = [];
-    for (let planet of testData.results) {
+    for (const planet of testData.results) {
       sortedPlanets.push(parseInt(planet.diameter, 10));
     }
     sortedPlanets = sortedPlanets.sort((a, b) => a - b);
@@ -342,15 +340,15 @@ describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou 
 
     fireEvent.change(columnSort, { target: { value: 'diameter' } });
 
-    const ascInput = sortInput.filter((input) => input.value == `DESC`)[0];
+    const ascInput = sortInput.filter((input) => input.value == 'DESC')[0];
 
     fireEvent.click(ascInput);
 
     await fireEvent.click(sortButton);
 
     const rows = await findAllByRole('row');
-    let appPlanetList = [];
-    for (let row of rows) {
+    const appPlanetList = [];
+    for (const row of rows) {
       appPlanetList.push(parseInt(row.children[3].innerHTML));
     }
     appPlanetList.shift();
