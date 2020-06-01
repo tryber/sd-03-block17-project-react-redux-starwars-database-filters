@@ -1,4 +1,4 @@
-import fetchSWAPI from '../services/fetchSWAPI';
+import { fetchSWAPI } from '../services/fetchSWAPI';
 
 export const REQUEST_PLANETS = 'REQUEST_PLANETS';
 export const FETCH_PLANETS_SUCESS = 'FETCH_PLANETS_SUCESS';
@@ -13,7 +13,7 @@ const fetchPlanetsSucess = (planets) => ({
 
 const fetchPlanetsFailure = (error) => ({
   type: FETCH_PLANETS_FAILURE,
-  error
+  error,
 });
 
 export const fetchPlanets = () => (
@@ -22,8 +22,8 @@ export const fetchPlanets = () => (
 
     return fetchSWAPI()
       .then(
-        (planets) => fetchPlanetsSucess(planets),
-        (error) => fetchPlanetsFailure(error),
+        (planets) => dispatch(fetchPlanetsSucess(planets.results)),
+        (error) => dispatch(fetchPlanetsFailure(error)),
       );
   }
 );

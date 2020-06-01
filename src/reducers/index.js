@@ -2,11 +2,11 @@ import {
   REQUEST_PLANETS,
   FETCH_PLANETS_SUCESS,
   FETCH_PLANETS_FAILURE,
-} from  '../actions/fetchPlanetsActions';
+} from  '../actions/fetchPlanetsAction';
 
 const INITIAL_STATE = {
   isFetching: false,
-  data: '',
+  data: [],
   error: '',
 };
 
@@ -18,7 +18,7 @@ function emptyReducer(state = INITIAL_STATE, action) {
       return ({
         ...state,
         isFetching: false,
-        data: action.planets,
+        data: [...action.planets],
       });
     case FETCH_PLANETS_FAILURE:
       return ({
