@@ -13,8 +13,8 @@ export class Table extends Component {
   }
 
   componentDidMount() {
-    const { A_fetchPlanets } = this.props;
-    A_fetchPlanets();
+    const { fetchPlanets } = this.props;
+    fetchPlanets();
   }
 
   renderTableHead() {
@@ -78,7 +78,7 @@ const mapStateToProps = (state) => ({
   data: state.R_fetchPlanets.data,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ A_fetchPlanets }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ fetchPlanets: A_fetchPlanets }, dispatch);
 
 
 Table.propTypes = {

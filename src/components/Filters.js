@@ -43,7 +43,7 @@ export class Filters extends Component {
   renderComparisonFilter() {
     return (
       <div>
-        <select name="comparison" onChange={(e) => this.handleChange(e) >
+        <select name="comparison" onChange={(e) => this.handleChange(e)}>
           <option value="maior que">Maior que</option>
           <option value="menor que">Menor que</option>
           <option value="igual a">Igual a</option>
