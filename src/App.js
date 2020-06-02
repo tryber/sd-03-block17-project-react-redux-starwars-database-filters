@@ -5,17 +5,30 @@ import Table from './components/Table';
 import './App.css';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [],
+    };
+  }
+
   componentDidMount() {
-    const { apiRequestDispatch } = this.props;
+    const { apiRequestDispatch, dataSw } = this.props;
     apiRequestDispatch();
+    this.setState({ data: dataSw });
   }
 
   render() {
-    return (
-      <div className="App">
-        <Table />
-      </div>
-    );
+    const { data } = this.state;
+    const { isLoading } = this.props;
+    if (!isLoading) {
+      return (
+        <div className="App">
+          <Table dataSw={data} />
+        </div>
+      );
+    }
+    return (<span>Loading...</span>);
   }
 }
 
@@ -23,4 +36,9 @@ const mapDispatchToProps = (dispatch) => ({
   apiRequestDispatch: () => dispatch(getApiDataSw()),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = (state) => ({
+  dataSw: state.apiSWReducer.data,
+  isLoading: state.apiSWReducer.loading,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
