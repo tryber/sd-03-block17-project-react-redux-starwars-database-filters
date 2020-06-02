@@ -34,9 +34,9 @@ const TableData = (props) => {
 export default TableData;
 
 TableData.propTypes = {
-  dataSw: PropTypes.arrayOf(PropTypes.object)
+  dataSw: PropTypes.arrayOf(PropTypes.object),
 };
 
-Table.defaultProps = {
+TableData.defaultProps = {
   dataSw: [],
 };
