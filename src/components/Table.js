@@ -14,6 +14,7 @@ const tableCell = () => ({
     'Gravity',
     'Surface Water',
     'Population',
+    'films',
     'created',
     'edited',
     'url',
@@ -30,6 +31,7 @@ const apiResults = (value) => value.map((row) => (
     <td>{row.gravity}</td>
     <td>{row.surface_Water}</td>
     <td>{row.population}</td>
+    <td>{row.films}</td>
     <td>{row.created}</td>
     <td>{row.edited}</td>
     <td>{row.url}</td>
@@ -44,6 +46,7 @@ class Table extends Component {
 
   render() {
     const { all: { showResults, data: { results } } } = this.props;
+    console.log(results)
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
