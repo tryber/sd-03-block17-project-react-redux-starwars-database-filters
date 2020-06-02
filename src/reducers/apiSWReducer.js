@@ -3,16 +3,10 @@ import {
   API_RECEIVE_SUCCESS,
   API_RECEIVE_FAILURE,
 } from '../actions/apiSWAction';
-import { FILTER_BY_NAME } from '../actions/filterByNameAction';
 
 const INITIAL_STATE = {
   data: [],
   loading: true,
-  filters: {
-    filterByName: {
-      name: '',
-    },
-  },
 };
 
 const apiSWReducer = (state = INITIAL_STATE, action) => {
@@ -33,17 +27,6 @@ const apiSWReducer = (state = INITIAL_STATE, action) => {
         ...state,
         error: action.errorMessage,
         loading: false,
-      };
-    case FILTER_BY_NAME:
-      return {
-        ...state,
-        filters: {
-          ...state.filters,
-          filterByName: {
-            ...state.filters.filterByName,
-            name: action.typedText,
-          },
-        },
       };
     default:
       return state;
