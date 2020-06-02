@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import fetchPlanets from './actions';
+import Table from './components/Table';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  componentDidMount() {
+    const { fetchPlanets } = this.props;
+    fetchPlanets();
+  }
+
+  render() {
+    return <div className="App"><Table /></div>;
+  }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => bindActionCreators({ fetchPlanets }, dispatch);
+
+export default connect(null, mapDispatchToProps)(App);
