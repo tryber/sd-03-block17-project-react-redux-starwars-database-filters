@@ -1,4 +1,4 @@
-import callFetchPlanets from '../services/api';
+import fetchPlanets from '../services/api';
 
 export const REQUEST_PLANETS = 'REQUEST_PLANETS';
 export const RECEIVE_PLANETS = 'RECEIVE_PLANETS';
@@ -21,7 +21,7 @@ export const filterByName = (name) => ({
 export function fetchPlanets() {
   return (dispatch) => {
     dispatch(requestPlanets());
-    return callFetchPlanets()
+    return fetchPlanets()
       .then((response) => response.json())
       .then((data) => dispatch(receivePlanets(data)));
   };
