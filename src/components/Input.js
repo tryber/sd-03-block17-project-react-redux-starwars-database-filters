@@ -2,24 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { filterByName } from '../action';
 
-
-
-const getComparation = () => {
-  const comparation = [
-    'Maior que',
-    'Menor que',
-    'Igual a',
-  ];
-  return (
-    <select
-      data-testid='column-filter'
-      value={this.state.comparation}
-    >
-      {comparation.map(option => <option key={option} value={option}>{option}</option>)}
-    </select>
-  );
-}
-
 class Input extends React.Component {
   constructor(props) {
     super(props);
@@ -32,6 +14,10 @@ class Input extends React.Component {
     }
 
     this.onTextChange = this.onTextChange.bind(this);
+    this.onNumberChange = this.onNumberChange.bind(this);
+    this.onSelectChange = this.onSelectChange.bind(this);
+    this.getColumns = this.getColumns.bind(this);
+    this.getComparation = this.getComparation.bind(this);
   }
 
   onTextChange(event) {
@@ -39,8 +25,55 @@ class Input extends React.Component {
     this.props.filterByName(event.target.value);
   }
 
-  onSelectChange() {
+  onNumberChange(event){
+    this.setState({ number: event.target.value });
+  }
 
+  onSelectChange(event, chave) {
+    const { value } = event.target;
+    this.setState({ [chave]: value })
+  }
+
+  getColumns() {
+    const columns = [
+      'Selecione',
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water'
+    ];
+    return (
+      <select
+        onChange={(event) => this.onSelectChange(event, 'column')}
+        data-testid='column-filter'
+        value={this.state.column}
+      >
+        {columns.map(option =>
+          <option key={option} value={option}>{option}</option>)
+        }
+      </select>
+    );
+  }
+
+  getComparation() {
+    const comparation = [
+      'Selecione',
+      'Maior que',
+      'Menor que',
+      'Igual a',
+    ];
+    return (
+      <select
+        onChange={(event) => this.onSelectChange(event, 'comparation')}
+        data-testid='column-filter'
+        value={this.state.comparation}
+      >
+        {comparation.map(option =>
+          <option key={option} value={option}>{option}</option>)
+        }
+      </select>
+    );
   }
 
   render() {
@@ -54,12 +87,13 @@ class Input extends React.Component {
           placeholder='Faça uma pesquisa'
           onChange={(event) => this.onTextChange(event)}
         />
-        {getColumns()}
-        {getComparation()}
+        {this.getColumns()}
+        {this.getComparation()}
         <input
           type='number'
           data-testid='value-filter'
           value={this.state.number}
+          onChange={(event) => this.onNumberChange(event)}
         >
         </input>
       </div>

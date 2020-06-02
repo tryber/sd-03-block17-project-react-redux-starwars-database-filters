@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   data: [],
   filteredData: [],
   filters: {
-    filterByName: '',
+    filterByName: { name: '' },
     filterByNumericValues: []
   },
 };
@@ -35,7 +35,7 @@ const ReducerPlanets = (state = INITIAL_STATE, action) => {
         ...state,
         filters: {
           ...state.filters,
-          filterByName: action.name,
+          filterByName: { name: action.name },
         },
         filteredData: state.data.filter(({ name }) =>
           name.includes(action.name)),
