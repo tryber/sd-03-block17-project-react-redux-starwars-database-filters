@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { filterInputName } from '../action/a_InpuName';
 
 class FilterPlanets extends Component {
@@ -11,7 +13,7 @@ class FilterPlanets extends Component {
   planetsFilter(e) {
     const { data } = this.props;
     return ({
-      name: data.filter(ele => ele.name.includes(e)),
+      name: data.filter((ele) => ele.name.includes(e)),
     });
   }
 
@@ -30,7 +32,7 @@ class FilterPlanets extends Component {
         >
           Search
         </button>
-      </div >
+      </div>
     );
   }
 }
@@ -39,8 +41,11 @@ const mapStateToProps = (state) => ({
   data: state.requestAPI.data,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  name: () => dispatch(filterInputName()),
-});
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ filterInputName }, dispatch);
+
+FilterPlanets.propTypes = {
+  data: PropTypes.objectOf(PropTypes.any).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterPlanets);

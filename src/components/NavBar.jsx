@@ -14,10 +14,6 @@ function NavBar() {
             <li>Contats</li>
           </ul>
         </nav>
-        <aside>
-          <a>Login</a>
-          <a>Registrar</a>
-        </aside>
       </header>
     </div>
   );
