@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getApiDataSw } from './actions/apiSWAction';
 import Table from './components/Table';
@@ -34,3 +35,13 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+App.propTypes = {
+  apiRequestDispatch: PropTypes.func,
+  isLoading: PropTypes.bool,
+};
+
+App.defaultProps = {
+  apiRequestDispatch: () => {},
+  isLoading: true,
+};

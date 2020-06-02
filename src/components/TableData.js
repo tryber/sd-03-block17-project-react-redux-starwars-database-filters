@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Table from './Table';
 
 const TableData = (props) => {
   const { dataSw } = props;
@@ -30,3 +32,11 @@ const TableData = (props) => {
 // });
 
 export default TableData;
+
+TableData.propTypes = {
+  dataSw: PropTypes.arrayOf(PropTypes.object)
+};
+
+Table.defaultProps = {
+  dataSw: [],
+};

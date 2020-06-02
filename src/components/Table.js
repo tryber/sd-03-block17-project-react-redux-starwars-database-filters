@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from './Header';
 import TableData from './TableData';
 import { filterByNameAction } from '../actions/filterByNameAction';
@@ -86,3 +87,16 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
+
+
+Table.propTypes = {
+  typedText: PropTypes.string,
+  dataSw: PropTypes.arrayOf(PropTypes.object),
+  filterByName: PropTypes.func,
+};
+
+Table.defaultProps = {
+  typedText: '',
+  dataSw: [],
+  filterByName: () => {},
+};
