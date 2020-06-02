@@ -25,7 +25,7 @@ const mapStateToProps = (state) => ({
   planets: state.data,
 });
 
-FetchData.propTypes = {
+App.propTypes = {
   planets: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
 

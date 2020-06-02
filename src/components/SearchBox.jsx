@@ -7,7 +7,12 @@ import typeName from '../actions/SearchTextAction';
 function SearchBox({ searchText, onType }) {
   return (
     <div>
-      <input type="text" value={searchText} onChange={({ target: { value } }) => onType(value)} />
+      <input
+        data-testid="name-filter"
+        type="text"
+        value={searchText}
+        onChange={({ target: { value } }) => onType(value)}
+      />
     </div>
   );
 }
