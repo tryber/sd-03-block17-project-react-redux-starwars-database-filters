@@ -24,7 +24,7 @@ function PlanetsReducer(state = INITIAL_STATE, action) {
     case FILTER_BY_NAME:
       return {
         ...state,
-        filters: { filterByName: { value: action.name }},
+        filters: { filterByName: { name: action.name }},
         dataFiltered: state.data.filter(planet => planet.name.includes(action.name)),
       };
     default:
