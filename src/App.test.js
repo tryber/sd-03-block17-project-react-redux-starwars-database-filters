@@ -23,7 +23,10 @@ const renderApp = () => {
 };
 
 const mockFetch = () => {
-  const apiResponse = Promise.resolve(testData);
+  const apiResponse = Promise.resolve({
+    json: () => Promise.resolve(testData),
+    ok: true,
+  });
   global.fetch = jest.fn(() => apiResponse);
 };
 
