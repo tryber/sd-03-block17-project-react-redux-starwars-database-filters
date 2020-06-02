@@ -1,5 +1,5 @@
 import {
-  REQUEST_PLANETS_LIST, RECEIVE_PLANETS_LIST_SUCCESS, RECEIVE_PLANETS_LISTS_FAILURE, FILTER_PLANETS
+  REQUEST_PLANETS_LIST, RECEIVE_PLANETS_LIST_SUCCESS, RECEIVE_PLANETS_LISTS_FAILURE, FILTER_PLANETS,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -8,8 +8,8 @@ const INITIAL_STATE = {
   filters: {
     filterByName: {
       name: '',
-    }
-  }
+    },
+  },
 };
 
 const planetsList = (state = INITIAL_STATE, action) => {
@@ -37,9 +37,9 @@ const planetsList = (state = INITIAL_STATE, action) => {
         filters: {
           filterByName: {
             name: action.value,
-          }
-        }
-      }
+          },
+        },
+      };
     default:
       return state;
   }

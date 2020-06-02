@@ -23,7 +23,7 @@ const receivePlanetsListFailure = (error) => ({
 export const filterList = (value) => ({
   type: FILTER_PLANETS,
   value,
-})
+});
 
 export function fetchPlanetsList() {
   return (dispatch) => {
