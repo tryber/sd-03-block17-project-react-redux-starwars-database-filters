@@ -1,6 +1,6 @@
 import React from 'react';
 
-class renderThead extends React.Component {
+class RenderThead extends React.Component {
   render() {
     return (
       <thead>
@@ -24,4 +24,4 @@ class renderThead extends React.Component {
   }
 }
 
-export default renderThead;
+export default RenderThead;
