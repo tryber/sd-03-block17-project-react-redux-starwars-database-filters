@@ -1,4 +1,4 @@
-export const getPlanetsList = () => (
+const getPlanetsList = () => (
   fetch('https://swapi-trybe.herokuapp.com/api/planets/')
     .then((response) => (
       response
@@ -6,3 +6,5 @@ export const getPlanetsList = () => (
         .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
     ))
 );
+
+export default getPlanetsList;

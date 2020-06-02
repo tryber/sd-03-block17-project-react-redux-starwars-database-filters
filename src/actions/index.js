@@ -1,4 +1,4 @@
-import { getPlanetsList } from '../services/swapi';
+import getPlanetsList from '../services/swapi';
 
 export const REQUEST_PLANETS_LIST = 'REQUEST_PLANETS_LIST';
 export const RECEIVE_PLANETS_LIST_SUCCESS = 'RECEIVE_PLANETS_LIST_SUCCESS';
@@ -27,6 +27,6 @@ export function fetchPlanetsList() {
       .then(
         (list) => dispatch(receivePlanetsListSuccess(list)),
         (error) => dispatch(receivePlanetsListFailure(error.message)),
-      )
-  }
+      );
+  };
 }

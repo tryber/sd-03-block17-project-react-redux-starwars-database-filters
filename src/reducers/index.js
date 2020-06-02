@@ -18,16 +18,16 @@ const planetsList = (state = INITIAL_STATE, action) => {
         ...state,
         isFetching: false,
         results: action.results,
-      }
+      };
     case RECEIVE_PLANETS_LISTS_FAILURE:
       return {
         ...state,
         isFetching: false,
         error: action.error,
-      }
+      };
     default:
       return state;
   }
-}
+};
 
 export default planetsList;
