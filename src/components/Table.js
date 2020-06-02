@@ -45,8 +45,8 @@ class Table extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isFetching: state.planetsList.isFetching,
-  results: state.planetsList.results,
+  isFetching: state.data.isFetching,
+  results: state.data.results,
 });
 
 const mapDispatchToProps = (dispatch) => ({

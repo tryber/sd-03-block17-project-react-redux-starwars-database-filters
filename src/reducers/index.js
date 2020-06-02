@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   isFetching: false,
 };
 
-const planetsList = (state = INITIAL_STATE, action) => {
+const data = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case REQUEST_PLANETS_LIST:
       return {
@@ -30,4 +30,4 @@ const planetsList = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default planetsList;
+export default data;

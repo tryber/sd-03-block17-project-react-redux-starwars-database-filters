@@ -3,10 +3,10 @@ import thunk from 'redux-thunk';
 
 import { combineReducers } from 'redux';
 
-import planetsList from '../reducers/index';
+import data from '../reducers/index';
 
 const rootReducer = combineReducers({
-  planetsList,
+  data,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
