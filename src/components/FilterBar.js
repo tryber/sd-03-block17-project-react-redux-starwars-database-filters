@@ -21,6 +21,6 @@ const mapDispatchToProps = (dispatch) => ({
   filter: (name) => dispatch(filterByName(name)),
 });
 
-FilterBar.propTypes = { filter: PropTypes.func.isRequired }
+FilterBar.propTypes = { filter: PropTypes.func.isRequired };
 
 export default connect(null, mapDispatchToProps)(FilterBar);
