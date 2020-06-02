@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const planetShape = () => ({
   name: PropTypes.string.isRequired,
   rotation_period: PropTypes.string.isRequired,
