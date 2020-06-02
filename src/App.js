@@ -1,14 +1,13 @@
 import React from 'react';
-import './App.css';
+/* import { Provider } from 'react-redux';
+import store from './store/index'; */
 
-import Table from './components/Table';
+import Main from './components/Main';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Table />
-      </header>
+    <div className='container'>
+      <Main />
     </div>
   );
 }
