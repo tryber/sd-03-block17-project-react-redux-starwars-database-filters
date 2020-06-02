@@ -14,6 +14,9 @@ const tableCell = () => ({
     'Gravity',
     'Surface Water',
     'Population',
+    'created',
+    'edited',
+    'url',
   ],
 });
 
@@ -25,6 +28,7 @@ class Table extends Component {
 
   render() {
     const { all: { showResults, data: { results } } } = this.props;
+    console.log(results)
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
@@ -45,6 +49,9 @@ class Table extends Component {
                 <td>{row.gravity}</td>
                 <td>{row.surface_Water}</td>
                 <td>{row.population}</td>
+                <td>{row.created}</td>
+                <td>{row.edited}</td>
+                <td>{row.url}</td>
               </tr>
             ))}
           </tbody>
