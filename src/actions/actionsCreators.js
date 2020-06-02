@@ -2,6 +2,8 @@ import {
   REQUEST_PLANETS_INFORMATION,
   PLANET_INFO_REQUEST_SUCESS,
   PLANET_INFO_REQUEST_FAILURE,
+  FILTER_BY_NAME,
+  FILTER_BY_NUMERIC_VALUES,
 } from './actions';
 import { getAllPlanetsFromAPI } from '../services/starWarsAPI';
 
@@ -32,9 +34,23 @@ function fetchingPlanetsInfo() {
   };
 }
 
+const filterByName = (name) => ({
+  type: FILTER_BY_NAME,
+  name,
+});
+
+const filterByNumericValues = (column, comparison, value) => ({
+  type: FILTER_BY_NUMERIC_VALUES,
+  column,
+  comparison,
+  value,
+});
+
 export {
   requestPlanetsInfo,
   requestPlanetInfoSucess,
   requestPlantInfoFailure,
   fetchingPlanetsInfo,
+  filterByName,
+  filterByNumericValues,
 };
