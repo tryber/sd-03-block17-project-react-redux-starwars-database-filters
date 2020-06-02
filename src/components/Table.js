@@ -6,22 +6,13 @@ export class Table extends Component {
     return (
       <div>
         {this.props.value.data.results.length === 1
-        ? <h1> {this.props.value.data.results[0]}</h1>
-        : <div>
-          <p> Table </p> 
-          <table>
-           <thead>
-            
-           </thead>
-           <tbody>
-        
-           </tbody>
-          </table> 
-          </div>} 
+          ? <h1> {this.props.value.data.results[0]}</h1>
+          : (
+            <div>
+              <p> Table </p>
 
-         
-            
-
+            </div>
+          )}
       </div>
     );
   }
