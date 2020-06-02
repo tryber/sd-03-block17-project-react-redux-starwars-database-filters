@@ -18,7 +18,7 @@ class Table extends React.Component {
   }
 
   thTags() {
-    const ths = [
+    const titles = [
       { id: 1, title: 'name' },
       { id: 2, title: 'climate' },
       { id: 3, title: 'created' },
@@ -29,10 +29,10 @@ class Table extends React.Component {
       { id: 8, title: 'population' },
       { id: 9, title: 'rotation period' },
       { id: 10, title: 'surface water' },
-      { id: 11, title: 'terrain' }
+      { id: 11, title: 'terrain' },
     ];
-    return ths
-  };
+    return titles;
+  }
 
   table(data) {
     return (
@@ -86,6 +86,6 @@ Table.propTypes = {
   search: PropTypes.func.isRequired,
   data: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
