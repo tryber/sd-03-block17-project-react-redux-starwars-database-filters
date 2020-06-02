@@ -12,6 +12,24 @@ class Table extends React.Component {
     };
   }
 
+  titilesTable() {
+    return (
+      <tr>
+        <th>name</th>
+        <th>climate</th>
+        <th>created</th>
+        <th>diamenter</th>
+        <th>edited</th>
+        <th>gravity</th>
+        <th>orbital period</th>
+        <th>population</th>
+        <th>rotation period</th>
+        <th>surface water</th>
+        <th>terrain</th>
+      </tr>
+    );
+  }
+
   componentDidMount() {
     const { search } = this.props;
     search('planets');
@@ -22,19 +40,7 @@ class Table extends React.Component {
     return (
       <table>
         <thead>
-          <tr>
-            <th>name</th>
-            <th>climate</th>
-            <th>created</th>
-            <th>diamenter</th>
-            <th>edited</th>
-            <th>gravity</th>
-            <th>orbital period</th>
-            <th>population</th>
-            <th>rotation period</th>
-            <th>surface water</th>
-            <th>terrain</th>
-          </tr>
+          {this.titilesTable()}
         </thead>
         <tbody>
           {data.map((item) => <tr key={item.name}>
