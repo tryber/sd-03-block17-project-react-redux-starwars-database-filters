@@ -22,9 +22,17 @@ class Table extends React.Component {
       return null;
     }
     return (
-      <thead>
+      <thead className="thead-dark">
         <tr>
-          {Object.keys(data[0]).splice(0, 9).map((info) => (<th key={info}>{info}</th>))}
+          <th>Planet</th>
+          <th>Rotation Period</th>
+          <th>Orbital Period</th>
+          <th>Diameter</th>
+          <th>Climate</th>
+          <th>Gravity</th>
+          <th>Terrain</th>
+          <th>Surface Water</th>
+          <th>Population</th>
         </tr>
       </thead>
     );
@@ -34,9 +42,17 @@ class Table extends React.Component {
     const { data } = this.props;
     return (
       <tbody>
-        {data.map((row) => (
-          <tr key={row.name}>
-            {Object.values(row).splice(0, 9).map((value) => (<td key={value}>{value}</td>))}
+        {data.map((planet) => (
+          <tr key={planet.name}>
+            <td>{planet.name}</td>
+            <td>{`${planet.rotation_period} hours`}</td>
+            <td>{`${planet.orbital_period} days`}</td>
+            <td>{`${planet.diameter} km`}</td>
+            <td>{planet.climate}</td>
+            <td>{planet.gravity}</td>
+            <td>{planet.terrain}</td>
+            <td>{planet.surface_water}</td>
+            <td>{planet.population}</td>
           </tr>
         ))}
       </tbody>
@@ -45,7 +61,7 @@ class Table extends React.Component {
 
   render() {
     return (
-      <table>
+      <table className="table table-hover">
         {this.renderTableHead()}
         {this.renderTableBody()}
       </table>
