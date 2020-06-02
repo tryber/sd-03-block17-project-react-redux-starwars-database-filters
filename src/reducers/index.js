@@ -19,11 +19,11 @@ function PlanetsReducer(state = INITIAL_STATE, action) {
         isFetching: false,
         data: action.data.results,
       };
-      case FILTER_BY_NAME:
-        return {
-          ...state,
-          filters: { filterByName: { name: action.name } },
-        }
+    case FILTER_BY_NAME:
+      return {
+        ...state,
+        filters: { filterByName: { name: action.name } },
+      };
     default:
       return state;
   }
