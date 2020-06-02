@@ -13,7 +13,6 @@ const requestPlanetsInfo = () => ({
 const requestPlanetInfoSucess = (data) => ({
   type: PLANET_INFO_REQUEST_SUCESS,
   loading: false,
-  data,
 });
 
 const requestPlantInfoFailure = (error) => ({
