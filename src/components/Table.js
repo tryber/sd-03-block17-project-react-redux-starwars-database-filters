@@ -9,6 +9,7 @@ class Table extends React.Component {
     super(props);
     this.state = {
       titles: [
+        { id: 'teste', title: 'teste' },
         { id: 1, title: 'name' },
         { id: 2, title: 'climate' },
         { id: 3, title: 'created' },
@@ -20,6 +21,7 @@ class Table extends React.Component {
         { id: 9, title: 'rotation period' },
         { id: 10, title: 'surface water' },
         { id: 11, title: 'terrain' },
+        { id: 'teste2', title: 'teste2' },
       ],
     };
   }
@@ -41,6 +43,7 @@ class Table extends React.Component {
         </thead>
         <tbody>
           {data.map((item) => <tr key={item.name}>
+            <td>Teste</td>
             <td>{item.name}</td>
             <td>{item.climate}</td>
             <td>{item.created}</td>
@@ -52,6 +55,7 @@ class Table extends React.Component {
             <td>{item.rotation_period}</td>
             <td>{item.surface_water}</td>
             <td>{item.terrain}</td>
+            <td>Teste</td>
           </tr>)}
         </tbody>
       </table>
