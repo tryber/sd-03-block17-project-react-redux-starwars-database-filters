@@ -5,26 +5,18 @@ import Table from './components/Table';
 import './App.css';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-    };
-  }
 
   componentDidMount() {
-    const { apiRequestDispatch, dataSw } = this.props;
+    const { apiRequestDispatch } = this.props;
     apiRequestDispatch();
-    this.setState({ data: dataSw });
   }
 
   render() {
-    const { data } = this.state;
     const { isLoading } = this.props;
     if (!isLoading) {
       return (
         <div className="App">
-          <Table dataSw={data} />
+          <Table />
         </div>
       );
     }
