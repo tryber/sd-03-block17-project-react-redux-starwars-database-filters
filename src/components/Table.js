@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-
 
 export class Table extends Component {
   renderTableBody() {
@@ -36,7 +34,7 @@ export class Table extends Component {
               <table>
                 <thead>
                   <tr>
-                    {headers.map(element => <th key={element}>{element}</th>)}
+                    {headers.map((element) => <th key={element}>{element}</th>)}
                   </tr>
                 </thead>
                 <tbody>

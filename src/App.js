@@ -13,7 +13,7 @@ class App extends Component {
   fetchUrl() {
     const { request } = this.props;
     request();
-}
+  }
 
   render() {
     return (
