@@ -13,8 +13,7 @@ export class Home extends Component {
 
   filteredPlanetDataByText(data) {
     const { nameFilter } = this.props;
-    const filteredData = data.filter(({ name }) => name.split(',').includes(nameFilter));
-    console.log(filteredData);
+    const filteredData = data.filter(({ name }) => name.includes(nameFilter));
     if (nameFilter !== '') return filteredData;
     return data;
   }
@@ -41,7 +40,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   data: state.planetsInfoReducer.data,
-  nameFilter: state.filterDataValuesReducer.filterByName.name,
+  nameFilter: state.filterDataValuesReducer.filters.filterByName.name,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
