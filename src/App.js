@@ -8,8 +8,8 @@ import './App.css';
 
 class App extends Component {
   componentDidMount() {
-    const { fetchPlanets } = this.props;
-    fetchPlanets();
+    const { fetch } = this.props;
+    fetch();
   }
 
   render() {
@@ -18,9 +18,9 @@ class App extends Component {
 }
 
 App.propTypes = {
-  fetchPlanets: PropTypes.func.isRequired,
+  fetch: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ fetchPlanets }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ fetch: fetchPlanets }, dispatch);
 
 export default connect(null, mapDispatchToProps)(App);
