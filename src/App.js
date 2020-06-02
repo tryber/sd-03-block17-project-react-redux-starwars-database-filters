@@ -8,12 +8,12 @@ import SearchBox from './components/SearchBox';
 
 import './App.css';
 
-const App = ({ planets, loading }) => {
+const App = ({ loading }) => {
   if (loading) return <FetchData />;
   return (
     <div className="App">
       <SearchBox />
-      <Table planets={planets} />
+      <Table />
     </div>
   );
 };

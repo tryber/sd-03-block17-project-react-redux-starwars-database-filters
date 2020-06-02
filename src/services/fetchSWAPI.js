@@ -4,7 +4,7 @@ export const fetchSWAPI = () => (
       response.json()
       .then((json) => {
         if (json) return Promise.resolve(json);
-        else return Promise.reject(json);
+        return Promise.reject(json);
       })
     ))
 );
