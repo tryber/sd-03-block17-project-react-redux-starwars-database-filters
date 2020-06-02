@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Filters from './Filters';
-import A_fetchPlanets from '../store/actions/A_fetchPlanets';
+import actionFetchPlanets from '../store/actions/actionFetchPlanets';
 
 export class Table extends Component {
   constructor(props) {
@@ -55,10 +55,12 @@ export class Table extends Component {
     );
   }
 
-
   render() {
-    const { loading, error, data } = this.props;
-    if (!loading && data !== undefined) {
+    const {
+      loading, error, data, filters,
+    } = this.props;
+    console.log(filters);
+    if (!loading && data.length !== 0) {
       return (
         <div>
           <h1>StarWars Datatable with Filters:</h1>
@@ -72,18 +74,35 @@ export class Table extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  loading: state.R_fetchPlanets.loading,
-  error: state.R_fetchPlanets.error,
-  data: state.R_fetchPlanets.data,
+const mapStateToProps = ({ reducerFetchPlanets, reducerFilters }) => ({
+  loading: reducerFetchPlanets.loading,
+  error: reducerFetchPlanets.error,
+  data: reducerFetchPlanets.data,
+  filters: reducerFilters.filters,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ fetchPlanets: A_fetchPlanets }, dispatch);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ fetchPlanets: actionFetchPlanets }, dispatch);
+};
 
 
 Table.propTypes = {
-  A_fetchPlanets: PropTypes.func.isRequired,
+  fetchPlanets: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string,
+  data: PropTypes.instanceOf(Array),
+  filters: PropTypes.shape({
+    filterByName: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+    filterByNumericValues: PropTypes.instanceOf(Array),
+  }),
+};
 
+Table.defaultProps = {
+  data: [],
+  error: '',
+  filters: {},
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

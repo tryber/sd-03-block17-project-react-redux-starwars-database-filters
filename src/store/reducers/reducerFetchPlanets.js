@@ -2,7 +2,7 @@ import * as types from '../actions/actionTypes';
 
 const INICIAL_STATE = { loading: false };
 
-const R_fetchPlanets = (state = INICIAL_STATE, action) => {
+const reducerFetchPlanets = (state = INICIAL_STATE, action) => {
   switch (action.type) {
     case types.REQUEST_API:
       return { ...state, loading: true };
@@ -19,4 +19,4 @@ const R_fetchPlanets = (state = INICIAL_STATE, action) => {
   };
 };
 
-export default R_fetchPlanets;
+export default reducerFetchPlanets;

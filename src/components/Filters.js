@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import A_filterNames from '../store/actions/A_filterNames';
-
+import PropTypes from 'prop-types';
+import actionFilterNames from '../store/actions/actionFilterNames';
+import actionAddFilterValues from '../store/actions/actionAddFilterValues';
 
 export class Filters extends Component {
   constructor(props) {
@@ -20,11 +21,16 @@ export class Filters extends Component {
     this.setState({ [name]: value });
   }
 
+  handleSubmit() {
+    const { column, comparison, value, options } = this.state;
+    const { }
+  }
+
   renderInputName() {
-    const { A_filterNames } = this.props;
+    const { filterNames } = this.props;
     return (
       <div>
-        <input type="text" onChange={(e) => A_filterNames(e.target.value)} />
+        <input data-testid='name-filter' type="text" onChange={(e) => filterNames(e.target.value)} />
       </div>
     );
   }
@@ -33,7 +39,8 @@ export class Filters extends Component {
     const { options } = this.state;
     return (
       <div>
-        <select name="column" onChange={(e) => this.handleChange(e)}>
+        <select data-testid='column-filter' name="column" onChange={(e) => this.handleChange(e)}>
+          <option value="" />
           {options.map((column) => <option value={column} key={column}>{column}</option>)}
         </select>
       </div>
@@ -43,7 +50,8 @@ export class Filters extends Component {
   renderComparisonFilter() {
     return (
       <div>
-        <select name="comparison" onChange={(e) => this.handleChange(e)}>
+        <select testid='comparison-filter' name="comparison" onChange={(e) => this.handleChange(e)}>
+          <option value="" />
           <option value="maior que">Maior que</option>
           <option value="menor que">Menor que</option>
           <option value="igual a">Igual a</option>
@@ -55,11 +63,15 @@ export class Filters extends Component {
   renderValueFilter() {
     return (
       <div>
-        <input type="number" name="value" onChange={(e) => this.handleChange(e)} />
+        <input data-testid='value-filter' type="number" name="value" onChange={(e) => this.handleChange(e)} />
       </div>
     );
   }
 
+  renderSubmitButton() {
+    const
+    <button data-testid='button-filter'>Adicionar Filtro</button>
+  }
 
   render() {
     return (
@@ -73,6 +85,12 @@ export class Filters extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ A_filterNames }, dispatch);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ filterNames: actionFilterNames }, dispatch);
+};
 
-export default connect(null, mapDispatchToProps)(Filters)
+Filters.propTypes = {
+  filterNames: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Filters);

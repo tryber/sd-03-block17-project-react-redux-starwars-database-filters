@@ -17,7 +17,7 @@ const receiveFailure = (error) => ({
   error,
 });
 
-export default function fetchPlanets() {
+export default function actionFetchPlanets() {
   return (dispatch) => {
     dispatch(requestAPI());
     return SW_API()
