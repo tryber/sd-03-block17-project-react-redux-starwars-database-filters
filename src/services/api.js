@@ -1,10 +1,10 @@
-const callFetchPlanets = () => (
-  fetch('https://swapi.co/api/planets')
-    .then((response) => (response.json()
-      .then((json) => (response.ok
-        ? Promise.resolve(json)
-        : Promise.reject(json)))
-    ))
-);
+const fetchPlanets = () =>
+  fetch('https://swapi-trybe.herokuapp.com/api/planets/').then((response) =>
+    response
+      .json()
+      .then((json) =>
+        response.ok ? Promise.resolve(json) : Promise.reject(json)
+      )
+  );
 
-export default callFetchPlanets;
+export default fetchPlanets;
