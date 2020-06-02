@@ -6,20 +6,20 @@ const INITIAL_STATE = {
 };
 
 function PlanetsReducer(state = INITIAL_STATE, action) {
-  switch(action.type) {
-    case REQUEST_PLANETS: 
+  switch (action.type) {
+    case REQUEST_PLANETS:
       return {
         ...state,
         isFetching: true,
       };
     case RECEIVE_PLANETS:
       return {
-        ...state, 
-        isFetching: false, 
+        ...state,
+        isFetching: false,
         data: action.data.results,
-      }
-    default: 
-      return state; 
+      };
+    default:
+      return state;
   }
 }
 
