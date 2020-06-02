@@ -9,26 +9,6 @@ class Table extends React.Component {
     getStarWarsPlanets();
   }
 
-  renderHeaders() {
-    return (
-      <tr>
-        <th>Nome</th>
-        <th>População</th>
-        <th>Clima</th>
-        <th>Criado</th>
-        <th>Diametro</th>
-        <th>Editado</th>
-        <th>Período Orbital</th>
-        <th>Período Rotacional</th>
-        <th>Terreno</th>
-        <th>Superfície Aquática</th>
-        <th>Filmes</th>
-        <th>Gravidade</th>
-        <th>URL</th>
-      </tr>
-    );
-  }
-
   renderTableTr() {
     const { data } = this.props;
     return (
@@ -56,7 +36,21 @@ class Table extends React.Component {
       <div>
         <table>
           <thead>
-            {this.renderHeaders()}
+            <tr>
+              <th>Nome</th>
+              <th>População</th>
+              <th>Clima</th>
+              <th>Criado</th>
+              <th>Diametro</th>
+              <th>Editado</th>
+              <th>Período Orbital</th>
+              <th>Período Rotacional</th>
+              <th>Terreno</th>
+              <th>Superfície Aquática</th>
+              <th>Filmes</th>
+              <th>Gravidade</th>
+              <th>URL</th>
+            </tr>
           </thead>
           <tbody>
             {this.renderTableTr()}
