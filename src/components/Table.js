@@ -8,7 +8,19 @@ class Table extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      test: '',
+      titles: [
+        { id: 1, title: 'name' },
+        { id: 2, title: 'climate' },
+        { id: 3, title: 'created' },
+        { id: 4, title: 'diamenter' },
+        { id: 5, title: 'edited' },
+        { id: 6, title: 'gravity' },
+        { id: 7, title: 'orbital period' },
+        { id: 8, title: 'population' },
+        { id: 9, title: 'rotation period' },
+        { id: 10, title: 'surface water' },
+        { id: 11, title: 'terrain' },
+      ],
     };
   }
 
@@ -17,30 +29,15 @@ class Table extends React.Component {
     search('planets');
   }
 
-  titilesTable() {
-    return (
-      <tr>
-        <th>name</th>
-        <th>climate</th>
-        <th>created</th>
-        <th>diamenter</th>
-        <th>edited</th>
-        <th>gravity</th>
-        <th>orbital period</th>
-        <th>population</th>
-        <th>rotation period</th>
-        <th>surface water</th>
-        <th>terrain</th>
-      </tr>
-    );
-  }
-
   table() {
     const { data } = this.props;
+    const { titles } = this.state;
     return (
       <table>
         <thead>
-          {this.titilesTable()}
+          <tr>
+            {titles.map((item) => <th key={item.id}>{item.title}</th>)}
+          </tr>
         </thead>
         <tbody>
           {data.map((item) => <tr key={item.name}>
