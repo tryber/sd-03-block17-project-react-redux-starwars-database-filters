@@ -61,13 +61,13 @@ const mapStateToProps = (state) => ({ value: state });
 Table.propTypes = {
   data: PropTypes.instanceOf(Object),
   results: PropTypes.instanceOf(Array),
-  value: PropTypes.instanceOf(Array),
+  value: PropTypes.instanceOf(Object),
 };
 
 Table.defaultProps = {
   data: {},
   results: [],
-  value: [],
+  value: {},
 };
 
 export default connect(mapStateToProps)(Table);

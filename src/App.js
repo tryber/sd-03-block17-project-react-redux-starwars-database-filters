@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Table from './components/Table';
 import { fetchData } from './action/index';
 import './App.css';
+import PropTypes from 'prop-types';
+
 
 class App extends Component {
 
