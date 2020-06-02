@@ -4,11 +4,6 @@ import PropTypes, { object } from 'prop-types';
 import './Table.css';
 
 class Table extends React.Component {
-  constructor(props) {
-    super(props);
-    this.tableCreator = this.tableCreator.bind(this);
-  }
-
   static tableCreator(obj) {
     return (
       <tr>
@@ -31,6 +26,11 @@ class Table extends React.Component {
     );
   }
 
+  constructor(props) {
+    super(props);
+    this.tableCreator = this.tableCreator.bind(this);
+  }
+
   render() {
     const { planets, isFetching } = this.props;
     const dataReceived = planets.length;
@@ -39,14 +39,14 @@ class Table extends React.Component {
     if (dataReceived) {
       dataKeys = [...Object.keys(planets[0])];
       const cutData = dataKeys.indexOf('residents');
-      dataKeys.slice(cutData,1);
+      dataKeys.slice(cutData, 1);
       dataReady = true;
     }
 
     return (
       <div>
         StarWars Datatable with Filters
-        {dataReady && !isFetching  &&
+        {dataReady && !isFetching &&
         <table>
           <tr>
             {
@@ -75,4 +75,4 @@ export default connect(mapStateToProps)(Table);
 Table.propTypes = {
   planets: PropTypes.arrayOf(object).isRequired,
   isFetching: PropTypes.bool.isRequired,
-}
+};

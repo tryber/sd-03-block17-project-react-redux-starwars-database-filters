@@ -31,4 +31,4 @@ export default connect(null, mapDispatchToProps)(App);
 // faça as proptypes da ação oriunda do thunk
 App.propTypes = {
   getPlanets: PropTypes.func.isRequired,
-}
+};
