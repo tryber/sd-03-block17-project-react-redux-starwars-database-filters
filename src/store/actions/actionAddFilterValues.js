@@ -1,7 +1,7 @@
 import * as types from './actionTypes';
 
 const actionAddFilterValues = (column, comparison, value) => ({
-  type: types.FILTER_NAMES,
+  type: types.ADD_FILTER_VALUE,
   column,
   comparison,
   value,

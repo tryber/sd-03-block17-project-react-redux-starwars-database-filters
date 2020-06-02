@@ -33,7 +33,8 @@ export class Table extends Component {
   }
 
   renderTableBody() {
-    const { data } = this.props;
+    const { data, filterByName, filterByNumericValues } = this.props;
+    console.log('filtros', filterByNumericValues, filterByName)
     return (
       <tbody>
         {data.map((planet) => (
@@ -57,9 +58,8 @@ export class Table extends Component {
 
   render() {
     const {
-      loading, error, data, filters,
+      loading, error, data,
     } = this.props;
-    console.log(filters);
     if (!loading && data.length !== 0) {
       return (
         <div>
@@ -74,16 +74,22 @@ export class Table extends Component {
   }
 }
 
-const mapStateToProps = ({ reducerFetchPlanets, reducerFilters }) => ({
+const mapStateToProps = ({
+  reducerFetchPlanets,
+  reducerFilters: {
+    filters: { filterByName, filterByNumericValues },
+  },
+}) => ({
   loading: reducerFetchPlanets.loading,
   error: reducerFetchPlanets.error,
   data: reducerFetchPlanets.data,
-  filters: reducerFilters.filters,
+  filterByName,
+  filterByNumericValues,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ fetchPlanets: actionFetchPlanets }, dispatch);
-};
+const mapDispatchToProps = (dispatch) => bindActionCreators(
+  { fetchPlanets: actionFetchPlanets }, dispatch,
+);
 
 
 Table.propTypes = {
