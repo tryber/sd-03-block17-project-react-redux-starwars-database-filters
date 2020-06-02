@@ -1,10 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 const TableData = (props) => {
-
   const { dataSw } = props;
-  // console.log(dataSW);
   return (
     <tbody>
       {dataSw.map((planets) => (

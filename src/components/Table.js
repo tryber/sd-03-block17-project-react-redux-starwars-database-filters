@@ -7,36 +7,28 @@ import { filterByNameAction } from '../actions/filterByNameAction';
 class Table extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      typedtext: '',
-    };
     this.onChangeText = this.onChangeText.bind(this);
     this.dataFilterFunction = this.dataFilterFunction.bind(this);
   }
 
-  async onChangeText(event) {
+  onChangeText(event) {
     const { value } = event.target;
-    const { typedtext } = this.state;
     const { filterByName } = this.props;
-    await this.setState({ typedtext: value });
-    filterByName(typedtext);
-    this.dataFilterFunction();
+    filterByName(value);
   }
 
   dataFilterFunction() {
-    const { typedtext } = this.state;
-    const { dataSw } = this.props;
+    const { dataSw, typedText } = this.props;
     const newArrToFilter = [...dataSw];
+    if (typedText === '') return dataSw;
     return newArrToFilter.reduce((acc, e) => {
-      if (typedtext !== '' && e.name.toLowerCase().includes(typedtext.toLowerCase())) acc.push(e);
+      if (typedText !== '' && e.name.toLowerCase().includes(typedText.toLowerCase())) acc.push(e);
       return acc;
     }, []);
-    // this.setState({ data: newData });
-    // console.log(this.state.data)
   }
 
   searchbar() {
-    const { typedtext } = this.state;
+    const { typedText } = this.props;
     return (
       <div>
         <label htmlFor="searchbar">
@@ -45,7 +37,7 @@ class Table extends React.Component {
             onChange={this.onChangeText}
             id="searchbar"
             name="searchbar"
-            value={typedtext}
+            value={typedText}
             placeholder="Procure aqui"
           />
         </label>
@@ -54,6 +46,8 @@ class Table extends React.Component {
   }
 
   render() {
+    // const filterData = this.dataFilterFunction()
+    console.log('estou sendo chamado', this.props);
     const { dataSw } = this.props;
     return (
       <div>
@@ -87,6 +81,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   dataSw: state.apiSWReducer.data,
   isLoading: state.apiSWReducer.loading,
+  typedText: state.apiSWReducer.filters.filterByName,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
