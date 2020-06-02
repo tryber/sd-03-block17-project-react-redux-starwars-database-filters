@@ -4,9 +4,7 @@ export const RECEIVE_ISS_LOCATION_FAILURE = 'RECEIVE_ISS_LOCATION_FAILURE';
 export const inicialState = {
   isFething: false,
   showResults: false,
-  data: {
-    results: {},
-  },
+  data: [],
 };
 
 export function apiData(state = inicialState, action) {
