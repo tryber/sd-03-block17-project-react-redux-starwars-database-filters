@@ -25,4 +25,8 @@ SearchBar.propTypes = {
   filterList: PropTypes.function,
 };
 
+SearchBar.defaultProps = {
+  filterList: null,
+};
+
 export default connect(null, mapDispatchToProps)(SearchBar);
