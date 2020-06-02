@@ -1,9 +1,9 @@
 import { FILTER_PLANETS } from '../actions';
 
 const INITIAL_STATE = {
-    filterByName: {
-      name: '',
-    },
+  filterByName: {
+    name: '',
+  },
 };
 
 const filters = (state = INITIAL_STATE, action) => {
