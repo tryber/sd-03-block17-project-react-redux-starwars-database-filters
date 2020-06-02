@@ -19,7 +19,7 @@ export class Home extends Component {
   }
 
   render() {
-    const { data, planetName } = this.props;
+    const { data, planetName, loading } = this.props;
     return (
       <div>
         <div>
@@ -27,7 +27,7 @@ export class Home extends Component {
             onChange={(event) => planetName(event.target.value)}
           />
         </div>
-        <Table data={this.filteredPlanetDataByText(data)} />
+        {loading ? <h1>Loading..</h1> : <Table data={this.filteredPlanetDataByText(data)} />}
       </div>
     );
   }
@@ -40,6 +40,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   data: state.planetsInfoReducer.data,
+  loading: state.planetsInfoReducer.loading,
   nameFilter: state.filterDataValuesReducer.filters.filterByName.name,
 });
 
@@ -52,4 +53,5 @@ Home.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   nameFilter: PropTypes.string,
   planetName: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
