@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux';
 import {
   REQUEST_PLANETS_LIST, RECEIVE_PLANETS_LIST_SUCCESS, RECEIVE_PLANETS_LISTS_FAILURE,
 } from '../actions';
@@ -31,4 +32,6 @@ const planetsList = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default planetsList;
+const rootReducer = combineReducers({ planetsList });
+
+export default rootReducer;

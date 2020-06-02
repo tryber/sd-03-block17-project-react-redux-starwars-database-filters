@@ -1,9 +1,6 @@
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import { combineReducers } from 'redux';
-import planetsList from '../reducers/index';
-
-const rootReducer = combineReducers({ planetsList });
+import rootReducer from '../reducers';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
