@@ -12,7 +12,7 @@ class Table extends Component {
   }
 
   render() {
-    const { isFetching, data } = this.props;
+    const { isFetching, data, name } = this.props;
 
     if (isFetching) { return <p>Loading...</p>; }
 
@@ -37,7 +37,8 @@ class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            {data.map((planet) => <PlanetLine planet={planet} key={planet.name} />)}
+            {data.filter((planet) => (planet.name.toLowerCase()).includes(name))
+                 .map((planet) => <PlanetLine planet={planet} key={planet.name} />)}
           </tbody>
         </table>
       );
@@ -49,6 +50,7 @@ class Table extends Component {
 const mapStateToProps = (state) => ({
   isFetching: state.planetsList.isFetching,
   data: state.planetsList.data,
+  name: state.planetsList.filters.filterByName.name,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -59,6 +61,7 @@ Table.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   getPlanetsList: PropTypes.func.isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
+  name: PropTypes.string.isRequired,
 };
 
 Table.defaultProps = {
