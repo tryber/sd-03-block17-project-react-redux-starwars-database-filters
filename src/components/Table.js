@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import Filters from './Filters';
-import actionFetchPlanets from '../store/actions/actionFetchPlanets';
 
 export class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
-  }
-
-  componentDidMount() {
-    const { fetchPlanets } = this.props;
-    fetchPlanets();
   }
 
   renderTableHead() {
@@ -33,8 +25,8 @@ export class Table extends Component {
   }
 
   renderTableBody() {
-    const { data, filterByName, filterByNumericValues } = this.props;
-    console.log('filtros', filterByNumericValues, filterByName);
+    const { data, filterByName: { name }, filterByNumericValues } = this.props;
+    console.log('filtros', filterByNumericValues, name);
     return (
       <tbody>
         {data.map((planet) => (
@@ -57,20 +49,11 @@ export class Table extends Component {
   }
 
   render() {
-    const {
-      loading, error, data,
-    } = this.props;
-    if (!loading && data.length !== 0) {
-      return (
-        <div>
-          <h1>StarWars Datatable with Filters:</h1>
-          <Filters />
-          {this.renderTable()}
-        </div>
-      );
-    }
-    if (error) { return <div>{error}</div>; }
-    return <div>Loading...</div>;
+    return (
+      <div>
+        {this.renderTable()}
+      </div>
+    );
   }
 }
 
@@ -80,22 +63,12 @@ const mapStateToProps = ({
     filters: { filterByName, filterByNumericValues },
   },
 }) => ({
-  loading: reducerFetchPlanets.loading,
-  error: reducerFetchPlanets.error,
   data: reducerFetchPlanets.data,
   filterByName,
   filterByNumericValues,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(
-  { fetchPlanets: actionFetchPlanets }, dispatch,
-);
-
-
 Table.propTypes = {
-  fetchPlanets: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
-  error: PropTypes.string,
   data: PropTypes.instanceOf(Array),
   filterByName: PropTypes.shape({
     name: PropTypes.string,
@@ -106,9 +79,8 @@ Table.propTypes = {
 
 Table.defaultProps = {
   data: [],
-  error: '',
   filterByNumericValues: [],
   filterByName: {},
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Table);
+export default connect(mapStateToProps)(Table);

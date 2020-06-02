@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import Table from './components/Table';
+import DataTable from './components/DataTable';
 import store from './store';
 import './App.css';
 
@@ -8,7 +8,7 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <Table />
+        <DataTable />
       </div>
     </Provider>
   );
