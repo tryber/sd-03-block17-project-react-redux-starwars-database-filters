@@ -17,7 +17,8 @@ class Table extends React.Component {
     search('planets');
   }
 
-  table(data) {
+  table() {
+    const { data } = this.props;
     return (
       <table>
         <thead>
@@ -51,16 +52,15 @@ class Table extends React.Component {
           </tr>)}
         </tbody>
       </table>
-
     );
   }
 
   render() {
-    const { data, isFetching } = this.props;
+    const { isFetching } = this.props;
     if (isFetching) return <Loading />;
     return (
       <div>
-        {this.table(data)}
+        {this.table()}
       </div>
     );
   }
