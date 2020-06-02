@@ -7,26 +7,33 @@ import SimpleTable from './TableHead';
 
 class Table extends Component {
   componentDidMount() {
-    const { test } = this.props;
-    test();
+    const { searchValuesApi } = this.props;
+    searchValuesApi();
   }
 
   render() {
+    const { all: { showResults } } = this.props;
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
         <SimpleTable />
+        {!showResults && <h1>Carregando</h1>}
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  test: () => dispatch(dataApiStarWars()),
+  searchValuesApi: () => dispatch(dataApiStarWars()),
+});
+
+const MapStateToProps = (state) => ({
+  all: state.apiData,
 });
 
 Table.propTypes = {
-  test: PropTypes.func.isRequired,
+  searchValuesApi: PropTypes.func.isRequired,
+  all: PropTypes.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Table);
+export default connect(MapStateToProps, mapDispatchToProps)(Table);

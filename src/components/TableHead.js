@@ -32,35 +32,30 @@ function SimpleTable(props) {
   const classes = useStyles();
   const { all: { showResults, data: { results } } } = props;
   return (
-    <div>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              {tableCell().props.map((cell) => <TableCell align="right">{cell}</TableCell>)}
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            {tableCell().props.map((cell) => <TableCell align="right">{cell}</TableCell>)}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {showResults && results.map((row) => (
+            <TableRow key={row.name}>
+              <TableCell component="th" scope="row">{row.name}</TableCell>
+              <TableCell align="right">{row.rotation_period}</TableCell>
+              <TableCell align="right">{row.orbital_period}</TableCell>
+              <TableCell align="right">{row.diameter}</TableCell>
+              <TableCell align="right">{row.climate}</TableCell>
+              <TableCell align="right">{row.gravity}</TableCell>
+              <TableCell align="right">{row.surface_Water}</TableCell>
+              <TableCell align="right">{row.population}</TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {showResults && results.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.rotation_period}</TableCell>
-                <TableCell align="right">{row.orbital_period}</TableCell>
-                <TableCell align="right">{row.diameter}</TableCell>
-                <TableCell align="right">{row.climate}</TableCell>
-                <TableCell align="right">{row.gravity}</TableCell>
-                <TableCell align="right">{row.surface_Water}</TableCell>
-                <TableCell align="right">{row.population}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      {!showResults && <h1>Carregando</h1>}
-    </div>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 
