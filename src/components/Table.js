@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes, { object } from 'prop-types';
 import './Table.css';
 
-const tableCreator = (obj) => {
-  return (
+const tableCreator = (obj) =>
     <tr key={obj.name}>
       <td>{obj.name}</td>
       <td>{obj.rotation_period}</td>
@@ -21,9 +20,7 @@ const tableCreator = (obj) => {
       <td>{obj.created}</td>
       <td>{obj.edited}</td>
       <td>{obj.url}</td>
-    </tr>
-  );
-};
+    </tr>;
 
 class Table extends React.Component {
   render() {
