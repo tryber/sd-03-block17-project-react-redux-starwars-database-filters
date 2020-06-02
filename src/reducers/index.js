@@ -12,6 +12,7 @@ function requestReducer(state = INITIAL_STATE, action) {
         data: action.data,
       };
       case 'RECEIVE_DATA':
+        console.log(action.data)
       return {
           ...state,
           data: action.data,

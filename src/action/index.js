@@ -3,7 +3,6 @@ export const receiveData = (data) => ({type: 'RECEIVE_DATA', data });
 
 export function fetchData() {
     return function (dispatch) {
-      dispatch(requestData());
       fetch(`https://swapi-trybe.herokuapp.com/api/planets/`)
       .then(
          response => response.json(),
