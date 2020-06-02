@@ -48,7 +48,6 @@ class Table extends Component {
 
   render() {
     const { all: { showResults, data: { results } } } = this.props;
-    console.log(this.props)
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
