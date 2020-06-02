@@ -1,4 +1,5 @@
 import { FILTER_BY_NAME } from '../actions/index';
+
 const INITIAL_STATE = {
   filterByName: {
     name: '',
@@ -16,7 +17,7 @@ const filters = (state = INITIAL_STATE, action) => {
       };
     default:
       return state;
-  };
-}
+  }
+};
 
 export default filters;

@@ -33,7 +33,7 @@ class Table extends React.Component {
     if (dataReceived) {
       dataKeys = [...Object.keys(planets[0])];
       const cutData = dataKeys.indexOf('residents');
-      regex = new RegExp(`${filterByName}`, 'i' );
+      regex = new RegExp(`${filterByName}`, 'i');
       dataKeys.splice(cutData, 1);
       dataReady = true;
     }
@@ -49,7 +49,7 @@ class Table extends React.Component {
             }
           </tr>
           {
-            planets.filter(({name}) => name.match(regex)).map((e) => tableCreator(e))
+            planets.filter(({ name }) => name.match(regex)).map((e) => tableCreator(e))
           }
         </tbody></table>
         }
