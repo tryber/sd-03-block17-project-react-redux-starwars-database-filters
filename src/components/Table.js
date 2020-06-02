@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPlanetsList } from '../actions';
 import PlanetLine from './PlanetLine';
+import PropTypes from 'prop-types';
 
 class Table extends Component {
   componentDidMount() {
@@ -35,14 +36,12 @@ class Table extends Component {
             <th>URL</th>
           </tr>
           {results.map((planet) =>
-            <PlanetLine planet={planet} key={planet.name} />
+            <PlanetLine planet={planet} key={planet.name} />,
           )}
         </table>
       );
     }
-    return (
-      <p>No Planet Found</p>
-    );
+    return <p>No Planet Found</p>
   }
 }
 
@@ -54,5 +53,11 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getPlanetsList: () => dispatch(fetchPlanetsList()),
 });
+
+Table.propTypes = {
+  isFetching: PropTypes.bool.isRequired,
+  getPlanetsList: PropTypes.func.isRequired,
+  results: PropTypes.array,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

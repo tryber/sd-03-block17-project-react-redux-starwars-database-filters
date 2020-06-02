@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class PlanetLine extends React.Component {
   render() {
@@ -19,8 +20,12 @@ class PlanetLine extends React.Component {
         <td>{planet.edited}</td>
         <td>{planet.url}</td>
       </tr>
-    )
+    );
   }
+}
+
+PlanetLine.propTypes = {
+  planet: PropTypes.object.isRequired,
 }
 
 export default PlanetLine;
