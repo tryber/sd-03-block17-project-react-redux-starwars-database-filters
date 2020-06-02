@@ -19,7 +19,7 @@ class Table extends React.Component {
   }
 
   thTags() {
-    const titles = [
+    return [
       { id: 1, title: 'name' },
       { id: 2, title: 'climate' },
       { id: 3, title: 'created' },
@@ -32,7 +32,6 @@ class Table extends React.Component {
       { id: 10, title: 'surface water' },
       { id: 11, title: 'terrain' },
     ];
-    return titles;
   }
 
   table(data) {
