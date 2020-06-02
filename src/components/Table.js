@@ -20,6 +20,22 @@ const tableCell = () => ({
   ],
 });
 
+const apiResults = (value) => value.map((row) => (
+  <tr>
+    <td>{row.name}</td>
+    <td>{row.rotation_period}</td>
+    <td>{row.orbital_period}</td>
+    <td>{row.diameter}</td>
+    <td>{row.climate}</td>
+    <td>{row.gravity}</td>
+    <td>{row.surface_Water}</td>
+    <td>{row.population}</td>
+    <td>{row.created}</td>
+    <td>{row.edited}</td>
+    <td>{row.url}</td>
+  </tr>
+));
+
 class Table extends Component {
   componentDidMount() {
     const { searchValuesApi } = this.props;
@@ -38,21 +54,7 @@ class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            {showResults && results.map((row) => (
-              <tr>
-                <td>{row.name}</td>
-                <td>{row.rotation_period}</td>
-                <td>{row.orbital_period}</td>
-                <td>{row.diameter}</td>
-                <td>{row.climate}</td>
-                <td>{row.gravity}</td>
-                <td>{row.surface_Water}</td>
-                <td>{row.population}</td>
-                <td>{row.created}</td>
-                <td>{row.edited}</td>
-                <td>{row.url}</td>
-              </tr>
-            ))}
+            {showResults && apiResults(results)}
           </tbody>
         </table>
         {!showResults && <h1>Carregando</h1>}
