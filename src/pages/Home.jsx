@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchingPlanetsInfo } from '../actions/actionsCreators';
-import Table from '../components/Table';
+import Table from '../components/table/Table';
 
 export class Home extends Component {
   componentDidMount() {
