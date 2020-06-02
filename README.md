@@ -49,7 +49,7 @@ A combinação desses três seletores deve filtrar os dados da tabela de acordo 
   - A seleção `population | maior que | 100000` - Seleciona somente planetas com mais de 100000 habitantes.
   - A seleção `diameter | menor que | 8000` - Seleciona somente planetas com diâmetro menor que 8000.
 
-Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. No `store`, esses valores devem ser salvos nos campos `filters { filterByName: { name },filterBynumericValues: [{ column, comparison, value }] }`. Por exemplo:
+Você deve usar **Redux** para fazer o gerenciamento do estado da aplicação. No `store`, esses valores devem ser salvos nos campos `filters { filterByName: { name }, filterByNumericValues: [{ column, comparison, value }] }`. Por exemplo:
 
 ```javascript
 {
@@ -80,7 +80,7 @@ Por exemplo: O primeiro filtro tem as seguintes seleções: `population | maior 
 {
   filters: {
     filterByName: {
-      value: ''
+      name: ''
     },
     filterByNumericValues: [
       {
@@ -113,10 +113,10 @@ A informação acerca da ordenação das colunas deve ser armazenada nos campos 
 {
   filters: {
     filterByName: {
-      value: ''
+      name: ''
     },
     filterByNumericValues : [],
-    order:{
+    order: {
       column: 'Name',
       sort: 'ASC',
     }
@@ -135,9 +135,9 @@ O dropdown deve ser um elemento `select` com a propriedade `data-testid='column-
 ### ANTES DE COMEÇAR A DESENVOLVER:
 
 1. Clone o repositório
-  * `git clone git@github.com:tryber/sd-03-block17-react-redux-starwars-datatable-filters.git`.
+  * `git clone git@github.com:tryber/sd-03-block17-project-react-redux-starwars-database-filters.git`.
   * Entre na pasta do repositório que você acabou de clonar:
-    * `sd-03-block17-react-redux-starwars-datatable-filters`
+    * `sd-03-block17-project-react-redux-starwars-database-filters`
 
 2. Instale as dependências
   * `npm install`
@@ -201,13 +201,13 @@ export default App;
   * Usando o exemplo anterior: `git push -u origin joaozinho-react-testing`
 
 7. Crie um novo `Pull Request` _(PR)_
-  * Vá até a página de _Pull Requests_ do [repositório no GitHub](https://github.com/tryber/sd-03-block17-react-redux-starwars-datatable-filters/pulls)
+  * Vá até a página de _Pull Requests_ do [repositório no GitHub](https://github.com/tryber/sd-03-block17-project-react-redux-starwars-database-filters/pulls)
   * Clique no botão verde _"New pull request"_
   * Clique na caixa de seleção _"Compare"_ e escolha a sua branch **com atenção**
   * Clique no botão verde _"Create pull request"_
   * Adicione uma descrição para o _Pull Request_ e clique no botão verde _"Create pull request"_
   * **Não se preocupe em preencher mais nada por enquanto!**
-  * Volte até a [página de _Pull Requests_ do repositório](https://github.com/tryber/sd-03-block17-react-redux-starwars-datatable-filters/pulls) e confira que o seu _Pull Request_ está criado
+  * Volte até a [página de _Pull Requests_ do repositório](https://github.com/tryber/sd-03-block17-project-react-redux-starwars-database-filters/pulls) e confira que o seu _Pull Request_ está criado
 
 ---
 
