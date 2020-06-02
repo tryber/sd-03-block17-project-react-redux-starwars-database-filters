@@ -3,16 +3,16 @@ import {
 } from '../actions/fetchActions';
 
 const INITIAL_STATE = {
-  planets: [],
+  data: [],
   isFetching: false,
 };
 
 function requestDataResponse(state) {
-  return { ...state, isFetching: true, planets: [] };
+  return { ...state, isFetching: true, data: [] };
 }
 
 function receivedDataResponse(state, action) {
-  return { ...state, isFetching: false, planets: action.planets };
+  return { ...state, isFetching: false, data: action.data };
 }
 
 function failedRequestResponse(state, action) {

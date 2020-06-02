@@ -8,7 +8,7 @@ export const requestData = () => ({
 });
 export const sucessRequestAction = (data) => ({
   type: RECEIVED_DATA,
-  planets: data,
+  data,
 });
 
 export const failedRequestAction = (error) => ({

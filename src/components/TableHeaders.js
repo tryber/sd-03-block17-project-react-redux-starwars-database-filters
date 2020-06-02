@@ -1,7 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-const TableHeaders = ({ heads }) => <tr>{heads.map((head) => <th>{head}</th>)}</tr>;
+const TableHeaders = ({
+  heads,
+}) => <tr>{heads.map((head) => head !== 'residents' && <th>{head}</th>)}</tr>;
 export default TableHeaders;
 
 TableHeaders.propTypes = {
