@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import Api from '../Api.js';
+import Api from '../../components/Api.js';
 
 const requestAPI = () => ({ type: types.REQUEST_API });
 

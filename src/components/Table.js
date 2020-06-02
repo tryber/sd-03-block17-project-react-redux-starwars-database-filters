@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Filters from './Filters';
-// import A_fetchPlanets from '../store/actions/A_fetchPlanets';
+import ActionPlanets from '../store/actions/ActionPlanets';
 
 export class Table extends Component {
   constructor(props) {
@@ -13,8 +13,8 @@ export class Table extends Component {
   }
 
   componentDidMount() {
-    const { A_fetchPlanets } = this.props;
-    A_fetchPlanets();
+    const { ActionPlanets } = this.props;
+    ActionPlanets();
   }
 
   renderTableHead() {
@@ -78,11 +78,11 @@ const mapStateToProps = (state) => ({
   data: state.R_fetchPlanets.data,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ A_fetchPlanets }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ ActionPlanets }, dispatch);
 
 
 Table.propTypes = {
-  A_fetchPlanets: PropTypes.func.isRequired,
+  ActionPlanets: PropTypes.func.isRequired,
 
 };
 

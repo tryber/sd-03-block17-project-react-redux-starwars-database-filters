@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
-// import A_filterNames from '../store/actions/A_filterNames';
+import FilterNames from '../store/actions/FilterNames';
 
 
 export class Filters extends Component {
@@ -21,10 +21,10 @@ export class Filters extends Component {
   }
 
   renderInputName() {
-    const { A_filterNames } = this.props;
+    const { FilterNames } = this.props;
     return (
       <div>
-        <input type="text" onChange={(e) => A_filterNames(e.target.value)} />
+        <input type="text" onChange={(e) => FilterNames(e.target.value)} />
       </div>
     );
   }
@@ -43,7 +43,7 @@ export class Filters extends Component {
   renderComparisonFilter() {
     return (
       <div>
-        <select name="comparison" onChange={(e) => this.handleChange(e) >
+        <select name="comparison" onChange={(e) => this.handleChange(e)}>
           <option value="maior que">Maior que</option>
           <option value="menor que">Menor que</option>
           <option value="igual a">Igual a</option>
@@ -73,6 +73,6 @@ export class Filters extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ A_filterNames }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ FilterNames }, dispatch);
 
 export default connect(null, mapDispatchToProps)(Filters)
