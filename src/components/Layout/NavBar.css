@@ -1,0 +1,33 @@
+body {
+  background-color: #52381f;
+  font-family: monospace;
+  margin: 0;
+}
+
+.header {
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu {
+  flex-grow: 10;
+}
+
+.menu ul {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.menu li {
+  color: whitesmoke;
+  font-size: 1.3em;
+  list-style: none;
+  margin: 1px 15px;
+}
+
+h1 {
+  color: antiquewhite;
+  font-size: 1.7em;
+}

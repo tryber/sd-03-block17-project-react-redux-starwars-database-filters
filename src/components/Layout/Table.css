@@ -1,0 +1,39 @@
+.barFilter {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.TabelaProdutos {
+  display: flex;
+  margin: 15px;
+}
+
+.TabelaProdutos table {
+  border: black solid 1px;
+  flex-grow: 1;
+  height: 300px;
+}
+
+.TabelaProdutos th {
+  background-color: darkcyan;
+}
+
+.TabelaProdutos .Par {
+  background-color: #ddd;
+}
+
+.TabelaProdutos .Impar {
+  background-color: #fff;
+}
+
+.titleTable {
+  color: #fff;
+  font-size: 2.5rem;
+  text-align: center;
+}

@@ -1,0 +1,26 @@
+import React from 'react';
+import './Layout/NavBar.css';
+
+const NavBar = () => {
+  return (
+    <div>
+      <header className="header">
+        <h1>Monkey Planets</h1>
+        <nav className="menu">
+          <ul>
+            <li>Planets</li>
+            <li>Start</li>
+            <li>About</li>
+            <li>Contats</li>
+          </ul>
+        </nav>
+        <aside>
+          <a>Login</a>
+          <a>Registrar</a>
+        </aside>
+      </header>
+    </div>
+  );
+};
+
+export default NavBar;

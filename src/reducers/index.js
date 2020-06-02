@@ -1,5 +1,8 @@
-function emptyReducer() {
-  return {};
-}
+import { combineReducers } from 'redux';
+import requestAPI from './r_FetchRequestAPI';
 
-export default emptyReducer;
+const rootReducers = combineReducers({
+  requestAPI,
+});
+
+export default rootReducers;
