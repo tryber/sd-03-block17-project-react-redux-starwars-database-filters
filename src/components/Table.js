@@ -17,43 +17,41 @@ class Table extends React.Component {
     search('planets');
   }
 
-  thead() {
+  table(data) {
     return (
-      <thead>
-        <tr>
-          <th>name</th>
-          <th>climate</th>
-          <th>created</th>
-          <th>diamenter</th>
-          <th>edited</th>
-          <th>gravity</th>
-          <th>orbital period</th>
-          <th>population</th>
-          <th>rotation period</th>
-          <th>surface water</th>
-          <th>terrain</th>
-        </tr>
-      </thead>
-    );
-  }
+      <table>
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>climate</th>
+            <th>created</th>
+            <th>diamenter</th>
+            <th>edited</th>
+            <th>gravity</th>
+            <th>orbital period</th>
+            <th>population</th>
+            <th>rotation period</th>
+            <th>surface water</th>
+            <th>terrain</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item) => <tr key={item.name}>
+            <td>{item.name}</td>
+            <td>{item.climate}</td>
+            <td>{item.created}</td>
+            <td>{item.diamenter}</td>
+            <td>{item.edited}</td>
+            <td>{item.gravity}</td>
+            <td>{item.orbital_period}</td>
+            <td>{item.population}</td>
+            <td>{item.rotation_period}</td>
+            <td>{item.surface_water}</td>
+            <td>{item.terrain}</td>
+          </tr>)}
+        </tbody>
+      </table>
 
-  tbody(data) {
-    return (
-      <tbody>
-        {data.map((item) => <tr key={item.name}>
-          <td>{item.name}</td>
-          <td>{item.climate}</td>
-          <td>{item.created}</td>
-          <td>{item.diamenter}</td>
-          <td>{item.edited}</td>
-          <td>{item.gravity}</td>
-          <td>{item.orbital_period}</td>
-          <td>{item.population}</td>
-          <td>{item.rotation_period}</td>
-          <td>{item.surface_water}</td>
-          <td>{item.terrain}</td>
-        </tr>)}
-      </tbody>
     );
   }
 
@@ -62,10 +60,7 @@ class Table extends React.Component {
     if (isFetching) return <Loading />;
     return (
       <div>
-        <table>
-          {this.thead()}
-          {this.tbody(data)}
-        </table>
+        {this.table(data)}
       </div>
     );
   }
