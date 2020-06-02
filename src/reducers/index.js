@@ -16,7 +16,7 @@ const INITIAL_STATE = {
       },
     ],
   },
-  isFetching: false,
+  isFetching: true,
   data: [],
   error: '',
 };
@@ -64,7 +64,7 @@ const Reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         filters: filtersReducer(state.filters, action),
-      }
+      };
     default:
       return state;
   }

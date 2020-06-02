@@ -17,16 +17,13 @@ function SearchBox({ searchText, onType }) {
   );
 }
 
-const mapStateToProps = ({ filters: { filterByName } }) => ({
-  searchText: filterByName.name,
-});
+const mapStateToProps = ({ filters: { filterByName } }) => ({ searchText: filterByName.name });
 
-const mapDispatchToProps = (dispatch) => ({
-  onType: (text) => dispatch(typeName(text)),
-});
+const mapDispatchToProps = (dispatch) => ({ onType: (text) => dispatch(typeName(text)) });
 
 SearchBox.propTypes = {
   searchText: PropTypes.string.isRequired,
+  onType: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);

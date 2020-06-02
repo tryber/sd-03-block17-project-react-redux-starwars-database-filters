@@ -8,25 +8,23 @@ import SearchBox from './components/SearchBox';
 
 import './App.css';
 
-class App extends React.Component {
-  render() {
-    const { planets } = this.props;
-    if (planets.length === 0) return <FetchData />;
-    return (
-      <div className="App">
-        <SearchBox />
-        <Table planets={planets} />
-      </div>
-    );
-  }
+const App = ({ planets, loading }) => {
+  if (loading) return <FetchData />;
+  return (
+    <div className="App">
+      <SearchBox />
+      <Table planets={planets} />
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => ({
+  loading: state.isFetching,
   planets: state.data,
 });
 
 App.propTypes = {
-  planets: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  planets: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps)(App);
