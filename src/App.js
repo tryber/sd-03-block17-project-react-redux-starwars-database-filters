@@ -1,9 +1,9 @@
 import React from 'react';
-import './App.css';
 import { connect } from 'react-redux';
-import { fetchPlanets } from './actions/index';
 import PropTypes from 'prop-types';
+import { fetchPlanets } from './actions/index';
 import Table from './components/Table';
+import './App.css';
 
 class App extends React.Component {
   componentDidMount() {
@@ -17,7 +17,7 @@ class App extends React.Component {
         <Table />
       </div>
     );
-  };
+  }
 }
 
 // mapeie as ações despachadas como propriedade do componente
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
 // conecte as ações despachadas ao redux
 export default connect(null, mapDispatchToProps)(App);
 
-//faça as proptypes da ação oriunda do thunk
+// faça as proptypes da ação oriunda do thunk
 App.propTypes = {
   getPlanets: PropTypes.func.isRequired,
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes, { object } from 'prop-types';
 import './Table.css';
 
 class Table extends React.Component {
@@ -8,7 +9,7 @@ class Table extends React.Component {
     this.tableCreator = this.tableCreator.bind(this);
   }
 
-  tableCreator(obj) {
+  static tableCreator(obj) {
     return (
       <tr>
         <td>{obj.name}</td>
@@ -27,7 +28,7 @@ class Table extends React.Component {
         <td>{obj.edited}</td>
         <td>{obj.url}</td>
       </tr>
-    )
+    );
   }
 
   render() {
@@ -35,19 +36,21 @@ class Table extends React.Component {
     const dataReceived = planets.length;
     let dataReady = false;
     let dataKeys = [];
-    if(dataReceived){
-      dataKeys = [...Object.keys(planets[0])]
+    if (dataReceived) {
+      dataKeys = [...Object.keys(planets[0])];
+      const cutData = dataKeys.indexOf('residents');
+      dataKeys.slice(cutData,1);
       dataReady = true;
     }
 
     return (
       <div>
         StarWars Datatable with Filters
-        {dataReady && !isFetching    && 
+        {dataReady && !isFetching  &&
         <table>
           <tr>
             {
-            dataKeys.map((e) => { if (e !== 'residents') { return <th>{e}</th> } })
+            dataKeys.map((e) => <th>{e}</th>)
             }
           </tr>
           {
@@ -58,7 +61,7 @@ class Table extends React.Component {
         { isFetching && <span>...Loading</span>}
       </div>
     );
-  };
+  }
 }
 
 const mapStateToProps = (state) => ({
@@ -67,3 +70,9 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(Table);
+
+// faça as proptypes da ação oriunda do thunk
+Table.propTypes = {
+  planets: PropTypes.arrayOf(object).isRequired,
+  isFetching: PropTypes.bool.isRequired,
+}
