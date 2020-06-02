@@ -10,7 +10,6 @@ class Table extends React.Component {
     this.state = {
       test: '',
     };
-    this.thTags = this.thTags.bind(this);
   }
 
   componentDidMount() {
@@ -18,7 +17,7 @@ class Table extends React.Component {
     search('planets');
   }
 
-  thTags() {
+  titilesTable() {
     return [
       { id: 1, title: 'name' },
       { id: 2, title: 'climate' },
@@ -39,7 +38,7 @@ class Table extends React.Component {
       <table>
         <thead>
           <tr>
-            {this.thTags().map((item) => <th key={item.id}>{item.title}</th>)}
+            {this.titilesTable().map((item) => <th key={item.id}>{item.title}</th>)}
           </tr>
         </thead>
         <tbody>
