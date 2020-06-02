@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import TableHeader from './TableHeader';
 import TableRow from './TableRow';
+import planetShape from '../services/planetShape';
 
 const takeTitles = (planet) => (
   Object.keys(planet)
@@ -41,7 +42,7 @@ const mapStateToProps = ({ data, filters: { filterByName } }) => ({
 
 Table.propTypes = {
   searchText: PropTypes.string.isRequired,
-  planets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  planets: PropTypes.arrayOf(planetShape()).isRequired,
 };
 
 export default connect(mapStateToProps)(Table);

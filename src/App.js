@@ -16,15 +16,13 @@ const App = ({ planets, loading }) => {
       <Table planets={planets} />
     </div>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   loading: state.isFetching,
   planets: state.data,
 });
 
-App.propTypes = {
-  planets: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
+App.propTypes = { loading: PropTypes.bool.isRequired };
 
 export default connect(mapStateToProps)(App);

@@ -43,7 +43,7 @@ function dataReducer(state, action) {
 }
 
 function filtersReducer(filters, action) {
-  switch(action.type) {
+  switch (action.type) {
     case TYPE_NAME:
       return {
         ...filters,
@@ -55,7 +55,7 @@ function filtersReducer(filters, action) {
 }
 
 const Reducer = (state = INITIAL_STATE, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case REQUEST_PLANETS:
     case FETCH_PLANETS_SUCESS:
     case FETCH_PLANETS_FAILURE:
