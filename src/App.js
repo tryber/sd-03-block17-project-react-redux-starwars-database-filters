@@ -1,15 +1,33 @@
-import React from 'react';
 import './App.css';
-import { Provider } from 'react-redux';
-import store from './store';
+import React, { Component } from 'react';
 import Table from './components/Table';
+import { fetchData } from './action/index';
+import {connect } from 'react-redux';
 
-function App() {
-  return (
-    <Provider store={store}>
-      <Table />
-    </Provider>
-  );
+
+class App extends Component {
+ 
+  constructor(props){
+    super(props);
+  }
+  componentDidMount() {  
+   async function fetch ( ) {
+      await this.props.request();
+   }
+
 }
 
-export default App;
+
+
+render() {
+  return (
+    <Table />
+  );
+}
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  request: dispatch(fetchData()),
+});
+
+export default connect(null, mapDispatchToProps)(App);
