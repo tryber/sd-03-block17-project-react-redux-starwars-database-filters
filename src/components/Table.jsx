@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import data from '../store/data';
 import './Layout/Table.css';
 
 import FilterPlanets from './FilterPlanets';
