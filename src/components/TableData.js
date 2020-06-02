@@ -6,15 +6,19 @@ const TableData = (props) => {
     <tbody>
       {dataSw.map((planets) => (
         <tr key={planets.name}>
-          <th>{planets.name}</th>
-          <th>{planets.rotation_period}</th>
-          <th>{planets.orbital_period}</th>
-          <th>{planets.diameter}</th>
-          <th>{planets.climate}</th>
-          <th>{planets.gravity}</th>
-          <th>{planets.terrain}</th>
-          <th>{planets.surface_water}</th>
-          <th>{planets.population}</th>
+          <td>{planets.name}</td>
+          <td>{planets.rotation_period}</td>
+          <td>{planets.orbital_period}</td>
+          <td>{planets.diameter}</td>
+          <td>{planets.climate}</td>
+          <td>{planets.gravity}</td>
+          <td>{planets.terrain}</td>
+          <td>{planets.surface_water}</td>
+          <td>{planets.population}</td>
+          <td>{planets.films}</td>
+          <td>{planets.created}</td>
+          <td>{planets.edited}</td>
+          <td>{planets.url}</td>
         </tr>
       ))}
     </tbody>

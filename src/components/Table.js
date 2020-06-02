@@ -46,9 +46,6 @@ class Table extends React.Component {
   }
 
   render() {
-    // const filterData = this.dataFilterFunction()
-    console.log('estou sendo chamado', this.props);
-    const { dataSw } = this.props;
     return (
       <div>
         <Header />
@@ -65,6 +62,10 @@ class Table extends React.Component {
               <th>Terrain</th>
               <th>Surface Water</th>
               <th>Population</th>
+              <th>Films</th>
+              <th>Created</th>
+              <th>Edited</th>
+              <th>URL</th>
             </tr>
           </tbody>
           <TableData dataSw={this.dataFilterFunction()} />
