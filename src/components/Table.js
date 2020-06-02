@@ -6,16 +6,16 @@ export class Table extends Component {
   render() {
     return (
       <div>
-       {/*  {this.props.value.data.results.length === 1 
+        {/*  {this.props.value.data.results.length === 1 
         ? <h1> {this.props.value.data.results[0]}</h1> 
         : <p> <table>
-             
+
          </table>
           {this.props.value.data.results.forEach(element => {
-        })  
+        })
          }</p>}        */}
-         {console.log(this.props.value)}
-             </div>
+
+      </div>
     );
   }
 }
