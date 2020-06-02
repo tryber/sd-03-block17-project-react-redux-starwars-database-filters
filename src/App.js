@@ -6,7 +6,6 @@ import Table from './components/Table';
 import './App.css';
 
 class App extends React.Component {
-
   componentDidMount() {
     const { apiRequestDispatch } = this.props;
     apiRequestDispatch();

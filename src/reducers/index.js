@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import apiSWReducer from './apiSWReducer';
-import filtersReducer from './filtersReducer';
+import filters from './filters';
 
-const rootReducer = combineReducers({ apiSWReducer, filtersReducer });
+const rootReducer = combineReducers({ apiSWReducer, filters });
 
 export default rootReducer;

@@ -84,11 +84,10 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   dataSw: state.apiSWReducer.data,
   isLoading: state.apiSWReducer.loading,
-  typedText: state.filtersReducer.filters.filterByName.name,
+  typedText: state.filters.filterByName.name,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
-
 
 Table.propTypes = {
   typedText: PropTypes.string,
