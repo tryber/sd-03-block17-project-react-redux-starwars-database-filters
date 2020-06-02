@@ -22,6 +22,10 @@ class Table extends React.Component {
           <th>Terrain</th>
           <th>Surface Water</th>
           <th>Population</th>
+          <th>films</th>
+          <th>created</th>
+          <th>edited</th>
+          <th>url</th>
         </tr>
       </thead>
     );
