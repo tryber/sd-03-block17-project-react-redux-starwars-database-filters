@@ -34,6 +34,7 @@ class Table extends React.Component {
       <div>
         <label htmlFor="searchbar">
           <input
+            data-testid="name-filter"
             type="text"
             onChange={this.onChangeText}
             id="searchbar"
@@ -83,7 +84,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   dataSw: state.apiSWReducer.data,
   isLoading: state.apiSWReducer.loading,
-  typedText: state.apiSWReducer.filters.filterByName,
+  typedText: state.apiSWReducer.filters.filterByName.name,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

@@ -9,7 +9,9 @@ const INITIAL_STATE = {
   data: [],
   loading: true,
   filters: {
-    filterByName: '',
+    filterByName: {
+      name: '',
+    },
   },
 };
 
@@ -37,7 +39,10 @@ const apiSWReducer = (state = INITIAL_STATE, action) => {
         ...state,
         filters: {
           ...state.filters,
-          filterByName: action.typedText,
+          filterByName: {
+            ...state.filters.filterByName,
+            name: action.typedText,
+          },
         },
       };
     default:
