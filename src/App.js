@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import './App.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import fetchPlanets from './actions';
 import Table from './components/Table';
+import './App.css';
 
 class App extends Component {
   componentDidMount() {
@@ -15,6 +16,10 @@ class App extends Component {
     return <div className="App"><Table /></div>;
   }
 }
+
+App.propTypes = {
+  fetchPlanets: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({ fetchPlanets }, dispatch);
 
