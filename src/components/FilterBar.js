@@ -3,13 +3,6 @@ import { connect } from 'react-redux';
 import { filterByName } from '../actions'
 
 class FilterBar extends React.Component {
-
-  attStateWithFilter(event) {
-    // const { filter } = this.props;
-    console.log(event.target.value);
-    // filter(event.target.value)
-  }
-
   render() {
     const { filter } = this.props;
     return (
@@ -21,7 +14,7 @@ class FilterBar extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  filter: (e) => dispatch(filterByName(e)),
+  filter: (name) => dispatch(filterByName(name)),
 });
 
 export default connect(null, mapDispatchToProps)(FilterBar);

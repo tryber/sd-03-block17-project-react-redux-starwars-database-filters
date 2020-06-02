@@ -23,7 +23,6 @@ function PlanetsReducer(state = INITIAL_STATE, action) {
         return {
           ...state,
           filters: { filterByName: { name: action.name } },
-          data: state.data,
         }
     default:
       return state;

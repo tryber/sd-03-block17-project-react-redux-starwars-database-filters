@@ -28,9 +28,9 @@ class Table extends React.Component {
       </tr>
     );
   }
+
   renderTableTr() {
-    const { data, filters: { filterByName } } = this.props;
-    console.log(filterByName);
+    const { data } = this.props;
     return (
       data.map((planeta) =>
         <tr key={planeta.name}>
@@ -47,7 +47,7 @@ class Table extends React.Component {
           <td>{planeta.films}</td>
           <td>{planeta.gravity}</td>
           <td>{planeta.url}</td>
-        </tr>
+        </tr>,
       )
     );
   }
@@ -76,8 +76,23 @@ const mapDispatchToProps = (dispatch) => ({
   getStarWarsPlanets: () => dispatch(fetchPlanets()),
 });
 
+
 Table.propTypes = {
-  data: PropTypes.any.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    population: PropTypes.string.isRequired,
+    climate: PropTypes.string.isRequired,
+    created: PropTypes.string.isRequired,
+    diameter: PropTypes.string.isRequired,
+    edited: PropTypes.string.isRequired,
+    orbital_period: PropTypes.string.isRequired,
+    rotation_period: PropTypes.string.isRequired,
+    terrain: PropTypes.string.isRequired,
+    surface_water: PropTypes.string.isRequired,
+    films: PropTypes.arrayOf(PropTypes.string).isRequired,
+    gravity: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+  })).isRequired,
   getStarWarsPlanets: PropTypes.func.isRequired,
 };
 
