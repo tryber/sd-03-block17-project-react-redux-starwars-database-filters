@@ -41,16 +41,16 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   data: state.planetsInfoReducer.data,
-  nameFilter: state.filterDataValuesReducer.filters.filterByName.name,
+  nameFilter: state.filterDataValuesReducer.filterByName.name,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
-// Home.defaultProps = { nameFilter: '' };
+Home.defaultProps = { nameFilter: '' };
 
 Home.propTypes = {
   getPlanetsInfo: PropTypes.func.isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  nameFilter: PropTypes.string.isRequired,
+  nameFilter: PropTypes.string,
   planetName: PropTypes.func.isRequired,
 };

@@ -1,17 +1,16 @@
 import { FILTER_BY_TEXT, FILTER_BY_NUMERIC_VALUES } from '../actions/actions';
 
 const INITIAL_STATE = {
-  filters: {
-    filterByName: {
-      name: '',
-    },
-    filterByNumericValues: {
-      column: '',
-      comparison: '',
-      value: '',
-    },
+  filterByName: {
+    name: '',
+  },
+  filterByNumericValues: {
+    column: '',
+    comparison: '',
+    value: '',
   },
 };
+
 
 const filterDataValuesReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
