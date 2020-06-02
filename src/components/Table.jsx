@@ -6,33 +6,28 @@ import TableHeader from './TableHeader';
 import TableRow from './TableRow';
 import planetShape from '../services/planetShape';
 
-const takeTitles = (planet) => (
-  Object.keys(planet)
-  .filter((key) => key !== 'residents')
-);
-
-const renderBody = (planets, filterName, properties) => (
+const renderBody = (planets, properties) => (
   <tbody>
     {planets
-      .filter((planet) => planet.name.includes(filterName))
       .map((planet) =>
         <TableRow key={planet.name} planet={planet} properties={properties} />)
     }
   </tbody>
 );
 
-class Table extends React.Component {
-  render() {
-    const { planets, searchText } = this.props;
-    const headers = takeTitles(planets[0]);
-    return (
-      <table>
-        <caption>Star Wars Planets</caption>
-        <TableHeader headers={headers} />
-        {renderBody(planets, searchText, headers)}
-      </table>
-    );
-  }
+const Table = ({ planets, searchText }) => {
+  if (planets.length === 0) return <div>None Planet Found</div>;
+
+  const headers = Object.keys(planets[0]).filter((key) => key !== 'residents');
+  const planetsToShow = planets.filter((planet) => planet.name.includes(searchText));
+
+  return (
+    <table>
+      <caption>Star Wars Planets</caption>
+      <TableHeader headers={headers} />
+      {renderBody(planetsToShow, headers)}
+    </table>
+  );
 }
 
 const mapStateToProps = ({ data, filters: { filterByName } }) => ({
@@ -42,7 +37,7 @@ const mapStateToProps = ({ data, filters: { filterByName } }) => ({
 
 Table.propTypes = {
   searchText: PropTypes.string.isRequired,
-  planets: PropTypes.arrayOf(PropTypes.shape(planetShape()).is).isRequired,
+  planets: PropTypes.arrayOf(PropTypes.shape(planetShape()).isRequired).isRequired,
 };
 
 export default connect(mapStateToProps)(Table);

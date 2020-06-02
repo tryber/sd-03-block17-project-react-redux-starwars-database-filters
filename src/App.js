@@ -20,7 +20,6 @@ const App = ({ loading }) => {
 
 const mapStateToProps = (state) => ({
   loading: state.isFetching,
-  planets: state.data,
 });
 
 App.propTypes = { loading: PropTypes.bool.isRequired };
