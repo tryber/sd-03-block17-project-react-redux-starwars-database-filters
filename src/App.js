@@ -1,29 +1,34 @@
-import './App.css';
 import React, { Component } from 'react';
-import {connect } from 'react-redux';
+import { connect } from 'react-redux';
 import Table from './components/Table';
 import { fetchData } from './action/index';
+import './App.css';
 
 class App extends Component {
-
-  componentDidMount() {
-    async function fetch ( ) {
-      const { request } = this.props;
-      await request();
-    }
-
+  constructor(props) {
+    super(props);
   }
 
+  componentDidMount() {
+   this.fetchUrl();
+  }
+
+fetchUrl() {
+  this.props.request();
+
+}
 
   render() {
     return (
       <Table />
+
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  request: dispatch(fetchData()),
+  request: (e) => dispatch(fetchData(e)),
 });
+
 
 export default connect(null, mapDispatchToProps)(App);

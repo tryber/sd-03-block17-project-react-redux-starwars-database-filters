@@ -5,9 +5,8 @@ export function fetchData() {
   return (dispatch) => {
     fetch('https://swapi-trybe.herokuapp.com/api/planets/')
       .then(
-        (response) => response)
+        (response) => response.json())
       .then((data) => {
-        console.log(data)
         dispatch(receiveData(data));
       });
   };
