@@ -9,7 +9,26 @@ class Table extends React.Component {
     getStarWarsPlanets();
   }
 
-  renderTable() {
+  renderHeaders() {
+    return (
+      <tr>
+        <th>Nome</th>
+        <th>População</th>
+        <th>Clima</th>
+        <th>Criado</th>
+        <th>Diametro</th>
+        <th>Editado</th>
+        <th>Período Orbital</th>
+        <th>Período Rotacional</th>
+        <th>Terreno</th>
+        <th>Superfície Aquática</th>
+        <th>Filmes</th>
+        <th>Gravidade</th>
+        <th>URL</th>
+      </tr>
+    );
+  }
+  renderTableTr() {
     const { data } = this.props;
     return (
       data.map((planeta) =>
@@ -36,24 +55,10 @@ class Table extends React.Component {
       <div>
         <table>
           <thead>
-            <tr>
-              <th>Nome</th>
-              <th>População</th>
-              <th>Clima</th>
-              <th>Criado</th>
-              <th>Diametro</th>
-              <th>Editado</th>
-              <th>Período Orbital</th>
-              <th>Período Rotacional</th>
-              <th>Terreno</th>
-              <th>Superfície Aquática</th>
-              <th>Filmes</th>
-              <th>Gravidade</th>
-              <th>URL</th>
-            </tr>
+            {this.renderHeaders()}
           </thead>
           <tbody>
-            {this.renderTable()}
+            {this.renderTableTr()}
           </tbody>
         </table>
       </div>
@@ -63,7 +68,6 @@ class Table extends React.Component {
 
 const mapStateToProps = (state) => ({
   data: state.data,
-  isFetching: state.isFetching,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -71,9 +75,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Table.propTypes = {
-  data: PropTypes.array.isRequired,
-  isFetching: PropTypes.bool.isRequired,
+  data: PropTypes.any.isRequired,
   getStarWarsPlanets: PropTypes.func.isRequired,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
