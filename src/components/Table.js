@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 export class Table extends Component {
   renderTableBody() {
@@ -33,7 +33,7 @@ export class Table extends Component {
       <div>
         {results.length === 1
           ? (
-            <h1> 
+            <h1>
               {results[0]}
             </h1>
           ) : (
@@ -59,14 +59,10 @@ export class Table extends Component {
 const mapStateToProps = (state) => ({ value: state });
 
 Table.propTypes = {
-  data: PropTypes.instanceOf(Object),
-  results: PropTypes.instanceOf(Array),
   value: PropTypes.instanceOf(Object),
 };
 
 Table.defaultProps = {
-  data: {},
-  results: [],
   value: {},
 };
 

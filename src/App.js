@@ -35,5 +35,5 @@ App.propTypes = {
 
 App.defaultProps = {
   request: PropTypes.func,
- };
+};
 export default connect(null, mapDispatchToProps)(App);
