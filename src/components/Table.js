@@ -37,7 +37,7 @@ class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            {results.map((planet) => <PlanetLine planet={planet} key={planet.name} />, )}
+            {results.map((planet) => <PlanetLine planet={planet} key={planet.name} />)}
           </tbody>
         </table>
       );
