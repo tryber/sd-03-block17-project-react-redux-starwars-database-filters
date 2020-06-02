@@ -11,7 +11,7 @@ const TableRow = ({ planet, properties }) => (
 );
 
 TableRow.propTypes = {
-  planet: planetShape(),
+  planet: PropTypes.planetShape().isRequired,
   properties: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 

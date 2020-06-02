@@ -42,7 +42,7 @@ const mapStateToProps = ({ data, filters: { filterByName } }) => ({
 
 Table.propTypes = {
   searchText: PropTypes.string.isRequired,
-  planets: PropTypes.arrayOf(planetShape()).isRequired,
+  planets: PropTypes.arrayOf(PropTypes.planetShape()).isRequired,
 };
 
 export default connect(mapStateToProps)(Table);
