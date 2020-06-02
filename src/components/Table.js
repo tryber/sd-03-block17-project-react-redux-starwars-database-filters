@@ -34,7 +34,7 @@ export class Table extends Component {
 
   renderTableBody() {
     const { data, filterByName, filterByNumericValues } = this.props;
-    console.log('filtros', filterByNumericValues, filterByName)
+    console.log('filtros', filterByNumericValues, filterByName);
     return (
       <tbody>
         {data.map((planet) => (
@@ -97,18 +97,18 @@ Table.propTypes = {
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string,
   data: PropTypes.instanceOf(Array),
-  filters: PropTypes.shape({
-    filterByName: PropTypes.shape({
-      name: PropTypes.string,
-    }),
-    filterByNumericValues: PropTypes.instanceOf(Array),
+  filterByName: PropTypes.shape({
+    name: PropTypes.string,
   }),
+  filterByNumericValues: PropTypes.instanceOf(Array),
+
 };
 
 Table.defaultProps = {
   data: [],
   error: '',
-  filters: {},
+  filterByNumericValues: [],
+  filterByName: {},
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

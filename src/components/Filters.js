@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import PropTypes, { array } from 'prop-types';
+import PropTypes from 'prop-types';
 import actionFilterNames from '../store/actions/actionFilterNames';
 import actionAddFilterValues from '../store/actions/actionAddFilterValues';
 import actionRemoveFilterValues from '../store/actions/actionRemoveFilterValues';
@@ -51,7 +51,11 @@ export class Filters extends Component {
     const { filterNames } = this.props;
     return (
       <div>
-        <input data-testid="name-filter" type="text" onChange={(e) => filterNames(e.target.value)} />
+        <input
+          data-testid="name-filter"
+          type="text"
+          onChange={(e) => filterNames(e.target.value)}
+        />
       </div>
     );
   }
@@ -71,7 +75,11 @@ export class Filters extends Component {
   renderComparisonFilter() {
     return (
       <div>
-        <select testid="comparison-filter" name="comparison" onChange={(e) => this.handleChange(e)}>
+        <select
+          testid="comparison-filter"
+          name="comparison"
+          onChange={(e) => this.handleChange(e)}
+        >
           <option value="" />
           <option value="maior que">Maior que</option>
           <option value="menor que">Menor que</option>
@@ -85,14 +93,26 @@ export class Filters extends Component {
     const { value } = this.state;
     return (
       <div>
-        <input data-testid="value-filter" type="number" name="value" onChange={(e) => this.handleChange(e)} value={value} />
+        <input
+          data-testid="value-filter"
+          type="number"
+          name="value"
+          onChange={(e) => this.handleChange(e)}
+          value={value}
+        />
       </div>
     );
   }
 
   renderSubmitButton() {
     return (
-      <button data-testid="button-filter" type="button" onClick={() => this.handleSubmit()}>Adicionar Filtro</button>
+      <button
+        data-testid="button-filter"
+        type="button"
+        onClick={() => this.handleSubmit()}
+      >
+        Adicionar Filtro
+      </button>
     );
   }
 
@@ -103,7 +123,13 @@ export class Filters extends Component {
         {filterByNumericValues.map(({ column, comparison, value }, index) => (
           <p>
             {`Filtro aplicado: ${column} | ${comparison} | ${value}`}
-            <button type="button" data-testid="filter" onClick={() => this.handleRemove(index, column)}>X</button>
+            <button
+              type="button"
+              data-testid="filter"
+              onClick={() => this.handleRemove(index, column)}
+            >
+              X
+            </button>
           </p>
         ))}
       </div>
@@ -149,6 +175,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators(
 Filters.propTypes = {
   filterNames: PropTypes.func.isRequired,
   addFilter: PropTypes.func.isRequired,
+  removeFilter: PropTypes.func.isRequired,
   filterByNumericValues: PropTypes.instanceOf(Array),
 };
 

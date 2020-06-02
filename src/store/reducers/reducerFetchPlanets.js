@@ -16,7 +16,7 @@ const reducerFetchPlanets = (state = INICIAL_STATE, action) => {
       return { ...state, error: action.error, loading: false };
     default:
       return state;
-  };
+  }
 };
 
 export default reducerFetchPlanets;
