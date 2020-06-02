@@ -12,6 +12,11 @@ class Table extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { search } = this.props;
+    search('planets');
+  }
+
   titilesTable() {
     return (
       <tr>
@@ -30,33 +35,23 @@ class Table extends React.Component {
     );
   }
 
-  componentDidMount() {
-    const { search } = this.props;
-    search('planets');
-  }
-
-  table(data) {
+  tbody(data) {
     return (
-      <table>
-        <thead>
-          {this.titilesTable()}
-        </thead>
-        <tbody>
-          {data.map((item) => <tr key={item.name}>
-            <td>{item.name}</td>
-            <td>{item.climate}</td>
-            <td>{item.created}</td>
-            <td>{item.diamenter}</td>
-            <td>{item.edited}</td>
-            <td>{item.gravity}</td>
-            <td>{item.orbital_period}</td>
-            <td>{item.population}</td>
-            <td>{item.rotation_period}</td>
-            <td>{item.surface_water}</td>
-            <td>{item.terrain}</td>
-          </tr>)}
-        </tbody>
-      </table>
+      <tbody>
+        {data.map((item) => <tr key={item.name}>
+          <td>{item.name}</td>
+          <td>{item.climate}</td>
+          <td>{item.created}</td>
+          <td>{item.diamenter}</td>
+          <td>{item.edited}</td>
+          <td>{item.gravity}</td>
+          <td>{item.orbital_period}</td>
+          <td>{item.population}</td>
+          <td>{item.rotation_period}</td>
+          <td>{item.surface_water}</td>
+          <td>{item.terrain}</td>
+        </tr>)}
+      </tbody>
     );
   }
 
@@ -65,7 +60,12 @@ class Table extends React.Component {
     if (isFetching) return <Loading />;
     return (
       <div>
-        {this.table(data)}
+        <table>
+          <thead>
+            {this.titilesTable()}
+          </thead>
+          {this.tbody(data)}
+        </table>
       </div>
     );
   }
