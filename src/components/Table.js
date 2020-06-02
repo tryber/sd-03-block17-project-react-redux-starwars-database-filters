@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { fetchPlanets } from '../actions';
 
 class Table extends React.Component {
@@ -26,7 +27,7 @@ class Table extends React.Component {
           <td>{planeta.films}</td>
           <td>{planeta.gravity}</td>
           <td>{planeta.url}</td>
-        </tr>
+        </tr>,
       )
     );
   }
@@ -68,5 +69,11 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getStarWarsPlanets: () => dispatch(fetchPlanets()),
 });
+
+Table.propTypes = {
+  data: PropTypes.array.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  getStarWarsPlanets: PropTypes.func.isRequired,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
