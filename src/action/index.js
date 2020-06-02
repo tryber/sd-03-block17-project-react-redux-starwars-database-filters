@@ -1,5 +1,5 @@
 export const requestData = () => ({type: 'REQUEST_DATA' });
-export const receiveData = (data) => ({type: 'RECEIVE_DATA', data });
+export const receiveData = (data) => ({ type: 'RECEIVE_DATA', data });
 
 export function fetchData() {
     return function (dispatch) {
