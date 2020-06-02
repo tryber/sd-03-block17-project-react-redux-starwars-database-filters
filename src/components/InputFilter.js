@@ -5,7 +5,13 @@ import { filterByName } from '../actions/textInputActions';
 
 const InputFilter = ({
   dispatchInput, value,
-}) => <input data-testid="name-filter" onChange={(e) => dispatchInput((e.target.value))} value={value} />;
+}) => (
+  <input
+    data-testid="name-filter"
+    onChange={(e) => dispatchInput((e.target.value))}
+    value={value}
+  />
+);
 
 const mapDispatchToPros = (dispatch) => ({
   dispatchInput: (text) => dispatch(filterByName(text)),
