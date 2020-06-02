@@ -4,7 +4,7 @@ import {
 
 const INITIAL_STATE = {
   isFetching: false,
-  data:[],
+  data: [],
 };
 
 const planetsList = (state = INITIAL_STATE, action) => {
