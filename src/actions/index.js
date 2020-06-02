@@ -11,7 +11,7 @@ const requestPlanetsList = () => ({
 
 const receivePlanetsListSuccess = ({ results }) => ({
   type: RECEIVE_PLANETS_LIST_SUCCESS,
-  results,
+  data: results,
 });
 
 const receivePlanetsListFailure = (error) => ({

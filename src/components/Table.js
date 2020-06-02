@@ -12,11 +12,11 @@ class Table extends Component {
   }
 
   render() {
-    const { isFetching, results } = this.props;
+    const { isFetching, data } = this.props;
 
     if (isFetching) { return <p>Loading...</p>; }
 
-    if (results) {
+    if (data) {
       return (
         <table>
           <thead>
@@ -37,7 +37,7 @@ class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            {results.map((planet) => <PlanetLine planet={planet} key={planet.name} />)}
+            {data.map((planet) => <PlanetLine planet={planet} key={planet.name} />)}
           </tbody>
         </table>
       );
@@ -47,8 +47,8 @@ class Table extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isFetching: state.data.isFetching,
-  results: state.data.results,
+  isFetching: state.planetsList.isFetching,
+  data: state.planetsList.data,
 });
 
 const mapDispatchToProps = (dispatch) => ({

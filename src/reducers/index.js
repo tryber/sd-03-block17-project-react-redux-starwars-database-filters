@@ -4,9 +4,10 @@ import {
 
 const INITIAL_STATE = {
   isFetching: false,
+  data:[],
 };
 
-const data = (state = INITIAL_STATE, action) => {
+const planetsList = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case REQUEST_PLANETS_LIST:
       return {
@@ -17,7 +18,7 @@ const data = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFetching: false,
-        results: action.results,
+        data: action.data,
       };
     case RECEIVE_PLANETS_LISTS_FAILURE:
       return {
@@ -30,4 +31,4 @@ const data = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default data;
+export default planetsList;
