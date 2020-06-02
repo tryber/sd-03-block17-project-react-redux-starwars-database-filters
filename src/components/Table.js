@@ -10,6 +10,7 @@ class Table extends React.Component {
     this.state = {
       test: '',
     };
+    this.thTags = this.thTags.bind(this);
   }
 
   componentDidMount() {
