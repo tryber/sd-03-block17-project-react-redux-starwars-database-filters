@@ -3,12 +3,16 @@ import { connect } from 'react-redux';
 import { filterInputName } from '../action/a_InpuName';
 
 class FilterPlanets extends Component {
+  constructor(props) {
+    super(props);
+    this.planetsFilter = this.planetsFilter.bind(this);
+  }
 
-  planetsFilter = (e) => {
+  planetsFilter(e) {
     const { data } = this.props;
     return ({
-      name: data.filter(ele => ele.name.includes(e))
-     })
+      name: data.filter(ele => ele.name.includes(e)),
+    });
   }
 
   render() {
@@ -21,7 +25,7 @@ class FilterPlanets extends Component {
           onChange={() => filterInputName((e) => this.planetsFilter(e.target.value))}
         />
         <button
-          type="button" 
+          type="button"
           onClick={() => filterInputName((e) => this.planetsFilter(e.target.value))}
         >
           Search

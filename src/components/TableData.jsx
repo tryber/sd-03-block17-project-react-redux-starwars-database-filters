@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const TableData = (props) => {
-  console.log('oi eu sou', props);
   const { data } = props;
   return data.map((planet, i) => {
     return (

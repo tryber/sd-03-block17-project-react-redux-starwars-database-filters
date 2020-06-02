@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { fetchRequestAPI } from '../action/a_FetchRequestAPI';
 
 class DispatchStore extends React.Component {
@@ -13,6 +14,7 @@ class DispatchStore extends React.Component {
   render() {
     return (
       <div>
+        <h2>.</h2>
       </div>
     );
   }
@@ -21,5 +23,9 @@ class DispatchStore extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   requestAPIdispatch: () => dispatch(fetchRequestAPI()),
 });
+
+DispatchStore.propTypes = {
+  requestAPIdispatch: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(DispatchStore);

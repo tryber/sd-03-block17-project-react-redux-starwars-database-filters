@@ -5,9 +5,9 @@ body {
 }
 
 .header {
+  align-items: center;
   background: black;
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 

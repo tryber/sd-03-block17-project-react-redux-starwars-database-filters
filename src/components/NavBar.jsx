@@ -1,7 +1,7 @@
 import React from 'react';
 import './Layout/NavBar.css';
 
-const NavBar = () => {
+function NavBar() {
   return (
     <div>
       <header className="header">
@@ -21,6 +21,6 @@ const NavBar = () => {
       </header>
     </div>
   );
-};
+}
 
 export default NavBar;

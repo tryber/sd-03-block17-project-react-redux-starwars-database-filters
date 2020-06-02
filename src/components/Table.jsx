@@ -7,8 +7,12 @@ import TableData from './TableData';
 import DispatchStore from '../services/dispatchStore';
 
 class Table extends React.Component {
+  constructor(props) {
+    super(props);
+    this.tableForm = this.tableForm.bind(this);
+  }
 
-  tableForm = () => {
+  tableForm() {
     return (
       <thead>
         <tr>
