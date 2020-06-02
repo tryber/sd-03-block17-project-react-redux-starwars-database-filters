@@ -10,9 +10,9 @@ class Table extends React.Component {
   }
 
   renderTableTr() {
-    const { data } = this.props;
+    const { dataFiltered } = this.props;
     return (
-      data.map((planeta) =>
+      dataFiltered.map((planeta) =>
         <tr key={planeta.name}>
           <td>{planeta.name}</td>
           <td>{planeta.population}</td>
@@ -63,13 +63,13 @@ class Table extends React.Component {
 
 const mapStateToProps = (state) => ({
   data: state.data,
+  dataFiltered: state.dataFiltered,
   filters: state.filters,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getStarWarsPlanets: () => dispatch(fetchPlanets()),
 });
-
 
 Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({

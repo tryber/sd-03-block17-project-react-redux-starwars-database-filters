@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   isFetching: false,
   filters: {},
   data: [],
+  dataFiltered: [],
 };
 
 function PlanetsReducer(state = INITIAL_STATE, action) {
@@ -18,11 +19,13 @@ function PlanetsReducer(state = INITIAL_STATE, action) {
         ...state,
         isFetching: false,
         data: action.data.results,
+        dataFiltered: action.data.results,
       };
     case FILTER_BY_NAME:
       return {
         ...state,
-        filters: { filterByName: { name: action.name } },
+        filters: { filterByName: { value: action.name }},
+        dataFiltered: state.data.filter(planet => planet.name.includes(action.name)),
       };
     default:
       return state;
