@@ -83,7 +83,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Table.propTypes = {
   search: PropTypes.func.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFetching: PropTypes.bool.isRequired,
 };
 
