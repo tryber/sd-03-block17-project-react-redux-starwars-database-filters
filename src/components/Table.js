@@ -29,7 +29,8 @@ class Table extends React.Component {
     );
   }
   renderTableTr() {
-    const { data } = this.props;
+    const { data, filters: { filterByName } } = this.props;
+    console.log(filterByName);
     return (
       data.map((planeta) =>
         <tr key={planeta.name}>
@@ -40,13 +41,13 @@ class Table extends React.Component {
           <td>{planeta.diameter}</td>
           <td>{planeta.edited}</td>
           <td>{planeta.orbital_period}</td>
-          <td>{planeta.rotacional_period}</td>
+          <td>{planeta.rotation_period}</td>
           <td>{planeta.terrain}</td>
           <td>{planeta.surface_water}</td>
           <td>{planeta.films}</td>
           <td>{planeta.gravity}</td>
           <td>{planeta.url}</td>
-        </tr>,
+        </tr>
       )
     );
   }
@@ -68,6 +69,7 @@ class Table extends React.Component {
 
 const mapStateToProps = (state) => ({
   data: state.data,
+  filters: state.filters,
 });
 
 const mapDispatchToProps = (dispatch) => ({

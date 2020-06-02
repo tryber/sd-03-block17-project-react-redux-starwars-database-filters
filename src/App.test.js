@@ -34,7 +34,7 @@ describe('1 - Fazer uma requisição para o endpoint /planets da API de Star War
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
-  test('it calls SWAPI', () => {   
+  test('it calls SWAPI', () => {
     renderApp();
     expect(fetch).toHaveBeenCalled();
   })
@@ -79,7 +79,7 @@ describe('1 - Fazer uma requisição para o endpoint /planets da API de Star War
 
 })
 
-describe.skip('2 - Sua página deve ter um campo de texto que filtra a tabela para somente exibir planetas cujos nomes incluam o texto digitado', () => {
+describe('2 - Sua página deve ter um campo de texto que filtra a tabela para somente exibir planetas cujos nomes incluam o texto digitado', () => {
 
   beforeAll(mockFetch);
   beforeEach(cleanup);
@@ -171,7 +171,7 @@ describe.skip('3 - Sua página deve ter um filtro para valores numéricos', () =
                                        'menor que'];
 
     let foundComparisonFilterArray = [];
-    
+
     for(let item of comparisonFilter.children) {
       expect(item).toHaveProperty('nodeName', 'OPTION');
       foundComparisonFilterArray.push(item.innerHTML);
@@ -188,7 +188,7 @@ describe.skip('3 - Sua página deve ter um filtro para valores numéricos', () =
 
     expect(valueFilter).toHaveProperty('nodeName', 'INPUT');
   });
-  
+
   test('should have the filter button', async () => {
     const { findByTestId } = renderApp();
 
@@ -213,7 +213,7 @@ describe.skip('3 - Sua página deve ter um filtro para valores numéricos', () =
     const tableRows = await findAllByRole('row');
     expect(tableRows).toHaveLength(7);
 
-    
+
   })
 
   test('should filter with greather than', async () => {
@@ -236,7 +236,7 @@ describe.skip('3 - Sua página deve ter um filtro para valores numéricos', () =
 
   test('should filter with equal to', async () => {
     const { findByTestId, findAllByRole, findByText } = renderApp();
-    
+
     const columnFilter = await findByTestId('column-filter');
     const comparisonFilter = await findByTestId('comparison-filter');
     const valueFilter = await findByTestId('value-filter');
@@ -276,7 +276,7 @@ describe.skip('4 -  Sua página deverá ser carregada com somente um filtro de v
                                    'rotation_period'];
 
     let foundColumnFilterArray = [];
-    
+
     for(let filter of columnFilter.children) {
       foundColumnFilterArray.push(filter.innerHTML);
     }
@@ -345,7 +345,7 @@ describe.skip('6 - As colunas da tabela devem ser ordenáveis de forma ascendent
     const ascInput = sortInput.filter((input) => input.value == `DESC` )[0];
 
     fireEvent.click(ascInput);
-    
+
     await fireEvent.click(sortButton);
 
     const rows = await findAllByRole('row');
