@@ -62,7 +62,6 @@ class Table extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  data: state.data,
   dataFiltered: state.dataFiltered,
   filters: state.filters,
 });
@@ -72,7 +71,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Table.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
+  dataFiltered: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     population: PropTypes.string.isRequired,
     climate: PropTypes.string.isRequired,
