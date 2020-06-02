@@ -7,7 +7,7 @@ export class Table extends Component {
     const { value: { data } } = this.props;
     const { results } = data;
     return results.map((element) => (
-      <tr>
+      <tr key={element.name}>
         <td >{element.name}</td>
         <td >{element.rotation_period}</td>
         <td >{element.orbital_period}</td>

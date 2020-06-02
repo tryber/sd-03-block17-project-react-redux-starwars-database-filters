@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Table from './components/Table';
+import PropTypes from 'prop-types';
 import { fetchData } from './action/index';
 import './App.css';
-import PropTypes from 'prop-types';
-
 
 class App extends Component {
 
@@ -30,4 +29,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
+App.propTypes = {
+  request: PropTypes.func,
+};
+
+App.defaultProps = {
+  request: PropTypes.func,
+ };
 export default connect(null, mapDispatchToProps)(App);
