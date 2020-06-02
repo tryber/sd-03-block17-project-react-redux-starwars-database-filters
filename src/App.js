@@ -1,24 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
-import store from './store/index';
+import { connect } from 'react-redux';
 
 import Table from './components/Table';
-import fetchPlanets from './actions/fetchPlanetsAction';
+import FetchData from './components/FetchData';
 
 import './App.css';
 
 class App extends React.Component {
-  componentDidMount() {
-    const { dispatch, planets } = this.props;
-    console.log(planets);
-    dispatch(fetchPlanets());
-  }
-
   render() {
     const { planets } = this.props;
-    if (planets.length === 0) return <div>loading...</div>;
+    if (planets.length === 0) return <FetchData />;
     return (
       <div className="App">
         <Table planets={planets} />
@@ -28,12 +20,10 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  dispatch: store.dispatch,
   planets: state.data,
 });
 
-App.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+FetchData.propTypes = {
   planets: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
 
