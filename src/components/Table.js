@@ -56,7 +56,7 @@ const mapDispatchToProps = (dispatch) => ({
 Table.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   getPlanetsList: PropTypes.func.isRequired,
-  results: PropTypes.array,
+  results: PropTypes.arrayOf(PropTypes.object),
 };
 
 Table.defaultProps = {
