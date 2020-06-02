@@ -10,23 +10,24 @@ const requestPlanetsInfo = () => ({
   loading: true,
 });
 
-const requestPlanetInfoSucess = (data) => ({
+const requestPlanetInfoSucess = ({ results }) => ({
   type: PLANET_INFO_REQUEST_SUCESS,
   loading: false,
+  data: results,
 });
 
 const requestPlantInfoFailure = (error) => ({
   type: PLANET_INFO_REQUEST_FAILURE,
   loading: false,
-  error,
+  data: error,
 });
 
 function fetchingPlanetsInfo() {
   return (dispatch) => {
     dispatch(requestPlanetsInfo());
     return getAllPlanetsFromAPI().then(
-      (planets) => dispatch(requestPlanetInfoSucess(planets)),
-      (error) => dispatch(requestPlantInfoFailure(error)),
+      (planet) => dispatch(requestPlanetInfoSucess(planet)),
+      (error) => dispatch(requestPlantInfoFailure(error.message)),
     );
   };
 }
