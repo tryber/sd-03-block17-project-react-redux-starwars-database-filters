@@ -12,6 +12,11 @@ class Table extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { search } = this.props;
+    search('planets');
+  }
+
   titilesTable() {
     return (
       <tr>
@@ -28,11 +33,6 @@ class Table extends React.Component {
         <th>terrain</th>
       </tr>
     );
-  }
-
-  componentDidMount() {
-    const { search } = this.props;
-    search('planets');
   }
 
   table() {
