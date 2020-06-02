@@ -1,5 +1,5 @@
-import { combineReducers } from "redux";
-import requestReducer from "./requestReducer";
+import { combineReducers } from 'redux';
+import requestReducer from './requestReducer';
 
 function emptyReducer() {
   return {};
