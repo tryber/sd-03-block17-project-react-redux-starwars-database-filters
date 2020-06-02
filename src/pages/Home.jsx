@@ -39,16 +39,6 @@ const mapDispatchToProps = (dispatch) => ({
   planetName: (planetName) => dispatch(filterByText(planetName)),
 });
 
-// const mapStateToProps = ({
-//   planetsInfoReducer: { data },
-//   filterDataValuesReducer: {
-//     filters: { filterByName: { name } },
-//   },
-// }) => ({
-//   data,
-//   nameFilter: name,
-// });
-
 const mapStateToProps = (state) => ({
   data: state.planetsInfoReducer.data,
   nameFilter: state.filterDataValuesReducer.filters.filterByName.name,
