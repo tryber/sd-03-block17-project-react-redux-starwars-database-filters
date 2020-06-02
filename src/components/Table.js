@@ -15,11 +15,12 @@ async function fetch( ) {
     return (
       <div>
         <p>TABLE</p>
+        {console.log(this.props)}
              </div>
     );
   }
 }
-const mapStateToProps = () => ({ value: requestReducer });
+const mapStateToProps = (state) => ({ value: state });
 const mapDispatchToProps = (dispatch) => ({
   request: dispatch(fetchData()),
 });
