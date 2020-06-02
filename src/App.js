@@ -5,17 +5,14 @@ import { fetchData } from './action/index';
 import './App.css';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
-   this.fetchUrl();
+    this.fetchUrl();
   }
 
-fetchUrl() {
-  this.props.request();
-
+  fetchUrl() {
+    const { request } = this.props;
+    request();
 }
 
   render() {

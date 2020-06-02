@@ -1,16 +1,55 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 
 export class Table extends Component {
+  
   render() {
-    return (
+   const { results } = this.props.value.data ;
+   const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited','url'];
+   return (
       <div>
-        {this.props.value.data.results.length === 1
-          ? <h1> {this.props.value.data.results[0]}</h1>
+        {results.length === 1
+          ? (
+            <h1>             
+              {results[0]}
+            </h1>
+          )
           : (
             <div>
               <p> Table </p>
+               <table>
+                 <thead>
+                   <tr>
+                  {
+                    headers.map(element =><th key={element}>{ element }</th>)
+                  }
+                  </tr>
+                 </thead>
+                 <tbody>
+                   {results.map(element => (
+                   <tr>
+                     <td >{element.name }</td>
+                     <td >{element.rotation_period }</td>
+                     <td >{element.orbital_period }</td>
+                     <td >{element.diameter }</td>
+                     <td >{element.climate }</td>
+                     <td >{element.gravity }</td>
+                     <td >{element.terrain }</td>
+                     <td >{element.surface_water }</td>
+                     <td >{element.population }</td>
+                     <td >{element.films }</td>
+                     <td >{element.created }</td>
+                     <td >{element.edited }</td>
+                     <td >{element.url }</td>
+                     
 
+                   
+                   </tr>))}
+
+                 </tbody>
+               </table>              
             </div>
           )}
       </div>
@@ -20,5 +59,10 @@ export class Table extends Component {
 
 const mapStateToProps = (state) => ({ value: state });
 
+Table.defaultsProps = {
+  data: {},
+  results: [],
+
+};
 
 export default connect(mapStateToProps)(Table);
