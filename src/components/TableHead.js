@@ -18,6 +18,7 @@ const useStyles = makeStyles({
 
 const tableCell = () => ({
   props: [
+    'Name'
     'Rotation Period',
     'Orbital Period',
     'Diameter',

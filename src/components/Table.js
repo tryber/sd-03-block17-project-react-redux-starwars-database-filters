@@ -3,7 +3,19 @@ import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
 import dataApiStarWars from '../actions/apiTbela';
-import SimpleTable from './TableHead';
+
+const tableCell = () => ({
+  props: [
+    'Name',
+    'Rotation Period',
+    'Orbital Period',
+    'Diameter',
+    'Climate',
+    'Gravity',
+    'Surface Water',
+    'Population',
+  ],
+});
 
 class Table extends Component {
   componentDidMount() {
@@ -12,11 +24,31 @@ class Table extends Component {
   }
 
   render() {
-    const { all: { showResults } } = this.props;
+    const { all: { showResults, data: { results } } } = this.props;
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
-        <SimpleTable />
+        <table>
+          <thead>
+            <tr>
+              {tableCell().props.map((cell) => <td>{cell}</td>)}
+            </tr>
+          </thead>
+          <tbody>
+            {showResults && results.map((row) => (
+              <tr>
+                <td>{row.name}</td>
+                <td>{row.rotation_period}</td>
+                <td>{row.orbital_period}</td>
+                <td>{row.diameter}</td>
+                <td>{row.climate}</td>
+                <td>{row.gravity}</td>
+                <td>{row.surface_Water}</td>
+                <td>{row.population}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         {!showResults && <h1>Carregando</h1>}
       </div>
     );
