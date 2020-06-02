@@ -1,5 +1,5 @@
 import {
-  REQUEST_PLANETS_LIST, RECEIVE_PLANETS_LIST_SUCCESS, RECEIVE_PLANETS_LISTS_FAILURE, FILTER_PLANETS,
+  REQUEST_PLANETS_LIST, RECEIVE_PLANETS_LIST_SUCCESS, RECEIVE_PLANETS_LISTS_FAILURE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -30,15 +30,6 @@ const planetsList = (state = INITIAL_STATE, action) => {
         ...state,
         isFetching: false,
         error: action.error,
-      };
-    case FILTER_PLANETS:
-      return {
-        ...state,
-        filters: {
-          filterByName: {
-            name: action.value,
-          },
-        },
       };
     default:
       return state;
