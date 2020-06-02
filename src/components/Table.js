@@ -9,19 +9,19 @@ class Table extends React.Component {
     super(props);
     this.state = {
       titles: [
-        { id: 'teste', title: 'teste' },
         { id: 1, title: 'name' },
         { id: 2, title: 'climate' },
         { id: 3, title: 'created' },
         { id: 4, title: 'diameter' },
         { id: 5, title: 'edited' },
-        { id: 6, title: 'gravity' },
-        { id: 7, title: 'orbital period' },
-        { id: 8, title: 'population' },
-        { id: 9, title: 'rotation period' },
-        { id: 10, title: 'surface water' },
-        { id: 11, title: 'terrain' },
-        { id: 'teste2', title: 'teste2' },
+        { id: 6, title: 'films' },
+        { id: 7, title: 'gravity' },
+        { id: 8, title: 'orbital period' },
+        { id: 9, title: 'population' },
+        { id: 10, title: 'residents' },
+        { id: 11, title: 'rotation period' },
+        { id: 12, title: 'surface water' },
+        { id: 13, title: 'terrain' },
       ],
     };
   }
