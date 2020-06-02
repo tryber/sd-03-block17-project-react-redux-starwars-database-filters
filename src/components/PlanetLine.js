@@ -33,13 +33,13 @@ PlanetLine.propTypes = {
     climate: PropTypes.string.isRequired,
     gravity: PropTypes.string.isRequired,
     terrain: PropTypes.string.isRequired,
-    surface_water:PropTypes.string.isRequired,
+    surface_water: PropTypes.string.isRequired,
     population: PropTypes.string.isRequired,
-    films: PropTypes.arrayOf( PropTypes.string.isRequired),
+    films: PropTypes.arrayOf(PropTypes.string.isRequired),
     created: PropTypes.string.isRequired,
     edited: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
-  }),
+  }).isRequired,
 };
 
 export default PlanetLine;
