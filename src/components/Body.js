@@ -26,7 +26,7 @@ function Body({ planets }) {
 }
 
 const mapStateToProps = (state) => ({
-  planets: state.ReducerPlanets.data,
+  planets: state.ReducerPlanets.filteredData,
 });
 
 export default connect(mapStateToProps)(Body);
