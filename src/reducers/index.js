@@ -31,7 +31,7 @@ const requestData = (state = stateDefault, action) => {
     default:
       return state;
   }
-}
+};
 
 const rootReducer = combineReducers({ requestData });
 
