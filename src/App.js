@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Table from './components/Table';
 import FetchData from './components/FetchData';
-import SearchBox from './components/SearchBox';
+import FiltersBar from './components/FiltersBar';
 
 import './App.css';
 
@@ -12,7 +12,7 @@ const App = ({ loading }) => {
   if (loading) return <FetchData />;
   return (
     <div className="App">
-      <SearchBox />
+      <FiltersBar />
       <Table />
     </div>
   );
