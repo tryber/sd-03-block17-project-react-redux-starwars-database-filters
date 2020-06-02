@@ -26,6 +26,6 @@ class PlanetLine extends React.Component {
 
 PlanetLine.propTypes = {
   planet: PropTypes.object.isRequired,
-}
+};
 
 export default PlanetLine;

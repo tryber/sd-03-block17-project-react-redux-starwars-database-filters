@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPlanetsList } from '../actions';
-import PlanetLine from './PlanetLine';
 import PropTypes from 'prop-types';
+import PlanetLine from './PlanetLine';
+
 
 class Table extends Component {
   componentDidMount() {
@@ -13,9 +14,7 @@ class Table extends Component {
   render() {
     const { isFetching, results } = this.props;
 
-    if (isFetching) {
-      return (<p>Loading...</p>);
-    }
+    if (isFetching) { return <p>Loading...</p> }
 
     if (results) {
       return (
@@ -41,7 +40,7 @@ class Table extends Component {
         </table>
       );
     }
-    return <p>No Planet Found</p>
+    return <p>No Planet Found</p>;
   }
 }
 
@@ -58,6 +57,10 @@ Table.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   getPlanetsList: PropTypes.func.isRequired,
   results: PropTypes.array,
+}
+
+Table.defaultProps = {
+  results: null,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
