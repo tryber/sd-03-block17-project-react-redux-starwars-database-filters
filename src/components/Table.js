@@ -12,7 +12,7 @@ class Table extends React.Component {
         { id: 1, title: 'name' },
         { id: 2, title: 'climate' },
         { id: 3, title: 'created' },
-        { id: 4, title: 'diamenter' },
+        { id: 4, title: 'diameter' },
         { id: 5, title: 'edited' },
         { id: 6, title: 'gravity' },
         { id: 7, title: 'orbital period' },
@@ -44,7 +44,7 @@ class Table extends React.Component {
             <td>{item.name}</td>
             <td>{item.climate}</td>
             <td>{item.created}</td>
-            <td>{item.diamenter}</td>
+            <td>{item.diameter}</td>
             <td>{item.edited}</td>
             <td>{item.gravity}</td>
             <td>{item.orbital_period}</td>
