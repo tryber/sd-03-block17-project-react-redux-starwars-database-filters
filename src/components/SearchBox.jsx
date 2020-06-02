@@ -2,20 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function SearchBox({ searchText }) {
+import typeName from '../actions/SearchTextAction';
+
+function SearchBox({ searchText, onType }) {
   return (
     <div>
-      
+      <input type="text" value={searchText} onChange={({ target: { value } }) => onType(value)} />
     </div>
   );
 }
 
-const mapStateToProps = (state) => ({
-  searchText: state.filters.filterByName,
+const mapStateToProps = ({ filters: { filterByName } }) => ({
+  searchText: filterByName.name,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onType: (text) => dispatch(typeName(text)),
 });
 
 SearchBox.propTypes = {
   searchText: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps)(SearchBox);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);

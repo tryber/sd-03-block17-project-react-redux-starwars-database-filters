@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Table from './components/Table';
 import FetchData from './components/FetchData';
+import SearchBox from './components/SearchBox';
 
 import './App.css';
 
@@ -13,6 +14,7 @@ class App extends React.Component {
     if (planets.length === 0) return <FetchData />;
     return (
       <div className="App">
+        <SearchBox />
         <Table planets={planets} />
       </div>
     );

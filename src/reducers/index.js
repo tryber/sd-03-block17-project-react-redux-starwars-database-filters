@@ -42,15 +42,15 @@ function dataReducer(state, action) {
   }
 }
 
-function filtersReducer(state, action) {
+function filtersReducer(filters, action) {
   switch(action.type) {
     case TYPE_NAME:
       return {
-        ...state,
-        filterByName: action.text,
+        ...filters,
+        filterByName: { name: action.text },
       };
     default:
-      return state;
+      return filters;
   }
 }
 
@@ -61,10 +61,13 @@ const Reducer = (state = INITIAL_STATE, action) => {
     case FETCH_PLANETS_FAILURE:
       return dataReducer(state, action);
     case TYPE_NAME:
-      return filtersReducer(state, action);
+      return {
+        ...state,
+        filters: filtersReducer(state.filters, action),
+      }
     default:
       return state;
   }
-}
+};
 
 export default Reducer;
