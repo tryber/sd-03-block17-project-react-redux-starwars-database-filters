@@ -1,17 +1,26 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import store from './store/index';
+import { connect } from 'react-redux';
+import { getApiDataSw } from './actions/apiSWAction';
 import Table from './components/Table';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <Provider store={store}>
+class App extends React.Component {
+  componentDidMount() {
+    const { apiRequestDispatch } = this.props;
+    apiRequestDispatch();
+  }
+
+  render() {
+    return (
+      <div className="App">
         <Table />
-      </Provider>
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  apiRequestDispatch: () => dispatch(getApiDataSw()),
+});
+
+export default connect(null, mapDispatchToProps)(App);
