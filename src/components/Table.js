@@ -12,6 +12,7 @@ const tableCell = () => ({
     'Diameter',
     'Climate',
     'Gravity',
+    'terrain',
     'Surface Water',
     'Population',
     'films',
@@ -29,6 +30,7 @@ const apiResults = (value) => value.map((row) => (
     <td>{row.diameter}</td>
     <td>{row.climate}</td>
     <td>{row.gravity}</td>
+    <td>{row.terrain}</td>
     <td>{row.surface_Water}</td>
     <td>{row.population}</td>
     <td>{row.films}</td>
