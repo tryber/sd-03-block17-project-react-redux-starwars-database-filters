@@ -31,7 +31,7 @@ class Table extends React.Component {
     if (dataReceived) {
       dataKeys = [...Object.keys(planets[0])];
       const cutData = dataKeys.indexOf('residents');
-      dataKeys.slice(cutData, 1);
+      dataKeys.splice(cutData,1);
       dataReady = true;
     }
 
