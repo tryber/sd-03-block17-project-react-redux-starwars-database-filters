@@ -14,10 +14,20 @@ const TableBody = ({ data }) => (
         <td>{planet.terrain}</td>
         <td>{planet.surface_water}</td>
         <td>{planet.population}</td>
-        <td>{planet.films}</td>
+        <td>
+          {planet.films.map((film) => (
+            <a href={film} target="_blank" rel="noopener noreferrer" key={film}>
+              {film}
+            </a>
+          ))}
+        </td>
         <td>{planet.created}</td>
         <td>{planet.edited}</td>
-        <td>{planet.url}</td>
+        <td>
+          <a href={planet.url} target="_blank" rel="noopener noreferrer">
+            {planet.url}
+          </a>
+        </td>
       </tr>
     ))}
   </tbody>
