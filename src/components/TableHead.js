@@ -16,6 +16,18 @@ const useStyles = makeStyles({
   },
 });
 
+const tableCell = () => ({
+  props: [
+    'Rotation Period',
+    'Orbital Period',
+    'Diameter',
+    'Climate',
+    'Gravity',
+    'Surface Water',
+    'Population',
+  ],
+});
+
 function SimpleTable(props) {
   const classes = useStyles();
   const { all: { showResults, data: { results } } } = props;
@@ -26,13 +38,7 @@ function SimpleTable(props) {
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
-              <TableCell align="right">Rotation Period</TableCell>
-              <TableCell align="right">Orbital Period</TableCell>
-              <TableCell align="right">Diameter</TableCell>
-              <TableCell align="right">Climate</TableCell>
-              <TableCell align="right">Gravity</TableCell>
-              <TableCell align="right">Surface Water</TableCell>
-              <TableCell align="right">Population</TableCell>
+              {tableCell().props.map((cell) => <TableCell align="right">{cell}</TableCell>)}
             </TableRow>
           </TableHead>
           <TableBody>
