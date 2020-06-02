@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Table from './components/Table';
 import PropTypes from 'prop-types';
+import Table from './components/Table';
 import { fetchData } from './action/index';
 import './App.css';
 
