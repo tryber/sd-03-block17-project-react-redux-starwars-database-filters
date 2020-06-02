@@ -1,34 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { requestAction } from '../actions';
+import thead from './thead';
+import { requestAction } from '../../actions';
 
 class Table extends React.Component {
   componentDidMount() {
     const { requestTable } = this.props;
     requestTable();
-  }
-
-  renderThead() {
-    return (
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Rotation period</th>
-          <th>Orbital period</th>
-          <th>Diameter</th>
-          <th>Climate</th>
-          <th>Gravity</th>
-          <th>Terrain</th>
-          <th>Surface water</th>
-          <th>Population</th>
-          <th>Films</th>
-          <th>Created</th>
-          <th>Edited</th>
-          <th>Url</th>
-        </tr>
-      </thead>
-    );
   }
 
   render() {
@@ -37,7 +16,7 @@ class Table extends React.Component {
     return (
       <div className="table-container">
         <table>
-          {this.renderThead()}
+          <thead />
           <tbody>
             {(table.map((planet) => (
               <tr key={planet.name}>

@@ -1,11 +1,11 @@
 import React from 'react';
-import Table from './components/table';
+import Table from './components/table/table';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
-    <div className="App table-container">
+    <div className="App">
       <header className="App-header">
         <Table />
         <img src={logo} className="App-logo" alt="logo" />
