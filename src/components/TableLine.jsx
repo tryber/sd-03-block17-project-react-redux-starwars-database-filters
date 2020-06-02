@@ -1,21 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const TableLine = ({ planet: { name, climate, created, diameter, edited, films, gravity, orbital_period, population, rotation_period, surface_water, terrain, url } }) => (
+const TableLine = ({ planet }) => (
   <tr>
-    <td>{name}</td>
-    <td>{climate}</td>
-    <td>{created}</td>
-    <td>{diameter}</td>
-    <td>{edited}</td>
-    <td>{films}</td>
-    <td>{gravity}</td>
-    <td>{orbital_period}</td>
-    <td>{population}</td>
-    <td>{rotation_period}</td>
-    <td>{surface_water}</td>
-    <td>{terrain}</td>
-    <td>{url}</td>
+    <td>{planet.name}</td>
+    <td>{planet.climate}</td>
+    <td>{planet.created}</td>
+    <td>{planet.diameter}</td>
+    <td>{planet.edited}</td>
+    <td>{planet.films}</td>
+    <td>{planet.gravity}</td>
+    <td>{planet.orbital_period}</td>
+    <td>{planet.population}</td>
+    <td>{planet.rotation_period}</td>
+    <td>{planet.surface_water}</td>
+    <td>{planet.terrain}</td>
+    <td>{planet.url}</td>
   </tr>
 );
+
+TableLine.propTypes = {
+  planet: PropTypes.objectOf(PropTypes.any).isRequired,
+};
 
 export default TableLine;

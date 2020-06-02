@@ -4,7 +4,7 @@ import {
 
 const initialState = {
   isFetching: true,
-  data: {},
+  data: [],
 };
 
 export default function planetsReducer(state = initialState, { type, payload }) {
