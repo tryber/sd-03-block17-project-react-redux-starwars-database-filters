@@ -24,13 +24,16 @@ const tableCreator = (obj) =>
 
 class Table extends React.Component {
   render() {
-    const { planets, isFetching } = this.props;
+    const { planets, isFetching, filterByName } = this.props;
     const dataReceived = planets.length;
     let dataReady = false;
     let dataKeys = [];
+    let regex = '';
+
     if (dataReceived) {
       dataKeys = [...Object.keys(planets[0])];
       const cutData = dataKeys.indexOf('residents');
+      regex = new RegExp(`${filterByName}`, 'i' );
       dataKeys.splice(cutData, 1);
       dataReady = true;
     }
@@ -46,7 +49,7 @@ class Table extends React.Component {
             }
           </tr>
           {
-            planets.map((e) => tableCreator(e))
+            planets.filter(({name}) => name.match(regex)).map((e) => tableCreator(e))
           }
         </tbody></table>
         }
@@ -59,6 +62,7 @@ class Table extends React.Component {
 const mapStateToProps = (state) => ({
   planets: state.data.planets,
   isFetching: state.data.isFetching,
+  filterByName: state.filters.filterByName.name,
 });
 
 export default connect(mapStateToProps)(Table);
@@ -67,4 +71,5 @@ export default connect(mapStateToProps)(Table);
 Table.propTypes = {
   planets: PropTypes.arrayOf(object).isRequired,
   isFetching: PropTypes.bool.isRequired,
+  filterByName: PropTypes.string.isRequired,
 };

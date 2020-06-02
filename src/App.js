@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchPlanets } from './actions/index';
 import Table from './components/Table';
+import Filter from './components/Filter';
 import './App.css';
 
 class App extends React.Component {
@@ -14,6 +15,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <Filter />
         <Table />
       </div>
     );
