@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { handleFetch } from '../actions';
+import { handleFetch } from '../actions/fetchActions';
 
 import TableHeaders from './TableHeaders';
 import TableRow from './TableRow';
@@ -15,7 +15,6 @@ class Table extends React.Component {
 
   render() {
     const { planets } = this.props;
-    console.log('render planets', planets);
     return (
       <table>
         {planets.length !== 0 && <TableHeaders heads={Object.keys(planets[0])} />}
@@ -26,10 +25,7 @@ class Table extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log('state', state.requestReducer.planets);
-  return { planets: state.requestReducer.planets };
-};
+const mapStateToProps = (state) => ({ planets: state.requestReducer.planets });
 const mapDispatchToProps = (dispatch) => ({
   dispatchFetch: () => dispatch(handleFetch()),
 });

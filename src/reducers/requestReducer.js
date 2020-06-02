@@ -1,6 +1,6 @@
 import {
   RECEIVED_DATA, REQUEST_DATA, FAILED_REQUEST,
-} from '../actions/index';
+} from '../actions/fetchActions';
 
 const INITIAL_STATE = {
   planets: [],
@@ -8,17 +8,14 @@ const INITIAL_STATE = {
 };
 
 function requestDataResponse(state) {
-  console.log(state);
   return { ...state, isFetching: true, planets: [] };
 }
 
 function receivedDataResponse(state, action) {
-  console.log('action Sucess', action);
   return { ...state, isFetching: false, planets: action.planets };
 }
 
 function failedRequestResponse(state, action) {
-  console.log('action Fail', action);
   return { ...state, isFetching: false, error: action.error };
 }
 
