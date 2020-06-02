@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import fetchStarWarsApi from '../actions';
 import Loading from './Loading';
 
@@ -14,23 +15,23 @@ class Table extends React.Component {
   componentDidMount() {
     const { search } = this.props;
     search('planets');
-  };
+  }
 
-  ths() {
+  thTags() {
     const ths = [
-      'name',
-      'climate',
-      'created',
-      'diamenter',
-      'edited',
-      'gravity',
-      'orbital period',
-      'population',
-      'rotation period',
-      'surface water',
-      'terrain'
+      { id: 1, title: 'name' },
+      { id: 2, title: 'climate' },
+      { id: 3, title: 'created' },
+      { id: 4, title: 'diamenter' },
+      { id: 5, title: 'edited' },
+      { id: 6, title: 'gravity' },
+      { id: 7, title: 'orbital period' },
+      { id: 8, title: 'population' },
+      { id: 9, title: 'rotation period' },
+      { id: 10, title: 'surface water' },
+      { id: 11, title: 'terrain' }
     ];
-    return ths;
+    return ths
   };
 
   table(data) {
@@ -38,7 +39,7 @@ class Table extends React.Component {
       <table>
         <thead>
           <tr>
-            {this.ths().map((item, index) => <th key={index}>{item}</th>)}
+            {this.thTags().map((item) => <th key={item.id}>{item.title}</th>)}
           </tr>
         </thead>
         <tbody>
@@ -61,11 +62,8 @@ class Table extends React.Component {
   }
 
   render() {
-
     const { data, isFetching } = this.props;
-
     if (isFetching) return <Loading />;
-
     return (
       <div>
         {this.table(data)}
@@ -83,5 +81,11 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   search: (value) => dispatch(fetchStarWarsApi(value)),
 });
+
+Table.propTypes = {
+  search: PropTypes.func.isRequired,
+  data: PropTypes.array.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

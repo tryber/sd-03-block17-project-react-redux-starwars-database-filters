@@ -25,12 +25,12 @@ function fetchStarWarsApi(search) {
 
     return starWarsApi(search)
       .then(
-        (data => {
-          dispatch(receiveData(data.results))
+        ((data) => {
+          dispatch(receiveData(data.results));
         }),
-        (error) => dispatch(receiveFail(error.message))
+        (error) => dispatch(receiveFail(error.message)),
       );
   };
-};
+}
 
 export default fetchStarWarsApi;

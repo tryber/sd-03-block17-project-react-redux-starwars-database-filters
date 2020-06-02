@@ -15,7 +15,6 @@ const requestData = (state = stateDefault, action) => {
       return {
         ...state,
         isFetching: true,
-        
       };
     case RECEIVE_DATA:
       return {
@@ -31,8 +30,8 @@ const requestData = (state = stateDefault, action) => {
       };
     default:
       return state;
-  };
-};
+  }
+}
 
 const rootReducer = combineReducers({ requestData });
 
