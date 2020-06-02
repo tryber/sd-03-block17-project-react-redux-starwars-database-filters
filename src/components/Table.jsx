@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import TableHeader from './TableHeader';
 import TableRow from './TableRow';
@@ -8,10 +10,12 @@ const takeTitles = (planet) => (
   .filter((key) => key !== 'residents')
 );
 
-const renderBody = (planets) => (
+const renderBody = (planets, filterName) => (
   <tbody>
     {
-      planets.map((planet) =>
+      planets
+        .filter((planet) => planet.name.includes(filterName))
+        .map((planet) =>
         <TableRow key={planet.name} planet={planet} headers={takeTitles(planet)} />)
     }
   </tbody>
@@ -19,15 +23,23 @@ const renderBody = (planets) => (
 
 class Table extends React.Component {
   render() {
-    const { planets } = this.props;
+    const { planets, searchText } = this.props;
     return (
       <table>
         <caption>Star Wars Planets</caption>
         <TableHeader headers={takeTitles(planets[0])} />
-        {renderBody(planets)}
+        {renderBody(planets, searchText)}
       </table>
     );
   }
 }
 
-export default Table;
+const mapStateToProps = ({ filters: { filterByName } }) => ({
+  searchText: filterByName.name,
+});
+
+Table.propTypes = {
+  searchText: PropTypes.string.isRequired,
+};
+
+export default connect(mapStateToProps)(Table);
