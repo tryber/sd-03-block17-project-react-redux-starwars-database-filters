@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ApiRequestComp from './ApiRequestComp';
-import TableWithData from './TableWithData';
+import PropTypes from 'prop-types';
+import TableRow from './TableRow';
 
-export class Table extends Component {
+class Table extends Component {
   render() {
     const { data } = this.props;
     return (
       <table>
-        <ApiRequestComp />
         <tbody>
           <tr className="table-headers">
-            <th>Name</th>
-            <th>Rotation Period</th>
-            <th>Orbital Period</th>
-            <th>Diameter</th>
-            <th>Climate</th>
-            <th>Gravity</th>
-            <th>Terrain</th>
-            <th>Surface Water</th>
-            <th>Population</th>
+            <th>name</th>
+            <th>climate</th>
+            <th>created</th>
+            <th>diameter</th>
+            <th>edited</th>
+            <th>films</th>
+            <th>gravity</th>
+            <th>orbital_period</th>
+            <th>population</th>
+            <th>rotation_period</th>
+            <th>surface_water</th>
+            <th>terrain</th>
+            <th>url</th>
           </tr>
+          <TableRow planet={data} />
         </tbody>
-        <TableWithData data={data} />
       </table>
     );
   }
@@ -31,4 +34,9 @@ export class Table extends Component {
 const mapStateToProps = (state) => ({
   data: state.apiReducer.data,
 });
+
+Table.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
 export default connect(mapStateToProps)(Table);
