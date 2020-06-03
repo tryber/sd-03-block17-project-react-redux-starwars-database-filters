@@ -25,6 +25,18 @@ const tableForm = () => (
 );
 
 class Table extends React.Component {
+
+  // filterSelectedValues() {
+  //   const { selectInput, planets } = this.props;
+  //   const { column, comparison, value } = selectInput;
+
+  //   let arrayFilterPlanets = [];
+
+  //   if (column && comparison && value) {
+  //     return planets.map((elem) => elem.name)
+  //   }
+  // }
+
   filteredPlanets(planets) {
     const { filterByName } = this.props;
     if (filterByName !== '') {
@@ -41,6 +53,7 @@ class Table extends React.Component {
           como príncipe lutaste com Deus e com os homens, e prevaleceste.
           Gênesis 32:28
         </h1>
+        {/* {this.filterSelectedValues()} */}
         <div className="TabelaProdutos">
           <DispatchStore />
           <table>
@@ -61,6 +74,7 @@ const mapStateToProps = (state) => ({
   planets: state.requestAPI.data,
   isFetching: state.requestAPI.isFetching,
   filterByName: state.filters.filterByName.name,
+  selectInput: state.filters.filterByNumericValues,
 });
 
 // const mapDispatch = dispatch =>

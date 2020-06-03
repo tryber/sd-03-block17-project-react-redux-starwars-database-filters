@@ -1,5 +1,6 @@
 body {
-  background-color: #52381f;
+  background-image: url(https://ncdfaesa.files.wordpress.com/2016/12/stars.jpg?w=810&h=424&crop=1);
+  /* background-image: url(https://notizie.tiscali.it/export/sites/notizie/.galleries/16/terra_siamo_soli.jpg_471698149.jpg); */
   font-family: monospace;
   margin: 0;
 }

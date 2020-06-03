@@ -1,5 +1,4 @@
 import React from 'react';
-// import { connect } from 'react-redux';
 
 const TableData = (props) => {
   const { data } = props;
@@ -25,7 +24,5 @@ const TableData = (props) => {
 // const mapStateToProps = (state) => ({
 //   data: state.requestAPI.data,
 // });
-
-// export default connect(mapStateToProps)(TableData);
 
 export default TableData;

@@ -29,7 +29,7 @@ export const filterByName = (name) => ({
   value: name,
 });
 
-// export const filterByNumber = (number) => ({
-//   type: FILTER_BY_NUMBERS,
-//   value: number,
-// });
+export const filterByNumber = (usa) => ({
+  type: FILTER_BY_NUMBERS,
+  payload: usa,
+});
