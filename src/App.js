@@ -1,30 +1,17 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { getApiData } from './actions/apiAction';
 import Table from './components/Table';
+import FetchData from './components/FetchData';
 
 
-class App extends React.Component() {
-  componentDidMount() {
-    const { fetch } = this.props;
-    fetch();
-  }
-
+class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <FetchData />
         <Table />
       </div>
     );
   }
 }
 
-App.propTypes = {
-  fetch: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => bindActionCreators({ fetch: getApiData }, dispatch);
-
-export default connect(null, mapDispatchToProps)(App);
+export default App;

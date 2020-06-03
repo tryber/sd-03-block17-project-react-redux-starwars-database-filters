@@ -25,7 +25,7 @@ const apiReducer = (state = INITIAL_STATE, action) => {
     case API_RECIVE_FAILURE:
       return {
         ...state,
-        error: action.errorMessage,
+        error: action.error,
         loading: false,
       };
 

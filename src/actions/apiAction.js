@@ -15,10 +15,10 @@ const reciveApiDataSuccess = ({ response }) => ({
 
 const recieveApiDataFailure = (error) => ({
   type: API_RECIVE_FAILURE,
-  errorMessage: error,
+  error,
 });
 
-export function getApiData() {
+export default function getApiData() {
   return (dispatch) => {
     dispatch(apiRequest());
 
