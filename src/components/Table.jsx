@@ -52,7 +52,6 @@ class Table extends Component {
   }
 
   componentDidMount() {
-    console.log('mont');
     const { getPlanets } = this.props;
     getPlanets();
   }
@@ -71,14 +70,13 @@ class Table extends Component {
 
   handleChange(e) {
     const { setNameFilter } = this.props;
-    setNameFilter(e.target.value);
+    setNameFilter(e);
   }
 
   fireFilter(id) {
     const { filters: { filterByNumericValues }, data } = this.props;
     const { comparison: type, column: name, value } = filterByNumericValues[id];
     const filteredNumberData = data.filter(setFilter(type, name, value));
-    console.log(filteredNumberData);
     this.setState({ filteredNumberData });
   }
 
@@ -100,7 +98,7 @@ class Table extends Component {
       <input
         value={filterByName.name}
         type="text"
-        onChange={this.handleChange}
+        onChange={(e) => this.handleChange(e.target.value)}
         data-testid="name-filter"
       />
     );

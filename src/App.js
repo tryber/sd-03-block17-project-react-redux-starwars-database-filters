@@ -6,9 +6,9 @@ import './App.css';
 
 function App() {
   return (
-    <Provider store={store}>
-      <Table />
-    </Provider>
+
+    <Table />
+
   );
 }
 
