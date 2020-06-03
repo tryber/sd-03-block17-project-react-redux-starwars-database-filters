@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { object } from 'prop-types';
+import FilterComp from './FilterComp';
 
 const head = [
   'name',
@@ -19,11 +19,23 @@ const head = [
   'url',
 ];
 
+const filterArray = [
+  { filter: 'population', name: 'Population' },
+  { filter: 'orbital_period', name: 'Período orbital' },
+  { filter: 'diameter', name: 'Diâmetro' },
+  { filter: 'rotation_period', name: 'Periodo Rotacional' },
+  { filter: 'surface_water', name: 'Agua na superfície' },
+];
+
 class Table extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    const { data } = this.props;
+    this.state = {
+      filteredNumberData: data,
+    };
     this.handleChange = this.handleChange.bind(this);
+    this.fireFilter = this.fireFilter.bind(this);
   }
 
   componentDidMount() {
@@ -32,20 +44,49 @@ class Table extends Component {
     getPlanets();
   }
 
+
+  componentDidUpdate(prevProps) {
+    const { data } = this.props;
+    if (prevProps.data !== data) {
+      this.setState({ filteredNumberData: data });
+    }
+  }
+
   handleChange(e) {
-    const { setFilter } = this.props;
-    setFilter(e.target.value);
+    const { setNameFilter } = this.props;
+    setNameFilter(e.target.value);
+  }
+
+  fireFilter(id) {
+    // let { filteredNumberData } = this.state;
+    const { filters: { filterByNumericValues }, data } = this.props;
+    const { comparison: type, column: name, value } = filterByNumericValues[id];
+    function filter() {
+      if (type === 'Maior que') {
+        return (e) => e[name] > value;
+      }
+      if (type === 'Menor que') {
+        return (e) => e[name] < value;
+      }
+      if (type === 'Igual a') {
+        return (e) => e[name] === value;
+      }
+      return (e) => e;
+    }
+    // console.log(type, name, value);
+    // console.log(filteredNumberData);
+    const filteredNumberData = data.filter(filter());
+    console.log(filteredNumberData);
+    this.setState({ filteredNumberData });
   }
 
   filterData(data) {
     const { filters: { filterByName } } = this.props;
     let newData;
 
-    if (data.results.length && filterByName.name) {
-      newData = {
-        ...data,
-        results: data.results.filter((planet) => planet.name.includes(filterByName.name)),
-      };
+    if (data.length && filterByName.name) {
+      newData = data.filter((planet) => planet.name.includes(filterByName.name));
+
       return newData;
     }
 
@@ -53,12 +94,12 @@ class Table extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { filteredNumberData } = this.state;
     const {
       filters: { filterByName },
     } = this.props;
 
-    const filteredData = this.filterData(data);
+    const filteredData = this.filterData(filteredNumberData);
 
     return (
       <>
@@ -66,7 +107,10 @@ class Table extends Component {
           value={filterByName.name}
           type="text"
           onChange={this.handleChange}
+          data-testid="name-filter"
         />
+
+        <FilterComp fireFilter={this.fireFilter} filterArray={filterArray} />
         <table>
           <thead>
             <tr>
@@ -75,7 +119,7 @@ class Table extends Component {
           </thead>
 
           <tbody>
-            {filteredData.results.map((planet) => (
+            {filteredData.map((planet) => (
               <tr key={planet.name}>
                 {Object.entries(planet).map((header) => (header[0] === 'residents' ? (
                   <td key={header}>null </td>
@@ -97,12 +141,12 @@ function mapDispatch(dispatch) {
       .then((r) => r.json())
       .then((r) => dispatch({ type: 'API_CALL', r })),
 
-    setFilter: (filter) => dispatch({ type: 'SET_FILTER', filter }),
+    setNameFilter: (filter) => dispatch({ type: 'SET_NAME_FILTER', filter }),
   };
 }
 function mapState(state) {
   return {
-    data: state.data,
+    data: state.data.results,
     filters: state.filters,
   };
 }
