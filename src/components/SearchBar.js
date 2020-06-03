@@ -21,9 +21,9 @@ const mapDispatchToProps = (dispatch) => ({
   filterList: (e) => dispatch(filterList(e)),
 });
 
-SearchBar.propTypes = {
+/* SearchBar.propTypes = {
   filterList: PropTypes.function,
-};
+}; */
 
 SearchBar.defaultProps = {
   filterList: null,
