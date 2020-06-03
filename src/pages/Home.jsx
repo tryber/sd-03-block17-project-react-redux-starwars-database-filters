@@ -36,9 +36,11 @@ export class Home extends Component {
   filterDataByNumericValue(data) {
     const { valueFilters } = this.props;
     if (valueFilters) {
-      return valueFilters
-        .reduce((acc, { column, comparison, value }) => this.filterDataByText(data)
-          .filter((element) => makeComparison(column, comparison, value, element)), []);
+      return valueFilters.reduce(
+        (acc, { column, comparison, value }) => acc
+          .filter((element) => makeComparison(column, comparison, value, element)),
+        this.filterDataByText(data),
+      );
     }
     return this.filterDataByText(data);
   }
