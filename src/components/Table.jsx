@@ -13,7 +13,6 @@ const head = [
   'terrain',
   'surface_water',
   'population',
-  'residents',
   'films',
   'created',
   'edited',
@@ -126,7 +125,7 @@ class Table extends Component {
             {filteredData.map((planet) => (
               <tr key={planet.name}>
                 {Object.entries(planet).map((header) => (header[0] === 'residents' ? (
-                  <td key={header}>null </td>
+                  null
                 ) : (
                   <td key={header}>{header[1]}</td>
                 )))}
