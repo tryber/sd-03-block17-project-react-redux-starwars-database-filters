@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 import changeValue from '../actions/NumFilterActions';
 
-const comparisonOptions = ['Maior que', 'Menor que', 'Igual a'];
+const comparisonOptions = ['maior que', 'menor que', 'igual a'];
 
 const renderOptions = (optionsList) => (
-  optionsList.map((option) => <option key={option} value={option}>{option}</option>)
+  ['', ...optionsList].map((option) => <option key={option} value={option}>{option}</option>)
 );
 
 class NumFilter extends React.Component {
@@ -17,10 +17,10 @@ class NumFilter extends React.Component {
       <label htmlFor={name}>
         <select
           data-testid={`${name}-filter`}
+          defaultValue={value}
           id={name}
           name={name}
           onChange={({ target: { value: nextValue } }) => onChange(name, nextValue, id)}
-          value={value}
         >{renderOptions(optionsList)}</select>
       </label>
     );
@@ -36,9 +36,9 @@ class NumFilter extends React.Component {
         <label htmlFor="value-filter">
           <input
             data-testid="value-filter"
+            defaultValue={value}
             id="value-filter"
             name="value-filter"
-            value={value}
             onChange={({ target: { value } }) => onChange('value', value, id)}
           />
         </label>

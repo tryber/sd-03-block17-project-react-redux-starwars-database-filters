@@ -5,7 +5,13 @@ import { connect } from 'react-redux';
 import SearchBox from './SearchBox';
 import NumFilter from './NumFilter';
 
-const columnOptions = ['orbital_period', 'diameter', 'rotation_period', 'surface_water'];
+const columnOptions = [
+  'population',
+  'orbital_period',
+  'diameter',
+  'rotation_period',
+  'surface_water',
+];
 
 const FilterBar = ({ numFilters }) => (
   <section>
