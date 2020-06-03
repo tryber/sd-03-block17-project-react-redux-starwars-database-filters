@@ -36,12 +36,12 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-InputFilter.propTypes = {
+utFilter.defaultProps = {
+  filter: '',
+};InputFilter.propTypes = {
   filter: PropTypes.instanceOf(Function),
 };
 
-InputFilter.defaultProps = {
-  filter: '',
-};
+Inp
 
 export default connect(null, mapDispatchToProps)(InputFilter);

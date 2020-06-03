@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { filterNumeric } from '../action/index';
 
@@ -9,7 +10,7 @@ export class FilterNumeric extends Component {
   }
 
   filterNumbers() {
-    const { filterNumber } = this.props ;
+    const {filterNumber} = this.props ;
 
     const column = document.getElementById('filter');
     const comparation = document.getElementById('comparation');
@@ -49,7 +50,13 @@ export class FilterNumeric extends Component {
         </select>
 
         <input type="number" placeholder="numeros" id="input-value" data-testid="value-filter" />
-        <button type="button" onClick={this.filterNumbers} data-testid="button-filter"> Filtrar</button>
+        <button 
+          type="button"
+          onClick={this.filterNumbers}
+          data-testid="button-filter"
+        >
+        Filtrar
+        </button>
       </div>
     );
   }
@@ -59,4 +66,11 @@ const mapDispatchToProps = (dispatch) => ({
   filterNumber: (e) => dispatch(filterNumeric(e)),
 });
 
+FilterNumeric.propTypes = {
+  filterNumber: PropTypes.instanceOf(Function),
+};
+
+FilterNumeric.defaultProps = {
+  filterNumber: '',
+};
 export default connect(null, mapDispatchToProps)(FilterNumeric);
