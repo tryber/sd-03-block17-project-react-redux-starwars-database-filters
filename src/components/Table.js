@@ -22,21 +22,21 @@ const tableCell = () => ({
   ],
 });
 
-const apiResults = (value) => value.map((row) => (
-  <tr>
-    <td>{row.name}</td>
-    <td>{row.rotation_period}</td>
-    <td>{row.orbital_period}</td>
-    <td>{row.diameter}</td>
-    <td>{row.climate}</td>
-    <td>{row.gravity}</td>
-    <td>{row.terrain}</td>
-    <td>{row.surface_Water}</td>
-    <td>{row.population}</td>
-    <td>{row.films}</td>
-    <td>{row.created}</td>
-    <td>{row.edited}</td>
-    <td>{row.url}</td>
+const apiResults = (value) => value.map((row, index) => (
+  <tr key={row.name[index]}>
+    <td key={value.name}>{row.name}</td>
+    <td key={value.rotation_period}>{row.rotation_period}</td>
+    <td key={value.orbital_period}>{row.orbital_period}</td>
+    <td key={value.diameter}>{row.diameter}</td>
+    <td key={value.climate}>{row.climate}</td>
+    <td key={value.gravity}>{row.gravity}</td>
+    <td key={value.terrain}>{row.terrain}</td>
+    <td key={value.surface_Water}>{row.surface_Water}</td>
+    <td key={value.population}>{row.population}</td>
+    <td key={value.films}>{row.films}</td>
+    <td key={value.created}>{row.created}</td>
+    <td key={value.edited}>{row.edited}</td>
+    <td key={value.url}>{row.url}</td>
   </tr>
 ));
 
@@ -54,7 +54,7 @@ class Table extends Component {
         <table>
           <thead>
             <tr>
-              {tableCell().props.map((cell) => <td>{cell}</td>)}
+              {tableCell().props.map((cell) => <td key={cell}>{cell}</td>)}
             </tr>
           </thead>
           <tbody>
