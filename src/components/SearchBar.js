@@ -17,7 +17,12 @@ class SearchBar extends React.Component {
   render() {
     return (
       <div>
-        <input className="form-control" type="text" placeholder="Planet name" onChange={this.handleInputChange} />
+        <input
+          className="form-control"
+          type="text"
+          placeholder="Planet name"
+          onChange={this.handleInputChange}
+        />
       </div>
     );
   }
