@@ -1,5 +1,4 @@
 export const DATA_API = 'DATA_API_SUCESS';
-export const REQUESTING_STAR_WARS_API = 'REQUESTING_STAR_WARS_API';
 export const RECEIVE_ISS_LOCATION_FAILURE = 'RECEIVE_ISS_LOCATION_FAILURE';
 export const NAME_SEARCHED = 'NAME_SEARCHED';
 export const SUBMIT_OPTION_POPULATION = 'SUBMIT_OPTION_POPULATION';
@@ -41,14 +40,12 @@ export function apiData(state = inicialState, action) {
         ...state,
         filters: {
           filterByName: { name: '' },
-          filterByNumericValues: [
-            {
-              filtered: true,
-              column: action.column,
-              comparison: action.comparison,
-              value: action.value,
-            },
-          ],
+          filterByNumericValues: [{
+            filtered: true,
+            column: action.column,
+            comparison: action.comparison,
+            value: action.value,
+          }],
         },
       };
     default:

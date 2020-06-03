@@ -1,6 +1,5 @@
 import {
-  DATA_API,
-  REQUESTING_STAR_WARS_API, RECEIVE_ISS_LOCATION_FAILURE, NAME_SEARCHED, SUBMIT_OPTION_POPULATION,
+  DATA_API, RECEIVE_ISS_LOCATION_FAILURE, NAME_SEARCHED, SUBMIT_OPTION_POPULATION,
 } from '../reducers/data';
 import fetchDataApiStarWars from '../services/starWarsApi';
 
@@ -27,12 +26,9 @@ const apiTableError = (error) => ({
 });
 
 export default function dataApiStarWars() {
-  return (dispatch) => {
-    requestingDataApi();
-    return fetchDataApiStarWars()
-      .then(
-        (sucess) => dispatch(apiTabelSucess(sucess)),
-        (error) => dispatch(apiTableError(error)),
-      );
-  };
+  return (dispatch) => fetchDataApiStarWars()
+    .then(
+      (sucess) => dispatch(apiTabelSucess(sucess)),
+      (error) => dispatch(apiTableError(error)),
+    );
 }
