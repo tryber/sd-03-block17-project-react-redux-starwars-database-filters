@@ -10,7 +10,7 @@ export class FilterNumeric extends Component {
   }
 
   filterNumbers() {
-    const {filterNumber} = this.props ;
+    const { filterNumber } = this.props;
 
     const column = document.getElementById('filter');
     const comparation = document.getElementById('comparation');
@@ -50,7 +50,7 @@ export class FilterNumeric extends Component {
         </select>
 
         <input type="number" placeholder="numeros" id="input-value" data-testid="value-filter" />
-        <button 
+        <button
           type="button"
           onClick={this.filterNumbers}
           data-testid="button-filter"
