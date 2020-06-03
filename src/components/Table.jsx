@@ -61,6 +61,10 @@ class Table extends Component {
 
   componentDidUpdate(prevProps) {
     const { data } = this.props;
+    this.checkState(prevProps, data);
+  }
+
+  checkState(prevProps, data) {
     if (prevProps.data !== data) {
       this.setState({ filteredNumberData: data });
     }
@@ -92,18 +96,25 @@ class Table extends Component {
     return data;
   }
 
+  renderInput(filterByName) {
+    return (
+      <input
+        value={filterByName.name}
+        type="text"
+        onChange={this.handleChange}
+        data-testid="name-filter"
+      />
+    );
+  }
+
   render() {
     const { filteredNumberData } = this.state;
     const { filters: { filterByName } } = this.props;
     const filteredData = this.filterData(filteredNumberData);
     return (
       <div>
-        <input
-          value={filterByName.name}
-          type="text"
-          onChange={this.handleChange}
-          data-testid="name-filter"
-        />
+        {this.renderInput(filterByName)}
+
         <FilterComp fireFilter={this.fireFilter} filterArray={filterArray} />
         <table>
           <thead>
