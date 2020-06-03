@@ -31,7 +31,7 @@ const apiResults = (value) => value.map((row, index) => (
     <td key={value.climate}>{row.climate}</td>
     <td key={value.gravity}>{row.gravity}</td>
     <td key={value.terrain}>{row.terrain}</td>
-    <td key={value.surface_Water}>{row.surface_Water}</td>
+    <td key={value.surface_Water}>{row.surface_water}</td>
     <td key={value.population}>{row.population}</td>
     <td key={value.films}>{row.films}</td>
     <td key={value.created}>{row.created}</td>
