@@ -17,9 +17,8 @@ class Home extends React.Component {
   }
 
   filterTableNameOnChange(event) {
-    const { filterName, data } = this.props;
-    const dataFilter = data.filter((item) => item.name.includes(event.target.value));
-    console.log(dataFilter);
+    const { filterName, data, name } = this.props;
+    const dataFilter = data.filter((item) => item.name.includes(name));
     filterName(event.target.value, dataFilter);
   }
 

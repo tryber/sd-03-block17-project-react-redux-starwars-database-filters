@@ -45,6 +45,7 @@ const requestData = (state = stateDefault, action) => {
         error: action.error,
       };
     case RECEIVE_DATA_FILTER:
+      console.log(state)
       return {
         ...state,
         isFetching: false,
@@ -52,6 +53,7 @@ const requestData = (state = stateDefault, action) => {
         filters: { filterByName: { name: action.name } },
         dataFilter: action.data,
       };
+     
     default:
       return state;
   }
