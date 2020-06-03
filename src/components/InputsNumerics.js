@@ -54,7 +54,7 @@ class InputsNumerics extends React.Component {
       <select data-testid="comparison-filter" onChange={this.onChangeComparison}>
         <option></option>
         <option value="bigger_then">Maior que</option>
-        <option value="less_than">Menor que</option>
+        <option value="less_then">Menor que</option>
         <option value="equal">Igual</option>
       </select>
     );

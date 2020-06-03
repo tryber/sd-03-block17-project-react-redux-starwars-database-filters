@@ -26,9 +26,100 @@ class Table extends React.Component {
     };
   }
 
+  tbody(data, name) {
+    return (
+      <tbody>
+        {data.filter((item) => item.name.includes(name))
+          .map((item) => <tr key={item.name}>
+            <td>{item.name}</td>
+            <td>{item.climate}</td>
+            <td>{item.created}</td>
+            <td>{item.diameter}</td>
+            <td>{item.edited}</td>
+            <td>#</td>
+            <td>{item.gravity}</td>
+            <td>{item.orbital_period}</td>
+            <td>{item.population}</td>
+            <td>#</td>
+            <td>{item.rotation_period}</td>
+            <td>{item.surface_water}</td>
+            <td>{item.terrain}</td>
+          </tr>)}
+      </tbody>
+    );
+  }
+
+  tbodyFilters(data, name, option, comparison, valueFilter) {
+   if (comparison === "bigger_then") {
+    return (
+      <tbody>
+        {data.filter((item) => item.name.includes(name) && item[option] > valueFilter)
+          .map((item) => <tr key={item.name}>
+            <td>{item.name}</td>
+            <td>{item.climate}</td>
+            <td>{item.created}</td>
+            <td>{item.diameter}</td>
+            <td>{item.edited}</td>
+            <td>#</td>
+            <td>{item.gravity}</td>
+            <td>{item.orbital_period}</td>
+            <td>{item.population}</td>
+            <td>#</td>
+            <td>{item.rotation_period}</td>
+            <td>{item.surface_water}</td>
+            <td>{item.terrain}</td>
+          </tr>)}
+      </tbody>
+    );
+   } else if (comparison === "less_then") {
+    return (
+      <tbody>
+        {data.filter((item) => item.name.includes(name) && item[option] < valueFilter)
+          .map((item) => <tr key={item.name}>
+            <td>{item.name}</td>
+            <td>{item.climate}</td>
+            <td>{item.created}</td>
+            <td>{item.diameter}</td>
+            <td>{item.edited}</td>
+            <td>#</td>
+            <td>{item.gravity}</td>
+            <td>{item.orbital_period}</td>
+            <td>{item.population}</td>
+            <td>#</td>
+            <td>{item.rotation_period}</td>
+            <td>{item.surface_water}</td>
+            <td>{item.terrain}</td>
+          </tr>)}
+      </tbody>
+    );
+   } else if (comparison === "equal") {
+    return (
+      <tbody>
+        {data.filter((item) => item.name.includes(name) && item[option] === valueFilter)
+          .map((item) => <tr key={item.name}>
+            <td>{item.name}</td>
+            <td>{item.climate}</td>
+            <td>{item.created}</td>
+            <td>{item.diameter}</td>
+            <td>{item.edited}</td>
+            <td>#</td>
+            <td>{item.gravity}</td>
+            <td>{item.orbital_period}</td>
+            <td>{item.population}</td>
+            <td>#</td>
+            <td>{item.rotation_period}</td>
+            <td>{item.surface_water}</td>
+            <td>{item.terrain}</td>
+          </tr>)}
+      </tbody>
+    );
+   }
+  }
+
   table() {
-    const { data, name } = this.props;
+    const { data, name, option, valueFilter, isFiltered, comparison } = this.props;
     const { titles } = this.state;
+
     return (
       <table>
         <thead>
@@ -36,24 +127,8 @@ class Table extends React.Component {
             {titles.map((item) => <th key={item.id}>{item.title}</th>)}
           </tr>
         </thead>
-        <tbody>
-          {data.filter((item) => item.name.includes(name))
-            .map((item) => <tr key={item.name}>
-              <td>{item.name}</td>
-              <td>{item.climate}</td>
-              <td>{item.created}</td>
-              <td>{item.diameter}</td>
-              <td>{item.edited}</td>
-              <td>#</td>
-              <td>{item.gravity}</td>
-              <td>{item.orbital_period}</td>
-              <td>{item.population}</td>
-              <td>#</td>
-              <td>{item.rotation_period}</td>
-              <td>{item.surface_water}</td>
-              <td>{item.terrain}</td>
-            </tr>)}
-        </tbody>
+        {!isFiltered && this.tbody(data, name)}
+        {isFiltered && this.tbodyFilters(data, name, option, comparison, valueFilter)}
       </table>
     );
   }
@@ -71,6 +146,7 @@ const mapStateToProps = (state) => ({
   option: state.reducerFilters.filters.filterByNumericValues[0].column,
   comparison: state.reducerFilters.filters.filterByNumericValues[0].comparison,
   valueFilter: state.reducerFilters.filters.filterByNumericValues[0].value,
+  isFiltered: state.reducerFilters.filters.filterByNumericValues[0].isFiltered,
 });
 
 Table.propTypes = {
@@ -79,6 +155,7 @@ Table.propTypes = {
   option: PropTypes.string.isRequired,
   comparison: PropTypes.string.isRequired,
   valueFilter: PropTypes.string.isRequired,
+  isFiltered: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps)(Table);
