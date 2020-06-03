@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import fetchData from '../store/actions';
+import { fetchData } from '../actions';
 
 class Table extends React.Component {
   constructor(props) {
@@ -33,28 +33,53 @@ class Table extends React.Component {
           <th>Terrain</th>
           <th>Surface Water</th>
           <th>Population</th>
+          <th>Films</th>
+          <th>Created</th>
+          <th>Edited</th>
+          <th>URL</th>
         </tr>
       </thead>
     );
   }
 
   renderTableBody() {
-    const { data } = this.props;
+    const { data, nameInput } = this.props;
     return (
       <tbody>
-        {data.map((planet) => (
-          <tr key={planet.name}>
-            <td>{planet.name}</td>
-            <td>{`${planet.rotation_period} hours`}</td>
-            <td>{`${planet.orbital_period} days`}</td>
-            <td>{`${planet.diameter} km`}</td>
-            <td>{planet.climate}</td>
-            <td>{planet.gravity}</td>
-            <td>{planet.terrain}</td>
-            <td>{planet.surface_water}</td>
-            <td>{planet.population}</td>
-          </tr>
-        ))}
+        {data.filter((planet) => planet.name.toLowerCase().includes(nameInput.toLowerCase())).map(
+          (planet) => (
+            <tr key={planet.name}>
+              <td>{planet.name}</td>
+              <td>{`${planet.rotation_period} hours`}</td>
+              <td>{`${planet.orbital_period} days`}</td>
+              <td>{`${planet.diameter} km`}</td>
+              <td>{planet.climate}</td>
+              <td>{planet.gravity}</td>
+              <td>{planet.terrain}</td>
+              <td>{planet.surface_water}</td>
+              <td>{planet.population}</td>
+              <td>
+                {planet.films.map((film) => (
+                  <a
+                    href={film}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    key={film}
+                  >
+                    {film}
+                  </a>
+                ))}
+              </td>
+              <td>{planet.created}</td>
+              <td>{planet.edited}</td>
+              <td>
+                <a href={planet.url} target="_blank" rel="noopener noreferrer">
+                  {planet.url}
+                </a>
+              </td>
+            </tr>
+          ),
+        )}
       </tbody>
     );
   }
@@ -72,12 +97,14 @@ class Table extends React.Component {
 Table.propTypes = {
   fetchPlanets: propTypes.func.isRequired,
   data: propTypes.arrayOf(propTypes.object).isRequired,
+  nameInput: propTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   loading: state.loading,
   data: state.data,
   error: state.error,
+  nameInput: state.filters.filterByName.name,
 });
 
 const mapDispatchToProps = (dispatch) => ({

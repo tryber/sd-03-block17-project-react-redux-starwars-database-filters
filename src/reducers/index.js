@@ -1,9 +1,16 @@
-import { FETCH_DATA_LOADING, FETCH_DATA_SUCCESS, FETCH_DATA_ERROR } from '../actions';
+import {
+  FETCH_DATA_LOADING, FETCH_DATA_SUCCESS, FETCH_DATA_ERROR, FILTER_PLANETS_BY_NAME,
+} from '../actions';
 
 const initialState = {
   loading: false,
   data: [],
   error: null,
+  filters: {
+    filterByName: {
+      name: '',
+    },
+  },
 };
 
 function starWarsReducer(state = initialState, action) {
@@ -24,6 +31,11 @@ function starWarsReducer(state = initialState, action) {
         ...state,
         loading: false,
         error: action.payload.error,
+      };
+    case FILTER_PLANETS_BY_NAME:
+      return {
+        ...state,
+        filters: { filterByName: { name: action.payload.name } },
       };
     default:
       return state;

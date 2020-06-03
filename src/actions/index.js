@@ -1,6 +1,7 @@
 export const FETCH_DATA_LOADING = 'FETCH_DATA_LOADING';
 export const FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS';
 export const FETCH_DATA_ERROR = 'FETCH_DATA_ERROR';
+export const FILTER_PLANETS_BY_NAME = 'FILTER_PLANETS_BY_NAME';
 
 const fetchDataLoading = () => ({ type: FETCH_DATA_LOADING });
 
@@ -8,7 +9,7 @@ const fetchDataSuccess = (data) => ({ type: FETCH_DATA_SUCCESS, payload: { data 
 
 const fetchDataError = (error) => ({ type: FETCH_DATA_ERROR, payload: { error } });
 
-function fetchData() {
+export function fetchData() {
   return (dispatch) => {
     dispatch(fetchDataLoading());
     fetch('https://swapi-trybe.herokuapp.com/api/planets')
@@ -27,4 +28,4 @@ function fetchData() {
   };
 }
 
-export default fetchData;
+export const filterPlanetsByName = (name) => ({ type: FILTER_PLANETS_BY_NAME, payload: { name } });
