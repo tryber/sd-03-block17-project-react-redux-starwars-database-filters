@@ -3,23 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Filter from './Filter';
 
-
-const array = [
-  { filter: 'population', name: 'Population' },
-  { filter: 'orbital_period', name: 'Período orbital' },
-  { filter: 'diameter', name: 'Diâmetro' },
-  { filter: 'rotation_period', name: 'Periodo Rotacional' },
-  { filter: 'surface_water', name: 'Agua na superfície' },
-];
-
 function FilterComp({
   setNumericFilter, filters, fireFilter, changeId, categories, changeCategory,
 }) {
   const [filtersArray, setFilters] = React.useState([]);
+
+  const [column, setColumn] = React.useState('select');
+  const [comparison, setcomparison] = React.useState('choose');
+  const [value, setValue] = React.useState('');
   const [id, setId] = React.useState(0);
   const ref = React.useRef();
+
   function handleClick() {
-    fireFilter(id);
+    setNumericFilter({ column, comparison, value });
     setFilters(filters);
     changeId(1);
     setId((previd) => previd + 1);
@@ -30,7 +26,7 @@ function FilterComp({
   return (
     <div>
 
-      {filtersArray.map((e) => (
+      {filters.map((e) => (
         <Filter
           setFilters={setFilters}
           filtersArray={filtersArray}
@@ -40,18 +36,21 @@ function FilterComp({
 
       <select
         ref={ref}
-        value={(filters[id] && filters[id].column) || 'select'}
+        value={column}
         data-testid="column-filter"
-        onChange={(e) => setNumericFilter(e.target.value, 'column', id)}
+        onChange={(e) => setColumn(e.target.value)}
       >
         <option value="select">Escolha um</option>
-        {categories.map(({ filter }) => <option key={filter} value={filter}>{filter}</option>)}
+
+        {categories
+          .filter((e) => !filters.map((o) => o.column).includes(e))
+          .map((filter) => <option key={filter} value={filter}>{filter}</option>)}
       </select>
 
       <select
-        value={(filters[id] && filters[id].comparison) || 'choose'}
+        value={comparison}
         data-testid="comparison-filter"
-        onChange={(e) => setNumericFilter(e.target.value, 'comparison', id)}
+        onChange={(e) => setcomparison(e.target.value)}
       >
         <option value="choose">Choose One</option>
         <option value="maior que">maior que</option>
@@ -61,8 +60,8 @@ function FilterComp({
       </select>
 
       <input
-        value={(filters[id] && filters[id].value) || ''}
-        onChange={(e) => setNumericFilter(e.target.value, 'value', id)}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
         data-testid="value-filter"
         type="number"
       />
@@ -96,12 +95,9 @@ const mapStateToProps = (state) => ({
   categories: state.categories,
 });
 
-function NumericFilter(value, type, id) {
-  return { type: 'SET_NUMERIC_FILTER', payload: { value, type, id } };
-}
 
 const mapDispatchToProps = {
-  setNumericFilter: (value, type, id) => NumericFilter(value, type, id),
+  setNumericFilter: (payload) => ({ type: 'SET_NUMERIC_FILTER', payload }),
   changeId: (payload) => ({ type: 'CHANGE_ID', payload }),
   changeCategory: (payload) => ({ type: 'CHANGE_CATEGORY', payload }),
 };

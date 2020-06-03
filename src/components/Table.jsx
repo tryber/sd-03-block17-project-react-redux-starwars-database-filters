@@ -48,7 +48,6 @@ class Table extends Component {
       filteredNumberData: data,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.fireFilter = this.fireFilter.bind(this);
   }
 
   componentDidMount() {
@@ -63,8 +62,19 @@ class Table extends Component {
   }
 
   checkState(prevProps, data) {
+    const { filters: { filterByNumericValues } } = this.props;
+
+
     if (prevProps.data !== data) {
       this.setState({ filteredNumberData: data });
+    }
+    if (prevProps.filters.filterByNumericValues !== filterByNumericValues) {
+      let filteredNumberData = data;
+      filterByNumericValues.forEach(({ comparison: type, column: name, value }) => {
+        filteredNumberData = filteredNumberData.filter(setFilter(type, name, value));
+      });
+
+      this.setState({ filteredNumberData });
     }
   }
 
@@ -73,18 +83,6 @@ class Table extends Component {
     setNameFilter(e);
   }
 
-  fireFilter(id) {
-    const { filters: { filterByNumericValues }, data } = this.props;
-    // const { comparison: type, column: name, value } = filterByNumericValues[id];
-    let filteredNumberData = data;
-    filterByNumericValues.forEach(({ comparison: type, column: name, value }) => {
-      filteredNumberData = filteredNumberData.filter(setFilter(type, name, value));
-    });
-
-
-    // const filteredNumberData = data.filter(setFilter(type, name, value));
-    this.setState({ filteredNumberData });
-  }
 
   filterData(data) {
     const { filters: { filterByName } } = this.props;
@@ -118,7 +116,7 @@ class Table extends Component {
       <div>
         {this.renderInput(filterByName)}
 
-        <FilterComp fireFilter={this.fireFilter} filterArray={filterArray} />
+        <FilterComp filterArray={filterArray} />
         <table>
           <thead>
             <tr>
