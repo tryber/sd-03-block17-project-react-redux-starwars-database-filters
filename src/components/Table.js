@@ -12,14 +12,18 @@ import { filterByNumericValuesAction } from '../actions/filterByNumericValuesAct
 const GreaterLessEqual = (operator, column, value, obj) => {
   switch (operator) {
     case 'maior que':
-      if (!(Number(obj[column]) > value)) { return false; } return true;
+      if (!(Number(obj[column]) > value)) return false;
+      break;
     case 'menor que':
-      if (!(Number(obj[column]) < value)) { return false; } return true;
+      if (!(Number(obj[column]) < value)) return false;
+      break;
     case 'igual a':
-      if (!(Number(obj[column]) === value)) { return false; } return true;
+      if (!(Number(obj[column]) === value)) return false;
+      break;
     default:
       return true;
   }
+  return true;
 };
 
 class Table extends React.Component {
