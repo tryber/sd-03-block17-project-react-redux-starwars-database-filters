@@ -27,6 +27,19 @@ body {
   margin: 1px 15px;
 }
 
+.menu select {
+  border-radius: 1px;
+  margin: 1px;
+}
+
+.menu option {
+  background-color: whitesmoke;
+}
+
+.menu input {
+  border-radius: 2px;
+}
+
 h1 {
   color: antiquewhite;
   font-size: 1.7em;

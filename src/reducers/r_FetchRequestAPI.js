@@ -1,5 +1,4 @@
-import { REQUEST_API, RECEVIE_API_SUCESS } from '../action/a_FetchRequestAPI';
-import { FILTER_INPUT } from '../action/a_InpuName';
+import { REQUEST_API, RECEVIE_API_SUCESS } from '../action/index';
 
 const INITIAL_STATE = {
   data: [],
@@ -19,16 +18,6 @@ const requestAPI = (state = INITIAL_STATE, action) => {
         data: [...action.data],
         isFetching: false,
       };
-    case FILTER_INPUT:
-      return [{
-        ...state,
-        filters: {
-          filterByName: {
-            name: action.name,
-          },
-        },
-      }];
-
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchRequestAPI } from '../action/a_FetchRequestAPI';
+import { fetchRequestAPI } from '../action/index';
 
 class DispatchStore extends React.Component {
 

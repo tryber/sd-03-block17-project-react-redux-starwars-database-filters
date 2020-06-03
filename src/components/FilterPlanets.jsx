@@ -1,34 +1,36 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filterInputName } from '../action/a_InpuName';
+import { filterByName } from '../action/index';
+
 
 class FilterPlanets extends Component {
-  constructor(props) {
-    super(props);
-    this.planetsFilter = this.planetsFilter.bind(this);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.planetsFilter = this.planetsFilter.bind(this);
+  // }
 
-  planetsFilter(e) {
-    const { data } = this.props;
-    return ({
-      name: data.filter((ele) => ele.name.includes(e)),
-    });
-  }
+  // planetsFilter(e) {
+  //   const { data } = this.props;
+  //   return ({
+  //     name: data.filter((ele) => ele.name.includes(e)),
+  //   });
+  // }
 
   render() {
+    const { getPlanetByname } = this.props;
     return (
       <div>
-        Filter Planets :
+        Filter Planets
         <input
           type="text"
           data-testid="name-filter"
-          onChange={() => filterInputName((e) => this.planetsFilter(e.target.value))}
+          onChange={(e) => console.log('sera que funciona', getPlanetByname(e.target.value))}
         />
         <button
           type="button"
-          onClick={() => filterInputName((e) => this.planetsFilter(e.target.value))}
+          onClick={(e) => getPlanetByname(e)}
         >
           Search
         </button>
@@ -37,15 +39,16 @@ class FilterPlanets extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  data: state.requestAPI.data,
+// const mapStateToProps = (state) => ({
+//   data: state.requestAPI.data,
+// });
+
+const mapDispatchToProps = (dispatch) => ({
+  getPlanetByname: (e) => dispatch(filterByName(e)),
 });
 
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ filterInputName }, dispatch);
-
 FilterPlanets.propTypes = {
-  data: PropTypes.objectOf(PropTypes.any).isRequired,
+  getPlanetByname: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilterPlanets);
+export default connect(null, mapDispatchToProps)(FilterPlanets);

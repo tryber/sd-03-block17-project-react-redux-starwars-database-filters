@@ -12,6 +12,30 @@ function NavBar() {
             <li>Start</li>
             <li>About</li>
             <li>Contats</li>
+            <button
+              type="button"
+              data-testid="button-filter"
+            >
+              Filtrar
+            </button>
+            <select data-testid="column-filter">
+              <option>NodeName</option>
+              <option>population</option>
+              <option>orbital_period</option>
+              <option>diameter</option>
+              <option>rotation_period</option>
+              <option>surface_water</option>
+            </select>
+            <select data-testid="comparison-filter">
+              <option>NodeName</option>
+              <option>maior que</option>
+              <option>igual a</option>
+              <option>menor que</option>
+            </select>
+            <input
+              type="number"
+              data-testid="value-filter"
+            />
           </ul>
         </nav>
       </header>

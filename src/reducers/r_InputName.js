@@ -1,16 +1,34 @@
-// import FILTER_INPUT from '../action/a_InpuName';
+import { FILTER_BY_NAME, FILTER_BY_NUMBERS } from '../action/index';
 
-// const filterInput = (state, action) => {
+const INITIAL_STATE = {
+  filterByName: {
+    name: '',
+  },
+  // filterByNumericValues: [
+  //   {
+  //     column: 'population',
+  //     comparison: 'maior que',
+  //     value: '100000',
+  //   },
+  // ],
+};
 
-//   switch (action.type) {
-//     case FILTER_INPUT:
-//       return {
-//         ...state,
-//         data: [...action.data],
-//       };
-//     default:
-//       return state;
-//   }
-// };
+const filters = (state = INITIAL_STATE, action) => {
 
-// export default filterInput;
+  switch (action.type) {
+    case FILTER_BY_NAME:
+      return {
+        ...state,
+        name: action.value,
+      };
+    // case FILTER_BY_NUMBERS:
+    //   return {
+    //     ...state,
+    //     value: action.value,
+    //   };
+    default:
+      return state;
+  }
+};
+
+export default filters;
