@@ -22,6 +22,12 @@ const INITIAL_STATE = {
   error: '',
 };
 
+const changeElementOfNewArray = (array, index, elem) => ([
+  ...array.slice(0, index),
+  elem,
+  ...array.slice(index + 1),
+]);
+
 function dataReducer(state, action) {
   switch (action.type) {
     case REQUEST_PLANETS:
@@ -50,6 +56,19 @@ function filtersReducer(filters, action) {
         ...filters,
         filterByName: { name: action.text },
       };
+    case CHANGE_VALUES:
+      const changedFilter = {
+        ...filters.filterByNumericValues[action.id],
+        [action.filter]: action.value,
+      };
+      return ({
+        ...filters,
+        filterByNumericValues: changeElementOfNewArray(
+          filters.filterByNumericValues,
+          action.id,
+          changedFilter,
+        )
+      });
     default:
       return filters;
   }
@@ -62,6 +81,7 @@ const Reducer = (state = INITIAL_STATE, action) => {
     case FETCH_PLANETS_FAILURE:
       return dataReducer(state, action);
     case TYPE_NAME:
+    case CHANGE_VALUES:
       return {
         ...state,
         filters: filtersReducer(state.filters, action),

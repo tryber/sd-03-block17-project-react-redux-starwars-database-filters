@@ -17,6 +17,7 @@ const FilterBar = ({ numFilters }) => (
         <NumFilter
           filterValues={filterValues}
           id={id}
+          key={id}
           columnOptions={columnOptions}
         />
       ))}
@@ -33,7 +34,7 @@ FilterBar.propTypes = {
     PropTypes.shape({
       column: PropTypes.string.isRequired,
       comparison: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired,
+      value: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
 };
