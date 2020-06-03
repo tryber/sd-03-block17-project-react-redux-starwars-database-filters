@@ -39,11 +39,9 @@ const filterByText = (name) => ({
   name,
 });
 
-const filterByNumericValues = ({ column, comparison, value }) => ({
+const filterByNumericValues = (...params) => ({
   type: FILTER_BY_NUMERIC_VALUES,
-  column,
-  comparison,
-  value,
+  params,
 });
 
 export {
