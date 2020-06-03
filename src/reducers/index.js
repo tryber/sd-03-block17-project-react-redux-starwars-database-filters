@@ -7,6 +7,12 @@ const INITIAL_STATE = {
       filteredPlanets: [],
     },
   },
+  filterByNumericValues: [
+    {
+      column: ' ',
+      comparison: ' ',
+      value: 0,
+    }],
 };
 
 function requestReducer(state = INITIAL_STATE, action) {
@@ -31,6 +37,10 @@ function requestReducer(state = INITIAL_STATE, action) {
         ...state,
         filters: { filterByName: { name: filterName, filteredPlanets: [filteredPlanets] } },
       }; }
+    case 'FILTER_PLANET_NUMERIC':
+      return {
+        ...state,
+      };
     default:
       return state;
   }
