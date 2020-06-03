@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchingPlanetsInfo, filterByText } from '../actions/actionsCreators';
 import Table from '../components/table/Table';
 import FilterByNameBar from '../components/FilterByNameBar';
+import FilterByValuesBar from '../components/FilterByValuesBar';
 
 export class Home extends Component {
   componentDidMount() {
@@ -26,6 +27,9 @@ export class Home extends Component {
           <FilterByNameBar
             onChange={(event) => planetName(event.target.value)}
           />
+          <div>
+            <FilterByValuesBar />
+          </div>
         </div>
         {loading ? <h1>Loading..</h1> : <Table data={this.filteredPlanetDataByText(data)} />}
       </div>

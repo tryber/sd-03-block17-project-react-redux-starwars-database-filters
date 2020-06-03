@@ -39,7 +39,7 @@ const filterByText = (name) => ({
   name,
 });
 
-const filterByNumericValues = (column, comparison, value) => ({
+const filterByNumericValues = ({ column, comparison, value }) => ({
   type: FILTER_BY_NUMERIC_VALUES,
   column,
   comparison,
