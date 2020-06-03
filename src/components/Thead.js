@@ -1,6 +1,7 @@
+
 import React from 'react';
 
-const Thead = () => (
+const TableHeader = () => (
   <thead>
     <tr>
       <th>Name</th>
@@ -20,4 +21,4 @@ const Thead = () => (
   </thead>
 );
 
-export default Thead;
+export default TableHeader;

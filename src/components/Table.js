@@ -6,8 +6,10 @@ import Thead from './Thead';
 const Table = ({ data }) => (
   <div>
     <h1>Coisas</h1>
-    <Thead />
-    <Tbody data={data} />
+    <table>
+      <Thead />
+      <Tbody data={data} />
+    </table>
   </div>
 );
 

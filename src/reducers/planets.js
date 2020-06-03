@@ -13,6 +13,7 @@ const selectPlanets = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case REQUEST_PLANETS:
       return {
+        ...state,
         data: [],
         isFetching: true,
       };
