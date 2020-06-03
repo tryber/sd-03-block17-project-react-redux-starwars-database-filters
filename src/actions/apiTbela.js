@@ -4,10 +4,6 @@ import {
 } from '../reducers/data';
 import fetchDataApiStarWars from '../services/starWarsApi';
 
-const requestingDataApi = () => ({
-  type: REQUESTING_STAR_WARS_API,
-});
-
 const apiTabelSucess = (value) => ({
   type: DATA_API,
   data: value,
