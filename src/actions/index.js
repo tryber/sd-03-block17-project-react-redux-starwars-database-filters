@@ -1,4 +1,4 @@
-import { getAllPlanetsFromAPI, getPlanetByNameFromAPI } from '../services/planetsAPI';
+import { getAllPlanetsFromAPI } from '../services/planetsAPI';
 
 export const REQUEST_PLANETS = 'REQUEST_PLANETS';
 export const RECEIVE_PLANETS_SUCCESS = 'RECEIVE_PLANETS_SUCCESS';
@@ -35,20 +35,8 @@ export function fetchPlanets() {
   };
 }
 
-const filterByText = (name) => ({
+export const filterByText = (name) => ({
   type: FILTER_BY_TEXT,
   isFetching: true,
   name,
 });
-
-export function fetchByName(name) {
-  return (dispatch) => {
-    dispatch(filterByText(name));
-
-    return getPlanetByNameFromAPI(name)
-      .then(
-        (planets) => dispatch(receivePlanetsSuccess(planets)),
-        (error) => dispatch(receivePlanetsFailure(error.message)),
-      );
-  };
-}

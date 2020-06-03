@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { fetchPlanets, fetchByName } from '../actions';
+import { fetchPlanets, filterByText } from '../actions';
 import Table from '../components/Table';
 import FilterByNameInput from '../components/FilterByNameInput';
 
@@ -13,11 +13,18 @@ class Home extends React.Component {
     getPlanets();
   }
 
+  filterDataByText(data) {
+    const { nameFilter } = this.props;
+    if (nameFilter !== '') {
+      return data.filter(({ name }) => name.toLowerCase().includes(nameFilter.toLowerCase()));
+    }
+    return data;
+  }
+
   render() {
     const {
-      data, isFetching, getByName, nameFilter,
+      data, isFetching, getByName,
     } = this.props;
-    console.log(nameFilter);
     return (
       <div className="Home">
         <div>
@@ -28,7 +35,7 @@ class Home extends React.Component {
         {isFetching ? (
           <h1>Loading..</h1>
         ) : (
-          <Table data={data} />
+          <Table data={this.filterDataByText(data)} />
         )}
       </div>
     );
@@ -37,7 +44,7 @@ class Home extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getPlanets: () => dispatch(fetchPlanets()),
-  getByName: (planetName) => dispatch(fetchByName(planetName)),
+  getByName: (planetName) => dispatch(filterByText(planetName)),
 });
 
 const mapStateToProps = (state) => ({
