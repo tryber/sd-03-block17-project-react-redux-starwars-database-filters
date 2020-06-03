@@ -45,9 +45,15 @@ function Body({ planets, name, column, comparison, value }) {
 const mapStateToProps = (state) => ({
   planets: state.ReducerPlanets.data,
   name: state.filters.filterByName.name,
-  column: state.filters.filterByNumericValues[0].column,
-  comparison: state.filters.filterByNumericValues[0].comparison,
-  value: state.filters.filterByNumericValues[0].value,
+  column: state.filters.filterByNumericValues[
+    state.filters.filterByNumericValues.length - 1
+  ].column,
+  comparison: state.filters.filterByNumericValues[
+    state.filters.filterByNumericValues.length - 1
+  ].comparison,
+  value: state.filters.filterByNumericValues[
+    state.filters.filterByNumericValues.length - 1
+  ].value,
 });
 
 export default connect(mapStateToProps)(Body);

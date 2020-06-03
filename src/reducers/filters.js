@@ -1,4 +1,4 @@
-import { FILTER_BY_NAME, FILTER_BY_NUMERIC } from '../action';
+import { FILTER_BY_NAME, FILTER_BY_NUMERIC, REMOVE_NUMERIC } from '../action';
 
 const INITIAL_STATE = {
   filterByName: { name: '' },
@@ -16,15 +16,25 @@ const filters = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         filterByNumericValues: [
+          ...state.filterByNumericValues,
           {
             column: action.column,
             comparison: action.comparison,
             value: action.value,
           },
-          ...state.filterByNumericValues,
         ],
       };
+    case REMOVE_NUMERIC:
+      const updateNumeric = state.filterByNumericValues.splice(action.index, 1)
+      return {
+        ...state,
+        filterByNumericValues: updateNumeric,
+        /* [
+          ...state.filterByNumericValues.slice(0, action.index - 1),
+          ...state.filterByNumericValues.slice(action.index + 1)
+        ] */
 
+      }
     default:
       return state;
   }

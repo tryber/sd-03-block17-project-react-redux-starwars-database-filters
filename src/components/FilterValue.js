@@ -8,7 +8,6 @@ class FilterValue extends React.Component {
     super(props);
 
     this.state = {
-      select: [],
       number: '',
       column: '',
       comparation: '',
@@ -32,7 +31,7 @@ class FilterValue extends React.Component {
       'surface_water',
     ];
     const stateColumns = numericValues.map(({ column }) => column);
-    this.setState({ select: ['', ...columns.filter((column) => !stateColumns.includes(column))] });
+    return ['', ...columns.filter((column) => !stateColumns.includes(column))];
   }
 
   componentDidMount() {
@@ -49,12 +48,11 @@ class FilterValue extends React.Component {
   onClick() {
     const { number, column, comparation } = this.state;
     this.props.filterByNumericValues(column, comparation, number);
-    this.setState({ select: [], number: '', column: '', comparation: '' })
-    this.updateColumn();
+    this.setState({ number: '', column: '', comparation: '' });
   }
 
   getColumns() {
-    const { select } = this.state;
+    const select = this.updateColumn();
     return (
       <select
         className="select is-info"
@@ -125,5 +123,10 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(FilterValue);
 
 FilterValue.propTypes = {
+  numericValues: PropTypes.arrayOf(PropTypes.shape({
+    column: PropTypes.string,
+    comparison: PropTypes.string,
+    value: PropTypes.string,
+  })).isRequired,
   filterByNumericValues: PropTypes.func.isRequired,
 };
