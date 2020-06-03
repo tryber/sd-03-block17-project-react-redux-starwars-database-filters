@@ -7,6 +7,18 @@ import FilterByNameBar from '../components/FilterByNameBar';
 import FilterByValuesBar from '../components/FilterByValuesBar';
 import SelectedFilters from '../components/SelectedFilters';
 
+function makeComparison(column, comparison, value, element) {
+  switch (comparison) {
+    case 'maior que':
+      return Number(element[column]) > Number(value);
+    case 'menor que':
+      return Number(element[column]) < Number(value);
+    case 'igual a':
+      return Number(element[column]) === Number(value);
+    default:
+      return [];
+  }
+}
 export class Home extends Component {
   componentDidMount() {
     const { getPlanetsInfo } = this.props;
@@ -23,20 +35,10 @@ export class Home extends Component {
 
   filterDataByNumericValue(data) {
     const { valueFilters } = this.props;
-    const { column, comparison, value } = valueFilters;
-    if (comparison === 'menor que') {
-      return this.filterDataByText(data)
-        .filter((element) => Number(element[column]) < Number(value));
-    }
-    if (comparison === 'maior que') {
-      return this.filterDataByText(data).filter(
-        (element) => Number(element[column]) > Number(value),
-      );
-    }
-    if (comparison === 'igual a') {
-      return this.filterDataByText(data).filter(
-        (element) => Number(element[column]) === Number(value),
-      );
+    if (valueFilters) {
+      return valueFilters
+        .reduce((acc, { column, comparison, value }) => this.filterDataByText(data)
+          .filter((element) => makeComparison(column, comparison, value, element)), []);
     }
     return this.filterDataByText(data);
   }
