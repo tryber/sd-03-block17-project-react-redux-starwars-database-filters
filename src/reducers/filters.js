@@ -1,9 +1,11 @@
 import { FILTER_BY_NAME } from '../actions/filterByNameAction';
+import { FILTER_BY_NUMERIC_VALUES } from '../actions/filterByNumericValues';
 
 const INITIAL_STATE = {
   filterByName: {
     name: '',
   },
+  filterByNumericValues: [],
 };
 
 const filters = (state = INITIAL_STATE, action) => {
@@ -12,9 +14,16 @@ const filters = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         filterByName: {
-          // ...state.filterByName,
           name: action.typedText,
         },
+      };
+    case FILTER_BY_NUMERIC_VALUES:
+      return {
+        ...state,
+        filterByNumericValues: [
+          ...state.filterByNumericValues,
+          { ...action.filteredObj },
+        ],
       };
     default:
       return state;
