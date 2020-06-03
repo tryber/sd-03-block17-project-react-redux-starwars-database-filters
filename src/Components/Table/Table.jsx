@@ -8,6 +8,11 @@ import './Table.css';
 import CreateTable from './CreateTable';
 
 class Table extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.hearderTable = this.hearderTable.bind(this)
+  }
   componentDidMount() {
     const { apiRequestDispatch } = this.props;
 
@@ -33,7 +38,7 @@ class Table extends React.Component {
           <th>url</th>
         </tr>
       </thead>
-    )
+    );
   }
 
   filteredPlanet(data) {
@@ -46,13 +51,12 @@ class Table extends React.Component {
 
   render() {
     const { loading, data } = this.props;
-    console.log(data)
     return (
       <div className="TabelaProdutos" >
         <div>
-          <hr style={{ border: "outset" }} />
+          <hr style={{ border: 'outset' }} />
           <h1>Star Wars Table</h1>
-          <hr style={{ border: "outset" }} />
+          <hr style={{ border: 'outset' }} />
         </div>
         <div className="input-filter">
           <InputNamePlanet />

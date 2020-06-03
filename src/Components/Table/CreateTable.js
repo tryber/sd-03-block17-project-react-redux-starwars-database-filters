@@ -19,8 +19,8 @@ export default function CreateTable(props) {
           <td>{planet.created}</td>
           <td>{planet.edited}</td>
           <td>{planet.url}</td>
-        </tr>
+        </tr>,
       )}
     </tbody>
   );
-};
+}

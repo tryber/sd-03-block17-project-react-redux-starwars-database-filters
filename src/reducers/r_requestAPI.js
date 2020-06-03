@@ -3,7 +3,7 @@ import {
   REQUEST_SUCCESS,
 } from '../Components/Types';
 
-const INITIAL_STATE  = {
+const INITIAL_STATE = {
   data: [],
   loading: false,
 };

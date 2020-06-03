@@ -26,6 +26,6 @@ class InputNamePlanet extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getFilters: (e) => dispatch(filters(e)),
-})
+});
 
 export default connect(null, mapDispatchToProps)(InputNamePlanet);
