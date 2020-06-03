@@ -3,26 +3,33 @@ import {
   FETCH_PLANETS_SUCESS,
   FETCH_PLANETS_FAILURE,
 } from '../actions/fetchPlanetsAction';
+
+import {
+  CHANGE_VALUES,
+  CREATE_NUMERIC_FILTER,
+  ACTIVATE_NUMERIC_FILTER,
+} from '../actions/NumFilterActions';
+
 import { TYPE_NAME } from '../actions/SearchTextAction';
-import { CHANGE_VALUES } from '../actions/NumFilterActions';
+
+const defaultNumericFilterElem = {
+  column: '',
+  comparison: '',
+  value: '',
+};
 
 const INITIAL_STATE = {
   filters: {
     filterByName: { name: '' },
-    filterByNumericValues: [
-      {
-        column: '',
-        comparison: '',
-        value: '',
-      },
-    ],
+    inProgresNumericFilter: [defaultNumericFilterElem],
+    filterByNumericValues: [defaultNumericFilterElem],
   },
   isFetching: true,
   data: [],
   error: '',
 };
 
-const changeElementOfNewArray = (array, index, elem) => ([
+const changeElemOfNewArray = (array, index, elem) => ([
   ...array.slice(0, index),
   elem,
   ...array.slice(index + 1),
@@ -53,6 +60,7 @@ function dataReducer(state, action) {
 }
 
 function filtersReducer(filters, action) {
+  const { filterByNumericValues, inProgresNumericFilter } = filters;
   switch (action.type) {
     case TYPE_NAME:
       return {
@@ -62,16 +70,39 @@ function filtersReducer(filters, action) {
 
     case CHANGE_VALUES:
       const changedFilter = {
-        ...filters.filterByNumericValues[action.id],
+        ...inProgresNumericFilter[action.id],
         [action.filter]: action.value,
       };
       return ({
         ...filters,
-        filterByNumericValues: changeElementOfNewArray(
-          filters.filterByNumericValues,
+        inProgresNumericFilter: changeElemOfNewArray(
+          inProgresNumericFilter,
           action.id,
           changedFilter,
-        )
+        ),
+      });
+
+    case CREATE_NUMERIC_FILTER:
+      return ({
+        ...filters,
+        inProgresNumericFilter: [
+          ...inProgresNumericFilter,
+          defaultNumericFilterElem,
+        ],
+        filterByNumericValues: [
+          ...filterByNumericValues,
+          defaultNumericFilterElem,
+        ],
+      });
+
+    case ACTIVATE_NUMERIC_FILTER:
+      return ({
+        ...filters,
+        filterByNumericValues: changeElemOfNewArray(
+          filterByNumericValues,
+          action.id,
+          inProgresNumericFilter[action.id],
+        ),
       });
 
     default:
@@ -88,6 +119,8 @@ const Reducer = (state = INITIAL_STATE, action) => {
 
     case TYPE_NAME:
     case CHANGE_VALUES:
+    case CREATE_NUMERIC_FILTER:
+    case ACTIVATE_NUMERIC_FILTER:
       return {
         ...state,
         filters: filtersReducer(state.filters, action),

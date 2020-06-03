@@ -31,8 +31,8 @@ const FilterBar = ({ numFilters }) => (
   </section>
 );
 
-const mapStateToProps = ({ filters: { filterByNumericValues } }) => ({
-  numFilters: filterByNumericValues,
+const mapStateToProps = ({ filters: { inProgresNumericFilter } }) => ({
+  numFilters: inProgresNumericFilter,
 });
 
 FilterBar.propTypes = {

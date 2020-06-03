@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import changeValue from '../actions/NumFilterActions';
+import * as actions from '../actions/NumFilterActions';
 
 const comparisonOptions = ['maior que', 'menor que', 'igual a'];
 
@@ -27,7 +27,7 @@ class NumFilter extends React.Component {
   }
 
   render() {
-    const { columnOptions, filterValues, onChange, id } = this.props;
+    const { columnOptions, filterValues, onChange, id, activateFilter } = this.props;
     const { column, comparison, value } = filterValues;
     return (
       <div>
@@ -42,6 +42,12 @@ class NumFilter extends React.Component {
             onChange={({ target: { value } }) => onChange('value', value, id)}
           />
         </label>
+        <button
+          data-testid="button-filter"
+          type="button"
+          onClick={() => activateFilter(id)}
+        >Activate
+        </button>
       </div>
     );
   }
@@ -53,6 +59,7 @@ NumFilter.propTypes = {
   comparison: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  activateFilter: PropTypes.func.isRequired,
 };
 
 NumFilter.defaultProps = {
@@ -62,7 +69,8 @@ NumFilter.defaultProps = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onChange: (filter, value, id) => dispatch(changeValue(filter, value, id)),
+  onChange: (filter, value, id) => dispatch(actions.changeValue(filter, value, id)),
+  activateFilter: (id) => dispatch(actions.createFilter(id)),
 });
 
 export default connect(null, mapDispatchToProps)(NumFilter);
