@@ -32,7 +32,7 @@ class Home extends React.Component {
       <div>
         <label htmlFor="namePlanet">
           <input
-            data-testid='name-filter'
+            data-testid="name-filter"
             name="namePlanet"
             type="text"
             onChange={this.filterTableNameOnChange}
