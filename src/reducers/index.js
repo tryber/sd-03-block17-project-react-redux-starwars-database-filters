@@ -1,13 +1,14 @@
 import { REQUEST_API_DATA } from "../actions";
 import { PROCESS_API_DATA } from "../actions";
+import { combineReducers } from "redux";
 
-const init_state = {
-  loading: false,
+const initState = {
   count: 0,
-  results: []
+  data: [],
+  loading: false,
 }
 
-function planetReducer(state = init_state, action) {
+function planetReducer(state = initState, action) {
   switch (action.type) {
     case REQUEST_API_DATA:
       return {
@@ -18,12 +19,13 @@ function planetReducer(state = init_state, action) {
       return {
         ...state,
         loading: false,
-        results: action.results,
-        count: action.count
+        data: action.results,
+        count: action.count,
+        next: action.next
       };
     default:
       return state;
   }
 }
 
-export default planetReducer;
+export default combineReducers({ planetReducer });

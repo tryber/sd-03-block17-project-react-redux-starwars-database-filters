@@ -16,10 +16,10 @@ export const receiveData = (data) => (
   }
 );
 
-export const fetchPlanet = (url) => {
+export const fetchPlanet = () => {
   return function (dispatch) {
     dispatch(requestData());
-    return fetch(url)
+    return fetch('https://swapi-trybe.herokuapp.com/api/planets/')
       .then((rawResponse) => rawResponse.json())
       .then((json) => dispatch(receiveData(json)))
   }

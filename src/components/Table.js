@@ -5,19 +5,6 @@ class Table extends React.Component {
   //   super(props)
   // }
 
-  // const {
-  //   name,
-  //   climate,
-  //   gravity,
-  //   diameter,
-  //   population,
-  //   orbital_period,
-  //   rotation_pediod,
-  //   surface_water,
-  //   terrain,
-  //   url
-  // } = this.props.planets;
-
   render() {
     const { planets } = this.props;
     return (
@@ -32,12 +19,12 @@ class Table extends React.Component {
             <th>Orbital period</th>
             <th>Rotation period</th>
             <th>Terrain</th>
-            <th>Has water on the surface?</th>
+            <th>Surface Water</th>
             <th>Gravity</th>
             <th>URL</th>
           </tr>
           {planets.map((planet) => (
-            <tr>
+            <tr key={planet.url}>
               <td>{planet.name}</td>
               <td>{planet.diameter}</td>
               <td>{planet.population}</td>

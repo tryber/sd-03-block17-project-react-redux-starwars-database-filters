@@ -9,32 +9,38 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      planets: [],
-      url: 'swapi-trybe.herokuapp.com/api/planets/',
+      filters: {
+        filterByName: {
+          name: ''
+        }
+      }
     }
   }
 
   componentDidMount() {
     const { fetchPlanets } = this.props;
-    this.setState(
-      {
-        planets: fetchPlanets(this.state.url)
-      }
-    );
-    console.log(fetchPlanets(this.state.url))
+    fetchPlanets();
   }
 
   render() {
-    const { planets, numResults, nextPageURL } = this.props;
+    const { planets, numResults, nextPageURL, fetchPlanets } = this.props;
+    const { name } = this.state.filters.filterByName;
     return (
       <div className="App">
         <header>
           <h2>Projeto Bloco 17</h2>
+          <label htmlFor='name-filter'>Filtrar por nome</label>
+          <input
+            data-testid='name-filter'
+            name='inputFilter'
+            onChange={(evt) => this.setState({filters: {filterByName: {name: evt.target.value}}})}
+            value={name}
+          />
           <Table planets={planets}/>
         </header>
         <footer>
           <p>A pesquisa retornou {numResults} resultados.</p>
-          <button onClick={() => (this.fetchPlanets(nextPageURL))}>Próxima página</button>
+          <button onClick={() => (fetchPlanets(nextPageURL))}>Próxima página</button>
         </footer>
       </div>
       );
@@ -42,7 +48,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  planets: state.planetReducer.results,
+  planets: state.planetReducer.data,
   numResults: state.planetReducer.count,
   nextPageURL: state.planetReducer.next
 })
