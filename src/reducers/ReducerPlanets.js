@@ -13,10 +13,7 @@ const INITIAL_STATE = {
 const ReducerPlanets = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case REQUEST_PLANETS:
-      return {
-        ...state,
-        isFetching: true,
-      };
+      return { ...state, isFetching: true, };
     case SUCCESS_PLANETS:
       return {
         ...state,
@@ -40,7 +37,6 @@ const ReducerPlanets = (state = INITIAL_STATE, action) => {
         filteredData: state.data.filter(({ name }) =>
           name.includes(action.name)),
       }
-
     default:
       return state;
   }

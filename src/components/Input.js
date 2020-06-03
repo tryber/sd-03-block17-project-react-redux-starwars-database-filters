@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { filterByName } from '../action';
 
 class Input extends React.Component {
@@ -11,7 +12,7 @@ class Input extends React.Component {
       number: 0,
       column: '',
       comparation: '',
-    }
+    };
 
     this.onTextChange = this.onTextChange.bind(this);
     this.onNumberChange = this.onNumberChange.bind(this);
@@ -25,13 +26,13 @@ class Input extends React.Component {
     this.props.filterByName(event.target.value);
   }
 
-  onNumberChange(event){
+  onNumberChange(event) {
     this.setState({ number: event.target.value });
   }
 
   onSelectChange(event, chave) {
     const { value } = event.target;
-    this.setState({ [chave]: value })
+    this.setState({ [chave]: value });
   }
 
   getColumns() {
@@ -41,15 +42,15 @@ class Input extends React.Component {
       'orbital_period',
       'diameter',
       'rotation_period',
-      'surface_water'
+      'surface_water',
     ];
     return (
       <select
         onChange={(event) => this.onSelectChange(event, 'column')}
-        data-testid='column-filter'
+        data-testid="column-filter"
         value={this.state.column}
       >
-        {columns.map(option =>
+        {columns.map((option) =>
           <option key={option} value={option}>{option}</option>)
         }
       </select>
@@ -66,10 +67,10 @@ class Input extends React.Component {
     return (
       <select
         onChange={(event) => this.onSelectChange(event, 'comparation')}
-        data-testid='column-filter'
+        data-testid="column-filter"
         value={this.state.comparation}
       >
-        {comparation.map(option =>
+        {comparation.map((option) =>
           <option key={option} value={option}>{option}</option>)
         }
       </select>
@@ -106,3 +107,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(null, mapDispatchToProps)(Input);
+
+Input.propTypes = {
+  filterByName: PropTypes.func.isRequired,
+};
