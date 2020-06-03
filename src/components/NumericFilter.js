@@ -36,9 +36,10 @@ class NumericFilter extends React.Component {
         <label htmlFor="column-filter">Filtre por coluna</label>
         <select
           data-testid="column-filter" name="column-filter"
-          onMouseOver={() => columnOptions.map((e) => <option value={e}>{e}</option>)}
           onChange={(e) => this.handleChange('column', e.target.value)}
-        />
+        >
+          {columnOptions.map((e) => <option value={e}>{e}</option>)}
+        </select>  
         <label htmlFor="comparison-filter">Condição</label>
         <select
           data-testid="comparison-filter" name="comparison-filter"
