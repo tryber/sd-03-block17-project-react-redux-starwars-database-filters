@@ -5,6 +5,7 @@ export class FilterNumeric extends Component {
     return (
       <div>
         <select data-testid="column-filter" name="filter">
+        <option value=" ">Selecione Uma Opção </option>
           <option value="population">population</option>
           <option value="orbital_period">orbital_period</option>
           <option value="diameter">diameter</option>
