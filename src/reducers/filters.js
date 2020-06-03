@@ -6,9 +6,9 @@ const INITIAL_STATE = {
   },
   filterByNumericValues: [
     {
-      column: 'population',
-      comparison: 'maior que',
-      value: 0,
+      column: '',
+      comparison: '',
+      value: '',
     },
   ],
 };
@@ -23,9 +23,15 @@ const filters = (state = INITIAL_STATE, action) => {
         },
       };
     case FILTER_BY_NUMERIC_VALUES:
+      if (state.filterByNumericValues[0].column === '') {
+        return {
+          ...state,
+          filterByNumericValues: [action.data],  
+        };
+      }
       return {
         ...state,
-        filterByNumericValues: [state.filterByNumericValues, ...action.data],
+        filterByNumericValues: [...state.filterByNumericValues, action.data],
       };
     default:
       return state;
