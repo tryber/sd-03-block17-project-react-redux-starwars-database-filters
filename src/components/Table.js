@@ -13,17 +13,16 @@ const GreaterLessEqual = (operator, column, value, obj) => {
   switch (operator) {
     case 'maior que':
       if (!(Number(obj[column]) > value)) return false;
-      break;
+      return true;
     case 'menor que':
       if (!(Number(obj[column]) < value)) return false;
-      break;
+      return true;
     case 'igual a':
       if (!(Number(obj[column]) === value)) return false;
-      break;
+      return true;
     default:
       return true;
   }
-  return true;
 };
 
 class Table extends React.Component {
