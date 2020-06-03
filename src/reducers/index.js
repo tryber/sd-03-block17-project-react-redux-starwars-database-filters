@@ -2,6 +2,13 @@ const initialState = {
   data: { results: [] },
   filters: { filterByName: { name: '' }, filterByNumericValues: [{ }] },
   id: 0,
+  categories: [
+    { filter: 'population', name: 'Population' },
+    { filter: 'orbital_period', name: 'Período orbital' },
+    { filter: 'diameter', name: 'Diâmetro' },
+    { filter: 'rotation_period', name: 'Periodo Rotacional' },
+    { filter: 'surface_water', name: 'Agua na superfície' },
+  ],
 };
 
 function emptyReducer(state = initialState, action) {
@@ -31,6 +38,18 @@ function emptyReducer(state = initialState, action) {
         ...state, id: state.id + action.payload,
       };
     }
+    case 'CHANGE_CATEGORY':
+      if (action.payload.type === 'remove') {
+        return {
+          ...state, categories: state.categories.filter((e) => e.filter !== action.payload.pay),
+        };
+      }
+
+      return {
+        ...state, categories: [...state.categories, action.payload.pay],
+      };
+
+
     default:
       return state;
   }

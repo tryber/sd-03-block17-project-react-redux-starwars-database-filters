@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Filter from './Filter';
 
 
-const filterArray = [
+const array = [
   { filter: 'population', name: 'Population' },
   { filter: 'orbital_period', name: 'Período orbital' },
   { filter: 'diameter', name: 'Diâmetro' },
@@ -13,30 +13,39 @@ const filterArray = [
 ];
 
 function FilterComp({
-  setNumericFilter, filters, fireFilter, changeId,
+  setNumericFilter, filters, fireFilter, changeId, categories, changeCategory,
 }) {
   const [filtersArray, setFilters] = React.useState([]);
   const [id, setId] = React.useState(0);
-
+  const ref = React.useRef();
   function handleClick() {
     fireFilter(id);
     setFilters(filters);
     changeId(1);
     setId((previd) => previd + 1);
+
+    changeCategory({ type: 'remove', pay: ref.current.value });
   }
 
   return (
     <div>
 
-      {filtersArray.map((e) => <Filter {...e} />)}
+      {filtersArray.map((e) => (
+        <Filter
+          setFilters={setFilters}
+          filtersArray={filtersArray}
+          {...e}
+        />
+      ))}
 
       <select
+        ref={ref}
         value={(filters[id] && filters[id].column) || 'select'}
         data-testid="column-filter"
         onChange={(e) => setNumericFilter(e.target.value, 'column', id)}
       >
         <option value="select">Escolha um</option>
-        {filterArray.map(({ filter, name }) => <option key={filter} value={filter}>{filter}</option>)}
+        {categories.map(({ filter }) => <option key={filter} value={filter}>{filter}</option>)}
       </select>
 
       <select
@@ -76,12 +85,15 @@ FilterComp.propTypes = {
   filters: PropTypes.isRequired,
   id: PropTypes.isRequired,
   fireFilter: PropTypes.isRequired,
-
+  changeId: PropTypes.func.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  changeCategory: PropTypes.func.isRequired,
 };
 
 
 const mapStateToProps = (state) => ({
   filters: state.filters.filterByNumericValues,
+  categories: state.categories,
 });
 
 function NumericFilter(value, type, id) {
@@ -91,6 +103,7 @@ function NumericFilter(value, type, id) {
 const mapDispatchToProps = {
   setNumericFilter: (value, type, id) => NumericFilter(value, type, id),
   changeId: (payload) => ({ type: 'CHANGE_ID', payload }),
+  changeCategory: (payload) => ({ type: 'CHANGE_CATEGORY', payload }),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterComp);
