@@ -6,27 +6,26 @@ export class Table extends Component {
   renderTableBody() {
     const { value: { data } } = this.props;
     const { results } = data;
-    const { value: { filters: { filterByName: { filteredPlanets } } } } = this.props;
     return results.map((element) => (
       <tr key={element.name}>
-          <td>{element.name}</td>
-          <td>{element.rotation_period}</td>
-          <td>{element.orbital_period}</td>
-          <td>{element.diameter}</td>
-          <td>{element.climate}</td>
-          <td>{element.gravity}</td>
-          <td >{element.terrain}</td>
-          <td >{element.surface_water}</td>
-          <td >{element.population}</td>
-          <td >{element.films}</td>
-          <td >{element.created}</td>
-          <td >{element.edited}</td>
-          <td>{element.url}</td>
-        </tr>
-      ));
- }
+        <td>{element.name}</td>
+        <td>{element.rotation_period}</td>
+        <td>{element.orbital_period}</td>
+        <td>{element.diameter}</td>
+        <td>{element.climate}</td>
+        <td>{element.gravity}</td>
+        <td >{element.terrain}</td>
+        <td >{element.surface_water}</td>
+        <td >{element.population}</td>
+        <td >{element.films}</td>
+        <td >{element.created}</td>
+        <td >{element.edited}</td>
+        <td>{element.url}</td>
+      </tr>
+    ));
+  }
 
-   renderTableBodyFiltered() {
+  renderTableBodyFiltered() {
     const { value: { filters: { filterByName: { filteredPlanets } } } } = this.props;
     return filteredPlanets[0].map((element) => (
       <tr key={element.name}>
@@ -47,7 +46,6 @@ export class Table extends Component {
     ));
   }
 
-  
   render() {
     const { value: { data } } = this.props;
     const { value: { filters: { filterByName: { filteredPlanets } } } } = this.props;
@@ -71,7 +69,9 @@ export class Table extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredPlanets.length === 0 ? this.renderTableBody() : this.renderTableBodyFiltered()}
+                  {filteredPlanets.length === 0
+                    ? this.renderTableBody()
+                    : this.renderTableBodyFiltered()}
                 </tbody>
               </table>
             </div>
