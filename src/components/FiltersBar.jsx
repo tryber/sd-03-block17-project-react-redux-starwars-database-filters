@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import SearchBox from './SearchBox';
 import NumFilter from './NumFilter';
+import FilterSetted from './FilterSetted';
 
 const columnOptions = [
   'population',
@@ -26,10 +27,14 @@ const FilterBar = ({ numFilters }) => (
     </section>
     <section>
       <NumFilter columnOptions={takeUnused(columnOptions, numFilters)} />
-      {numFilters.map(({ column, comparison, value }) => (
-        <p key={column}>
-          <span>{column} | {comparison} | {value}</span>
-        </p>
+      {numFilters.map(({ column, comparison, value }, id) => (
+        <FilterSetted
+          id={id}
+          key={column}
+          column={column}
+          comparison={comparison}
+          value={value}
+        />
       ))}
   </section>
   </section>

@@ -7,6 +7,7 @@ import {
 import {
   CHANGE_VALUES,
   CREATE_NUMERIC_FILTER,
+  REMOVE_FILTER,
 } from '../actions/NumFilterActions';
 
 import { TYPE_NAME } from '../actions/SearchTextAction';
@@ -83,6 +84,15 @@ function filtersReducer(filters, action) {
       }
       return filters;
 
+    case REMOVE_FILTER:
+      return ({
+        ...filters,
+        filterByNumericValues: [
+          ...filterByNumericValues.slice(0, action.id),
+          ...filterByNumericValues.slice(action.id + 1),
+        ],
+      });
+
     default:
       return filters;
   }
@@ -98,6 +108,7 @@ const Reducer = (state = INITIAL_STATE, action) => {
     case TYPE_NAME:
     case CHANGE_VALUES:
     case CREATE_NUMERIC_FILTER:
+    case REMOVE_FILTER:
       return {
         ...state,
         filters: filtersReducer(state.filters, action),
