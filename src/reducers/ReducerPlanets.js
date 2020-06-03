@@ -1,4 +1,4 @@
-import { REQUEST_PLANETS, SUCCESS_PLANETS, FAILURE_PLANETS, FILTER_BY_NAME } from '../action';
+import { REQUEST_PLANETS, SUCCESS_PLANETS, FAILURE_PLANETS } from '../action';
 
 const INITIAL_STATE = {
   isFetching: false,

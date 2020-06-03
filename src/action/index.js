@@ -33,10 +33,9 @@ export function requestFetch() {
   };
 }
 
-export const filterByName = (name, data) => ({
+export const filterByName = (name) => ({
   type: FILTER_BY_NAME,
   name,
-  data,
 });
 
 export const filterByNumericValues = (column, comparison, value) => ({

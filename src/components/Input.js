@@ -24,7 +24,7 @@ class Input extends React.Component {
 
   onTextChange(event) {
     this.setState({ text: event.target.value });
-    this.props.filterByName(event.target.value, this.props.data);
+    this.props.filterByName(event.target.value);
   }
 
   onNumberChange(event) {
@@ -34,6 +34,11 @@ class Input extends React.Component {
   onSelectChange(event, chave) {
     const { value } = event.target;
     this.setState({ [chave]: value });
+  }
+
+  onClick() {
+    const { number, column, comparation } = this.state;
+    this.props.filterByNumericValues(column, comparation, number);
   }
 
   getColumns() {
@@ -78,11 +83,6 @@ class Input extends React.Component {
     );
   }
 
-  onClick() {
-    const { number, column, comparation } = this.state;
-    this.props.filterByNumericValues(column, comparation, number);
-  }
-
   render() {
     return (
       <div>
@@ -111,18 +111,15 @@ class Input extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  data: state.ReducerPlanets.data,
-});
-
 const mapDispatchToProps = (dispatch) => ({
-  filterByName: (name, data) => dispatch(filterByName(name, data)),
+  filterByName: (name) => dispatch(filterByName(name)),
   filterByNumericValues: (column, comparison, value) =>
     dispatch(filterByNumericValues(column, comparison, value)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Input);
+export default connect(null, mapDispatchToProps)(Input);
 
 Input.propTypes = {
   filterByName: PropTypes.func.isRequired,
+  filterByNumericValues: PropTypes.func.isRequired,
 };

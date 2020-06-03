@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function Body({ planets, name, column, comparison, value }) {
-
   const filters = () => (
     planets.filter((planet) => {
       switch (comparison) {
@@ -15,7 +14,7 @@ function Body({ planets, name, column, comparison, value }) {
           return planet.name.includes(name) && parseFloat(planet[column]) === parseFloat(value);
         default:
           return planet.name.includes(name);
-      };
+      }
     })
   );
 
@@ -69,4 +68,8 @@ Body.propTypes = {
     edited: PropTypes.string,
     url: PropTypes.string,
   })).isRequired,
+  name: PropTypes.string.isRequired,
+  column: PropTypes.string.isRequired,
+  comparison: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };
