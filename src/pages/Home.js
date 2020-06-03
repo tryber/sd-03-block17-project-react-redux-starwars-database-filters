@@ -22,11 +22,8 @@ class Home extends React.Component {
   }
 
   render() {
-
     const { isFetching, data, name } = this.props;
-   
     if (isFetching) return <Loading />;
-
     return (
       <div>
         <label htmlFor="namePlanet">
@@ -60,7 +57,7 @@ Home.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFetching: PropTypes.bool.isRequired,
   filterName: PropTypes.func.isRequired,
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
