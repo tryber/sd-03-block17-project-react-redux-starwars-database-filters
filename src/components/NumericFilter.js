@@ -13,6 +13,7 @@ const columnOptions = [
 ];
 
 const comparisonOptions = [
+  'select',
   'maior que',
   'igual a',
   'menor que',
