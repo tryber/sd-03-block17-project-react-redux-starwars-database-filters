@@ -18,7 +18,7 @@ export class FilterNumeric extends Component {
           <option value="igual a">igual a</option>
         </select>
 
-        <input type="number" placeholder="insira uma valor" name="input-value" data-testid="value-filter" />
+        <input type="number" placeholder="numeros" name="input-value" data-testid="value-filter" />
         <button type="button" data-testid="button-filter"> Filtrar</button>
       </div>
     );
