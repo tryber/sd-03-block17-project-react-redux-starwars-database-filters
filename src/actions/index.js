@@ -29,7 +29,7 @@ export const filterSelectors = (filterSelect, comparison, valueFilter) => ({
   type: FILTER_SELECTORS,
   filterSelect,
   comparison,
-  valueFilter
+  valueFilter,
 });
 
 export function fetchStarWarsApi(search) {

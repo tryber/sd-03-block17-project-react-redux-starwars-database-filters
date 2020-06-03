@@ -76,7 +76,7 @@ class InputsNumerics extends React.Component {
     return (
       <div>
         <button
-          data-testid='button-filter'
+          data-testid="button-filter"
           onClick={this.onClickDispatchSelectors}
         >
           Filtrar
@@ -98,11 +98,13 @@ class InputsNumerics extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  selectors: (filterSelect, comparison, valueFilter) => dispatch(filterSelectors(filterSelect, comparison, valueFilter)),
+  selectors:
+    (filterSelect, comparison, valueFilter) =>
+      dispatch(filterSelectors(filterSelect, comparison, valueFilter)),
 });
 
 InputsNumerics.propTypes = {
   selectors: PropTypes.func.isRequired,
-}
+};
 
 export default connect(null, mapDispatchToProps)(InputsNumerics);

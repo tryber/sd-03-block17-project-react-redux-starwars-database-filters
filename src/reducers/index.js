@@ -57,7 +57,7 @@ const reducerFilters = (state = stateFiltersDefault, action) => {
       return {
         filters: {
           ...state.filters,
-          filterByName: { name: action.name }
+          filterByName: { name: action.name },
         },
       };
     case FILTER_SELECTORS:
@@ -77,7 +77,7 @@ const reducerFilters = (state = stateFiltersDefault, action) => {
     default:
       return state;
   }
-}
+};
 
 const rootReducer = combineReducers({ requestData, reducerFilters });
 

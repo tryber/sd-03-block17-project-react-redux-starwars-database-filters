@@ -130,18 +130,18 @@ class Table extends React.Component {
         </thead>
         {!isFiltered && this.tbody(data, name)}
         {
-          comparison === "bigger_then" &&
-          
+          comparison === 'bigger_then' &&
+          isFiltered &&
           this.tbodyFiltersBig(data, name, option, valueFilter)
         }
         {
-          comparison === "less_then" &&
-         
+          comparison === 'less_then' &&
+          isFiltered &&
           this.tbodyFiltersLess(data, name, option, valueFilter)
         }
         {
-          comparison === "equal" &&
-          
+          comparison === 'equal' &&
+          isFiltered &&
           this.tbodyFiltersEqual(data, name, option, valueFilter)
         }
       </table>
