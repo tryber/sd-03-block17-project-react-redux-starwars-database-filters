@@ -23,6 +23,33 @@ export class DataTable extends Component {
     }
   }
 
+  // sortAsc(data, column) {
+  //   return data
+  // }
+
+  // sortDesc() {
+
+  // }
+
+  orderPlanets(filteredData) {
+    const { order: { column, sort } } = this.props;
+    if (column === 'name') return filteredData;
+    // const data = (sort === 'ASC')
+    //   ? sortASC(filteredData, column)
+    //   : sortDesc(filteredData, column)
+    return filteredData;
+  }
+
+  filterNames(filteredData) {
+    const { filterByName } = this.props;
+    return filteredData.filter(({ name }) => name.match(new RegExp(filterByName.name, 'i')));
+  }
+
+  filterNumeric(filteredData) {
+    const { filterByNumericValues } = this.props;
+    return filterByNumericValues.reduce((acc, { column, comparison, value }) => acc.filter((planet) => this.filterComparison(column, comparison, value, planet)), filteredData);
+  }
+
   renderTableHead() {
     const { data } = this.props;
     return (
@@ -39,12 +66,11 @@ export class DataTable extends Component {
   }
 
   renderTableBody() {
-    const { data, filterByName, filterByNumericValues } = this.props;
-    console.log('filters', filterByName);
-    let filteredData = data.filter(({ name }) => name.match(new RegExp(filterByName.name, 'i')));
-    filterByNumericValues.forEach(({ column, comparison, value }) => {
-      filteredData = filteredData.filter((planet) => this.filterComparison(column, comparison, value, planet));
-    });
+    const { data } = this.props;
+    let filteredData = data;
+    filteredData = this.orderPlanets(filteredData);
+    filteredData = this.filterNames(filteredData);
+    filteredData = this.filterNumeric(filteredData);
     return (
       <tbody>
         {filteredData.map((planet) => (
@@ -76,12 +102,13 @@ export class DataTable extends Component {
 }
 
 const mapStateToProps = ({
-  reducerFetchPlanets,
-  filters: { filterByName, filterByNumericValues },
+  reducerFetchPlanets: { data },
+  filters: { filterByName, filterByNumericValues, order },
 }) => ({
-  data: reducerFetchPlanets.data,
+  data,
   filterByName,
   filterByNumericValues,
+  order,
 });
 
 DataTable.propTypes = {
@@ -90,13 +117,17 @@ DataTable.propTypes = {
     name: PropTypes.string,
   }),
   filterByNumericValues: PropTypes.instanceOf(Array),
-
+  order: PropTypes.shape({
+    column: PropTypes.string,
+    sort: PropTypes.string,
+  }),
 };
 
 DataTable.defaultProps = {
   data: [],
   filterByNumericValues: [],
   filterByName: {},
+  order: {},
 };
 
 export default connect(mapStateToProps)(DataTable);

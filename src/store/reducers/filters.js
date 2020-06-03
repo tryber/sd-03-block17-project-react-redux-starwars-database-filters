@@ -11,15 +11,19 @@ const INICIAL_STATE = {
       value: '',
     },
   ],
-
+  order: {
+    column: 'name',
+    sort: 'ASC',
+  },
 };
+
 
 const filterNames = (state, name) => ({
   filterByName: {
     name,
   },
-  filterByNumericValues: [...state.filterByNumericValues]
-  ,
+  filterByNumericValues: [...state.filterByNumericValues],
+  order: { ...state.order },
 });
 
 const addFilter = (state, column, comparison, value) => ({
@@ -31,8 +35,8 @@ const addFilter = (state, column, comparison, value) => ({
       ? [{
         column, comparison, value,
       }]
-      : [...state.filterByNumericValues, { column, comparison, value }]
-  ,
+      : [...state.filterByNumericValues, { column, comparison, value }],
+  order: { ...state.order },
 });
 
 const removeFilter = (state, index) => {
@@ -52,9 +56,17 @@ const removeFilter = (state, index) => {
           },
         ]
         : [...newArray],
-
+    order: { ...state.order },
   };
 };
+
+const sortFilter = (state, order) => ({
+  filterByName: {
+    ...state.filterByName,
+  },
+  filterByNumericValues: [...state.filterByNumericValues],
+  order,
+});
 
 const filters = (state = INICIAL_STATE, action) => {
   switch (action.type) {
@@ -64,6 +76,8 @@ const filters = (state = INICIAL_STATE, action) => {
       return addFilter(state, action.column, action.comparison, action.value);
     case types.REMOVE_FILTER_VALUE:
       return removeFilter(state, action.index);
+    case types.SORT_FILTER:
+      return sortFilter(state, action.order);
     default:
       return state;
   }
