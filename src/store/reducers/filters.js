@@ -11,6 +11,7 @@ const INICIAL_STATE = {
       value: '',
     },
   ],
+
 };
 
 const filterNames = (state, name) => ({
@@ -51,6 +52,7 @@ const removeFilter = (state, index) => {
           },
         ]
         : [...newArray],
+
   };
 };
 

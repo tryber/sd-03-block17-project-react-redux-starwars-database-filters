@@ -40,7 +40,7 @@ export class DataTable extends Component {
 
   renderTableBody() {
     const { data, filterByName, filterByNumericValues } = this.props;
-    console.log('filters', filterByNumericValues);
+    console.log('filters', filterByName);
     let filteredData = data.filter(({ name }) => name.match(new RegExp(filterByName.name, 'i')));
     filterByNumericValues.forEach(({ column, comparison, value }) => {
       filteredData = filteredData.filter((planet) => this.filterComparison(column, comparison, value, planet));
