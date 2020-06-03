@@ -12,17 +12,17 @@ const stateDefault = {
   filters:
   {
     filterByName: {
-      name: ''
+      name: '',
     },
     filterByNumericValues: [
       {
         column: 'population',
         comparison: 'maior que',
         value: '100000',
-      }
-    ]
-  }
-}
+      },
+    ],
+  },
+};
 
 const requestData = (state = stateDefault, action) => {
   switch (action.type) {

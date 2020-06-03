@@ -23,7 +23,7 @@ export const filterPlanetName = (name, dataFilter) => ({
   type: RECEIVE_DATA_FILTER,
   name,
   data: dataFilter,
-})
+});
 
 
 export function fetchStarWarsApi(search) {

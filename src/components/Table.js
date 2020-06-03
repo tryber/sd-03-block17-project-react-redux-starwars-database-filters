@@ -21,7 +21,6 @@ class Table extends React.Component {
         { id: 13, title: 'terrain' },
       ],
     };
-
   }
 
   table() {

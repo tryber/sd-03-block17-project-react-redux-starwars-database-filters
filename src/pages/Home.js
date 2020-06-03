@@ -19,13 +19,13 @@ class Home extends React.Component {
   filterTableNameOnChange(event) {
     const { filterName, data } = this.props;
     const dataFilter = data.filter((item) => item.name.includes(event.target.value));
-    console.log(dataFilter)
+    console.log(dataFilter);
     filterName(event.target.value, dataFilter);
-
   }
 
   render() {
-    let { isFetching, data, dataFilter, filter } = this.props;
+    const { isFetching, dataFilter, filter } = this.props;
+    let { data } = this.props;
     if (filter) data = dataFilter;
     if (isFetching) return <Loading />;
     return (
@@ -61,6 +61,9 @@ Home.propTypes = {
   search: PropTypes.func.isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFetching: PropTypes.bool.isRequired,
+  filterName: PropTypes.func.isRequired,
+  dataFilter: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filter: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
