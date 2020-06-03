@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Table from './components/Table';
 import { fetchData } from './action/index';
+import InputFilter from './components/InputFilter';
 import './App.css';
 
 class App extends Component {
@@ -18,7 +19,10 @@ class App extends Component {
 
   render() {
     return (
+      <div>
+      <InputFilter />
       <Table />
+      </div>
 
     );
   }
