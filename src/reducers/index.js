@@ -21,7 +21,7 @@ function requestReducer(state = INITIAL_STATE, action) {
         ...state,
         data: action.data,
       };
-    case 'FILTER_PLANET_DATA':
+    case 'FILTER_PLANET_DATA':{
       const filterName = action.filters.filterByName.name.toLowerCase();
       const filteredPlanets = state.data.results.filter((element) => {
       const lowerName = element.name.toLowerCase();
@@ -30,7 +30,7 @@ function requestReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         filters: { filterByName: { filterName, filteredPlanets: [filteredPlanets] } },
-      };
+      };}
     default:
       return state;
   }
