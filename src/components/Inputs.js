@@ -71,9 +71,10 @@ class Inputs extends React.Component {
         name="comparison"
         data-testid="comparison-filter"
       >
-        <option value="Maior que">Maior que</option>
-        <option value="Menor que">Menor que</option>
-        <option value="Igual a">Igual a</option>
+        <option value="maior que">Maior que</option>
+        <option value="igual a">Igual a</option>
+        <option value="menor que">Menor que</option>
+        <option value="" />
       </select>
     );
   }
@@ -103,8 +104,7 @@ class Inputs extends React.Component {
     const newObj = { column, value, comparison };
     this.setState({ column: '', value: '', comparison: '' });
     filterByNumericValues(newObj);
-    console.log('Button Search Chamado')
-    this.dataFilterFunction()
+    console.log('Button Search Chamado');
   }
 
   numericFilterButton() {
@@ -144,14 +144,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(Inputs);
 
 Inputs.propTypes = {
   typedText: PropTypes.string,
-  dataSw: PropTypes.arrayOf(PropTypes.object),
+  // dataSw: PropTypes.arrayOf(PropTypes.object),
   filterByName: PropTypes.func,
   filterByNumericValues: PropTypes.func,
 };
 
 Inputs.defaultProps = {
   typedText: '',
-  dataSw: [],
+  // dataSw: [],
   filterByName: () => {},
   filterByNumericValues: () => {},
 };
