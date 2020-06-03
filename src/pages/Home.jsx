@@ -15,9 +15,29 @@ export class Home extends Component {
   filterDataByText(data) {
     const { nameFilter } = this.props;
     if (nameFilter !== '') {
-      return data.filter(({ name }) => name.toUpperCase().includes(nameFilter.toUpperCase()));
+      return data.filter(({ name }) => name.toLowerCase().includes(nameFilter.toLowerCase()));
     }
     return data;
+  }
+
+  filterDataByNumericValue(data) {
+    const { valueFilter } = this.props;
+    const { column, comparison, value } = valueFilter;
+    if (comparison === 'menor que') {
+      return this.filterDataByText(data)
+        .filter((element) => Number(element[column]) < Number(value));
+    }
+    if (comparison === 'maior que') {
+      return this.filterDataByText(data).filter(
+        (element) => Number(element[column]) > Number(value),
+      );
+    }
+    if (comparison === 'igual a') {
+      return this.filterDataByText(data).filter(
+        (element) => Number(element[column]) === Number(value),
+      );
+    }
+    return this.filterDataByText(data);
   }
 
   render() {
@@ -35,7 +55,7 @@ export class Home extends Component {
         {loading ? (
           <h1>Loading..</h1>
         ) : (
-          <Table data={this.filterDataByText(data)} />
+          <Table data={this.filterDataByNumericValue(data)} />
         )}
       </div>
     );
@@ -51,7 +71,7 @@ const mapStateToProps = (state) => ({
   data: state.planetsInfoReducer.data,
   loading: state.planetsInfoReducer.loading,
   nameFilter: state.filters.filterByName.name,
-  // valueFilter: state.filter.filterByNumericValues[0],
+  valueFilter: state.filters.filterByNumericValues[0],
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
