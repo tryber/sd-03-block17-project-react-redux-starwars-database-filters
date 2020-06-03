@@ -88,5 +88,5 @@ Table.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   filterByName: PropTypes.string.isRequired,
   filterByNumericValues: PropTypes.arrayOf(object),
-  savePlanetByNumericValues: PropTypes.func.isRequired,
+  // savePlanetByNumericValues: PropTypes.func.isRequired,
 };
