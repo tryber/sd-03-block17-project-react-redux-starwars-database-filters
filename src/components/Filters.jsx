@@ -7,7 +7,7 @@ import filterByName from '../actions/filterByName';
 function Filters({ byName }) {
   return (
     <div>
-      <input type="text" onChange={(e) => byName(e.target.value)} />
+      <input data-testid="name-filter" type="text" onChange={(e) => byName(e.target.value)} />
       <input type="button" value="Filtrar" />
     </div>
   );

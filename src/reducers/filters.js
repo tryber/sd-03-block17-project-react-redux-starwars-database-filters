@@ -1,7 +1,7 @@
 import { FILTER_BY_NAME } from '../actions/types';
 
 const initialState = {
-  filters: { filterByName: { name: '' } },
+  filterByName: { name: '' },
 };
 
 export default (state = initialState, { type, payload }) => {

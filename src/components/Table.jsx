@@ -41,7 +41,7 @@ const Table = ({ data, isFetching, nameFilter }) => {
 const mapStateToProps = (state) => ({
   data: state.planetsReducer.data,
   isFetching: state.planetsReducer.isFetching,
-  nameFilter: state.filterReducer.filters.filterByName.name,
+  nameFilter: state.filters.filterByName.name,
 });
 
 Table.propTypes = {
