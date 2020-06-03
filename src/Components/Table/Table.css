@@ -1,0 +1,32 @@
+.TabelaProdutos th {
+  background-color: darkcyan;
+}
+
+.TabelaProdutos table {
+  border: black solid 1px;
+  margin: auto;
+  width: 70%;
+}
+
+.TabelaProdutos .Par {
+  background-color: #ddd;
+}
+
+.TabelaProdutos .Impar {
+  background-color: #fff;
+}
+
+.input-filter {
+  align-items: center;
+  border: double;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+  margin-bottom: 10px;
+  width: 77%;
+}
+
+.value {
+  margin-top: 1.5%;
+}
