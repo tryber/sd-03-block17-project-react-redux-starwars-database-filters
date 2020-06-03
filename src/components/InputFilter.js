@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { filterPlanet } from '../action/index';
 
 export class InputFilter extends Component {
@@ -10,28 +10,38 @@ export class InputFilter extends Component {
   }
 
   filterByName(event) {
-    const { filter} = this.props;
+    const { filter } = this.props;
 
     filter(event.target.value);
   }
 
   render() {
     return (
-          <div>
-            <input name="filter" placeholder="Filter by Planet" onChange={(e) => this.filterByName(e)} data-testid="name-filter" size="50" />
-          </div>
+      <div>
+        <input
+          name="filter" 
+          placeholder="Filter by Planet"
+          onChange={(e) => this.filterByName(e)}
+          data-testid="name-filter"
+          size="50"
+        />
+      </div>
     );
   }
 }
 
 
-const mapDispatchToProps = (dispatch ) => ({
+const mapDispatchToProps = (dispatch) => ({
   filter: (e) => dispatch(filterPlanet(e)),
 });
 
 
-InputFilter.prototypes = {
-  filter: Proptypes.func,
+InputFilter.propTypes = {
+  filter: PropTypes.instanceOf(Function),
+};
+
+InputFilter.defaultProps = {
+  filter: '',
 };
 
 export default connect(null, mapDispatchToProps)(InputFilter);

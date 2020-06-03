@@ -20,8 +20,8 @@ class App extends Component {
   render() {
     return (
       <div>
-      <InputFilter />
-      <Table />
+        <InputFilter />
+        <Table />
       </div>
 
     );

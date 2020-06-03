@@ -10,7 +10,6 @@ const INITIAL_STATE = {
 };
 
 function requestReducer(state = INITIAL_STATE, action) {
-
   switch (action.type) {
     case 'REQUEST_DATA':
       return {
@@ -24,11 +23,9 @@ function requestReducer(state = INITIAL_STATE, action) {
       };
     case 'FILTER_PLANET_DATA':
       const filterName = action.filters.filterByName.name.toLowerCase();
-      const filteredPlanets = state.data.results.filter((element) =>
-      {
- const lowerName = element.name.toLowerCase();
-        console.log(element.name, lowerName);
-      return lowerName.includes(filterName) 
+      const filteredPlanets = state.data.results.filter((element) => {
+      const lowerName = element.name.toLowerCase();
+      return lowerName.includes(filterName);
       });
       return {
         ...state,
