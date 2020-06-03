@@ -9,8 +9,8 @@ const INITIAL_STATE = {
       column: 'population',
       comparison: 'Maior que',
       value: 0,
-    }
-  ]
+    },
+  ],
 };
 
 const filters = (state = INITIAL_STATE, action) => {

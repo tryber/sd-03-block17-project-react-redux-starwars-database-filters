@@ -33,12 +33,13 @@ const filteredPlanets = ({ column, comparison, value }, planets) => {
       return planets.filter((e) => (e[column] - value) === 0);
     default:
       return planets;
-  };
+  }
 };
 
 class Table extends React.Component {
   render() {
-    const { planets, isFetching, filterByName, filterByNumericValues, savePlanetByNumericValues } = this.props;
+    const { planets, isFetching, filterByName } = this.props;
+    const { filterByNumericValues, savePlanetByNumericValues } = this.props;
     const dataReceived = planets.length;
     let planetoides = [];
     let dataReady = false;
@@ -49,10 +50,9 @@ class Table extends React.Component {
       const cutData = dataKeys.indexOf('residents');
       regex = new RegExp(`${filterByName}`, 'i');
       dataKeys.splice(cutData, 1);
-      dataReady = true;     
+      dataReady = true;
       planetoides = [...filteredPlanets(filterByNumericValues[0], planets)];
     }
-
     return (
       <div>
         {dataReady && !isFetching &&
@@ -91,4 +91,6 @@ Table.propTypes = {
   planets: PropTypes.arrayOf(object).isRequired,
   isFetching: PropTypes.bool.isRequired,
   filterByName: PropTypes.string.isRequired,
+  filterByNumericValues: PropTypes.arrayOf(object),
+  savePlanetByNumericValues: PropTypes.func.isRequired,
 };
