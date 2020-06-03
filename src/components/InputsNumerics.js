@@ -39,7 +39,6 @@ class InputsNumerics extends React.Component {
   selectFilter() {
     return (
       <select data-testid="column-filter" onChange={this.onChangeFilterSelect}>
-        <option></option>
         <option value="population">population</option>
         <option value="orbital_period">Orbital period</option>
         <option value="diameter">Diameter</option>
@@ -52,7 +51,6 @@ class InputsNumerics extends React.Component {
   selectComparison() {
     return (
       <select data-testid="comparison-filter" onChange={this.onChangeComparison}>
-        <option></option>
         <option value="bigger_then">Maior que</option>
         <option value="less_then">Menor que</option>
         <option value="equal">Igual</option>
@@ -65,6 +63,7 @@ class InputsNumerics extends React.Component {
       <label htmlFor="valueFilter">
         Valor:
         <input
+          data-testid="value-filter"
           name="valueFilter"
           type="number"
           onChange={this.onChangeValueFilter}
