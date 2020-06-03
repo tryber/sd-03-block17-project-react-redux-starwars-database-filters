@@ -34,7 +34,7 @@ class Table extends React.Component {
 
 const mapStateToProps = (state) => ({
   planets: state.apiReducer.data,
-  searched: state.reduceByName.filters.filterByName.name,
+  searched: state.filters.filterByName.name,
 });
 
 export default connect(mapStateToProps)(Table);

@@ -1,38 +1,27 @@
 import React, { Component } from 'react';
 import Table from './Table';
+import Filters from './Filters';
 
 import { connect } from 'react-redux';
-import { callServiceAPI, filterByName } from '../actions';
+import { callServiceAPI } from '../actions';
 
 class Main extends Component {
   componentDidMount() {
     this.props.getAPIService();
   }
 
-  handleChange(e) {
-    const { value } = e.target;
-    this.props.filterName(value);
-  }
-
   render() {
+    const { isLoading } = this.props;
     return (
       <div>
-        <div className='field'>
-          <label className='label' htmlFor='byName'>
-            Filtro pelo nome
-          </label>
-          <div className='control'>
-            <input
-              className='input'
-              id='byName'
-              type='text'
-              placeholder='Filtro por nome'
-              data-testid='name-filter'
-              onChange={(e) => this.handleChange(e)}
-            />
+        {isLoading ? (
+          <div>Carregando...</div>
+        ) : (
+          <div>
+            <Filters />
+            <Table />
           </div>
-        </div>
-        <Table />
+        )}
       </div>
     );
   }
@@ -40,7 +29,10 @@ class Main extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getAPIService: () => dispatch(callServiceAPI()),
-  filterName: (e) => dispatch(filterByName(e)),
 });
 
-export default connect(null, mapDispatchToProps)(Main);
+const mapStateToProps = (state) => ({
+  isLoading: state.apiReducer.isRequesting,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -30,7 +30,7 @@ const mockFetch = () => {
   global.fetch = jest.fn(() => apiResponse);
 };
 
-describe('1 - Fazer uma requisição para o endpoint /planets da API de Star Wars e preencher uma tabela com os dados retornados, com exceção dos da coluna residents', () => {
+describe.skip('1 - Fazer uma requisição para o endpoint /planets da API de Star Wars e preencher uma tabela com os dados retornados, com exceção dos da coluna residents', () => {
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
@@ -79,7 +79,7 @@ describe('1 - Fazer uma requisição para o endpoint /planets da API de Star War
 
 })
 
-describe('2 - Sua página deve ter um campo de texto que filtra a tabela para somente exibir planetas cujos nomes incluam o texto digitado', () => {
+describe.skip('2 - Sua página deve ter um campo de texto que filtra a tabela para somente exibir planetas cujos nomes incluam o texto digitado', () => {
 
   beforeAll(mockFetch);
   beforeEach(cleanup);
@@ -126,7 +126,7 @@ describe('2 - Sua página deve ter um campo de texto que filtra a tabela para so
   })
 })
 
-describe.skip('3 - Sua página deve ter um filtro para valores numéricos', () => {
+describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
 
   beforeAll(mockFetch);
   beforeEach(cleanup);
