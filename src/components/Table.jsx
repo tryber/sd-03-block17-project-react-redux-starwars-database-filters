@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './Layout/Table.css';
-import { bindActionCreators } from 'redux';
 import DispatchStore from '../services/dispatchStore';
-import FilterPlanets from './FilterPlanets';
 import TableData from './TableData';
 
 const tableForm = () => (
@@ -34,8 +32,7 @@ class Table extends React.Component {
   // }
 
   render() {
-    const { planets, isFetching, filterByName } = this.props;
-    console.log('ola state', filterByName);
+    // const { planets, isFetching, filterByName } = this.props;
     return (
       <div className="container">
         <h1 className="titleTable">Star Wars World</h1>
@@ -64,6 +61,5 @@ const mapStateToProps = (state) => ({
 
 // const mapDispatch = dispatch =>
 //   bindActionCreators({ filterByName }, dispatch);
-
 
 export default connect(mapStateToProps)(Table);

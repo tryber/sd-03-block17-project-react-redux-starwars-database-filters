@@ -1,4 +1,4 @@
-import { FILTER_BY_NAME, FILTER_BY_NUMBERS } from '../action/index';
+import { FILTER_BY_NAME } from '../action/index';
 
 const INITIAL_STATE = {
   filterByName: {
@@ -14,7 +14,6 @@ const INITIAL_STATE = {
 };
 
 const filters = (state = INITIAL_STATE, action) => {
-
   switch (action.type) {
     case FILTER_BY_NAME:
       return {
