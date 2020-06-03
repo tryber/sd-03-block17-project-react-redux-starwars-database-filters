@@ -2,9 +2,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import fetchPlanets from './actions';
+import fetchPlanets from './actions/fetchPlanets';
 import Table from './components/Table';
 import './App.css';
+import Filters from './components/Filters';
 
 class App extends Component {
   componentDidMount() {
@@ -13,7 +14,12 @@ class App extends Component {
   }
 
   render() {
-    return <div className="App"><Table /></div>;
+    return (
+      <div className="App">
+        <Filters />
+        <Table />
+      </div>
+    );
   }
 }
 

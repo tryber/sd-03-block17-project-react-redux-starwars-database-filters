@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TableLine from './TableLine';
 
-const Table = ({ data, isFetching }) => {
-  const filter = () => {
-    console.log(data);
-    return data.reduce((acc, planet) => {
-      acc.push(<TableLine planet={planet} />);
+const Table = ({ data, isFetching, nameFilter }) => {
+  const filter = () => data
+    .reduce((acc, planet) => {
+      if (nameFilter && planet.name.match(new RegExp(nameFilter, 'i'))) acc.push(<TableLine key={planet.name} planet={planet} />);
+      if (!nameFilter) acc.push(<TableLine key={planet.name} planet={planet} />);
       return acc;
     }, []);
-  };
 
   if (isFetching) return <p>loading</p>;
   return (
@@ -40,11 +39,13 @@ const Table = ({ data, isFetching }) => {
 const mapStateToProps = (state) => ({
   data: state.planetsReducer.data,
   isFetching: state.planetsReducer.isFetching,
+  nameFilter: state.filterReducer.filters.filterByName.name,
 });
 
 Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFetching: PropTypes.bool.isRequired,
+  nameFilter: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(Table);
