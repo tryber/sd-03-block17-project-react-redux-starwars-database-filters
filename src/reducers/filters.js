@@ -22,8 +22,8 @@ const filters = (state = INITIAL_STATE, action) => {
         ...state,
         filterByNumericValues:
           (state.filterByNumericValues[0].column === '')
-            ? [{ ...action.params }]
-            : [...state.filterByNumericValues, { ...action.params }],
+            ? action.params
+            : [...state.filterByNumericValues.concat(action.params)],
       };
     default:
       return state;
