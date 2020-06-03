@@ -6,27 +6,27 @@ const INITIAL_STATE = {
   filteredData: [],
   filters: {
     filterByName: { name: '' },
-    filterByNumericValues: []
+    filterByNumericValues: [],
   },
 };
 
 const ReducerPlanets = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case REQUEST_PLANETS:
-      return { ...state, isFetching: true, };
+      return { ...state, isFetching: true };
     case SUCCESS_PLANETS:
       return {
         ...state,
         data: [...action.data],
         filteredData: [...action.data],
         isFetching: false,
-      }
+      };
     case FAILURE_PLANETS:
       return {
         ...state,
         isFetching: false,
         error: action.error,
-      }
+      };
     case FILTER_BY_NAME:
       return {
         ...state,
@@ -36,10 +36,10 @@ const ReducerPlanets = (state = INITIAL_STATE, action) => {
         },
         filteredData: state.data.filter(({ name }) =>
           name.includes(action.name)),
-      }
+      };
     default:
       return state;
   }
-}
+};
 
 export default ReducerPlanets;

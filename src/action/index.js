@@ -29,7 +29,7 @@ export function requestFetch() {
         (json) => dispatch(successPlanets(json.results)),
         (error) => dispatch(failurePlanets(error)),
       );
-  }
+  };
 }
 
 export const filterByName = (name) => ({

@@ -81,22 +81,21 @@ class Input extends React.Component {
     return (
       <div>
         <input
-          className='input'
-          data-testid='name-filter'
-          type='text'
+          className="input"
+          data-testid="name-filter"
+          type="text"
           value={this.state.text}
-          placeholder='Faça uma pesquisa'
+          placeholder="Faça uma pesquisa"
           onChange={(event) => this.onTextChange(event)}
         />
         {this.getColumns()}
         {this.getComparation()}
         <input
-          type='number'
-          data-testid='value-filter'
+          type="number"
+          data-testid="value-filter"
           value={this.state.number}
           onChange={(event) => this.onNumberChange(event)}
-        >
-        </input>
+        />
       </div>
     );
   }

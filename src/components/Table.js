@@ -4,8 +4,8 @@ import Body from './Body';
 
 function Table() {
   return (
-    <div className='container'>
-      <table className='table is-hoverable'>
+    <div className="container">
+      <table className="table is-hoverable">
         <Head />
         <Body />
       </table>
