@@ -1,5 +1,6 @@
 import {
-  DATA_API, REQUESTING_STAR_WARS_API, RECEIVE_ISS_LOCATION_FAILURE, NAME_SEARCHED,
+  DATA_API,
+  REQUESTING_STAR_WARS_API, RECEIVE_ISS_LOCATION_FAILURE, NAME_SEARCHED, SUBMIT_OPTION_POPULATION,
 } from '../reducers/data';
 import fetchDataApiStarWars from '../services/starWarsApi';
 
@@ -15,6 +16,13 @@ const apiTabelSucess = (value) => ({
 export const nameSeached = (value) => ({
   type: NAME_SEARCHED,
   planetName: value,
+});
+
+export const optionPopulation = (population, value, numberOfPopulation) => ({
+  type: SUBMIT_OPTION_POPULATION,
+  column: population,
+  comparison: value,
+  value: numberOfPopulation,
 });
 
 const apiTableError = (error) => ({

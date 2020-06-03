@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import PropTypes from 'prop-types';
 import dataApiStarWars, { nameSeached } from '../actions/apiTbela';
+import ValueFilters from './ValueFilters';
+import MultipleFiltersValue from './MultipleFiltersValue';
 
 const tableCell = () => ({
   props: [
@@ -46,17 +48,17 @@ class Table extends Component {
     searchValuesApi();
   }
 
-
   render() {
     const nameSearch = (value) => {
       const { namesSearch } = this.props;
       namesSearch(value.target.value);
     };
-    const { all: { showResults, data: { results } }, filterBynameProp } = this.props;
+    const { all: { showResults, data: { results } }, filterBynameProp, filterByOption } = this.props;
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
         <input data-testid="name-filter" placeholder="Digite..." onChange={nameSearch} />
+        <ValueFilters />
         <table>
           <thead>
             <tr>
@@ -64,7 +66,8 @@ class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            {showResults && apiResults(results.filter(
+            {showResults && filterByOption.map((el) => el.filtered)[0] && <MultipleFiltersValue />}
+            {showResults && !filterByOption.map((el) => el.filtered)[0] && apiResults(results.filter(
               (planet) => planet.name.toLowerCase().indexOf(filterBynameProp.toLowerCase()) !== -1,
             ))}
           </tbody>
@@ -83,9 +86,11 @@ const mapDispatchToProps = (dispatch) => ({
 const MapStateToProps = (state) => ({
   all: state.apiData,
   filterBynameProp: state.apiData.filters.filterByName.name,
+  filterByOption: state.apiData.filters.filterByNumericValues,
 });
 
 Table.propTypes = {
+  filterByOption: PropTypes.isRequired,
   searchValuesApi: PropTypes.func.isRequired,
   namesSearch: PropTypes.func.isRequired,
   all: PropTypes.isRequired,
