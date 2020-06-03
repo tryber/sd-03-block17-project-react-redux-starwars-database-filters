@@ -25,8 +25,8 @@ class Table extends React.Component {
     super(props);
     this.state = {
       nameFilter: '',
-      column: 'diameter',
-      comparison: 'menor que',
+      column: '',
+      comparison: '',
       value: '',
       filterValues: false,
     };
@@ -71,16 +71,18 @@ class Table extends React.Component {
         Selecionar por Valores
         <div>
           <select value={column} data-testid="column-filter" onChange={(e) => this.changeColumn(e)}>
-            <option value="population">População</option>
-            <option value="orbital_period">Período de Órbita</option>
-            <option value="diameter">Diâmetro</option>
-            <option value="rotation_period">Período de Rotação</option>
-            <option value="surface_water">Água Superfecial</option>
+            <option value=""> </option>
+            <option value="population">population</option>
+            <option value="orbital_period">orbital_period</option>
+            <option value="diameter">diameter</option>
+            <option value="rotation_period">rotation_period</option>
+            <option value="surface_water">surface_water</option>
           </select>
           <select value={comparison} data-testid="comparison-filter" onChange={(e) => this.changeComparison(e)}>
-            <option value="maior que"> Maior que</option>
-            <option value="menor que">Menor que</option>
-            <option value="igual a">Igual</option>
+            <option value=""> </option>
+            <option value="maior que"> maior que</option>
+            <option value="igual a">igual a</option>
+            <option value="menor que">menor que</option>
           </select>
           <input value={value} data-testid="value-filter" onChange={(e) => this.changeValue(e)} />
           <button type="button" data-testid="button-filter" onClick={() => this.doFilter()}>Filtrar</button>
@@ -90,9 +92,9 @@ class Table extends React.Component {
   }
 
   render() {
-    const { data, filter, numericFilter, state } = this.props;
+    const { data, filter, numericFilter, teste } = this.props;
     const { nameFilter, filterValues } = this.state;
-    console.log(state)
+    console.log(numericFilter)
     return (
       <div>
         <label htmlFor="name-filter">
@@ -143,7 +145,6 @@ const mapStateToProps = (state) => ({
   data: state.data,
   filter: state.filters.filterByName,
   numericFilter: state.filters.filterByNumericValues,
-  state,
 });
 
 const mapDispatchToProps = (dispatch) => ({
