@@ -24,7 +24,7 @@ class Table extends React.Component {
   }
 
   table() {
-    const { data } = this.props;
+    const { data, name } = this.props;
     const { titles } = this.state;
     return (
       <table>
@@ -34,19 +34,20 @@ class Table extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => <tr key={item.name}>
-            <td>{item.name}</td>
-            <td>{item.climate}</td>
-            <td>{item.created}</td>
-            <td>{item.diameter}</td>
-            <td>{item.edited}</td>
-            <td>{item.gravity}</td>
-            <td>{item.orbital_period}</td>
-            <td>{item.population}</td>
-            <td>{item.rotation_period}</td>
-            <td>{item.surface_water}</td>
-            <td>{item.terrain}</td>
-          </tr>)}
+          {data.filter((item) => item.name.includes(name))
+            .map((item) => <tr key={item.name}>
+              <td>{item.name}</td>
+              <td>{item.climate}</td>
+              <td>{item.created}</td>
+              <td>{item.diameter}</td>
+              <td>{item.edited}</td>
+              <td>{item.gravity}</td>
+              <td>{item.orbital_period}</td>
+              <td>{item.population}</td>
+              <td>{item.rotation_period}</td>
+              <td>{item.surface_water}</td>
+              <td>{item.terrain}</td>
+            </tr>)}
         </tbody>
       </table>
     );

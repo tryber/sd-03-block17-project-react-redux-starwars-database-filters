@@ -6,9 +6,7 @@ const RECEIVE_FAIL = 'RECEIVE_FAIL';
 const RECEIVE_DATA_FILTER = 'RECEIVE_DATA_FILTER';
 
 const stateDefault = {
-  filter: false,
   isFetching: false,
-  dataFilter: [],
   data: [],
   filters:
   {
@@ -49,11 +47,8 @@ const requestData = (state = stateDefault, action) => {
       return {
         ...state,
         isFetching: false,
-        filter: true,
         filters: { filterByName: { name: action.name } },
-        dataFilter: action.data,
       };
-     
     default:
       return state;
   }

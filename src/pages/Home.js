@@ -17,15 +17,14 @@ class Home extends React.Component {
   }
 
   filterTableNameOnChange(event) {
-    const { filterName, data, name } = this.props;
-    const dataFilter = data.filter((item) => item.name.includes(name));
-    filterName(event.target.value, dataFilter);
+    const { filterName } = this.props;
+    filterName(event.target.value);
   }
 
   render() {
-    const { isFetching, dataFilter, filter } = this.props;
-    let { data } = this.props;
-    if (filter) data = dataFilter;
+
+    const { isFetching, data, name } = this.props;
+   
     if (isFetching) return <Loading />;
     return (
       <div>
@@ -37,7 +36,7 @@ class Home extends React.Component {
             onChange={this.filterTableNameOnChange}
           />
         </label>
-        <Table data={data} />
+        <Table data={data} name={name}/>
       </div>
     );
   }

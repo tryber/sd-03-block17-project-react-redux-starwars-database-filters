@@ -19,10 +19,9 @@ const receiveFail = (error) => ({
   error,
 });
 
-export const filterPlanetName = (name, dataFilter) => ({
+export const filterPlanetName = (name) => ({
   type: RECEIVE_DATA_FILTER,
   name,
-  data: dataFilter,
 });
 
 
