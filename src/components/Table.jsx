@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import FilterComp from './FilterComp';
 
 const head = [
@@ -135,6 +136,15 @@ class Table extends Component {
   }
 }
 
+Table.propTypes = {
+  getPlanets: PropTypes.func.isRequired,
+  filters: PropTypes.isRequired,
+  setNameFilter: PropTypes.isRequired,
+  data: PropTypes.isRequired,
+
+};
+
+
 function mapDispatch(dispatch) {
   return {
     getPlanets: () => fetch('https://swapi-trybe.herokuapp.com/api/planets/')
@@ -148,6 +158,7 @@ function mapState(state) {
   return {
     data: state.data.results,
     filters: state.filters,
+
   };
 }
 

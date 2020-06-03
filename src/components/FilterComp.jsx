@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 function FilterComp({
@@ -38,6 +39,16 @@ function FilterComp({
     </div>
   );
 }
+
+FilterComp.propTypes = {
+  filterArray: PropTypes.isRequired,
+  setNumericFilter: PropTypes.isRequired,
+  filters: PropTypes.isRequired,
+  id: PropTypes.isRequired,
+  fireFilter: PropTypes.isRequired,
+
+};
+
 
 const mapStateToProps = (state) => ({
   filters: state.filters.filterByNumericValues,
