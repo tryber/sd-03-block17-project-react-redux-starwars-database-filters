@@ -29,7 +29,7 @@ function requestReducer(state = INITIAL_STATE, action) {
       });
       return {
         ...state,
-        filters: { filterByName: { filterName, filteredPlanets: [filteredPlanets] } },
+        filters: { filterByName: { name: filterName, filteredPlanets: [filteredPlanets] } },
       }; }
     default:
       return state;
