@@ -28,6 +28,19 @@ const filterArray = [
   { filter: 'surface_water', name: 'Agua na superfície' },
 ];
 
+function setFilter(type, name, value) {
+  if (type === 'Maior que') {
+    return (e) => e[name] > value;
+  }
+  if (type === 'Menor que') {
+    return (e) => e[name] < value;
+  }
+  if (type === 'Igual a') {
+    return (e) => e[name] === value;
+  }
+  return (e) => e;
+}
+
 class Table extends Component {
   constructor(props) {
     super(props);
@@ -59,24 +72,9 @@ class Table extends Component {
   }
 
   fireFilter(id) {
-    // let { filteredNumberData } = this.state;
     const { filters: { filterByNumericValues }, data } = this.props;
     const { comparison: type, column: name, value } = filterByNumericValues[id];
-    function filter() {
-      if (type === 'Maior que') {
-        return (e) => e[name] > value;
-      }
-      if (type === 'Menor que') {
-        return (e) => e[name] < value;
-      }
-      if (type === 'Igual a') {
-        return (e) => e[name] === value;
-      }
-      return (e) => e;
-    }
-    // console.log(type, name, value);
-    // console.log(filteredNumberData);
-    const filteredNumberData = data.filter(filter());
+    const filteredNumberData = data.filter(setFilter(type, name, value));
     console.log(filteredNumberData);
     this.setState({ filteredNumberData });
   }
@@ -96,21 +94,16 @@ class Table extends Component {
 
   render() {
     const { filteredNumberData } = this.state;
-    const {
-      filters: { filterByName },
-    } = this.props;
-
+    const { filters: { filterByName } } = this.props;
     const filteredData = this.filterData(filteredNumberData);
-
     return (
-      <>
+      <div>
         <input
           value={filterByName.name}
           type="text"
           onChange={this.handleChange}
           data-testid="name-filter"
         />
-
         <FilterComp fireFilter={this.fireFilter} filterArray={filterArray} />
         <table>
           <thead>
@@ -118,7 +111,6 @@ class Table extends Component {
               {head.map((header) => (<th key={header}>{header}</th>))}
             </tr>
           </thead>
-
           <tbody>
             {filteredData.map((planet) => (
               <tr key={planet.name}>
@@ -131,7 +123,7 @@ class Table extends Component {
             ))}
           </tbody>
         </table>
-      </>
+      </div>
     );
   }
 }

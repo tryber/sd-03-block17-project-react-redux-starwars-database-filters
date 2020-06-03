@@ -34,7 +34,14 @@ function FilterComp({
         type="number"
       />
 
-      <button onClick={() => fireFilter(id)} type="button" data-testid="button-filter">Filtrar</button>
+      <button
+        onClick={() => fireFilter(id)}
+        type="button"
+        data-testid="button-filter"
+      >
+        Filtrar
+
+      </button>
 
     </div>
   );
