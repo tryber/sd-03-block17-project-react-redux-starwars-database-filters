@@ -1,4 +1,4 @@
-import { apiPlanets } from '../services/required';
+import apiPlanets from '../services/required';
 
 export const REQUEST_PLANETS = 'REQUEST_PLANETS';
 export const SUCCESS_PLANETS = 'SUCCESS_PLANETS';
