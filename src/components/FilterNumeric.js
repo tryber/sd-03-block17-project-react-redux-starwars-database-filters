@@ -13,13 +13,12 @@ export class FilterNumeric extends Component {
           <option value="surface_water">surface_water</option>
         </select>
         <select data-testid="comparison-filter" name="comparation">
-          <option value=" ">Selecione Uma Opção </option>
-          <option value="Maior que">Maior que</option>
-          <option value="Menor que">Menor que</option>
-          <option value="diameter">Igual a</option>
+          <option value="maior que">maior que</option>
+          <option value="menor que">menor que</option>
+          <option value="igual a">igual a</option>
         </select>
 
-        <input type="number" placeholder="insira uma valor" name="input-value" />
+        <input type="number" placeholder="insira uma valor" name="input-value" data-testid="value-filter" />
         <button type="button" data-testid="button-filter"> Filtrar</button>
       </div>
     );
