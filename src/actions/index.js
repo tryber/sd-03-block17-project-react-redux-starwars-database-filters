@@ -4,6 +4,8 @@ const REQUEST_DATA = 'REQUEST_DATA';
 const RECEIVE_DATA = 'RECEIVE_DATA';
 const RECEIVE_FAIL = 'RECEIVE_FAIL';
 const NAME_FILTER = 'NAME_FILTER';
+const SELECT_FILTER = 'SELECT_FILTER';
+const SELECT_COMPARISON = 'SELECT_COMPARISON';
 
 const requestData = () => ({
   type: REQUEST_DATA,
@@ -22,6 +24,16 @@ const receiveFail = (error) => ({
 export const filterPlanetName = (name) => ({
   type: NAME_FILTER,
   name,
+});
+
+export const filterSelect = (option) => ({
+  type: SELECT_FILTER,
+  option,
+});
+
+export const filterComparison = (comparison) => ({
+  type: SELECT_COMPARISON,
+  comparison,
 });
 
 

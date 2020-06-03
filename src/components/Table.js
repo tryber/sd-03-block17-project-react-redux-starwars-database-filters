@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 
 class Table extends React.Component {
   constructor(props) {
@@ -62,10 +64,14 @@ class Table extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  option: state.reducerFilters.filters.filterByNumericValues[0].column,
+  comparison: state.reducerFilters.filters.filterByNumericValues[0].comparison,
+});
 
 Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   name: PropTypes.string.isRequired,
 };
 
-export default Table;
+export default connect(mapStateToProps)(Table);

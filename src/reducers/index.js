@@ -4,23 +4,12 @@ const REQUEST_DATA = 'REQUEST_DATA';
 const RECEIVE_DATA = 'RECEIVE_DATA';
 const RECEIVE_FAIL = 'RECEIVE_FAIL';
 const NAME_FILTER = 'NAME_FILTER';
+const SELECT_FILTER = 'SELECT_FILTER';
+const SELECT_COMPARISON = 'SELECT_COMPARISON';
 
 const stateDefault = {
   isFetching: false,
   data: [],
-  filters:
-  {
-    filterByName: {
-      name: '',
-    },
-    filterByNumericValues: [
-      {
-        column: 'population',
-        comparison: 'maior que',
-        value: '100000',
-      },
-    ],
-  },
 };
 
 const requestData = (state = stateDefault, action) => {
@@ -35,24 +24,72 @@ const requestData = (state = stateDefault, action) => {
         ...state,
         isFetching: false,
         data: action.data,
-        dataFilter: action.data,
       };
     case RECEIVE_FAIL:
       return {
         ...state,
         error: action.error,
       };
-    case NAME_FILTER:
-      return {
-        ...state,
-        isFetching: false,
-        filters: { filterByName: { name: action.name } },
-      };
     default:
       return state;
   }
 };
 
-const rootReducer = combineReducers({ requestData });
+const stateFiltersDefault = {
+  filters:
+  {
+    filterByName: {
+      name: '',
+    },
+    filterByNumericValues: [
+      {
+        column: '',
+        comparison: '',
+        value: '',
+      },
+    ],
+  },
+};
+
+const reducerFilters = (state = stateFiltersDefault, action) => {
+  switch (action.type) {
+    case NAME_FILTER:
+      return {
+        ...state,
+        filters: { filterByName: { name: action.name } },
+      };
+    case SELECT_FILTER:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          filterByNumericValues: [
+            {
+              column: action.option,
+
+            },
+          ],
+        },
+      };
+    case SELECT_COMPARISON:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          filterByNumericValues: [
+            {
+              ...state.filters.filterByNumericValues[0],
+              comparison: action.comparison,
+              value: '',
+            },
+          ],
+        },
+      }
+    default:
+      return state;
+  }
+}
+
+const rootReducer = combineReducers({ requestData, reducerFilters });
 
 export default rootReducer;

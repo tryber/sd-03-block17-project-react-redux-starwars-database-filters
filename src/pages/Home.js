@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchStarWarsApi, filterPlanetName } from '../actions/index';
 import Loading from '../components/Loading';
 import Table from '../components/Table';
+import InputsNumerics from '../components/InputsNumerics';
 
 class Home extends React.Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class Home extends React.Component {
             onChange={this.filterTableNameOnChange}
           />
         </label>
+        <InputsNumerics />
         <Table data={data} name={name} />
       </div>
     );
@@ -44,7 +46,7 @@ const mapStateToProps = (state) => ({
   data: state.requestData.data,
   isFetching: state.requestData.isFetching,
   error: state.requestData.error,
-  name: state.requestData.filters.filterByName.name,
+  name: state.reducerFilters.filters.filterByName.name,
 });
 
 const mapDispatchToProps = (dispatch) => ({
