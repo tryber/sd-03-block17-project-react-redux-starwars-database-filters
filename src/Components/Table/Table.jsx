@@ -5,6 +5,7 @@ import { fetchRequestAPI } from '../Actions';
 import InputNamePlanet from './InputNamePlanet';
 
 import './Table.css';
+import CreateTable from './CreateTable';
 
 class Table extends React.Component {
   componentDidMount() {
@@ -35,9 +36,16 @@ class Table extends React.Component {
     )
   }
 
+  filteredPlanet(data) {
+    const { nameInput } = this.props;
+    if (nameInput !== '') {
+    return data.filter(({ name }) => name.toLowerCase().includes(nameInput.toLowerCase()));
+    }
+  return data;
+  }
+
   render() {
-    const { loading, data, filterInputName } = this.props;
-    const consumerData = filterInputName || data;
+    const { loading, data } = this.props;
     console.log(data)
     return (
       <div className="TabelaProdutos" >
@@ -51,25 +59,7 @@ class Table extends React.Component {
         </div>
         <table >
           {this.hearderTable()}
-          <tbody>
-            {consumerData && consumerData.map((planet) =>
-              <tr key={`${planet.name} row`}>
-                <td>{planet.name}</td>
-                <td>{planet.rotation_period}</td>
-                <td>{planet.orbital_period}</td>
-                <td>{planet.diameter}</td>
-                <td>{planet.climate}</td>
-                <td>{planet.gravity}</td>
-                <td>{planet.terrain}</td>
-                <td>{planet.surface_water}</td>
-                <td>{planet.population}</td>
-                <td>{planet.films.map((film) => <p key={film}>{film}</p>)}</td>
-                <td>{planet.created}</td>
-                <td>{planet.edited}</td>
-                <td>{planet.url}</td>
-              </tr>
-            )}
-          </tbody>
+          <CreateTable data={this.filteredPlanet(data)} />
         </table>
         {loading && <h1>Loading...</h1>}
       </div>
@@ -80,6 +70,7 @@ class Table extends React.Component {
 const mapStateToProps = (state) => ({
   data: state.requestAPIReducer.data,
   loading: state.requestAPIReducer.loading,
+  nameInput: state.filters.filterByName.name,
 });
 
 const mapDispatchToProps = (dispatch) => ({

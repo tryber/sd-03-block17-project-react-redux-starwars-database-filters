@@ -1,27 +1,33 @@
-import { INPUT_NAME } from '../Components/Types';
+import { INPUT_NAME, FILTER_BY_NUMERIC_VALUES } from '../Components/Types';
 
-const filterInputName = (state = [], action) => {
-  switch (action.name) {
+const INITIAL_STATE = {
+  filterByName: {
+    name: '',
+  },
+  filterByNumericValues: [
+    {
+      column: '',
+      comparison: '',
+      value: '',
+    },
+  ],
+};
+
+const filters = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
     case INPUT_NAME:
+      return { ...state, filterByName: { name: action.value } };
+    case FILTER_BY_NUMERIC_VALUES:
       return {
         ...state,
-        filters: [
-          {
-            name: action.name,
-          },
-          {
-            numericValues: {
-              column: '',
-              comparison: '',
-              value: '',
-            },
-          },
-        ],
-        data: action.data,
+        filterByNumericValues:
+          (state.filterByNumericValues[0].column === '')
+            ? action.params
+            : [...state.filterByNumericValues.concat(action.params)],
       };
     default:
       return state;
   }
 }
 
-export default filterInputName;
+export default filters;

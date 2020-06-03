@@ -22,8 +22,8 @@ export function fetchRequestAPI() {
   };
 }
 
-export const filterInputName = (_, input) => ({
+export const filters = (name) => ({
   type: INPUT_NAME,
-  name: input,
+  value: name,
 });
 
