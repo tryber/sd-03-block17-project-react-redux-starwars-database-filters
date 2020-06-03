@@ -1,8 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchStarWarsApi } from '../actions/index';
-import Loading from './Loading';
 
 class Table extends React.Component {
   constructor(props) {
@@ -24,11 +21,7 @@ class Table extends React.Component {
         { id: 13, title: 'terrain' },
       ],
     };
-  }
 
-  componentDidMount() {
-    const { search } = this.props;
-    search('planets');
   }
 
   table() {
@@ -61,8 +54,6 @@ class Table extends React.Component {
   }
 
   render() {
-    const { isFetching } = this.props;
-    if (isFetching) return <Loading />;
     return (
       <div>
         {this.table()}
@@ -71,20 +62,9 @@ class Table extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  data: state.requestData.data,
-  isFetching: state.requestData.isFetching,
-  error: state.requestData.error,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  search: (value) => dispatch(fetchStarWarsApi(value)),
-});
 
 Table.propTypes = {
-  search: PropTypes.func.isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isFetching: PropTypes.bool.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Table);
+export default Table;

@@ -1,11 +1,11 @@
 import React from 'react';
-import Table from './components/Table';
+import Home from './pages/Home';
 import './App.css';
 
 class App extends React.Component {
   render() {
     return (
-      <Table />
+      <Home />
     );
   }
 }
