@@ -6,6 +6,7 @@ const RECEIVE_FAIL = 'RECEIVE_FAIL';
 const RECEIVE_DATA_FILTER = 'RECEIVE_DATA_FILTER';
 
 const stateDefault = {
+  filter: false,
   isFetching: false,
   dataFilter: [],
   data: [],
