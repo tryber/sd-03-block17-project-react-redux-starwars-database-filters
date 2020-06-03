@@ -1,53 +1,51 @@
-import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import Header from "./Header";
-import TableHeaders from "./TableHeaders";
-import Inputs from "./Inputs";
-import SelectedFilters from "./SelectedFilters";
-import TableData from "./TableData";
-import { filterByNameAction } from "../actions/filterByNameAction";
-import { filterByNumericValuesAction } from "../actions/filterByNumericValuesAction";
+import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Header from './Header';
+import TableHeaders from './TableHeaders';
+import Inputs from './Inputs';
+import SelectedFilters from './SelectedFilters';
+import TableData from './TableData';
+import { filterByNameAction } from '../actions/filterByNameAction';
+import { filterByNumericValuesAction } from '../actions/filterByNumericValuesAction';
+
+const GreaterLessEqual = (operator, column, value, obj) => {
+  switch (operator) {
+    case 'maior que':
+      if (!(Number(obj[column]) > value)) { return false; } return true;
+    case 'menor que':
+      if (!(Number(obj[column]) < value)) { return false; } return true;
+    case 'igual a':
+      if (!(Number(obj[column]) === value)) { return false; } return true;
+    default:
+      return true;
+  }
+};
 
 class Table extends React.Component {
+  helperFunction(obj) {
+    const { typedText, numericSearched } = this.props;
+    if (!obj.name.toLowerCase().includes(typedText.toLowerCase()) && typedText !== '') return false;
+    for (let i = 0; i < numericSearched.length; i += 1) {
+      const { column, value, comparison } = numericSearched[i];
+      if (!GreaterLessEqual(comparison, column, value, obj)) return false;
+    }
+    return true;
+  }
+
   dataFilterFunction() {
     const { dataSw, typedText, numericSearched } = this.props;
     const newArrToFilter = [...dataSw];
     if (typedText !== '' || numericSearched.length > 0) {
-      return newArrToFilter.reduce((acc, e) => {
-        if (typedText !== '' && e.name.toLowerCase().includes(typedText.toLowerCase())) acc.push(e);
+      return newArrToFilter.reduce((acc, planetObj) => {
+        if (this.helperFunction(planetObj)) acc.push(planetObj);
         return acc;
       }, []);
     }
     return dataSw;
   }
 
-  // filterData(data, query) {
-  //   const { allFilters } = this.props;
-  //   const keysWithMinMax = ["listPrice", "bedrooms"];
-  //   const filteredData = data.filter((item) => {
-  //     for (let key in query) {
-  //       if (item[key] === undefined) {
-  //         return false;
-  //       } else if (keysWithMinMax.includes(key)) {
-  //         if (query[key]["min"] !== null && item[key] < query[key]["min"]) {
-  //           return false;
-  //         }
-  //         if (query[key]["max"] !== null && item[key] > query[key]["max"]) {
-  //           return false;
-  //         }
-  //       } else if (!query[key].includes(item[key])) {
-  //         return false;
-  //       }
-  //     }
-  //     return true;
-  //   });
-  //   return filteredData;
-  // };
-
   render() {
-    console.log('render chamado');
-    // const { allFilters, dataSw } = this.props;
     return (
       <div>
         <Header />
@@ -70,7 +68,6 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   dataSw: state.apiSWReducer.data,
   isLoading: state.apiSWReducer.loading,
-  allFilters: state.filters,
   typedText: state.filters.filterByName.name,
   numericSearched: state.filters.filterByNumericValues,
 });
@@ -81,11 +78,10 @@ Table.propTypes = {
   typedText: PropTypes.string,
   dataSw: PropTypes.arrayOf(PropTypes.object),
   numericSearched: PropTypes.arrayOf(PropTypes.object),
-  allFilters: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 Table.defaultProps = {
-  typedText: "",
+  typedText: '',
   dataSw: [],
   numericSearched: {},
 };
