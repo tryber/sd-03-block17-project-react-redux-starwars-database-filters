@@ -19,30 +19,24 @@ const FilterBar = ({ numFilters }) => (
       <SearchBox />
     </section>
     <section>
-      {numFilters.map((filterValues, id) => (
-        <NumFilter
-          filterValues={filterValues}
-          id={id}
-          key={id}
-          columnOptions={columnOptions}
-        />
+      <NumFilter columnOptions={columnOptions} />
+      {numFilters.map(({ column, comparison, value }) => (
+        <p key={column}>
+          <span>{column} | {comparison} | {value}</span>
+        </p>
       ))}
   </section>
   </section>
 );
 
-const mapStateToProps = ({ filters: { inProgresNumericFilter } }) => ({
-  numFilters: inProgresNumericFilter,
+const mapStateToProps = ({ filters: { filterByNumericValues } }) => ({
+  numFilters: [...filterByNumericValues],
 });
 
 FilterBar.propTypes = {
   numFilters: PropTypes.arrayOf(
-    PropTypes.shape({
-      column: PropTypes.string.isRequired,
-      comparison: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-    }).isRequired
+    PropTypes.objectOf(PropTypes.string.isRequired),
   ).isRequired,
-};
+}
 
 export default connect(mapStateToProps)(FilterBar);

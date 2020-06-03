@@ -12,7 +12,7 @@ const renderOptions = (optionsList) => (
 
 class NumFilter extends React.Component {
   renderSelectOf (name, value, optionsList) {
-    const { id, onChange } = this.props;
+    const { onChange } = this.props;
     return (
       <label htmlFor={name}>
         <select
@@ -20,14 +20,19 @@ class NumFilter extends React.Component {
           defaultValue={value}
           id={name}
           name={name}
-          onChange={({ target: { value: nextValue } }) => onChange(name, nextValue, id)}
+          onChange={({ target: { value: nextValue } }) => onChange(name, nextValue)}
         >{renderOptions(optionsList)}</select>
       </label>
     );
   }
 
+  sentFilter() {
+    const { createFilter } = this.props;
+    createFilter();
+  }
+
   render() {
-    const { columnOptions, filterValues, onChange, id, activateFilter } = this.props;
+    const { columnOptions, filterValues, onChange } = this.props;
     const { column, comparison, value } = filterValues;
     return (
       <div>
@@ -39,13 +44,13 @@ class NumFilter extends React.Component {
             defaultValue={value}
             id="value-filter"
             name="value-filter"
-            onChange={({ target: { value } }) => onChange('value', value, id)}
+            onChange={({ target: { value } }) => onChange('value', value)}
           />
         </label>
         <button
           data-testid="button-filter"
           type="button"
-          onClick={() => activateFilter(id)}
+          onClick={() => this.sentFilter()}
         >Activate
         </button>
       </div>
@@ -55,22 +60,22 @@ class NumFilter extends React.Component {
 
 NumFilter.propTypes = {
   columnOptions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  column: PropTypes.string,
-  comparison: PropTypes.string,
-  value: PropTypes.string,
+  filterValues: PropTypes.shape({
+    column: PropTypes.string.isRequired,
+    comparison: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  }).isRequired,
   onChange: PropTypes.func.isRequired,
-  activateFilter: PropTypes.func.isRequired,
+  createFilter: PropTypes.func.isRequired,
 };
 
-NumFilter.defaultProps = {
-  column: '',
-  comparison: '',
-  value: null,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onChange: (filter, value, id) => dispatch(actions.changeValue(filter, value, id)),
-  activateFilter: (id) => dispatch(actions.createFilter(id)),
+const mapStateToProps = ({ filters: { inProgress } }) => ({
+  filterValues: inProgress,
 });
 
-export default connect(null, mapDispatchToProps)(NumFilter);
+const mapDispatchToProps = (dispatch) => ({
+  onChange: (filter, value) => dispatch(actions.changeValue(filter, value)),
+  createFilter: () => dispatch(actions.createFilter()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NumFilter);

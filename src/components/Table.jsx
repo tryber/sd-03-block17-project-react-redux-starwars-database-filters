@@ -7,11 +7,14 @@ import TableRow from './TableRow';
 import planetShape from '../services/planetShape';
 
 const filterByNumPropertie = (list, especifications) => {
-  console.log(especifications);
-  const { value, propertie, comparison } = especifications;
-  if (comparison === 'maior que') return list.filter((obj) => obj[propertie] > value);
-  else if (comparison === 'menor que') return list.filter((obj) => obj[propertie] < value);
-  return list.filter((obj) => obj[propertie] === value);
+  const { value, column, comparison } = especifications;
+  const numValue = Number(value);
+  switch (comparison) {
+    case 'maior que': return list.filter((obj) => Number(obj[column]) > numValue);
+    case 'menor que': return list.filter((obj) => Number(obj[column]) < numValue);
+    case 'igual a': return list.filter((obj) => Number(obj[column]) === numValue);
+    default: return list;
+  }
 }
 
 const renderBody = (planets, properties) => (
@@ -28,8 +31,10 @@ const Table = ({ planets, searchText, numFilters }) => {
 
   const headers = Object.keys(planets[0]).filter((key) => key !== 'residents');
 
-  const planetsToShowByName = planets.filter((planet) => planet.name.includes(searchText));
-  const planetsToShow = filterByNumPropertie(planetsToShowByName, numFilters);
+  let planetsToShow = planets.filter((planet) => planet.name.includes(searchText));
+  numFilters.forEach((filter) => {
+    planetsToShow = filterByNumPropertie(planetsToShow, filter);
+  });
 
   return (
     <table>
