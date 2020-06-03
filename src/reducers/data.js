@@ -25,29 +25,18 @@ export const inicialState = {
 export function apiData(state = inicialState, action) {
   switch (action.type) {
     case REQUESTING_STAR_WARS_API:
-      return {
-        ...state,
-      };
+      return { ...state };
     case DATA_API:
-      return {
-        ...state,
-        data: action.data,
-        showResults: true,
-      };
+      return { ...state, data: action.data, showResults: true };
     case RECEIVE_ISS_LOCATION_FAILURE:
-      return {
-        ...state,
-        data: action.error,
-      };
+      return { ...state, data: action.error };
     case NAME_SEARCHED:
       return {
         ...state,
         filters: {
           filterByName: { name: action.planetName },
           filterByNumericValues: [
-            {
-              filtered: false,
-            },
+            { filtered: false },
           ],
         },
       };
@@ -55,9 +44,7 @@ export function apiData(state = inicialState, action) {
       return {
         ...state,
         filters: {
-          filterByName: {
-            name: '',
-          },
+          filterByName: { name: '' },
           filterByNumericValues: [
             {
               filtered: true,

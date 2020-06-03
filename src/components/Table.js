@@ -53,7 +53,9 @@ class Table extends Component {
       const { namesSearch } = this.props;
       namesSearch(value.target.value);
     };
-    const { all: { showResults, data: { results } }, filterBynameProp, filterByOption } = this.props;
+    const { all: { showResults, data: { results } },
+      filterBynameProp, filterByOption,
+    } = this.props;
     return (
       <div>
         <h1>StarWars Datatable with Filters</h1>
@@ -67,7 +69,8 @@ class Table extends Component {
           </thead>
           <tbody>
             {showResults && filterByOption.map((el) => el.filtered)[0] && <MultipleFiltersValue />}
-            {showResults && !filterByOption.map((el) => el.filtered)[0] && apiResults(results.filter(
+            {showResults && !filterByOption.map((el) => el.filtered)[0] &&
+            apiResults(results.filter(
               (planet) => planet.name.toLowerCase().indexOf(filterBynameProp.toLowerCase()) !== -1,
             ))}
           </tbody>
