@@ -13,7 +13,6 @@ const filter = (data, nameFilter) => data
   }, []);
 
 const Table = ({ data, isFetching, nameFilter }) => {
-
   if (isFetching) return <p>loading</p>;
   return (
     <table>
