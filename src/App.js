@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getApiData } from './actions/apiAction';
 import Table from './components/Table';
-import './App.css';
 
 
-class App extends Component() {
+class App extends React.Component() {
   componentDidMount() {
     const { fetch } = this.props;
     fetch();
@@ -16,9 +15,7 @@ class App extends Component() {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <Table />
-        </header>
+        <Table />
       </div>
     );
   }
