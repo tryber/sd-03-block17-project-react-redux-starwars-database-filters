@@ -1,5 +1,5 @@
 import { FILTER_BY_NAME } from '../actions/filterByNameAction';
-import { FILTER_BY_NUMERIC_VALUES } from '../actions/filterByNumericValues';
+import { FILTER_BY_NUMERIC_VALUES } from '../actions/filterByNumericValuesAction';
 
 const INITIAL_STATE = {
   filterByName: {
