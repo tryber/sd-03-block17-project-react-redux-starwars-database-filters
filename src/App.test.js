@@ -118,11 +118,11 @@ describe('2 - Sua página deve ter um campo de texto que filtra a tabela para so
     const { findByTestId } = renderApp();
     const filterField = await findByTestId('name-filter');
     fireEvent.change(filterField, {target: { value: 'o' }});
-    expect(store.getState().filters.filterByName.name).toEqual('o');
+    expect(store.getState().filters.filterByName.value).toEqual('o');
     fireEvent.change(filterField, {target: { value: 'oo' }});
-    expect(store.getState().filters.filterByName.name).toEqual('oo');
+    expect(store.getState().filters.filterByName.value).toEqual('oo');
     fireEvent.change(filterField, {target: { value: '' }});
-    expect(store.getState().filters.filterByName.name).toEqual('');
+    expect(store.getState().filters.filterByName.value).toEqual('');
   })
 })
 
