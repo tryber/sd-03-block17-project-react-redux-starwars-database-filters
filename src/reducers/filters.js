@@ -14,9 +14,9 @@ const initialState = {
     ],
     comparisonFilters: [
       'all',
-      'Menos que',
-      'Maior que',
-      'Igual a',
+      'maior que',
+      'igual a',
+      'menor que',
     ],
   },
 };

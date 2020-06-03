@@ -41,10 +41,9 @@ class Filters extends Component {
             .map((filter) => <Option key={filter} name={filter} />)}
         </select>
         <input data-testid="value-filter" id="value" type="number" value={value} onChange={(e) => this.handleChange(e)} />
-        <input
+        <button
           data-testid="button-filter"
           type="button"
-          value="Filtrar"
           onClick={() => {
             if (
               column !== 'all'
@@ -59,7 +58,9 @@ class Filters extends Component {
               this.setState({ column: 'all' });
             }
           }}
-        />
+        >
+          Filtrar
+        </button>
       </div>
     );
   }

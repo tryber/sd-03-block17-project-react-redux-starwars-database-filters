@@ -4,18 +4,14 @@ import PropTypes from 'prop-types';
 import TableLine from './TableLine';
 
 const switchComparison = (planet, column, comparison, value) => {
-  switch (comparison) {
-    case 'Menos que':
-      if (Number(planet[column]) > value || planet[column] === 'unknown') return false;
-      break;
-    case 'Maior que':
-      if (Number(planet[column]) < value || planet[column] === 'unknown') return false;
-      break;
-    case 'Igual a':
-      if (Number(planet[column]) !== value) return false;
-      break;
-    default:
-      return true;
+  if (comparison === 'menor que') {
+    if (Number(planet[column]) >= Number(value) || planet[column] === 'unknown') return false;
+  }
+  if (comparison === 'maior que') {
+    if (Number(planet[column]) <= Number(value) || planet[column] === 'unknown') return false;
+  }
+  if (comparison === 'igual a') {
+    if (Number(planet[column]) !== Number(value)) return false;
   }
   return true;
 };
@@ -29,8 +25,8 @@ const isFiltered = (planet, nameFilter, filterByNumericValues) => {
   return true;
 };
 
-const planets = (data, nameFilter, filterByNumericValues) => data
-  .reduce((acc, planet) => {
+const planets = (data, nameFilter, filterByNumericValues) =>
+  data.reduce((acc, planet) => {
     if (isFiltered(planet, nameFilter, filterByNumericValues)) {
       acc.push(<TableLine key={planet.name} planet={planet} />);
     }
