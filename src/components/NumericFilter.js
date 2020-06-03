@@ -3,6 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../actions/index';
 
+const columnOptions = [
+  'population',
+  'orbital_period',
+  'diameter',
+  'rotation_period',
+  'surface_water',
+];
+
 class NumericFilter extends React.Component {
   constructor(props) {
     super(props);
@@ -29,11 +37,7 @@ class NumericFilter extends React.Component {
           data-testid="column-filter" name="column-filter"
           onChange={(e) => this.handleChange('column', e.target.value)}
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          {columnOptions.map((e) => <option value={e}>{e}</option>)}
         </select>
         <label htmlFor="comparison-filter">Condição</label>
         <select

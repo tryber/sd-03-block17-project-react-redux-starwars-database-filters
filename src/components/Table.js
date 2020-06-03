@@ -39,7 +39,7 @@ const filteredPlanets = ({ column, comparison, value }, planets) => {
 class Table extends React.Component {
   render() {
     const { planets, isFetching, filterByName } = this.props;
-    const { filterByNumericValues, savePlanetByNumericValues } = this.props;
+    const { filterByNumericValues } = this.props;
     const dataReceived = planets.length;
     let planetoides = [];
     let dataReady = false;
@@ -57,11 +57,7 @@ class Table extends React.Component {
       <div>
         {dataReady && !isFetching &&
         <table><tbody>
-          <tr>
-            {
-            dataKeys.map((e) => <th key={e}>{e}</th>)
-            }
-          </tr>
+          <tr>{dataKeys.map((e) => <th key={e}>{e}</th>)}</tr>
           {
             planetoides.filter(({ name }) => name.match(regex)).map((e) => tableCreator(e))
           }
