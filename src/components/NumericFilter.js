@@ -39,7 +39,7 @@ class NumericFilter extends React.Component {
           onChange={(e) => this.handleChange('column', e.target.value)}
         >
           {columnOptions.map((e) => <option value={e}>{e}</option>)}
-        </select>  
+        </select>
         <label htmlFor="comparison-filter">Condição</label>
         <select
           data-testid="comparison-filter" name="comparison-filter"
