@@ -25,3 +25,4 @@ yarnlockjson
 yarn-error.log
 # VSCode repo settings
 .vscode
+.idea
