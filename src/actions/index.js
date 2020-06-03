@@ -30,3 +30,8 @@ export function callServiceAPI() {
     )
  }
 }
+
+export const filterByName = (payload) => ({
+  type: FILTER,
+  payload,
+})

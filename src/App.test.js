@@ -79,7 +79,7 @@ describe('1 - Fazer uma requisição para o endpoint /planets da API de Star War
 
 })
 
-describe.skip('2 - Sua página deve ter um campo de texto que filtra a tabela para somente exibir planetas cujos nomes incluam o texto digitado', () => {
+describe('2 - Sua página deve ter um campo de texto que filtra a tabela para somente exibir planetas cujos nomes incluam o texto digitado', () => {
 
   beforeAll(mockFetch);
   beforeEach(cleanup);

@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-class TableBody extends Component {
+class TableBody extends React.Component {
   render() {
-    const { planets } = this.props;
+    const { arrPlanets } = this.props;
     return (
       <tbody>
-        {planets.map((planet) => (
+        {arrPlanets.map((planet) => (
           <tr key={planet.name}>
             <td>{planet.name}</td>
             <td>{planet.rotation_period}</td>
@@ -20,7 +20,11 @@ class TableBody extends Component {
             <td>{planet.created}</td>
             <td>{planet.edited}</td>
             <td>{planet.url}</td>
-            <td>{planet.films.map((film) => <span>{film}</span>)}</td>
+            <td>
+              {planet.films.map((film) => (
+                <span key={film}>{film}</span>
+              ))}
+            </td>
           </tr>
         ))}
       </tbody>
@@ -28,8 +32,6 @@ class TableBody extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  planets: state.apiReducer.data,
-});
+export default TableBody;
 
-export default connect(mapStateToProps)(TableBody);
+

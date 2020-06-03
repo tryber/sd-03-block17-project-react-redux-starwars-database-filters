@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import Table from './Table';
 
 import { connect } from 'react-redux';
-import { callServiceAPI } from '../actions';
+import { callServiceAPI, filterByName } from '../actions';
 
 class Main extends Component {
   componentDidMount() {
     this.props.getAPIService();
+  }
+
+  handleChange(e) {
+    const { value } = e.target;
+    this.props.filterName(value);
   }
 
   render() {
@@ -23,6 +28,7 @@ class Main extends Component {
               type='text'
               placeholder='Filtro por nome'
               data-testid='name-filter'
+              onChange={(e) => this.handleChange(e)}
             />
           </div>
         </div>
@@ -34,6 +40,7 @@ class Main extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getAPIService: () => dispatch(callServiceAPI()),
+  filterName: (e) => dispatch(filterByName(e)),
 });
 
 export default connect(null, mapDispatchToProps)(Main);
