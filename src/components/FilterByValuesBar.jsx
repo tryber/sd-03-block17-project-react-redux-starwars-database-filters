@@ -13,6 +13,8 @@ const columns = [
 
 const comparisons = ['maior que', 'menor que', 'igual a'];
 
+const filterColumnsOptions = (filters, value) => !filters.find(({ column }) => column === value);
+
 class FilterByValuesBar extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +27,7 @@ class FilterByValuesBar extends Component {
   }
 
   renderColumnFilter() {
+    const { valueFilters } = this.props;
     return (
       <select
         id="column-filter"
@@ -32,10 +35,12 @@ class FilterByValuesBar extends Component {
         onChange={(event) => this.setState({ column: event.target.value })}
       >
         <option value="" />
-        {columns.map((column) => (
+        {columns.map((column) => (filterColumnsOptions(valueFilters, column)
+          && (
           <option value={column} key={column}>
             {column}
           </option>
+          )
         ))}
       </select>
     );
@@ -98,12 +103,17 @@ class FilterByValuesBar extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  valueFilters: state.filters.filterByNumericValues,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   filtersParams: (filtersParams) => dispatch(filterByNumericValues(filtersParams)),
 });
 
-export default connect(null, mapDispatchToProps)(FilterByValuesBar);
+export default connect(mapStateToProps, mapDispatchToProps)(FilterByValuesBar);
 
 FilterByValuesBar.propTypes = {
   filtersParams: PropTypes.func.isRequired,
+  valueFilters: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

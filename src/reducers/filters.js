@@ -1,4 +1,8 @@
-import { FILTER_BY_TEXT, FILTER_BY_NUMERIC_VALUES } from '../actions/actions';
+import {
+  FILTER_BY_TEXT,
+  FILTER_BY_NUMERIC_VALUES,
+  REMOVE_FILTERS,
+} from '../actions/actions';
 
 const INITIAL_STATE = {
   filterByName: {
@@ -24,6 +28,13 @@ const filters = (state = INITIAL_STATE, action) => {
           (state.filterByNumericValues[0].column === '')
             ? action.params
             : [...state.filterByNumericValues.concat(action.params)],
+      };
+    case REMOVE_FILTERS:
+      return {
+        ...state,
+        filterByNumericValues: [
+          ...state.filterByNumericValues.filter((filter) => filter !== action.value),
+        ],
       };
     default:
       return state;

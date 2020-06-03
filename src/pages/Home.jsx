@@ -5,6 +5,7 @@ import { fetchingPlanetsInfo, filterByText } from '../actions/actionsCreators';
 import Table from '../components/table/Table';
 import FilterByNameBar from '../components/FilterByNameBar';
 import FilterByValuesBar from '../components/FilterByValuesBar';
+import SelectedFilters from '../components/SelectedFilters';
 
 export class Home extends Component {
   componentDidMount() {
@@ -21,8 +22,8 @@ export class Home extends Component {
   }
 
   filterDataByNumericValue(data) {
-    const { valueFilter } = this.props;
-    const { column, comparison, value } = valueFilter;
+    const { valueFilters } = this.props;
+    const { column, comparison, value } = valueFilters;
     if (comparison === 'menor que') {
       return this.filterDataByText(data)
         .filter((element) => Number(element[column]) < Number(value));
@@ -50,6 +51,7 @@ export class Home extends Component {
           />
           <div>
             <FilterByValuesBar />
+            <SelectedFilters />
           </div>
         </div>
         {loading ? (
@@ -71,14 +73,14 @@ const mapStateToProps = (state) => ({
   data: state.planetsInfoReducer.data,
   loading: state.planetsInfoReducer.loading,
   nameFilter: state.filters.filterByName.name,
-  valueFilter: state.filters.filterByNumericValues[0],
+  valueFilters: state.filters.filterByNumericValues,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
 Home.defaultProps = {
   nameFilter: '',
-  valueFilter: [
+  valueFilters: [
     {
       column: '',
       comparison: '',
@@ -93,5 +95,5 @@ Home.propTypes = {
   nameFilter: PropTypes.string,
   planetName: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  valueFilter: PropTypes.arrayOf(PropTypes.object),
+  valueFilters: PropTypes.arrayOf(PropTypes.object),
 };

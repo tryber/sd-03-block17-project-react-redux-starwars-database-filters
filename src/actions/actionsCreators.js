@@ -4,6 +4,7 @@ import {
   PLANET_INFO_REQUEST_FAILURE,
   FILTER_BY_TEXT,
   FILTER_BY_NUMERIC_VALUES,
+  REMOVE_FILTERS,
 } from './actions';
 import { getAllPlanetsFromAPI } from '../services/starWarsAPI';
 
@@ -44,6 +45,11 @@ const filterByNumericValues = (...params) => ({
   params,
 });
 
+const removeFilters = (value) => ({
+  type: REMOVE_FILTERS,
+  value,
+});
+
 export {
   requestPlanetsInfo,
   requestPlanetInfoSucess,
@@ -51,4 +57,5 @@ export {
   fetchingPlanetsInfo,
   filterByText,
   filterByNumericValues,
+  removeFilters,
 };
