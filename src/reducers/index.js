@@ -4,6 +4,7 @@ import {
   FETCH_PLANETS_FAILURE,
 } from '../actions/fetchPlanetsAction';
 import { TYPE_NAME } from '../actions/SearchTextAction';
+import { CHANGE_VALUES } from '../actions/NumFilterActions';
 
 const INITIAL_STATE = {
   filters: {

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+const comparisonOptions = ['Maior que', 'Menor que', 'Igual a'];
+
 const renderOptions = (optionsList) => (
   optionsList.map((option) => <option key={option} value={option}>{option}</option>)
 );
@@ -17,7 +19,7 @@ const renderSelectOf = (name, value, optionsList) => (
 );
 
 const NumFilter = (
-  { columnOptions, comparisonOptions, column, comparison, value}
+  { columnOptions, filterValues: { column, comparison, value } }
 ) => (
   <div>
     {renderSelectOf('column-filter', column, columnOptions)}
@@ -47,13 +49,8 @@ NumFilter.defaultProps = {
   value: null,
 };
 
-const mapStateToProps = ({ filters: { filterByNumericValues } }) => {
-  const { column, comparison , value } = filterByNumericValues[0];
-  return ({
-    column,
-    comparison,
-    value,
-  });
-};
+const mapDispatchToProps = (dispatch) => ({
+  
+});
 
-export default connect(mapStateToProps)(NumFilter);
+export default connect(null, mapDispatchToProps)(NumFilter);

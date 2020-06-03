@@ -1,17 +1,41 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import SearchBox from './SearchBox';
 import NumFilter from './NumFilter';
 
 const columnOptions = ['orbital_period', 'diameter', 'rotation_period', 'surface_water'];
 
-const comparisonOptions = ['Maior que', 'Menor que', 'Igual a'];
-
-const FilterBar = () => (
+const FilterBar = ({ numFilters }) => (
   <section>
-    <SearchBox />
-  <NumFilter columnOptions={columnOptions} comparisonOptions={comparisonOptions} />
+    <section>
+      <SearchBox />
+    </section>
+    <section>
+      {numFilters.map((filterValues, id) => (
+        <NumFilter
+          filterValues={filterValues}
+          id={id}
+          columnOptions={columnOptions}
+        />
+      ))}
+  </section>
   </section>
 );
 
-export default FilterBar;
+const mapStateToProps = ({ filters: { filterByNumericValues } }) => ({
+  numFilters: filterByNumericValues,
+});
+
+FilterBar.propTypes = {
+  numFilters: PropTypes.arrayOf(
+    PropTypes.shape({
+      column: PropTypes.string.isRequired,
+      comparison: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired,
+    }).isRequired
+  ).isRequired,
+};
+
+export default connect(mapStateToProps)(FilterBar);
