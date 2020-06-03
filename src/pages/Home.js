@@ -26,6 +26,7 @@ class Home extends React.Component {
     const { isFetching, data, name } = this.props;
    
     if (isFetching) return <Loading />;
+
     return (
       <div>
         <label htmlFor="namePlanet">
@@ -36,7 +37,7 @@ class Home extends React.Component {
             onChange={this.filterTableNameOnChange}
           />
         </label>
-        <Table data={data} name={name}/>
+        <Table data={data} name={name} />
       </div>
     );
   }
@@ -47,13 +48,11 @@ const mapStateToProps = (state) => ({
   isFetching: state.requestData.isFetching,
   error: state.requestData.error,
   name: state.requestData.filters.filterByName.name,
-  dataFilter: state.requestData.dataFilter,
-  filter: state.requestData.filter,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   search: (value) => dispatch(fetchStarWarsApi(value)),
-  filterName: (name, dataFilter) => dispatch(filterPlanetName(name, dataFilter)),
+  filterName: (name) => dispatch(filterPlanetName(name)),
 });
 
 Home.propTypes = {
@@ -61,8 +60,7 @@ Home.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFetching: PropTypes.bool.isRequired,
   filterName: PropTypes.func.isRequired,
-  dataFilter: PropTypes.arrayOf(PropTypes.object).isRequired,
-  filter: PropTypes.bool.isRequired,
+  name: PropTypes.string,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

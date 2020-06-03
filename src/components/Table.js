@@ -65,6 +65,7 @@ class Table extends React.Component {
 
 Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  name: PropTypes.string,
 };
 
 export default Table;

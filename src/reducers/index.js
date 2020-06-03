@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 const REQUEST_DATA = 'REQUEST_DATA';
 const RECEIVE_DATA = 'RECEIVE_DATA';
 const RECEIVE_FAIL = 'RECEIVE_FAIL';
-const RECEIVE_DATA_FILTER = 'RECEIVE_DATA_FILTER';
+const NAME_FILTER = 'NAME_FILTER';
 
 const stateDefault = {
   isFetching: false,
@@ -42,8 +42,7 @@ const requestData = (state = stateDefault, action) => {
         ...state,
         error: action.error,
       };
-    case RECEIVE_DATA_FILTER:
-      console.log(state)
+    case NAME_FILTER:
       return {
         ...state,
         isFetching: false,

@@ -3,7 +3,7 @@ import starWarsApi from '../services/starWarsApi';
 const REQUEST_DATA = 'REQUEST_DATA';
 const RECEIVE_DATA = 'RECEIVE_DATA';
 const RECEIVE_FAIL = 'RECEIVE_FAIL';
-const RECEIVE_DATA_FILTER = 'RECEIVE_DATA_FILTER';
+const NAME_FILTER = 'NAME_FILTER';
 
 const requestData = () => ({
   type: REQUEST_DATA,
@@ -20,7 +20,7 @@ const receiveFail = (error) => ({
 });
 
 export const filterPlanetName = (name) => ({
-  type: RECEIVE_DATA_FILTER,
+  type: NAME_FILTER,
   name,
 });
 
