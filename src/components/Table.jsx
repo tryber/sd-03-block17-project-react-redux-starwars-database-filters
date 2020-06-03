@@ -6,6 +6,14 @@ import TableHeader from './TableHeader';
 import TableRow from './TableRow';
 import planetShape from '../services/planetShape';
 
+const filterByNumPropertie = (list, especifications) => {
+  console.log(especifications);
+  const { value, propertie, comparison } = especifications;
+  if (comparison === 'maior que') return list.filter((obj) => obj[propertie] > value);
+  else if (comparison === 'menor que') return list.filter((obj) => obj[propertie] < value);
+  return list.filter((obj) => obj[propertie] === value);
+}
+
 const renderBody = (planets, properties) => (
   <tbody>
     {planets
@@ -15,11 +23,13 @@ const renderBody = (planets, properties) => (
   </tbody>
 );
 
-const Table = ({ planets, searchText }) => {
+const Table = ({ planets, searchText, numFilters }) => {
   if (planets.length === 0) return <div>None Planet Found</div>;
 
   const headers = Object.keys(planets[0]).filter((key) => key !== 'residents');
-  const planetsToShow = planets.filter((planet) => planet.name.includes(searchText));
+
+  const planetsToShowByName = planets.filter((planet) => planet.name.includes(searchText));
+  const planetsToShow = filterByNumPropertie(planetsToShowByName, numFilters);
 
   return (
     <table>
@@ -30,14 +40,18 @@ const Table = ({ planets, searchText }) => {
   );
 }
 
-const mapStateToProps = ({ data, filters: { filterByName } }) => ({
+const mapStateToProps = ({ data, filters: { filterByName, filterByNumericValues } }) => ({
   planets: data,
   searchText: filterByName.name,
+  numFilters: filterByNumericValues,
 });
 
 Table.propTypes = {
   searchText: PropTypes.string.isRequired,
   planets: PropTypes.arrayOf(PropTypes.shape(planetShape()).isRequired).isRequired,
+  numFilters: PropTypes.arrayOf(
+    PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
+  ).isRequired,
 };
 
 export default connect(mapStateToProps)(Table);
