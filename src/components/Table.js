@@ -1,89 +1,71 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import Filters from './Filters';
-import ActionPlanets from '../store/actions/ActionPlanets';
+import { fetchPlanetsList } from '../actions';
+import PlanetLine from './PlanetLine';
 
-export class Table extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
 
+class Table extends Component {
   componentDidMount() {
-    const { ActionPlanets } = this.props;
-    ActionPlanets();
+    const { getPlanetsList } = this.props;
+    getPlanetsList();
   }
-
-  renderTableHead() {
-    const { data } = this.props;
-    return (
-      <thead>
-        <tr>
-          {Object.keys(data[0]).map((key) => (
-            <th key={key}>
-              {key}
-            </th>
-          ))}
-        </tr>
-      </thead>
-    );
-  }
-
-  renderTableBody() {
-    const { data } = this.props;
-    return (
-      <tbody>
-        {data.map((planet) => (
-          <tr key={planet.name}>
-            {Object.values(planet).map((planetValue) => (
-              <td key={planetValue}>{planetValue}</td>))}
-          </tr>
-        ))}
-      </tbody>
-    );
-  }
-
-  renderTable() {
-    return (
-      <table border="1px">
-        {this.renderTableHead()}
-        {this.renderTableBody()}
-      </table>
-    );
-  }
-
 
   render() {
-    const { loading, error, data } = this.props;
-    if (!loading && data !== undefined) {
+    const { isFetching, data, name } = this.props;
+
+    if (isFetching) { return <p>Loading...</p>; }
+
+    if (data) {
       return (
-        <div>
-          <h1>StarWars Datatable with Filters:</h1>
-          <Filters />
-          {this.renderTable()}
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Rotation Period</th>
+              <th>Orbital Period</th>
+              <th>Diameter</th>
+              <th>Climate</th>
+              <th>Gravity</th>
+              <th>Terrain</th>
+              <th>Surface Water</th>
+              <th>Population</th>
+              <th>Films</th>
+              <th>Created</th>
+              <th>Edited</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.filter((planet) => (planet.name.toLowerCase()).includes(name))
+                 .map((planet) => <PlanetLine planet={planet} key={planet.name} />)}
+          </tbody>
+        </table>
       );
     }
-    if (error) { return <div>{error}</div>; }
-    return <div>Loading...</div>;
+    return <p>No Planet Found</p>;
   }
 }
 
 const mapStateToProps = (state) => ({
-  loading: state.R_fetchPlanets.loading,
-  error: state.R_fetchPlanets.error,
-  data: state.R_fetchPlanets.data,
+  isFetching: state.planetsList.isFetching,
+  data: state.planetsList.data,
+  name: state.filters.filterByName.name,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ ActionPlanets }, dispatch);
-
+const mapDispatchToProps = (dispatch) => ({
+  getPlanetsList: () => dispatch(fetchPlanetsList()),
+});
 
 Table.propTypes = {
-  ActionPlanets: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  getPlanetsList: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object),
+  name: PropTypes.string.isRequired,
+};
 
+Table.defaultProps = {
+  data: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
