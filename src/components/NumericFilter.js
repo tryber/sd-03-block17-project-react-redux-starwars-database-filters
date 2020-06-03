@@ -12,6 +12,13 @@ const columnOptions = [
   'surface_water',
 ];
 
+const comparisonOptions = [
+  'select comparison',
+  'Maior que',
+  'Menor que',
+  'Igual a',
+];
+
 class NumericFilter extends React.Component {
   constructor(props) {
     super(props);
@@ -45,9 +52,7 @@ class NumericFilter extends React.Component {
           data-testid="comparison-filter" name="comparison-filter"
           onChange={(e) => this.handleChange('comparison', e.target.value)}
         >
-          <option value="Maior que">Maior que</option>
-          <option value="Menor que">Menor que</option>
-          <option value="Igual a">Igual a</option>
+          {comparisonOptions.map((e) => <option value={e}>{e}</option>)}
         </select>
         <label htmlFor="value-filter">Valor</label>
         <input
