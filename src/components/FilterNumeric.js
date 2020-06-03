@@ -5,7 +5,7 @@ export class FilterNumeric extends Component {
     return (
       <div>
         <select data-testid="column-filter" name="filter">
-        <option value=" ">Selecione Uma Opção </option>
+          <option value=" ">Selecione Uma Opção </option>
           <option value="population">population</option>
           <option value="orbital_period">orbital_period</option>
           <option value="diameter">diameter</option>
@@ -13,6 +13,7 @@ export class FilterNumeric extends Component {
           <option value="surface_water">surface_water</option>
         </select>
         <select data-testid="comparison-filter" name="comparation">
+          <option value=" ">Selecione Uma Opção </option>
           <option value="Maior que">Maior que</option>
           <option value="Menor que">Menor que</option>
           <option value="diameter">Igual a</option>
