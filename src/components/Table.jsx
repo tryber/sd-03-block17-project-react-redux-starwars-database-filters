@@ -3,16 +3,41 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TableLine from './TableLine';
 
-const filter = (data, nameFilter) => data
+const switchComparison = (planet, column, comparison, value) => {
+  switch (comparison) {
+    case 'Menos que':
+      if (Number(planet[column]) > value || planet[column] === 'unknown') return false;
+      break;
+    case 'Maior que':
+      if (Number(planet[column]) < value || planet[column] === 'unknown') return false;
+      break;
+    case 'Igual a':
+      if (Number(planet[column]) !== value) return false;
+      break;
+    default:
+      return true;
+  }
+  return true;
+};
+
+const isFiltered = (planet, nameFilter, filterByNumericValues) => {
+  if (nameFilter && !planet.name.match(new RegExp(nameFilter, 'i'))) return false;
+  for (let i = 0; i < filterByNumericValues.length; i += 1) {
+    const { column, comparison, value } = filterByNumericValues[i];
+    if (!switchComparison(planet, column, comparison, value)) return false;
+  }
+  return true;
+};
+
+const planets = (data, nameFilter, filterByNumericValues) => data
   .reduce((acc, planet) => {
-    if (nameFilter && planet.name.match(new RegExp(nameFilter, 'i'))) {
+    if (isFiltered(planet, nameFilter, filterByNumericValues)) {
       acc.push(<TableLine key={planet.name} planet={planet} />);
     }
-    if (!nameFilter) acc.push(<TableLine key={planet.name} planet={planet} />);
     return acc;
   }, []);
 
-const Table = ({ data, isFetching, nameFilter }) => {
+const Table = ({ data, isFetching, nameFilter, filterByNumericValues }) => {
   if (isFetching) return <p>loading</p>;
   return (
     <table>
@@ -33,7 +58,7 @@ const Table = ({ data, isFetching, nameFilter }) => {
           <th>url</th>
         </tr>
       </thead>
-      <tbody>{filter(data, nameFilter)}</tbody>
+      <tbody>{planets(data, nameFilter, filterByNumericValues)}</tbody>
     </table>
   );
 };
@@ -42,6 +67,7 @@ const mapStateToProps = (state) => ({
   data: state.planetsReducer.data,
   isFetching: state.planetsReducer.isFetching,
   nameFilter: state.filters.filterByName.name,
+  filterByNumericValues: state.filters.filterByNumericValues,
 });
 
 Table.propTypes = {
