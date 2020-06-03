@@ -49,8 +49,7 @@ class Table extends React.Component {
     );
   }
 
-  tbodyFilters(data, name, option, comparison, valueFilter) {
-   if (comparison === "bigger_then") {
+  tbodyFiltersBig(data, name, option, valueFilter) {
     return (
       <tbody>
         {data.filter((item) => item.name.includes(name) && item[option] > valueFilter)
@@ -71,7 +70,9 @@ class Table extends React.Component {
           </tr>)}
       </tbody>
     );
-   } else if (comparison === "less_then") {
+  }
+
+  tbodyFiltersLess(data, name, option, valueFilter) {
     return (
       <tbody>
         {data.filter((item) => item.name.includes(name) && item[option] < valueFilter)
@@ -92,7 +93,9 @@ class Table extends React.Component {
           </tr>)}
       </tbody>
     );
-   } else if (comparison === "equal") {
+  }
+
+  tbodyFiltersEqual(data, name, option, valueFilter) {
     return (
       <tbody>
         {data.filter((item) => item.name.includes(name) && item[option] === valueFilter)
@@ -113,13 +116,11 @@ class Table extends React.Component {
           </tr>)}
       </tbody>
     );
-   }
   }
 
   table() {
     const { data, name, option, valueFilter, isFiltered, comparison } = this.props;
     const { titles } = this.state;
-
     return (
       <table>
         <thead>
@@ -128,7 +129,21 @@ class Table extends React.Component {
           </tr>
         </thead>
         {!isFiltered && this.tbody(data, name)}
-        {isFiltered && this.tbodyFilters(data, name, option, comparison, valueFilter)}
+        {
+          comparison === "bigger_then" &&
+          
+          this.tbodyFiltersBig(data, name, option, valueFilter)
+        }
+        {
+          comparison === "less_then" &&
+         
+          this.tbodyFiltersLess(data, name, option, valueFilter)
+        }
+        {
+          comparison === "equal" &&
+          
+          this.tbodyFiltersEqual(data, name, option, valueFilter)
+        }
       </table>
     );
   }

@@ -8,9 +8,9 @@ class InputsNumerics extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterSelect: '',
-      comparison: '',
-      valueFilter: '',
+      filterSelect: 'population',
+      comparison: 'bigger_then',
+      valueFilter: 0,
     };
     this.onChangeFilterSelect = this.onChangeFilterSelect.bind(this);
     this.onChangeComparison = this.onChangeComparison.bind(this);
