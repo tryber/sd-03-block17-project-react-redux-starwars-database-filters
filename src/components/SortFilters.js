@@ -26,7 +26,6 @@ export class SortFilters extends Component {
     const { sortFilter } = this.props;
     if (order.column === '' || order.sort === '') return false;
     sortFilter(order);
-    this.setState(() => ({ order: { column: '', sort: '' } }));
     return true;
   }
 
@@ -43,7 +42,13 @@ export class SortFilters extends Component {
           {options.map((column) => <option value={column} key={column}>{column}</option>)}
         </select>
         {this.renderSortButtons()}
-        <button type="button" onClick={() => this.handleSubmitOrder()}>Ordenar</button>
+        <button
+          type="button"
+          data-testid="column-sort-button"
+          onClick={() => this.handleSubmitOrder()}
+        >
+          Ordenar
+        </button>
       </div>
 
     );
