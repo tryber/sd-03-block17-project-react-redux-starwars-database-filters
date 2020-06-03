@@ -66,7 +66,6 @@ export class Table extends Component {
                 <thead>
                   <tr>
                     {headers.map((element) => <th key={element}>{element}</th>)}
-
                   </tr>
                 </thead>
                 <tbody>
