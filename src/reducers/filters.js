@@ -2,10 +2,8 @@
 import { FILTER_BY_TEXT } from '../actions';
 
 const INITIAL_STATE = {
-  filters: {
-    filterByName: {
-      name: '',
-    },
+  filterByName: {
+    name: '',
   },
 };
 

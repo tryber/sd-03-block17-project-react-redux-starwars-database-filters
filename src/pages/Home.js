@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   data: state.selectPlanets.data,
   isFetching: state.selectPlanets.isFetching,
-  nameFilter: state.filterByName.filters.filterByName.name,
+  nameFilter: state.filters.filterByName.name,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
