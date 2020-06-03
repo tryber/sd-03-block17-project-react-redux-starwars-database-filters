@@ -3,15 +3,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TableLine from './TableLine';
 
+const filter = (data, nameFilter) => data
+  .reduce((acc, planet) => {
+    if (nameFilter && planet.name.match(new RegExp(nameFilter, 'i'))) {
+      acc.push(<TableLine key={planet.name} planet={planet} />);
+    }
+    if (!nameFilter) acc.push(<TableLine key={planet.name} planet={planet} />);
+    return acc;
+  }, []);
+
 const Table = ({ data, isFetching, nameFilter }) => {
-  const filter = () => data
-    .reduce((acc, planet) => {
-      if (nameFilter && planet.name.match(new RegExp(nameFilter, 'i'))) {
-        acc.push(<TableLine key={planet.name} planet={planet} />);
-      }
-      if (!nameFilter) acc.push(<TableLine key={planet.name} planet={planet} />);
-      return acc;
-    }, []);
 
   if (isFetching) return <p>loading</p>;
   return (
@@ -33,7 +34,7 @@ const Table = ({ data, isFetching, nameFilter }) => {
           <th>url</th>
         </tr>
       </thead>
-      <tbody>{filter()}</tbody>
+      <tbody>{filter(data, nameFilter)}</tbody>
     </table>
   );
 };
