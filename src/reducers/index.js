@@ -1,6 +1,7 @@
 const initialState = {
   data: { results: [] },
-  filters: { filterByName: { name: '' }, filterByNumericValues: [{ column: 'population', comparison: 'Maior que' }] },
+  filters: { filterByName: { name: '' }, filterByNumericValues: [{ }] },
+  id: 0,
 };
 
 function emptyReducer(state = initialState, action) {
@@ -12,17 +13,22 @@ function emptyReducer(state = initialState, action) {
       return { ...state, filters: { ...state.filters, filterByName: { name: action.filter } } };
 
     case 'SET_NUMERIC_FILTER': {
-      const filter = state.filters.filterByNumericValues[action.payload.id];
-
+      let filter = state.filters.filterByNumericValues[state.id];
+      filter = { ...filter, [action.payload.type]: action.payload.value };
+      const newFilterArray = [...state.filters.filterByNumericValues];
+      newFilterArray.splice(state.id, 1, filter);
       return {
         ...state,
         filters: {
           ...state.filters,
-          filterByNumericValues: [
-            // ...state.filters.filterByNumericValues,
-            { ...filter, [action.payload.type]: action.payload.value },
-          ],
+          filterByNumericValues: newFilterArray,
         },
+      };
+    }
+
+    case 'CHANGE_ID': {
+      return {
+        ...state, id: state.id + action.payload,
       };
     }
     default:

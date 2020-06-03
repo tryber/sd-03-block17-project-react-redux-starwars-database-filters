@@ -28,14 +28,14 @@ const filterArray = [
 ];
 
 function setFilter(type, name, value) {
-  if (type === 'Maior que') {
-    return (e) => e[name] > value;
+  if (type === 'maior que') {
+    return (e) => +e[name] > +value;
   }
-  if (type === 'Menor que') {
-    return (e) => e[name] < value;
+  if (type === 'menor que') {
+    return (e) => +e[name] < +value;
   }
-  if (type === 'Igual a') {
-    return (e) => e[name] === value;
+  if (type === 'igual a') {
+    return (e) => +e[name] === +value;
   }
   return (e) => e;
 }
@@ -75,8 +75,14 @@ class Table extends Component {
 
   fireFilter(id) {
     const { filters: { filterByNumericValues }, data } = this.props;
-    const { comparison: type, column: name, value } = filterByNumericValues[id];
-    const filteredNumberData = data.filter(setFilter(type, name, value));
+    // const { comparison: type, column: name, value } = filterByNumericValues[id];
+    let filteredNumberData = data;
+    filterByNumericValues.forEach(({ comparison: type, column: name, value }) => {
+      filteredNumberData = filteredNumberData.filter(setFilter(type, name, value));
+    });
+
+
+    // const filteredNumberData = data.filter(setFilter(type, name, value));
     this.setState({ filteredNumberData });
   }
 
