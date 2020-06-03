@@ -13,6 +13,7 @@ export class FilterNumeric extends Component {
           <option value="surface_water">surface_water</option>
         </select>
         <select data-testid="comparison-filter" name="comparation">
+          <option value=" ">Selecione Uma Opção </option>
           <option value="maior que">maior que</option>
           <option value="menor que">menor que</option>
           <option value="igual a">igual a</option>
