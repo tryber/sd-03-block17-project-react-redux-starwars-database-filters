@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import fetchStarWarsApi from '../actions';
+import { fetchStarWarsApi } from '../actions/index';
 import Loading from './Loading';
 
 class Table extends React.Component {
@@ -43,7 +43,6 @@ class Table extends React.Component {
         </thead>
         <tbody>
           {data.map((item) => <tr key={item.name}>
-            <td>Teste</td>
             <td>{item.name}</td>
             <td>{item.climate}</td>
             <td>{item.created}</td>
@@ -55,7 +54,6 @@ class Table extends React.Component {
             <td>{item.rotation_period}</td>
             <td>{item.surface_water}</td>
             <td>{item.terrain}</td>
-            <td>Teste</td>
           </tr>)}
         </tbody>
       </table>

@@ -19,7 +19,7 @@ const receiveFail = (error) => ({
 });
 
 
-function fetchStarWarsApi(search) {
+export function fetchStarWarsApi(search) {
   return (dispatch) => {
     dispatch(requestData());
 
@@ -32,5 +32,3 @@ function fetchStarWarsApi(search) {
       );
   };
 }
-
-export default fetchStarWarsApi;
