@@ -4,6 +4,8 @@ export const REQUEST_API = 'REQUEST_API';
 export const RECEIVE_API = 'RECEIVE_API';
 export const RECEIVE_API_ERROR = 'RECEIVE_API_ERROR';
 export const FILTER_BY_NAME = 'FILTER_BY_NAME';
+export const FILTER_BY_NUMERIC_VALUES = 'FILTER_BY_NUMERIC_VALUES';
+export const RECEIVE_FILTERED_PLANETS = 'RECEIVE_FILTERED_PLANETS';
 
 const requestPlanets = () => ({
   type: REQUEST_API,
@@ -33,4 +35,14 @@ export function fetchPlanets() { // action creator retorna função, possível g
 export const filterByName = (name) => ({
   type: FILTER_BY_NAME,
   value: name,
+});
+
+export const filterByNumericValues = (data) => ({
+  type: FILTER_BY_NUMERIC_VALUES,
+  data,
+});
+
+export const filteredPlanets = (data) => ({
+  type: RECEIVE_FILTERED_PLANETS,
+  planets: data,
 });

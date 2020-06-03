@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchPlanets } from './actions/index';
 import Table from './components/Table';
 import Filter from './components/Filter';
+import NumericFilter from './components/NumericFilter';
 import './App.css';
 
 class App extends React.Component {
@@ -15,7 +16,9 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <span>StarWars Datatable with Filters</span>
         <Filter />
+        <NumericFilter />
         <Table />
       </div>
     );

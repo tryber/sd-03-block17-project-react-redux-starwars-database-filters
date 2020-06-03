@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes, { object } from 'prop-types';
+import * as actions from '../actions/index';
 import './Table.css';
 
 const tableCreator = (obj) =>
@@ -22,25 +23,38 @@ const tableCreator = (obj) =>
     <td>{obj.url}</td>
   </tr>;
 
+const filteredPlanets = ({ column, comparison, value }, planets) => {
+  switch (comparison) {
+    case 'Maior que':
+      return planets.filter((e) => e[column] > value);
+    case 'Menor que':
+      return planets.filter((e) => e[column] < value);
+    case 'Igual a':
+      return planets.filter((e) => (e[column] - value) === 0);
+    default:
+      return planets;
+  };
+};
+
 class Table extends React.Component {
   render() {
-    const { planets, isFetching, filterByName } = this.props;
+    const { planets, isFetching, filterByName, filterByNumericValues, savePlanetByNumericValues } = this.props;
     const dataReceived = planets.length;
+    let planetoides = [];
     let dataReady = false;
     let dataKeys = [];
     let regex = '';
-
     if (dataReceived) {
       dataKeys = [...Object.keys(planets[0])];
       const cutData = dataKeys.indexOf('residents');
       regex = new RegExp(`${filterByName}`, 'i');
       dataKeys.splice(cutData, 1);
-      dataReady = true;
+      dataReady = true;     
+      planetoides = [...filteredPlanets(filterByNumericValues[0], planets)];
     }
 
     return (
       <div>
-        StarWars Datatable with Filters
         {dataReady && !isFetching &&
         <table><tbody>
           <tr>
@@ -49,7 +63,7 @@ class Table extends React.Component {
             }
           </tr>
           {
-            planets.filter(({ name }) => name.match(regex)).map((e) => tableCreator(e))
+            planetoides.filter(({ name }) => name.match(regex)).map((e) => tableCreator(e))
           }
         </tbody></table>
         }
@@ -63,9 +77,14 @@ const mapStateToProps = (state) => ({
   planets: state.data.planets,
   isFetching: state.data.isFetching,
   filterByName: state.filters.filterByName.name,
+  filterByNumericValues: state.filters.filterByNumericValues,
 });
 
-export default connect(mapStateToProps)(Table);
+const mapDispatchToProps = (dispatch) => ({
+  savePlanetByNumericValues: (data) => dispatch(actions.filteredPlanets(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
 
 // faça as proptypes da ação oriunda do thunk
 Table.propTypes = {

@@ -1,4 +1,4 @@
-import { REQUEST_API, RECEIVE_API, RECEIVE_API_ERROR } from '../actions/index';
+import { REQUEST_API, RECEIVE_API, RECEIVE_API_ERROR, RECEIVE_FILTERED_PLANETS } from '../actions/index';
 
 const INITIAL_STATE = {
   isFetching: false,
@@ -7,6 +7,7 @@ const INITIAL_STATE = {
 };
 
 const data = (state = INITIAL_STATE, action) => {
+  console.log('Planetas: ', action.planets);
   switch (action.type) {
     case REQUEST_API:
       return {
@@ -23,6 +24,12 @@ const data = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         error: action.error,
+      };
+    case RECEIVE_FILTERED_PLANETS:
+      return {
+        ...state,
+        isFetching: false,
+        planets: [...action.planets],
       };
     default:
       return state;
