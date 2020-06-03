@@ -21,6 +21,7 @@ const filters = (state = INITIAL_STATE, action) => {
             comparison: action.comparison,
             value: action.value,
           },
+          ...state.filterByNumericValues,
         ],
       };
 
