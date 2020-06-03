@@ -6,7 +6,9 @@ import TableLine from './TableLine';
 const Table = ({ data, isFetching, nameFilter }) => {
   const filter = () => data
     .reduce((acc, planet) => {
-      if (nameFilter && planet.name.match(new RegExp(nameFilter, 'i'))) acc.push(<TableLine key={planet.name} planet={planet} />);
+      if (nameFilter && planet.name.match(new RegExp(nameFilter, 'i'))) {
+        acc.push(<TableLine key={planet.name} planet={planet} />);
+      }
       if (!nameFilter) acc.push(<TableLine key={planet.name} planet={planet} />);
       return acc;
     }, []);
