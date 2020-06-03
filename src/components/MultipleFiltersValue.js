@@ -20,32 +20,33 @@ const apiResults = (value) => value.map((row, index) => (
   </tr>
 ));
 
+const objectAccess = (value, access, optionMap) => {
+  switch (value) {
+    case 'Maior que':
+      return Number(access) > Number(optionMap);
+    case 'Menor que':
+      return Number(access) < Number(optionMap);
+    default:
+      return Number(access) === Number(optionMap);
+  }
+};
+
 const multipleFilters = (value, planet, comparison, filterByOption) => {
   switch (value) {
     case 'population':
-      if (comparison[0] === 'Maior que') return Number(planet.population) > Number(filterByOption.map((el) => el.value));
-      if (comparison[0] === 'Menor que') return Number(planet.population) < Number(filterByOption.map((el) => el.value));
-      if (comparison[0] === 'Igual a') return Number(planet.population) === Number(filterByOption.map((el) => el.value));
-      break;
+      return objectAccess(comparison[0], planet.population,
+        filterByOption.map((el) => el.value));
     case 'rotation_period':
-      if (comparison[0] === 'Maior que') return Number(planet.rotation_period) > Number(filterByOption.map((el) => el.value));
-      if (comparison[0] === 'Menor que') return Number(planet.rotation_period) < Number(filterByOption.map((el) => el.value));
-      if (comparison[0] === 'Igual a') return Number(planet.rotation_period) === Number(filterByOption.map((el) => el.value));
-      break;
+      return objectAccess(comparison[0], planet.rotation_period,
+        filterByOption.map((el) => el.value));
     case 'orbital_period':
-      if (comparison[0] === 'Maior que') return Number(planet.rotation_period) > Number(filterByOption.map((el) => el.value));
-      if (comparison[0] === 'Menor que') return Number(planet.rotation_period) < Number(filterByOption.map((el) => el.value));
-      if (comparison[0] === 'Igual a') return Number(planet.rotation_period) === Number(filterByOption.map((el) => el.value));
-      break;
+      return objectAccess(comparison[0], planet.orbital_period,
+        filterByOption.map((el) => el.value));
     case 'diameter':
-      if (comparison[0] === 'Maior que') return Number(planet.diameter) > Number(filterByOption.map((el) => el.value));
-      if (comparison[0] === 'Menor que') return Number(planet.diameter) < Number(filterByOption.map((el) => el.value));
-      if (comparison[0] === 'Igual a') return Number(planet.diameter) === Number(filterByOption.map((el) => el.value));
-      break;
+      return objectAccess(comparison[0], planet.diameter, filterByOption.map((el) => el.value));
     default:
-      if (comparison[0] === 'Maior que') return Number(planet.diameter) > Number(filterByOption.map((el) => el.value));
-      if (comparison[0] === 'Menor que') return Number(planet.diameter) < Number(filterByOption.map((el) => el.value));
-      if (comparison[0] === 'Igual a') return Number(planet.diameter) === Number(filterByOption.map((el) => el.value));
+      return objectAccess(comparison[0], planet.surface_water,
+        filterByOption.map((el) => el.value));
   }
 };
 
