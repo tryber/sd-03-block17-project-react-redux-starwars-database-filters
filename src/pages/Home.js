@@ -13,30 +13,22 @@ class Home extends React.Component {
     getPlanets();
   }
 
-  filterDataByText(data) {
-    const { nameFilter } = this.props;
-    if (nameFilter !== '') {
-      return data.filter(({ name }) => name.toLowerCase().includes(nameFilter.toLowerCase()));
-    }
-    return data;
-  }
-
   render() {
     const {
-      data, isFetching, planetName, nameFilter,
+      data, isFetching, getByName, nameFilter,
     } = this.props;
     console.log(nameFilter);
     return (
       <div className="Home">
         <div>
           <FilterByNameInput
-            onChange={(event) => planetName(event.target.value)}
+            onChange={(event) => getByName(event.target.value)}
           />
         </div>
         {isFetching ? (
           <h1>Loading..</h1>
         ) : (
-          <Table data={this.filterDataByText(data)} />
+          <Table data={data} />
         )}
       </div>
     );
@@ -45,7 +37,7 @@ class Home extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getPlanets: () => dispatch(fetchPlanets()),
-  planetName: (planetName) => dispatch(fetchByName(planetName)),
+  getByName: (planetName) => dispatch(fetchByName(planetName)),
 });
 
 const mapStateToProps = (state) => ({
@@ -64,6 +56,6 @@ Home.propTypes = {
   getPlanets: PropTypes.func.isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFetching: PropTypes.bool.isRequired,
-  planetName: PropTypes.func.isRequired,
+  getByName: PropTypes.func.isRequired,
   nameFilter: PropTypes.string,
 };
