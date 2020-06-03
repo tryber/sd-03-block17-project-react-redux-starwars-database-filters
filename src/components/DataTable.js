@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import Table from './Table';
-import Filters from './Filters';
-import actionFetchPlanets from '../store/actions/actionFetchPlanets';
 
 export class DataTable extends Component {
   constructor(props) {
@@ -13,52 +9,94 @@ export class DataTable extends Component {
     };
   }
 
-  componentDidMount() {
-    const { fetchPlanets } = this.props;
-    fetchPlanets();
-  };
+  filterComparison(column, comparison, value, planet) {
+    console.log(this.state);
+    switch (comparison) {
+      case 'maior que':
+        return Number(planet[column]) > Number(value);
+      case 'menor que':
+        return Number(planet[column]) < Number(value);
+      case 'igual a':
+        return Number(planet[column]) === Number(value);
+      default:
+        return [];
+    }
+  }
+
+  renderTableHead() {
+    const { data } = this.props;
+    return (
+      <thead>
+        <tr>
+          {Object.keys(data[0]).map((key) => (
+            <th key={key}>
+              {key}
+            </th>
+          ))}
+        </tr>
+      </thead>
+    );
+  }
+
+  renderTableBody() {
+    const { data, filterByName, filterByNumericValues } = this.props;
+    console.log('filters', filterByNumericValues);
+    let filteredData = data.filter(({ name }) => name.match(new RegExp(filterByName.name, 'i')));
+    filterByNumericValues.forEach(({ column, comparison, value }) => {
+      filteredData = filteredData.filter((planet) => this.filterComparison(column, comparison, value, planet));
+    });
+    return (
+      <tbody>
+        {filteredData.map((planet) => (
+          <tr key={planet.name}>
+            {Object.values(planet).map((planetValue) => (
+              <td key={planetValue}>{planetValue}</td>))}
+          </tr>
+        ))}
+      </tbody>
+    );
+  }
+
+  renderTable() {
+    return (
+      <table border="1px">
+        {this.renderTableHead()}
+        {this.renderTableBody()}
+      </table>
+    );
+  }
 
   render() {
-    const {
-      loading, error, data,
-    } = this.props;
-    if (!loading && data !== undefined) {
-      return (
-        <div>
-          <h1>StarWars Datatable with Filters:</h1>
-          <Filters />
-          <Table />
-        </div>
-      );
-    }
-    if (error) { return <div>{error}</div>; }
-    return <div>Loading...</div>;
+    return (
+      <div>
+        {this.renderTable()}
+      </div>
+    );
   }
 }
 
-const mapStateToProps = ({ reducerFetchPlanets }) => ({
-  loading: reducerFetchPlanets.loading,
-  error: reducerFetchPlanets.error,
+const mapStateToProps = ({
+  reducerFetchPlanets,
+  filters: { filterByName, filterByNumericValues },
+}) => ({
   data: reducerFetchPlanets.data,
+  filterByName,
+  filterByNumericValues,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    { fetchPlanets: actionFetchPlanets }, dispatch,
-  );
-};
-
-
 DataTable.propTypes = {
-  fetchPlanets: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
-  error: PropTypes.string,
   data: PropTypes.instanceOf(Array),
+  filterByName: PropTypes.shape({
+    name: PropTypes.string,
+  }),
+  filterByNumericValues: PropTypes.instanceOf(Array),
+
 };
 
 DataTable.defaultProps = {
   data: [],
-  error: '',
+  filterByNumericValues: [],
+  filterByName: {},
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DataTable);
+export default connect(mapStateToProps)(DataTable);

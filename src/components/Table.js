@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import DataTable from './DataTable';
+import Filters from './Filters';
+import actionFetchPlanets from '../store/actions/actionFetchPlanets';
 
 export class Table extends Component {
   constructor(props) {
@@ -9,78 +13,52 @@ export class Table extends Component {
     };
   }
 
-  renderTableHead() {
-    const { data } = this.props;
-    return (
-      <thead>
-        <tr>
-          {Object.keys(data[0]).map((key) => (
-            <th key={key}>
-              {key}
-            </th>
-          ))}
-        </tr>
-      </thead>
-    );
-  }
-
-  renderTableBody() {
-    const { data, filterByName: { name }, filterByNumericValues } = this.props;
-    console.log('filtros', filterByNumericValues, name);
-    return (
-      <tbody>
-        {data.map((planet) => (
-          <tr key={planet.name}>
-            {Object.values(planet).map((planetValue) => (
-              <td key={planetValue}>{planetValue}</td>))}
-          </tr>
-        ))}
-      </tbody>
-    );
-  }
-
-  renderTable() {
-    return (
-      <table border="1px">
-        {this.renderTableHead()}
-        {this.renderTableBody()}
-      </table>
-    );
-  }
+  componentDidMount() {
+    const { fetchPlanets } = this.props;
+    fetchPlanets();
+  };
 
   render() {
-    return (
-      <div>
-        {this.renderTable()}
-      </div>
-    );
+    const {
+      loading, error, data,
+    } = this.props;
+    if (!loading && data.length !== 0) {
+      return (
+        <div>
+          <h1>StarWars Datatable with Filters:</h1>
+          <Filters />
+          <DataTable />
+        </div>
+      );
+    }
+    if (error) { return <div>{error}</div>; }
+    return <div>Loading...</div>;
   }
 }
 
-const mapStateToProps = ({
-  reducerFetchPlanets,
-  reducerFilters: {
-    filters: { filterByName, filterByNumericValues },
-  },
-}) => ({
+const mapStateToProps = ({ reducerFetchPlanets }) => ({
+  loading: reducerFetchPlanets.loading,
+  error: reducerFetchPlanets.error,
   data: reducerFetchPlanets.data,
-  filterByName,
-  filterByNumericValues,
 });
 
-Table.propTypes = {
-  data: PropTypes.instanceOf(Array),
-  filterByName: PropTypes.shape({
-    name: PropTypes.string,
-  }),
-  filterByNumericValues: PropTypes.instanceOf(Array),
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    { fetchPlanets: actionFetchPlanets }, dispatch,
+  );
+};
 
+
+Table.propTypes = {
+  fetchPlanets: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string,
+  data: PropTypes.instanceOf(Array),
 };
 
 Table.defaultProps = {
   data: [],
-  filterByNumericValues: [],
-  filterByName: {},
+  error: '',
 };
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

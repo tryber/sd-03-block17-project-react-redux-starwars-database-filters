@@ -76,14 +76,14 @@ export class Filters extends Component {
     return (
       <div>
         <select
-          testid="comparison-filter"
+          data-testid="comparison-filter"
           name="comparison"
           onChange={(e) => this.handleChange(e)}
         >
           <option value="" />
-          <option value="maior que">Maior que</option>
-          <option value="menor que">Menor que</option>
-          <option value="igual a">Igual a</option>
+          <option value="maior que">maior que</option>
+          <option value="menor que">menor que</option>
+          <option value="igual a">igual a</option>
         </select>
       </div>
     );
@@ -157,9 +157,7 @@ export class Filters extends Component {
 
 
 const mapStateToProps = ({
-  reducerFilters: {
-    filters: { filterByNumericValues },
-  },
+  filters: { filterByNumericValues },
 }) => ({
   filterByNumericValues,
 });

@@ -10,7 +10,7 @@ import { elementType } from 'prop-types';
 
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import reducer from './reducers';
+import reducer from './store/reducers';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -117,11 +117,11 @@ describe('2 - Sua página deve ter um campo de texto que filtra a tabela para so
   test('should change store filter values', async () => {
     const { findByTestId } = renderApp();
     const filterField = await findByTestId('name-filter');
-    fireEvent.change(filterField, {target: { value: 'o' }});
+    fireEvent.change(filterField, { target: { value: 'o' } });
     expect(store.getState().filters.filterByName.name).toEqual('o');
-    fireEvent.change(filterField, {target: { value: 'oo' }});
+    fireEvent.change(filterField, { target: { value: 'oo' } });
     expect(store.getState().filters.filterByName.name).toEqual('oo');
-    fireEvent.change(filterField, {target: { value: '' }});
+    fireEvent.change(filterField, { target: { value: '' } });
     expect(store.getState().filters.filterByName.name).toEqual('');
   })
 })
