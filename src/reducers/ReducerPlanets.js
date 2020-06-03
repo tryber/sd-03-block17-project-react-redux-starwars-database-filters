@@ -27,16 +27,6 @@ const ReducerPlanets = (state = INITIAL_STATE, action) => {
         isFetching: false,
         error: action.error,
       };
-    case FILTER_BY_NAME:
-      return {
-        ...state,
-        filters: {
-          ...state.filters,
-          filterByName: { name: action.name },
-        },
-        filteredData: state.data.filter(({ name }) =>
-          name.includes(action.name)),
-      };
     default:
       return state;
   }

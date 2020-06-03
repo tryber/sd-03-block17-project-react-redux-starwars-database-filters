@@ -126,7 +126,7 @@ describe('2 - Sua página deve ter um campo de texto que filtra a tabela para so
   })
 })
 
-describe.skip('3 - Sua página deve ter um filtro para valores numéricos', () => {
+describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
 
   beforeAll(mockFetch);
   beforeEach(cleanup);

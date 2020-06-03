@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filterByName } from '../action';
+import { filterByName, filterByNumericValues } from '../action';
 
 class Input extends React.Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class Input extends React.Component {
 
     this.state = {
       text: '',
-      number: 0,
+      number: '',
       column: '',
       comparation: '',
     };
@@ -19,11 +19,12 @@ class Input extends React.Component {
     this.onSelectChange = this.onSelectChange.bind(this);
     this.getColumns = this.getColumns.bind(this);
     this.getComparation = this.getComparation.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   onTextChange(event) {
     this.setState({ text: event.target.value });
-    this.props.filterByName(event.target.value);
+    this.props.filterByName(event.target.value, this.props.data);
   }
 
   onNumberChange(event) {
@@ -37,7 +38,7 @@ class Input extends React.Component {
 
   getColumns() {
     const columns = [
-      'Selecione',
+      '',
       'population',
       'orbital_period',
       'diameter',
@@ -59,15 +60,15 @@ class Input extends React.Component {
 
   getComparation() {
     const comparation = [
-      'Selecione',
-      'Maior que',
-      'Menor que',
-      'Igual a',
+      '',
+      'maior que',
+      'menor que',
+      'igual a',
     ];
     return (
       <select
         onChange={(event) => this.onSelectChange(event, 'comparation')}
-        data-testid="column-filter"
+        data-testid="comparison-filter"
         value={this.state.comparation}
       >
         {comparation.map((option) =>
@@ -75,6 +76,11 @@ class Input extends React.Component {
         }
       </select>
     );
+  }
+
+  onClick() {
+    const { number, column, comparation } = this.state;
+    this.props.filterByNumericValues(column, comparation, number);
   }
 
   render() {
@@ -96,16 +102,26 @@ class Input extends React.Component {
           value={this.state.number}
           onChange={(event) => this.onNumberChange(event)}
         />
+        <button
+          data-testid="button-filter"
+          onClick={this.onClick}
+        >Filtrar</button>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  filterByName: (name) => dispatch(filterByName(name)),
+const mapStateToProps = (state) => ({
+  data: state.ReducerPlanets.data,
 });
 
-export default connect(null, mapDispatchToProps)(Input);
+const mapDispatchToProps = (dispatch) => ({
+  filterByName: (name, data) => dispatch(filterByName(name, data)),
+  filterByNumericValues: (column, comparison, value) =>
+    dispatch(filterByNumericValues(column, comparison, value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Input);
 
 Input.propTypes = {
   filterByName: PropTypes.func.isRequired,
