@@ -57,7 +57,7 @@ class NumericFilter extends React.Component {
         <label htmlFor="value-filter">Valor</label>
         <input
           data-testid="value-filter" type="number" maxLength="12"
-          onChange={(e) => this.handleChange('value', Number(e.target.value))}
+          onChange={(e) => this.handleChange('value', e.target.value)}
         />
         <button
           data-testid="button-filter"

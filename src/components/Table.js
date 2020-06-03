@@ -24,7 +24,7 @@ const tableCreator = (obj) =>
   </tr>;
 
 const filteredPlanets = ({ column, comparison, value }, planets) => {
-  if (value === 0) { return planets; }
+  if (Number(value) === 0) { return planets; }
   switch (comparison) {
     case 'maior que':
       return planets.filter((e) => e[column] > value);
