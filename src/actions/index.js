@@ -4,8 +4,7 @@ const REQUEST_DATA = 'REQUEST_DATA';
 const RECEIVE_DATA = 'RECEIVE_DATA';
 const RECEIVE_FAIL = 'RECEIVE_FAIL';
 const NAME_FILTER = 'NAME_FILTER';
-const SELECT_FILTER = 'SELECT_FILTER';
-const SELECT_COMPARISON = 'SELECT_COMPARISON';
+const FILTER_SELECTORS = 'FILTER_SELECTORS';
 
 const requestData = () => ({
   type: REQUEST_DATA,
@@ -26,16 +25,12 @@ export const filterPlanetName = (name) => ({
   name,
 });
 
-export const filterSelect = (option) => ({
-  type: SELECT_FILTER,
-  option,
-});
-
-export const filterComparison = (comparison) => ({
-  type: SELECT_COMPARISON,
+export const filterSelectors = (filterSelect, comparison, valueFilter) => ({
+  type: FILTER_SELECTORS,
+  filterSelect,
   comparison,
+  valueFilter
 });
-
 
 export function fetchStarWarsApi(search) {
   return (dispatch) => {

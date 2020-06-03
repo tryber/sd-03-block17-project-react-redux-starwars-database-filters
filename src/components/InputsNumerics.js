@@ -1,23 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { filterSelect, filterComparison } from '../actions/index';
+import PropTypes from 'prop-types';
+import { filterSelectors } from '../actions/index';
+
 
 class InputsNumerics extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      filterSelect: '',
+      comparison: '',
+      valueFilter: '',
+    };
     this.onChangeFilterSelect = this.onChangeFilterSelect.bind(this);
     this.onChangeComparison = this.onChangeComparison.bind(this);
+    this.onChangeValueFilter = this.onChangeValueFilter.bind(this);
+    this.onClickDispatchSelectors = this.onClickDispatchSelectors.bind(this);
   }
 
   onChangeFilterSelect(event) {
-    console.log(event.target.value);
-    const { option } = this.props;
-    option(event.target.value);
+    this.setState({ filterSelect: event.target.value });
   }
 
   onChangeComparison(event) {
-    const { comparison } = this.props;
-    comparison(event.target.value);
+    this.setState({ comparison: event.target.value });
+  }
+
+  onChangeValueFilter(event) {
+    this.setState({ valueFilter: event.target.value });
+  }
+
+  onClickDispatchSelectors() {
+    const { filterSelect, comparison, valueFilter } = this.state;
+    const { selectors } = this.props;
+    selectors(filterSelect, comparison, valueFilter);
   }
 
   selectFilter() {
@@ -44,19 +60,50 @@ class InputsNumerics extends React.Component {
     );
   }
 
+  valueFilterInput() {
+    return (
+      <label htmlFor="valueFilter">
+        Valor:
+        <input
+          name="valueFilter"
+          type="number"
+          onChange={this.onChangeValueFilter}
+        />
+      </label>
+    );
+  }
+
+  buttonFilter() {
+    return (
+      <div>
+        <button
+          data-testid='button-filter'
+          onClick={this.onClickDispatchSelectors}
+        >
+          Filtrar
+        </button>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div>
         {this.selectFilter()}
         {this.selectComparison()}
+        {this.valueFilterInput()}
+        {this.buttonFilter()}
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  option: (value) => dispatch(filterSelect(value)),
-  comparison: (value) => dispatch(filterComparison(value)),
+  selectors: (filterSelect, comparison, valueFilter) => dispatch(filterSelectors(filterSelect, comparison, valueFilter)),
 });
+
+InputsNumerics.propTypes = {
+  selectors: PropTypes.func.isRequired,
+}
 
 export default connect(null, mapDispatchToProps)(InputsNumerics);

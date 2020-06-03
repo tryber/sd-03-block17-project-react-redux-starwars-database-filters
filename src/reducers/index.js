@@ -4,8 +4,7 @@ const REQUEST_DATA = 'REQUEST_DATA';
 const RECEIVE_DATA = 'RECEIVE_DATA';
 const RECEIVE_FAIL = 'RECEIVE_FAIL';
 const NAME_FILTER = 'NAME_FILTER';
-const SELECT_FILTER = 'SELECT_FILTER';
-const SELECT_COMPARISON = 'SELECT_COMPARISON';
+const FILTER_SELECTORS = 'FILTER_SELECTORS';
 
 const stateDefault = {
   isFetching: false,
@@ -55,36 +54,24 @@ const reducerFilters = (state = stateFiltersDefault, action) => {
   switch (action.type) {
     case NAME_FILTER:
       return {
-        ...state,
-        filters: { filterByName: { name: action.name } },
-      };
-    case SELECT_FILTER:
-      return {
-        ...state,
         filters: {
           ...state.filters,
-          filterByNumericValues: [
-            {
-              column: action.option,
-
-            },
-          ],
+          filterByName: { name: action.name }
         },
       };
-    case SELECT_COMPARISON:
+    case FILTER_SELECTORS:
       return {
-        ...state,
         filters: {
           ...state.filters,
           filterByNumericValues: [
             {
-              ...state.filters.filterByNumericValues[0],
+              column: action.filterSelect,
               comparison: action.comparison,
-              value: '',
+              value: action.valueFilter,
             },
           ],
         },
-      }
+      };
     default:
       return state;
   }

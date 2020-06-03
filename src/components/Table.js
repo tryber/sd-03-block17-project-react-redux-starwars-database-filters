@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import '../App.css';
 
 
 class Table extends React.Component {
@@ -43,9 +44,11 @@ class Table extends React.Component {
               <td>{item.created}</td>
               <td>{item.diameter}</td>
               <td>{item.edited}</td>
+              <td>#</td>
               <td>{item.gravity}</td>
               <td>{item.orbital_period}</td>
               <td>{item.population}</td>
+              <td>#</td>
               <td>{item.rotation_period}</td>
               <td>{item.surface_water}</td>
               <td>{item.terrain}</td>
@@ -67,11 +70,15 @@ class Table extends React.Component {
 const mapStateToProps = (state) => ({
   option: state.reducerFilters.filters.filterByNumericValues[0].column,
   comparison: state.reducerFilters.filters.filterByNumericValues[0].comparison,
+  valueFilter: state.reducerFilters.filters.filterByNumericValues[0].value,
 });
 
 Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   name: PropTypes.string.isRequired,
+  option: PropTypes.string.isRequired,
+  comparison: PropTypes.string.isRequired,
+  valueFilter: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(Table);
