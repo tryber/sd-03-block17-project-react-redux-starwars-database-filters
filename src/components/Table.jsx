@@ -28,7 +28,7 @@ class Table extends React.Component {
           <td className="table-active">{planet.films.length}</td>
           <td>{planet.gravity}</td>
           <td className="table-active">
-            <a href={planet.url} className="btn btn-outline-primary">Link</a>
+            <a href={planet.url} className="btn btn-outline-primary"> Link</a>
           </td>
         </tr>
       ))
