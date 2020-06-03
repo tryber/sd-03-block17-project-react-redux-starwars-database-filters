@@ -47,7 +47,6 @@ export class Table extends Component {
   }
 
   render() {
-    console.log(this.props.value.filters);
     const { value: { data } } = this.props;
     const { value: { filters: { filterByName: { filteredPlanets } } } } = this.props;
     const { results } = data;
