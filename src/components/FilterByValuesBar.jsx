@@ -11,7 +11,7 @@ const columns = [
   'surface_water',
 ];
 
-const comparisons = ['Maior que', 'Menor que', 'Igual a'];
+const comparisons = ['maior que', 'menor que', 'igual a'];
 
 class FilterByValuesBar extends Component {
   constructor(props) {
@@ -49,7 +49,7 @@ class FilterByValuesBar extends Component {
         data-testid="comparison-filter"
         onChange={(event) => this.setState({ comparison: event.target.value })}
       >
-        <option value="">-</option>
+        <option value="" />
         {comparisons.map((comparison) => (
           <option value={comparison} key={comparison}>
             {comparison}
@@ -67,7 +67,7 @@ class FilterByValuesBar extends Component {
         id="value-filter"
         data-testid="value-filter"
         placeholder="digite um valor"
-        onChange={(event) => this.setState({ value: (event.target.value) })}
+        onChange={(event) => this.setState({ value: event.target.value })}
       />
     );
   }
