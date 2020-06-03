@@ -13,13 +13,19 @@ const columnOptions = [
   'surface_water',
 ];
 
+const takeUnused = (completeList, usedListOfObj) => (
+  completeList.filter((option) =>
+    usedListOfObj.every(({ column }) => column !== option)
+  )
+);
+
 const FilterBar = ({ numFilters }) => (
   <section>
     <section>
       <SearchBox />
     </section>
     <section>
-      <NumFilter columnOptions={columnOptions} />
+      <NumFilter columnOptions={takeUnused(columnOptions, numFilters)} />
       {numFilters.map(({ column, comparison, value }) => (
         <p key={column}>
           <span>{column} | {comparison} | {value}</span>

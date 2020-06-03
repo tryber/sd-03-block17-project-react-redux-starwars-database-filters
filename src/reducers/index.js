@@ -7,7 +7,6 @@ import {
 import {
   CHANGE_VALUES,
   CREATE_NUMERIC_FILTER,
-  // ACTIVATE_NUMERIC_FILTER,
 } from '../actions/NumFilterActions';
 
 import { TYPE_NAME } from '../actions/SearchTextAction';
@@ -78,6 +77,7 @@ function filtersReducer(filters, action) {
       if (allValuesSetted(inProgress)) {
         return ({
           ...filters,
+          inProgress: defaultNumericFilterElem,
           filterByNumericValues: [...filterByNumericValues, inProgress],
         });
       }
