@@ -25,7 +25,7 @@ const filters = (state = INITIAL_STATE, action) => {
     case FILTER_BY_NUMERIC_VALUES:
       return {
         ...state,
-        filterByNumericValues: [action.data],
+        filterByNumericValues: [state.filterByNumericValues, ...action.data],
       };
     default:
       return state;
