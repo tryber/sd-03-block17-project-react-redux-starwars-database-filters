@@ -26,7 +26,7 @@ const filters = (state = INITIAL_STATE, action) => {
       if (state.filterByNumericValues[0].column === '') {
         return {
           ...state,
-          filterByNumericValues: [action.data],  
+          filterByNumericValues: [action.data],
         };
       }
       return {
