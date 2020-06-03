@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootswatch/dist/pulse/bootstrap.min.css';
 import Table from './components/Table';
 import FilterBar from './components/FilterBar';
 
