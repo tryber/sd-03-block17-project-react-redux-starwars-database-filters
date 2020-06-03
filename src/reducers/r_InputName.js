@@ -18,7 +18,9 @@ const filters = (state = INITIAL_STATE, action) => {
     case FILTER_BY_NAME:
       return {
         ...state,
-        name: action.value,
+        filterByName: {
+          name: action.value,
+        },
       };
     // case FILTER_BY_NUMBERS:
     //   return {

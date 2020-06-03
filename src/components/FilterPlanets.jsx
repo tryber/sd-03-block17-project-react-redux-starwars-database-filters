@@ -6,18 +6,6 @@ import { filterByName } from '../action/index';
 
 
 class FilterPlanets extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.planetsFilter = this.planetsFilter.bind(this);
-  // }
-
-  // planetsFilter(e) {
-  //   const { data } = this.props;
-  //   return ({
-  //     name: data.filter((ele) => ele.name.includes(e)),
-  //   });
-  // }
-
   render() {
     const { getPlanetByname } = this.props;
     return (
@@ -26,14 +14,8 @@ class FilterPlanets extends Component {
         <input
           type="text"
           data-testid="name-filter"
-          onChange={(e) => console.log('sera que funciona', getPlanetByname(e.target.value))}
+          onChange={(e) => console.log(getPlanetByname(e.target.value))}
         />
-        <button
-          type="button"
-          onClick={(e) => getPlanetByname(e)}
-        >
-          Search
-        </button>
       </div>
     );
   }

@@ -25,28 +25,32 @@ const tableForm = () => (
 );
 
 class Table extends React.Component {
-
-  // filteredPlantes() {
-  //   const { filterByName, planets } = this.props;
-  //   return planets.filter(({ name }) => name.includes(filterByName));
-  // }
+  filteredPlanets(planets) {
+    const { filterByName } = this.props;
+    if (filterByName !== '') {
+      return planets.filter(({ name }) => name.toLowerCase().includes(filterByName.toLowerCase()));
+    }
+    return planets;
+  }
 
   render() {
-    // const { planets, isFetching, filterByName } = this.props;
+    const { planets, isFetching } = this.props;
     return (
       <div className="container">
-        <h1 className="titleTable">Star Wars World</h1>
+        <h1 className="titleTable">
+          como príncipe lutaste com Deus e com os homens, e prevaleceste.
+          Gênesis 32:28
+        </h1>
         <div className="TabelaProdutos">
           <DispatchStore />
           <table>
             {tableForm()}
             <tbody>
-              <TableData />
+              {isFetching ? 'Loading' : <TableData data={this.filteredPlanets(planets)} />}
             </tbody>
           </table>
         </div>
         <div className="barFilter">
-          {/* {this.filteredPlantes()} */}
         </div>
       </div>
     );
