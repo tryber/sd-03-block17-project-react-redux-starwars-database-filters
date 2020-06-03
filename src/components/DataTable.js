@@ -23,21 +23,67 @@ export class DataTable extends Component {
     }
   }
 
-  // sortAsc(data, column) {
-  //   return data
-  // }
+  orderASC(toBeSorted, column, data) {
+    console.log(this.state);
+    let sorted = data;
+    if (toBeSorted.includes(column)) {
+      sorted = data.sort(function (a, b) {
+        if (Number(a[column]) > Number(b[column])) {
+          return 1;
+        }
+        if (Number(a[column]) < Number(b[column])) {
+          return -1;
+        }
+        return 0;
+      });
+    } else {
+      sorted = data.sort(function (a, b) {
+        if ((a[column]) > (b[column])) {
+          return 1;
+        }
+        if ((a[column]) < (b[column])) {
+          return -1;
+        }
+        return 0;
+      });
+    }
+    return sorted;
+  }
 
-  // sortDesc() {
-
-  // }
+  orderDESC(toBeSorted, column, data) {
+    console.log(this.state);
+    let sorted = data;
+    if (toBeSorted.includes(column)) {
+      sorted = data.sort(function (a, b) {
+        if (Number(a[column]) < Number(b[column])) {
+          return 1;
+        }
+        if (Number(a[column]) > Number(b[column])) {
+          return -1;
+        }
+        return 0;
+      });
+    } else {
+      sorted = data.sort(function (a, b) {
+        if ((a[column]) < (b[column])) {
+          return 1;
+        }
+        if ((a[column]) > (b[column])) {
+          return -1;
+        }
+        return 0;
+      });
+    }
+    return sorted;
+  }
 
   orderPlanets(filteredData) {
     const { order: { column, sort } } = this.props;
-    if (column === 'name') return filteredData;
-    // const data = (sort === 'ASC')
-    //   ? sortASC(filteredData, column)
-    //   : sortDesc(filteredData, column)
-    return filteredData;
+    const toBeSorted = ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
+    const newData = (sort === 'ASC')
+      ? this.orderASC(toBeSorted, column, filteredData)
+      : this.orderDESC(toBeSorted, column, filteredData);
+    return newData;
   }
 
   filterNames(filteredData) {
@@ -47,7 +93,8 @@ export class DataTable extends Component {
 
   filterNumeric(filteredData) {
     const { filterByNumericValues } = this.props;
-    return filterByNumericValues.reduce((acc, { column, comparison, value }) => acc.filter((planet) => this.filterComparison(column, comparison, value, planet)), filteredData);
+    return filterByNumericValues.reduce((acc, { column, comparison, value }) => acc.filter((planet) => this.filterComparison(column, comparison, value, planet)),
+      filteredData);
   }
 
   renderTableHead() {

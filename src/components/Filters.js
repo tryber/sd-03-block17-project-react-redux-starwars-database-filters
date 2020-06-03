@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import SortFilters from './SortFilters';
 import actionFilterNames from '../store/actions/actionFilterNames';
 import actionAddFilterValues from '../store/actions/actionAddFilterValues';
 import actionRemoveFilterValues from '../store/actions/actionRemoveFilterValues';
@@ -15,12 +16,7 @@ export class Filters extends Component {
       column: '',
       comparison: '',
       value: '',
-      order: {
-        column: '',
-        sort: '',
-      },
       options: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
-      sortOptions: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
     };
   }
 
@@ -51,20 +47,6 @@ export class Filters extends Component {
     const { options } = this.state;
     removeFilter(index);
     this.setState({ options: [...options, column] });
-  }
-
-  handleOrder(e) {
-    const { name, value } = e.target;
-    this.setState((state) => ({ order: { ...state.order, [name]: value } }));
-  }
-
-  handleSubmitOrder() {
-    const { order } = this.state;
-    const { sortFilter } = this.props;
-    if (order.column === '' || order.sort === '') return false;
-    sortFilter(order);
-    this.setState(() => ({ order: { column: '', sort: '' } }));
-    return true;
   }
 
   renderInputName() {
@@ -136,42 +118,6 @@ export class Filters extends Component {
     );
   }
 
-  renderSortFilter() {
-    const { sortOptions } = this.state;
-    return (
-      <div>
-        <select
-          data-testid="column-sort"
-          name="column"
-          onChange={(e) => this.handleOrder(e)}
-        >
-          <option value="" />
-          {sortOptions.map((column) => <option value={column} key={column}>{column}</option>)}
-        </select>
-        <input
-          type="radio"
-          name="sort"
-          value="ASC"
-          id="ASC"
-          data-testid="column-sort-input"
-          onChange={(e) => this.handleOrder(e)}
-        />
-        <label htmlFor="ASC">Crescente</label>
-        <input
-          type="radio"
-          name="sort"
-          value="DESC"
-          id="DESC"
-          data-testid="column-sort-input"
-          onChange={(e) => this.handleOrder(e)}
-        />
-        <label htmlFor="DESC">Decrescente</label>
-        <button type="button" onClick={() => this.handleSubmitOrder()}>Ordenar</button>
-      </div>
-
-    );
-  }
-
   renderActiveFilters(filterByNumericValues) {
     return (
       <div>
@@ -202,7 +148,7 @@ export class Filters extends Component {
           {this.renderValueFilter()}
           {this.renderSubmitButton()}
         </div>
-        {this.renderSortFilter()}
+        <SortFilters />
         <div>
           {filterByNumericValues[0].column !== '' && this.renderActiveFilters(filterByNumericValues)}
         </div>
@@ -210,7 +156,6 @@ export class Filters extends Component {
     );
   }
 }
-
 
 const mapStateToProps = ({
   filters: { filterByNumericValues },

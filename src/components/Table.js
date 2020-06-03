@@ -16,7 +16,7 @@ export class Table extends Component {
   componentDidMount() {
     const { fetchPlanets } = this.props;
     fetchPlanets();
-  };
+  }
 
   render() {
     const {
@@ -42,12 +42,9 @@ const mapStateToProps = ({ reducerFetchPlanets }) => ({
   data: reducerFetchPlanets.data,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    { fetchPlanets: actionFetchPlanets }, dispatch,
-  );
-};
-
+const mapDispatchToProps = (dispatch) => bindActionCreators(
+  { fetchPlanets: actionFetchPlanets }, dispatch,
+);
 
 Table.propTypes = {
   fetchPlanets: PropTypes.func.isRequired,
