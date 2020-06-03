@@ -31,7 +31,7 @@ class FilterByValuesBar extends Component {
         data-testid="column-filter"
         onChange={(event) => this.setState({ column: event.target.value })}
       >
-        <option value="" />
+        <option value="" disabled />
         {columns.map((column) => (
           <option value={column} key={column}>
             {column}
@@ -49,7 +49,7 @@ class FilterByValuesBar extends Component {
         data-testid="comparison-filter"
         onChange={(event) => this.setState({ comparison: event.target.value })}
       >
-        <option value="" />
+        <option value="" disabled />
         {comparisons.map((comparison) => (
           <option value={comparison} key={comparison}>
             {comparison}

@@ -12,10 +12,11 @@ export class Home extends Component {
     getPlanetsInfo();
   }
 
-  filteredPlanetDataByText(data) {
+  filterDataByText(data) {
     const { nameFilter } = this.props;
-    const filteredData = data.filter(({ name }) => name.includes(nameFilter));
-    if (nameFilter !== '') return filteredData;
+    if (nameFilter !== '') {
+      return data.filter(({ name }) => name.toUpperCase().includes(nameFilter.toUpperCase()));
+    }
     return data;
   }
 
@@ -31,7 +32,11 @@ export class Home extends Component {
             <FilterByValuesBar />
           </div>
         </div>
-        {loading ? <h1>Loading..</h1> : <Table data={this.filteredPlanetDataByText(data)} />}
+        {loading ? (
+          <h1>Loading..</h1>
+        ) : (
+          <Table data={this.filterDataByText(data)} />
+        )}
       </div>
     );
   }
@@ -46,11 +51,21 @@ const mapStateToProps = (state) => ({
   data: state.planetsInfoReducer.data,
   loading: state.planetsInfoReducer.loading,
   nameFilter: state.filters.filterByName.name,
+  // valueFilter: state.filter.filterByNumericValues[0],
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
-Home.defaultProps = { nameFilter: '' };
+Home.defaultProps = {
+  nameFilter: '',
+  valueFilter: [
+    {
+      column: '',
+      comparison: '',
+      value: '',
+    },
+  ],
+};
 
 Home.propTypes = {
   getPlanetsInfo: PropTypes.func.isRequired,
@@ -58,4 +73,5 @@ Home.propTypes = {
   nameFilter: PropTypes.string,
   planetName: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  valueFilter: PropTypes.arrayOf(PropTypes.object),
 };
