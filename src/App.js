@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Table from './components/Table';
 import { fetchData } from './action/index';
 import InputFilter from './components/InputFilter';
+import FilterNumeric from './components/FilterNumeric';
 import './App.css';
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
     return (
       <div>
         <InputFilter />
+        <FilterNumeric />
         <Table />
       </div>
 
