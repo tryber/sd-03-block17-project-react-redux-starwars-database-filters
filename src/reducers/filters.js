@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   filterByNumericValues: [
     {
       column: 'population',
-      comparison: 'Maior que',
+      comparison: 'maior que',
       value: 0,
     },
   ],

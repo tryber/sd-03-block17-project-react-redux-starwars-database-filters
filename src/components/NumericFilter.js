@@ -13,10 +13,9 @@ const columnOptions = [
 ];
 
 const comparisonOptions = [
-  'select comparison',
-  'Maior que',
-  'Menor que',
-  'Igual a',
+  'maior que',
+  'igual a',
+  'menor que',
 ];
 
 class NumericFilter extends React.Component {

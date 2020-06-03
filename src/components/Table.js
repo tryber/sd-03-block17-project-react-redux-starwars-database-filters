@@ -26,11 +26,11 @@ const tableCreator = (obj) =>
 const filteredPlanets = ({ column, comparison, value }, planets) => {
   if (value === 0) { return planets; }
   switch (comparison) {
-    case 'Maior que':
+    case 'maior que':
       return planets.filter((e) => e[column] > value);
-    case 'Menor que':
+    case 'menor que':
       return planets.filter((e) => e[column] < value);
-    case 'Igual a':
+    case 'igual a':
       return planets.filter((e) => (e[column] - value) === 0);
     default:
       return planets;
