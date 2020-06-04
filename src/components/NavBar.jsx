@@ -37,7 +37,7 @@ class NavBar extends Component {
               data-testid="column-filter"
               onClick={(e) => this.handleChangeInput('column', e.target.value)}
             >
-              <option></option>
+              <option>a</option>
               <option>population</option>
               <option>orbital_period</option>
               <option>diameter</option>

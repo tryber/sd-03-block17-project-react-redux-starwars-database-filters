@@ -10,11 +10,6 @@ const INITIAL_STATE = {
       comparison: '',
       value: '',
     },
-    {
-      column: '',
-      comparison: '',
-      value: '',
-    },
   ],
 };
 
@@ -33,14 +28,14 @@ const filters = (state = INITIAL_STATE, action) => {
         filterByNumericValues: (state.filterByNumericValues[0].column === '')
           ? [{ ...action.payload }] : [...state.filterByNumericValues.concat(action.payload)],
       };
-    case FILTER_NUMERIC_VALUES:
-      return {
-        ...state,
-        filterByName: {
-          filterByNumericValues: (state.filterByNumericValues === '')
-            ? action.payload : '',
-        },
-      };
+    // case FILTER_NUMERIC_VALUES:
+    //   return {
+    //     ...state,
+    //     filterByName: {
+    //       filterByNumericValues: (state.filterByNumericValues === '')
+    //         ? action.payload : '',
+    //     },
+    //   };
     default:
       return state;
   }
