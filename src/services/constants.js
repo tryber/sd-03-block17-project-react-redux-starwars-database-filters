@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const planetShape = () => ({
+export const planetShape = () => ({
   name: PropTypes.string.isRequired,
   rotation_period: PropTypes.string.isRequired,
   orbital_period: PropTypes.string.isRequired,
@@ -17,4 +17,10 @@ const planetShape = () => ({
   url: PropTypes.string.isRequired,
 });
 
-export default planetShape;
+export const columnOptions = [
+  'population',
+  'orbital_period',
+  'diameter',
+  'rotation_period',
+  'surface_water',
+];

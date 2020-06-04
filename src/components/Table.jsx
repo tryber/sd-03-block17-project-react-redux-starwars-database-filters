@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import TableHeader from './TableHeader';
 import TableRow from './TableRow';
-import planetShape from '../services/planetShape';
+import { planetShape } from '../services/constants';
 
 const filterByNumPropertie = (list, especifications) => {
   const { value, column, comparison } = especifications;

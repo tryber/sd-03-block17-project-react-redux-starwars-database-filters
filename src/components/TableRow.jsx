@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import planetShape from '../services/planetShape';
+import { planetShape } from '../services/constants';
 
 const TableRow = ({ planet, properties }) => (
   <tr>

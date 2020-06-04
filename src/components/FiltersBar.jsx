@@ -6,14 +6,7 @@ import SearchBox from './SearchBox';
 import NumFilter from './NumFilter';
 import FilterSetted from './FilterSetted';
 import OrderFilters from './OrderFilters';
-
-const columnOptions = [
-  'population',
-  'orbital_period',
-  'diameter',
-  'rotation_period',
-  'surface_water',
-];
+import { columnOptions } from '../services/constants';
 
 const takeUnused = (completeList, usedListOfObj) => (
   completeList.filter((option) =>

@@ -16,7 +16,9 @@ class FetchData extends React.Component {
   }
 }
 
-const mapDipatchToProps = (dispatch) => ({ dispatchFetchPlanets: () => dispatch(fetchPlanets()) });
+const mapDipatchToProps = (dispatch) => ({
+  dispatchFetchPlanets: () => dispatch(fetchPlanets())
+});
 
 FetchData.propTypes = { dispatchFetchPlanets: PropTypes.func.isRequired };
 
