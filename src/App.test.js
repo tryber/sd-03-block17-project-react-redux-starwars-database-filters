@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import { waitFor, fireEvent, getAllByTestId } from '@testing-library/dom';
-import MutationObserver from 'mutationobserver-shim';
+// import MutationObserver from 'mutationobserver-shim';
 import { Provider } from 'react-redux';
 import App from './App';
 

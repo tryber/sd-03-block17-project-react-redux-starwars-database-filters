@@ -5,7 +5,7 @@ import * as actions from '../actions/index';
 import store from '../store/index';
 
 const columnOptions = [
-  'select a collum',
+  'select column',
   'population',
   'orbital_period',
   'diameter',
@@ -23,7 +23,7 @@ const comparisonOptions = [
 let showFilter = true;
 
 const verifyColumns = (obj) => {
-  if (obj.length > 1) {
+  if (obj.length > 0) {
     showFilter = true;
   } else {
     showFilter = false;
@@ -50,6 +50,7 @@ class NumericFilter extends React.Component {
   }
 
   filterForms() {
+    const { getPlanetByNumericValues } = this.props;
     return (
       <div>
         <label htmlFor="column-filter">Filtre por coluna</label>
@@ -71,6 +72,9 @@ class NumericFilter extends React.Component {
           data-testid="value-filter" type="number" maxLength="12"
           onChange={(e) => this.handleChange('value', e.target.value)}
         />
+        <button
+          data-testid="button-filter" onClick={() => getPlanetByNumericValues(this.state)}
+        >Filtrar</button>
       </div>
     );
   }
@@ -88,13 +92,10 @@ class NumericFilter extends React.Component {
   render() {
     this.filterMenu();
     verifyColumns(columnOptions);
-    const { getPlanetByNumericValues, filterByNumericValues } = this.props;
+    const { filterByNumericValues } = this.props;
     return (
       <div>
         {showFilter && this.filterForms()}
-        <button
-          data-testid="button-filter" onClick={() => getPlanetByNumericValues(this.state)}
-        >Filtrar</button>
         {
         filterByNumericValues.map(({ column, comparison, value }) => {
           if (column !== '' && comparison !== '' && value !== '') {
