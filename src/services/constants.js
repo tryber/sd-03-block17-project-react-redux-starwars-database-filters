@@ -29,3 +29,8 @@ export const numColumn = [
 export const renderOptions = (optionsList) => (
   ['', ...optionsList].map((option) => <option key={option} value={option}>{option}</option>)
 );
+
+export const frendlyUser = (title) => (
+  title[0].toUpperCase() + title.replace('_', ' ').slice(1)
+);
+

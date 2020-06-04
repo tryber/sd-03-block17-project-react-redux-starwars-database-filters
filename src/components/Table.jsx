@@ -36,9 +36,15 @@ const renderBody = (planets, properties) => (
   </tbody>
 );
 
-const makeHeaders = (headers) => headers.reduce((string, prop, index) => (
-  string += (`td:nth-of-type(${index + 1}):before { content: "${prop}"; }
-`)), '');
+const makeHeaders = (headers) => (
+  <style>
+    {headers.reduce((string, prop, index) => (
+      string += (`td:nth-of-type(${index + 1}):before {
+        content: "${constants.frendlyUser(prop)}";
+      }
+    `)), '')}
+  </style>
+)
 
 const Table = ({ planets, searchText, numFilters, column, sort, headers }) => {
   if (planets.length === 0) return <div>None Planet Found</div>;
@@ -51,9 +57,7 @@ const Table = ({ planets, searchText, numFilters, column, sort, headers }) => {
 
   return (
     <React.Fragment>
-      <style jsx="global">
-        {makeHeaders(headers)}
-      </style>
+      {makeHeaders(headers)}
       <table className="table">
         <caption>Star Wars Planets</caption>
         <TableHeader headers={headers} />
