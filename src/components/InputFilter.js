@@ -20,7 +20,7 @@ const mapDispatchToPros = (dispatch) => ({
 const mapStateToProps = (state) => {
   console.log(state);
   return {
-    value: state.textFilterReducer.filters.filterByName.name,
+    value: state.filters.filterByName.name,
   };
 };
 export default connect(mapStateToProps, mapDispatchToPros)(InputFilter);

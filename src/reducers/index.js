@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import requestReducer from './requestReducer';
-import textFilterReducer from './textFilterReducer';
+import filters from './filterReducer';
 
 /* function emptyReducer() {
   return {};
 } */
 const rootReducer = combineReducers({
-  textFilterReducer,
+  filters,
   requestReducer,
 });
 
