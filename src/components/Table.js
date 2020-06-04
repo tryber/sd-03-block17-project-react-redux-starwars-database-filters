@@ -24,7 +24,7 @@ class Table extends Component {
           if (comparison === 'maior que') return Number(planet[column]) > Number(value);
           if (comparison === 'igual a') return Number(planet[column]) === Number(value);
           if (comparison === 'menor que') return Number(planet[column]) < Number(value);
-          return planet
+          return planet;
         })
       , filterName);
     }
