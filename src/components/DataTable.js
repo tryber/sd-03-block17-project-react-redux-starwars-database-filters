@@ -23,10 +23,10 @@ export class DataTable extends Component {
     }
   }
 
-  orderASC(toBeSorted, column, data) {
+  orderASC(numberValues, column, data) {
     console.log(this.state);
     let sorted = data;
-    if (toBeSorted.includes(column)) {
+    if (numberValues.includes(column)) {
       sorted = data.sort(function (a, b) {
         if (Number(a[column]) > Number(b[column])) {
           return 1;
@@ -50,10 +50,10 @@ export class DataTable extends Component {
     return sorted;
   }
 
-  orderDESC(toBeSorted, column, data) {
+  orderDESC(numberValues, column, data) {
     console.log(this.state);
     let sorted = data;
-    if (toBeSorted.includes(column)) {
+    if (numberValues.includes(column)) {
       sorted = data.sort(function (a, b) {
         if (Number(a[column]) < Number(b[column])) {
           return 1;
@@ -79,10 +79,10 @@ export class DataTable extends Component {
 
   orderPlanets(filteredData) {
     const { order: { column, sort } } = this.props;
-    const toBeSorted = ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
+    const numberValues = ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
     const newData = (sort === 'ASC')
-      ? this.orderASC(toBeSorted, column, filteredData)
-      : this.orderDESC(toBeSorted, column, filteredData);
+      ? this.orderASC(numberValues, column, filteredData)
+      : this.orderDESC(numberValues, column, filteredData);
     return newData;
   }
 

@@ -16,7 +16,6 @@ export class Filters extends Component {
       column: '',
       comparison: '',
       value: '',
-      options: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
     };
   }
 
@@ -27,26 +26,22 @@ export class Filters extends Component {
 
   handleSubmit() {
     const {
-      column, comparison, value, options,
+      column, comparison, value,
     } = this.state;
     const { addFilter } = this.props;
     if (value === '') return false;
     addFilter(column, comparison, value);
-    const newOptions = options.filter((option) => option !== column);
     this.setState({
       column: '',
       comparison: '',
       value: '',
-      options: [...newOptions],
     });
     return true;
   }
 
   handleRemove(index, column) {
     const { removeFilter } = this.props;
-    const { options } = this.state;
-    removeFilter(index);
-    this.setState({ options: [...options, column] });
+    removeFilter(index, column);
   }
 
   renderInputName() {
@@ -63,7 +58,7 @@ export class Filters extends Component {
   }
 
   renderOptionsFilter() {
-    const { options } = this.state;
+    const { options } = this.props;
     return (
       <div>
         <select data-testid="column-filter" name="column" onChange={(e) => this.handleChange(e)}>
@@ -122,11 +117,12 @@ export class Filters extends Component {
     return (
       <div>
         {filterByNumericValues.map(({ column, comparison, value }, index) => (
-          <p>
-            {`Filtro aplicado: ${column} | ${comparison} | ${value}`}
+          <p data-testid="filter">
+            {`Filtro aplicado: ${column} | ${comparison} | ${value} `}
             <button
               type="button"
-              data-testid="filter"
+              value="X"
+
               onClick={() => this.handleRemove(index, column)}
             >
               X
@@ -158,9 +154,10 @@ export class Filters extends Component {
 }
 
 const mapStateToProps = ({
-  filters: { filterByNumericValues },
+  filters: { filterByNumericValues, options },
 }) => ({
   filterByNumericValues,
+  options,
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(
@@ -177,10 +174,12 @@ Filters.propTypes = {
   addFilter: PropTypes.func.isRequired,
   removeFilter: PropTypes.func.isRequired,
   filterByNumericValues: PropTypes.instanceOf(Array),
+  options: PropTypes.instanceOf(Array),
 };
 
 Filters.defaultProps = {
   filterByNumericValues: [],
+  options: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);
