@@ -55,7 +55,7 @@ class SortColumnsFilter extends Component {
             type="radio"
             data-testid="column-sort-input"
             value="ASC"
-            selected
+            defaultChecked
             onChange={(event) => this.setState({ order: event.target.value })}
           />
         </label>
