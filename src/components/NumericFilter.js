@@ -49,16 +49,6 @@ class NumericFilter extends React.Component {
     });
   }
 
-  static defaultProps = {
-    filterByNumericValues : [
-      {
-        column: '',
-        comparison: '',
-        value: '',
-      },
-    ],
-  }
-
   filterForms() {
     return (
       <div>
@@ -127,6 +117,16 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NumericFilter);
+
+NumericFilter.defaultProps = {
+  filterByNumericValues : [
+    {
+      column: '',
+      comparison: '',
+      value: '',
+    },
+  ],
+}
 
 NumericFilter.propTypes = {
   getPlanetByNumericValues: PropTypes.func.isRequired,
