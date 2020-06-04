@@ -38,15 +38,8 @@ const stateFiltersDefault = {
   filterByName: {
     name: '',
   },
-  filterByNumericValues: [
-    {
-      column: '',
-      comparison: '',
-      value: '',
-      isFiltered: false,
-    },
-  ],
-
+  filterByNumericValues: [],
+  isFiltered: false,
 };
 
 const filters = (state = stateFiltersDefault, action) => {
@@ -60,13 +53,14 @@ const filters = (state = stateFiltersDefault, action) => {
       return {
         ...state,
         filterByNumericValues: [
+          ...state.filterByNumericValues,
           {
             column: action.filterSelect,
             comparison: action.comparison,
             value: action.valueFilter,
-            isFiltered: true,
           },
         ],
+        isFiltered: true,
       };
     default:
       return state;

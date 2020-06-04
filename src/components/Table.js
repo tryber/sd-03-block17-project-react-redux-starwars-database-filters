@@ -3,99 +3,20 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import '../App.css';
 
-function tbody(data, name) {
-  return (
-    <tbody>
-      {data.filter((item) => item.name.includes(name))
-        .map((item) => <tr key={item.name}>
-          <td>{item.name}</td>
-          <td>{item.climate}</td>
-          <td>{item.created}</td>
-          <td>{item.diameter}</td>
-          <td>{item.edited}</td>
-          <td>#</td>
-          <td>{item.gravity}</td>
-          <td>{item.orbital_period}</td>
-          <td>{item.population}</td>
-          <td>#</td>
-          <td>{item.rotation_period}</td>
-          <td>{item.surface_water}</td>
-          <td>{item.terrain}</td>
-        </tr>)}
-    </tbody>
-  );
-}
 
-function tbodyFiltersLess(data, name, option, valueFilter) {
-  return (
-    <tbody>
-      {data.filter((item) => item.name.includes(name)
-        && parseInt(item[option], 10) < parseInt(valueFilter, 10))
-        .map((item) => <tr key={item.name}>
-          <td>{item.name}</td>
-          <td>{item.climate}</td>
-          <td>{item.created}</td>
-          <td>{item.diameter}</td>
-          <td>{item.edited}</td>
-          <td>#</td>
-          <td>{item.gravity}</td>
-          <td>{item.orbital_period}</td>
-          <td>{item.population}</td>
-          <td>#</td>
-          <td>{item.rotation_period}</td>
-          <td>{item.surface_water}</td>
-          <td>{item.terrain}</td>
-        </tr>)}
-    </tbody>
-  );
-}
-
-function tbodyFiltersBig(data, name, option, valueFilter) {
-  return (
-    <tbody>
-      {data.filter((item) => item.name.includes(name)
-        && parseInt(item[option], 10) > parseInt(valueFilter, 10))
-        .map((item) => <tr key={item.name}>
-          <td>{item.name}</td>
-          <td>{item.climate}</td>
-          <td>{item.created}</td>
-          <td>{item.diameter}</td>
-          <td>{item.edited}</td>
-          <td>#</td>
-          <td>{item.gravity}</td>
-          <td>{item.orbital_period}</td>
-          <td>{item.population}</td>
-          <td>#</td>
-          <td>{item.rotation_period}</td>
-          <td>{item.surface_water}</td>
-          <td>{item.terrain}</td>
-        </tr>)}
-    </tbody>
-  );
-}
-
-function tbodyFiltersEqual(data, name, option, valueFilter) {
-  return (
-    <tbody>
-      {data.filter((item) => item.name.includes(name)
-        && parseInt(item[option], 10) === parseInt(valueFilter, 10))
-        .map((item) => <tr key={item.name}>
-          <td>{item.name}</td>
-          <td>{item.climate}</td>
-          <td>{item.created}</td>
-          <td>{item.diameter}</td>
-          <td>{item.edited}</td>
-          <td>#</td>
-          <td>{item.gravity}</td>
-          <td>{item.orbital_period}</td>
-          <td>{item.population}</td>
-          <td>#</td>
-          <td>{item.rotation_period}</td>
-          <td>{item.surface_water}</td>
-          <td>{item.terrain}</td>
-        </tr>)}
-    </tbody>
-  );
+function filterPlanetsFunc(data, filters) {
+  let filterPlanets;
+  filters.forEach((item) => {
+    if (item.comparison === 'bigger_then') {
+      filterPlanets = data.filter((element) => parseInt(element[item.column], 10) > parseInt(item.value, 10));
+    } else if (item.comparison === 'less_then') {
+      filterPlanets = data.filter((element) => parseInt(element[item.column], 10) < parseInt(item.value, 10));
+    } else if (item.comparison === 'equal') {
+      filterPlanets = data.filter((element) => parseInt(element[item.column], 10) === parseInt(item.value, 10));
+    }
+    data = filterPlanets;
+  });
+  return filterPlanets;
 }
 
 class Table extends React.Component {
@@ -120,9 +41,15 @@ class Table extends React.Component {
     };
   }
 
-  table() {
-    const { data, name, option, valueFilter, isFiltered, comparison } = this.props;
+
+table() {
+    
     const { titles } = this.state;
+    const { name, isFiltered, filters } = this.props;
+    let { data } = this.props;
+    if (isFiltered) {
+      data = filterPlanetsFunc(data, filters);
+    }
     return (
       <table>
         <thead>
@@ -130,22 +57,24 @@ class Table extends React.Component {
             {titles.map((item) => <th key={item.id}>{item.title}</th>)}
           </tr>
         </thead>
-        {!isFiltered && tbody(data, name)}
-        {
-          comparison === 'bigger_then' &&
-          isFiltered &&
-          tbodyFiltersBig(data, name, option, valueFilter)
-        }
-        {
-          comparison === 'less_then' &&
-          isFiltered &&
-          tbodyFiltersLess(data, name, option, valueFilter)
-        }
-        {
-          comparison === 'equal' &&
-          isFiltered &&
-          tbodyFiltersEqual(data, name, option, valueFilter)
-        }
+        <tbody>
+          {data.filter((item) => item.name.includes(name))
+            .map((item) => <tr key={item.name}>
+              <td>{item.name}</td>
+              <td>{item.climate}</td>
+              <td>{item.created}</td>
+              <td>{item.diameter}</td>
+              <td>{item.edited}</td>
+              <td>#</td>
+              <td>{item.gravity}</td>
+              <td>{item.orbital_period}</td>
+              <td>{item.population}</td>
+              <td>#</td>
+              <td>{item.rotation_period}</td>
+              <td>{item.surface_water}</td>
+              <td>{item.terrain}</td>
+            </tr>)}
+        </tbody>
       </table>
     );
   }
@@ -160,18 +89,16 @@ class Table extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  option: state.filters.filterByNumericValues[0].column,
-  comparison: state.filters.filterByNumericValues[0].comparison,
-  valueFilter: state.filters.filterByNumericValues[0].value,
-  isFiltered: state.filters.filterByNumericValues[0].isFiltered,
+  filters: state.filters.filterByNumericValues,
+  isFiltered: state.filters.isFiltered,
 });
+
+
 
 Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   name: PropTypes.string.isRequired,
-  option: PropTypes.string.isRequired,
-  comparison: PropTypes.string.isRequired,
-  valueFilter: PropTypes.string.isRequired,
+  filters: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFiltered: PropTypes.bool.isRequired,
 };
 
