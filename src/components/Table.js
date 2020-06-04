@@ -30,20 +30,17 @@ const filteredPlanets = (filters, planets) => {
       if (Number(value) === 0) { return planets; }
       switch (comparison) {
         case 'maior que':
-          result = result.filter((e) => (e[column] - value) > 0);
-          break;
+          return result = result.filter((e) => (e[column] - value) > 0);
         case 'menor que':
-          result = result.filter((e) => (value - e[column]) > 0);
-          break;
+          return result = result.filter((e) => (value - e[column]) > 0);
         case 'igual a':
-          result = result.filter((e) => (e[column] - value) === 0);
-          break;
+          return result = result.filter((e) => (e[column] - value) === 0);
         default:
           return result;
       }
-      return result;
     },
   );
+  return result;
 };
 
 class Table extends React.Component {
