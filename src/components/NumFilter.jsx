@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions/NumFilterActions';
+import * as funcAPI from '../services/functions';
 
 const comparisonOptions = ['maior que', 'menor que', 'igual a'];
-
-const renderOptions = (optionsList) => (
-  ['', ...optionsList].map((option) => <option key={option} value={option}>{option}</option>)
-);
 
 class NumFilter extends React.Component {
   renderSelectOf (name, value, optionsList) {
@@ -21,7 +18,7 @@ class NumFilter extends React.Component {
           id={name}
           name={name}
           onChange={({ target: { value: nextValue } }) => onChange(name, nextValue)}
-        >{renderOptions(optionsList)}</select>
+        >{funcAPI.renderOptions(optionsList)}</select>
       </label>
     );
   }

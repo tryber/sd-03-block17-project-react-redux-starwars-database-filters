@@ -10,6 +10,8 @@ import {
   REMOVE_FILTER,
 } from '../actions/NumFilterActions';
 
+import { ON_CHANGE_ORDER, ACTIVATE_ORDER } from '../actions/orderActions';
+
 import { TYPE_NAME } from '../actions/SearchTextAction';
 
 const defaultNumericFilterElem = {
@@ -23,6 +25,8 @@ const INITIAL_STATE = {
     filterByName: { name: '' },
     inProgress: defaultNumericFilterElem,
     filterByNumericValues: [],
+    order: { column: 'Name', sort: 'ASC' },
+    orderInProgerss: { column: 'Name', sort: 'ASC'},
   },
   isFetching: true,
   data: [],
@@ -56,7 +60,7 @@ function dataReducer(state, action) {
 }
 
 function filtersReducer(filters, action) {
-  const { filterByNumericValues, inProgress } = filters;
+  const { filterByNumericValues, inProgress, orderInProgerss } = filters;
   switch (action.type) {
     case TYPE_NAME:
       return {
@@ -93,6 +97,21 @@ function filtersReducer(filters, action) {
         ],
       });
 
+    case ON_CHANGE_ORDER:
+      return ({
+        ...filters,
+        orderInProgerss: {
+          ...orderInProgerss,
+          [action.prop]: action.value,
+        }
+      })
+
+    case ACTIVATE_ORDER:
+      return ({
+        ...filters,
+        order: orderInProgerss,
+      });
+
     default:
       return filters;
   }
@@ -109,6 +128,8 @@ const Reducer = (state = INITIAL_STATE, action) => {
     case CHANGE_VALUES:
     case CREATE_NUMERIC_FILTER:
     case REMOVE_FILTER:
+    case ON_CHANGE_ORDER:
+    case ACTIVATE_ORDER:
       return {
         ...state,
         filters: filtersReducer(state.filters, action),

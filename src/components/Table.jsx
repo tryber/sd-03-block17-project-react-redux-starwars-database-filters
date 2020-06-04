@@ -17,6 +17,18 @@ const filterByNumPropertie = (list, especifications) => {
   }
 }
 
+const orderByStringProperties = (list, column, direction) => {
+  const col = column.toLowerCase();
+  const sortedList = list.sort((elemA, elemB) => {
+    if (isNaN(Number(elemA[col])) && isNaN(Number(elemB[col]))) {
+      return elemA[col] < elemB[col] ? -1 : 1;
+    }
+    return elemA[col] - elemB[col];
+  });
+  if (direction === 'DESC') sortedList.reverse();
+  return sortedList;
+};
+
 const renderBody = (planets, properties) => (
   <tbody>
     {planets
@@ -26,12 +38,13 @@ const renderBody = (planets, properties) => (
   </tbody>
 );
 
-const Table = ({ planets, searchText, numFilters }) => {
+const Table = ({ planets, searchText, numFilters, order }) => {
   if (planets.length === 0) return <div>None Planet Found</div>;
 
   const headers = Object.keys(planets[0]).filter((key) => key !== 'residents');
 
   let planetsToShow = planets.filter((planet) => planet.name.includes(searchText));
+  planetsToShow = orderByStringProperties(planets, order.column, order.sort);
   numFilters.forEach((filter) => {
     planetsToShow = filterByNumPropertie(planetsToShow, filter);
   });
@@ -45,10 +58,11 @@ const Table = ({ planets, searchText, numFilters }) => {
   );
 }
 
-const mapStateToProps = ({ data, filters: { filterByName, filterByNumericValues } }) => ({
+const mapStateToProps = ({ data, filters: { filterByName, filterByNumericValues, order } }) => ({
   planets: data,
   searchText: filterByName.name,
   numFilters: filterByNumericValues,
+  order,
 });
 
 Table.propTypes = {
@@ -57,6 +71,10 @@ Table.propTypes = {
   numFilters: PropTypes.arrayOf(
     PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
   ).isRequired,
+  order: PropTypes.shape({
+    column: PropTypes.string.isRequired,
+    sort: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps)(Table);

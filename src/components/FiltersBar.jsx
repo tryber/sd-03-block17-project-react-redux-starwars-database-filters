@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import SearchBox from './SearchBox';
 import NumFilter from './NumFilter';
 import FilterSetted from './FilterSetted';
+import OrderFilters from './OrderFilters';
 
 const columnOptions = [
   'population',
@@ -36,7 +37,10 @@ const FilterBar = ({ numFilters }) => (
           value={value}
         />
       ))}
-  </section>
+    </section>
+    <section>
+      <OrderFilters />
+     </section>
   </section>
 );
 
