@@ -11,7 +11,7 @@ class SearchBar extends React.Component {
       column: '',
       comparison: '',
       value: '',
-      columnOptions: ['', 'population', 'orbital_period',  'diameter', 'rotation_period', 'surface_water'],
+      columnOptions: ['', 'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -68,6 +68,7 @@ class SearchBar extends React.Component {
   }
 
   render() {
+    const comparisonOptions = ["", "maior que", "igual a", "menor que"];
     return (
       <div>
         <NameFilter />
@@ -78,24 +79,19 @@ class SearchBar extends React.Component {
             id="filter"
             onChange={(event) => this.handleChange(event, 'column')}
             data-testid="column-filter"
-          >
-            {this.state.columnOptions.map((option) => <option value={option} key={option}>{option}</option>)}
-          </select>
+          > {this.state.columnOptions.map((option) => <option value={option} key={option}>{option}</option>)} </select>
           <select
             value={this.state.comparison}
             onChange={(event) => this.handleChange(event, 'comparison')}
             data-testid="comparison-filter"
-          >
-            <option value="" />
-            <option value="maior que">maior que</option>
-            <option value="igual a">igual a</option>
-            <option value="menor que">menor que</option>
-          </select>
-          <input value={this.state.value} type="number" data-testid="value-filter" onChange={(event) => this.handleChange(event, 'value')} />
-          <button
-            data-testid="button-filter"
-            onClick={this.handleClick}
-          >Filter</button>
+          > {comparisonOptions.map((option) => <option value={option} key={option}>{option}</option>)} </select>
+          <input
+            value={this.state.value}
+            type="number"
+            data-testid="value-filter"
+            onChange={(event) => this.handleChange(event, 'value')}
+          />
+          <button data-testid="button-filter" onClick={this.handleClick}>Filter</button>
         </div>
       </div>
     );
@@ -120,4 +116,4 @@ SearchBar.defaultProps = {
   // numericFilters: null,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+export default connect(null, mapDispatchToProps)(SearchBar);
