@@ -6,7 +6,7 @@ import TableHeader from './TableHeader';
 import TableRow from './TableRow';
 import * as constants from '../services/constants';
 
-import './Table.css'
+import './Table.css';
 
 const filterByNumPropertie = (list, { value, column, comparison }) => {
   const numValue = Number(value);
@@ -39,12 +39,12 @@ const renderBody = (planets, properties) => (
 const makeHeaders = (headers) => (
   <style>
     {headers.reduce((string, prop, index) => (
-      string += (`td:nth-of-type(${index + 1}):before {
+      string.concat(`td:nth-of-type(${index + 1}):before {
         content: "${constants.frendlyUser(prop)}";
       }
     `)), '')}
   </style>
-)
+);
 
 const Table = ({ planets, searchText, numFilters, column, sort, headers }) => {
   if (planets.length === 0) return <div>None Planet Found</div>;

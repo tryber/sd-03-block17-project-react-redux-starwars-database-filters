@@ -10,8 +10,8 @@ const TableHeader = ({ headers }) => (
     {
       <tr>
         {headers.map((title) => (
-          <th className="table-header" key={title}>{constants.frendlyUser(title)}</th>)
-        )}
+          <th className="table-header" key={title}>{constants.frendlyUser(title)}</th>
+        ))}
       </tr>
     }
   </thead>
