@@ -59,34 +59,30 @@ class SearchBar extends React.Component {
       }
       return acc;
     }, []);
-    this.setState({
-      column: '',
-      comparison: '',
-      value: '',
-      columnOptions: newColumns,
-    });
+    this.setState({ columnOptions: newColumns });
   }
 
   render() {
-    const comparisonOptions = ["", "maior que", "igual a", "menor que"];
+    const comparisonOptions = ['', 'maior que', 'igual a', 'menor que'];
     return (
       <div>
         <NameFilter />
         <div>
           <label htmlFor="filter">Filter By Numeric Value:</label>
           <select
-            value={this.state.column}
             id="filter"
             onChange={(event) => this.handleChange(event, 'column')}
             data-testid="column-filter"
-          > {this.state.columnOptions.map((option) => <option value={option} key={option}>{option}</option>)} </select>
+          >
+            {this.state.columnOptions.map((option) => <option value={option} key={option}>{option}</option>)}
+          </select>
           <select
-            value={this.state.comparison}
             onChange={(event) => this.handleChange(event, 'comparison')}
             data-testid="comparison-filter"
-          > {comparisonOptions.map((option) => <option value={option} key={option}>{option}</option>)} </select>
+          >
+            {comparisonOptions.map((option) => <option value={option} key={option}>{option}</option>)}
+          </select>
           <input
-            value={this.state.value}
             type="number"
             data-testid="value-filter"
             onChange={(event) => this.handleChange(event, 'value')}
