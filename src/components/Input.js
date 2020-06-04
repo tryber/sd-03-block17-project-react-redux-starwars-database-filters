@@ -122,4 +122,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Input);
 
 Input.propTypes = {
   filterByName: PropTypes.func.isRequired,
+  orderFunc: PropTypes.func.isRequired,
 };
