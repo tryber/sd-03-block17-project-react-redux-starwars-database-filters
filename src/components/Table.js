@@ -83,7 +83,7 @@ class Table extends React.Component {
       return 0;
     });
   }
-  
+
   sortAscColWithoutName(columnLowerCase) {
     const dataFiltered = this.dataFilterFunction();
     return dataFiltered.sort(function (a, b) {
