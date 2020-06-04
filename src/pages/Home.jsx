@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchingPlanetsInfo, filterByText } from '../actions/actionsCreators';
 import Table from '../components/table/Table';
-import FilterByNameBar from '../components/filters/FilterByNameBar';
-import FilterByValuesBar from '../components/filters/FilterByValuesBar';
-import SelectedFilters from '../components/filters/SelectedFilters';
+import FilterContainer from '../components/filters/FilterContainer';
 
 function makeComparison(column, comparison, value, element) {
   switch (comparison) {
@@ -50,13 +48,9 @@ export class Home extends Component {
     return (
       <div>
         <div>
-          <FilterByNameBar
+          <FilterContainer
             onChange={(event) => planetName(event.target.value)}
           />
-          <div>
-            <FilterByValuesBar />
-            <SelectedFilters />
-          </div>
         </div>
         {loading ? (
           <h1>Loading..</h1>
