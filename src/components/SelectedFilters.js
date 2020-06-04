@@ -26,14 +26,13 @@ const SelectedFilters = (props) => {
   } = props;
   if (numericSearched.length === 0) return <div />;
   return (
-    <div>
+    <div data-testid="filter">
       {numericSearched.map((e) => (
         <div key={e.column}>
           <div>{e.column}</div>
           <div>{e.comparison}</div>
           <div>{e.value}</div>
           <button
-            data-testid="filter"
             type="button"
             onClick={() => {
               displayFilterName(e.column, allFiltersArr, changeFiltersDisplay);

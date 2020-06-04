@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { filterByNameAction } from '../actions/filterByNameAction';
 import { filtersNameAction } from '../actions/filtersNameAction';
 import { filterByNumericValuesAction } from '../actions/filterByNumericValuesAction';
+import { choosedColToSortAction } from '../actions/choosedColToSortAction';
 
 
 class Inputs extends React.Component {
@@ -13,6 +14,8 @@ class Inputs extends React.Component {
       column: 'all',
       comparison: '',
       value: '',
+      sortType: '',
+      sortColumn: '',
     };
     this.onChangeText = this.onChangeText.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -121,14 +124,76 @@ class Inputs extends React.Component {
     );
   }
 
+  colToSort() {
+    const { sortColumn } = this.state;
+    return (
+      <select data-testid="column-sort" value={sortColumn} name="sortColumn" onChange={this.handleChange}>
+        <option value="name">name</option>
+        <option value="rotational_period">rotational_period</option>
+        <option value="orbital_period">orbital_period</option>
+        <option value="diameter">diameter</option>
+        <option value="gravity">gravity</option>
+        <option value="surface_water">surface_water</option>
+        <option value="population">population</option>
+      </select>
+    );
+  }
+
+  radioDescAsc() {
+    return (
+      <div>
+        <label htmlFor="desc">
+          Descendente
+          <input
+            data-testid="column-sort-input"
+            value="DESC"
+            onClick={this.handleChange}
+            type="radio"
+            name="sortType"
+            id="desc"
+          />
+        </label>
+        <label htmlFor="asc">
+          Ascendente
+          <input
+            data-testid="column-sort-input"
+            value="ASC"
+            onClick={this.handleChange}
+            type="radio"
+            name="sortType"
+            id="asc"
+          />
+        </label>
+      </div>
+    );
+  }
+
+  sortButton() {
+    const { sortColumn, sortType } = this.state;
+    const { choosedCol } = this.props;
+    const sortObj = { column: sortColumn, sort: sortType };
+    return (
+      <button data-testid="column-sort-button" type="button" onClick={() => choosedCol(sortObj)}>
+        Sort Table
+      </button>
+    );
+  }
+
   render() {
     return (
       <div>
-        {this.searchbar()}
-        {this.numericSearchCol()}
-        {this.numericSearchGreat()}
-        {this.numericSearchValue()}
-        {this.numericFilterButton()}
+        <div>
+          {this.searchbar()}
+          {this.numericSearchCol()}
+          {this.numericSearchGreat()}
+          {this.numericSearchValue()}
+          {this.numericFilterButton()}
+        </div>
+        <div>
+          {this.colToSort()}
+          {this.radioDescAsc()}
+          {this.sortButton()}
+        </div>
       </div>
     );
   }
@@ -138,6 +203,7 @@ const mapDispatchToProps = (dispatch) => ({
   filterByName: (text) => dispatch(filterByNameAction(text)),
   filterByNumericValues: (obj) => dispatch(filterByNumericValuesAction(obj)),
   changeFiltersDisplay: (arr) => dispatch(filtersNameAction(arr)),
+  choosedCol: (obj) => dispatch(choosedColToSortAction(obj)),
 });
 
 const mapStateToProps = (state) => ({
@@ -156,6 +222,9 @@ Inputs.propTypes = {
   filterByName: PropTypes.func,
   changeFiltersDisplay: PropTypes.func,
   filterByNumericValues: PropTypes.func,
+  sortAsc: PropTypes.func,
+  sortDesc: PropTypes.func,
+  choosedCol: PropTypes.func,
 };
 
 Inputs.defaultProps = {
@@ -163,4 +232,7 @@ Inputs.defaultProps = {
   filterByName: () => {},
   filterByNumericValues: () => {},
   changeFiltersDisplay: () => {},
+  sortAsc: () => {},
+  sortDesc: () => {},
+  choosedCol: () => {},
 };

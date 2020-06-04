@@ -1,12 +1,17 @@
 import { FILTER_BY_NAME } from '../actions/filterByNameAction';
 import { FILTER_BY_NUMERIC_VALUES } from '../actions/filterByNumericValuesAction';
 import { REMOVE_FILTER_DISPLAY } from '../actions/removeFilterDisplayAction';
+import { SORT_TABLE } from '../actions/choosedColToSortAction';
 
 const INITIAL_STATE = {
   filterByName: {
     name: '',
   },
   filterByNumericValues: [],
+  order: {
+    column: 'Name',
+    sort: 'ASC',
+  },
 };
 
 const filters = (state = INITIAL_STATE, action) => {
@@ -30,6 +35,11 @@ const filters = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         filterByNumericValues: action.newArr,
+      };
+    case SORT_TABLE:
+      return {
+        ...state,
+        order: action.sortObj,
       };
     default:
       return state;

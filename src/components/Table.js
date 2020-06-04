@@ -60,6 +60,46 @@ class Table extends React.Component {
     return dataSw;
   }
 
+  sortDescCol() {
+    const { sortCol } = this.props;
+    const { column } = sortCol;
+    const columnLowerCase = column.toLowerCase();
+    const dataFiltered = this.dataFilterFunction();
+    return dataFiltered.sort(function (a, b) {
+      if (columnLowerCase === 'name') {
+        if (a[columnLowerCase] < b[columnLowerCase]) return 1;
+        if (a[columnLowerCase] > b[columnLowerCase]) return -1;
+        return 0;
+      }
+      if (Number(a[columnLowerCase]) < Number(b[columnLowerCase])) return 1;
+      if (Number(a[columnLowerCase]) > Number(b[columnLowerCase])) return -1;
+      return 0;
+    });
+  }
+
+  sortAscCol() {
+    const { sortCol } = this.props;
+    const { column } = sortCol;
+    const columnLowerCase = column.toLowerCase();
+    const dataFiltered = this.dataFilterFunction();
+    return dataFiltered.sort(function (a, b) {
+      if (columnLowerCase === 'name') {
+        if (a[columnLowerCase] > b[columnLowerCase]) return 1;
+        if (a[columnLowerCase] < b[columnLowerCase]) return -1;
+        return 0;
+      }
+      if (Number(a[columnLowerCase]) > Number(b[columnLowerCase])) return 1;
+      if (Number(a[columnLowerCase]) < Number(b[columnLowerCase])) return -1;
+      return 0;
+    });
+  }
+
+  dataSortFunction() {
+    const { sortCol } = this.props;
+    if (sortCol.sort === 'DESC') return this.sortDescCol();
+    return this.sortAscCol();
+  }
+
   render() {
     return (
       <div>
@@ -68,7 +108,7 @@ class Table extends React.Component {
         <SelectedFilters />
         <table>
           <TableHeaders />
-          <TableData dataSw={this.dataFilterFunction()} />
+          <TableData dataSw={this.dataSortFunction()} />
         </table>
       </div>
     );
@@ -85,6 +125,7 @@ const mapStateToProps = (state) => ({
   isLoading: state.apiSWReducer.loading,
   typedText: state.filters.filterByName.name,
   numericSearched: state.filters.filterByNumericValues,
+  sortCol: state.filters.order,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
@@ -93,10 +134,12 @@ Table.propTypes = {
   typedText: PropTypes.string,
   dataSw: PropTypes.arrayOf(PropTypes.object),
   numericSearched: PropTypes.arrayOf(PropTypes.object),
+  sortCol: PropTypes.objectOf(PropTypes.any),
 };
 
 Table.defaultProps = {
   typedText: '',
   dataSw: [],
   numericSearched: {},
+  sortCol: {},
 };
