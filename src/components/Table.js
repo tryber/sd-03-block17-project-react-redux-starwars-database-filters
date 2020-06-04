@@ -54,7 +54,7 @@ class Table extends React.Component {
       dataKeys.splice(cutData, 1);
       dataReady = true;
       planetoidesLength = filterByNumericValues.length;
-      planetoides = [...filteredPlanets(filterByNumericValues[planetoidesLength -1], planets)];
+      planetoides = [...filteredPlanets(filterByNumericValues[planetoidesLength - 1], planets)];
     }
     return (
       <div>
