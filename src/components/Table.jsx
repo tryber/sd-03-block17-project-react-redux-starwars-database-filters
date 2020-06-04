@@ -40,11 +40,11 @@ const renderBody = (planets, properties) => (
 
 const Table = ({ planets, searchText, numFilters, order }) => {
   if (planets.length === 0) return <div>None Planet Found</div>;
-
   const headers = Object.keys(planets[0]).filter((key) => key !== 'residents');
-
+  
+  
   let planetsToShow = planets.filter((planet) => planet.name.includes(searchText));
-  planetsToShow = orderByStringProperties(planets, order.column, order.sort);
+  planetsToShow = orderByStringProperties(planetsToShow, order.column, order.sort);
   numFilters.forEach((filter) => {
     planetsToShow = filterByNumPropertie(planetsToShow, filter);
   });
