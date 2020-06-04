@@ -48,7 +48,7 @@ class SortColumnsFilter extends Component {
   renderSortSelect() {
     return (
       <div>
-        <label>
+        <label htmlFor="ASC">
           ASC
           <input
             name="sort_radio"
@@ -59,7 +59,7 @@ class SortColumnsFilter extends Component {
             onChange={(event) => this.setState({ order: event.target.value })}
           />
         </label>
-        <label>
+        <label htmlFor="DESC">
           DESC
           <input
             name="sort_radio"
