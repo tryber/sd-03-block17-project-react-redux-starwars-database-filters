@@ -6,6 +6,8 @@ import filterByName from '../actions/filterByName';
 import filterByNumericValue from '../actions/filterByNumericValue';
 import Option from './Option';
 import disableSelect from '../actions/disableSelect';
+import removeFilter from '../actions/removeFilter';
+import enableSelect from '../actions/enableSelect';
 
 class Filters extends Component {
   constructor(props) {
@@ -20,6 +22,7 @@ class Filters extends Component {
     this.selectComparison = this.selectComparison.bind(this);
     this.filterValueInput = this.filterValueInput.bind(this);
     this.filterButton = this.filterButton.bind(this);
+    this.activeFiltersTable = this.activeFiltersTable.bind(this);
   }
 
   handleChange(e) {
@@ -92,6 +95,37 @@ class Filters extends Component {
     );
   }
 
+  activeFiltersTable() {
+    const { activeFilters, rmFilter, avaliableFilters } = this.props;
+    return (
+      <ul className="list-group">
+        {activeFilters.map(({ column, comparison, value }, index) => (
+          <li className="list-group-item" key={column} data-testid="filter">
+            {`${column} ${comparison} ${value}`}
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={
+              () => {
+                const newActiveFilters = activeFilters;
+                newActiveFilters.splice(index, 1);
+                rmFilter(newActiveFilters);
+                const newAvaliableFilters = avaliableFilters.columnFilters;
+                newAvaliableFilters[
+                  newAvaliableFilters.findIndex((filter) => filter.name === column)
+                ].avaliable = true;
+                enableSelect(newAvaliableFilters);
+              }
+            }
+            >
+              X
+            </button>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
   render() {
     const { byName } = this.props;
     return (
@@ -101,6 +135,7 @@ class Filters extends Component {
         {this.selectComparison()}
         {this.filterValueInput()}
         {this.filterButton()}
+        {this.activeFiltersTable()}
       </div>
     );
   }
@@ -109,16 +144,25 @@ class Filters extends Component {
 Filters.propTypes = {
   byName: PropTypes.func.isRequired,
   byNumeric: PropTypes.func.isRequired,
+  rmFilter: PropTypes.func.isRequired,
   avaliableFilters: PropTypes.objectOf(PropTypes.array).isRequired,
+  activeFilters: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(
-  { byName: filterByName, byNumeric: filterByNumericValue, disable: disableSelect },
+  {
+    byName: filterByName,
+    byNumeric: filterByNumericValue,
+    disable: disableSelect,
+    rmFilter: removeFilter,
+    enable: enableSelect,
+  },
   dispatch,
 );
 
 const mapStateToProps = (state) => ({
   avaliableFilters: state.filters.avaliableFilters,
+  activeFilters: state.filters.filterByNumericValues,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);

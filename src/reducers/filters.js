@@ -1,4 +1,10 @@
-import { FILTER_BY_NAME, FILTER_BY_NUMERIC_VALUE, DISABLE_SELECT } from '../actions/types';
+import {
+  FILTER_BY_NAME,
+  FILTER_BY_NUMERIC_VALUE,
+  DISABLE_SELECT,
+  REMOVE_FILTER,
+  ENABLE_SELECT,
+} from '../actions/types';
 
 const initialState = {
   filterByName: { name: '' },
@@ -34,6 +40,15 @@ export default (state = initialState, { type, payload }) => {
           columnFilters: [...payload],
         },
       };
+    case ENABLE_SELECT:
+      return {
+        ...state,
+        avaliableFilters: {
+          columnFilters: [...payload],
+        },
+      };
+    case REMOVE_FILTER:
+      return { ...state, filterByNumericValues: [...payload] };
     default:
       return state;
   }
