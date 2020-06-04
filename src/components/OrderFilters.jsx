@@ -6,12 +6,12 @@ import * as actions from '../actions/orderActions';
 import * as constants from '../services/constants';
 
 const renderRadio = (value, text, callback) => (
-  <label htmlFor="sort">
+  <label htmlFor="sort-filter-radio">
     {text}
     <input
       data-testid="column-sort-input"
       id={value}
-      name="sort"
+      name="sort-filter-radio"
       onChange={() => callback('sort', value)}
       type="radio"
       value={value}
@@ -43,11 +43,10 @@ const OrderFilters = ({ columnValue, change, refPlanet, applyOrder }) => {
       >Apply Order</button>
     </div>
   );
-}
+};
 
 OrderFilters.propTypes = {
   columnValue: PropTypes.string.isRequired,
-  radioValue: PropTypes.string.isRequired,
   refPlanet: PropTypes.shape(constants.planetShape()).isRequired,
   change: PropTypes.func.isRequired,
   applyOrder: PropTypes.func.isRequired,
@@ -55,7 +54,6 @@ OrderFilters.propTypes = {
 
 const mapStateToProps = ({ data, filters: { order } }) => ({
   columnValue: order.column,
-  radioValue: order.sort,
   refPlanet: data[0],
 });
 

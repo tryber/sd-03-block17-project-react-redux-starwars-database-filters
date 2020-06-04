@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const TableHeader = ({ headers }) => (
   <thead>
-    { 
+    {
       <tr>
         {headers.map((title) => <th key={title}>{title}</th>)}
       </tr>

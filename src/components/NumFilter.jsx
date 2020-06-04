@@ -22,7 +22,7 @@ const renderSelectOf = (name, value, optionsList, callback) => (
 );
 
 const NumFilter = (
-  { columnOptions,  column, comparison, value, onChange, createFilter },
+  { columnOptions, column, comparison, value, onChange, createFilter },
 ) => (
   <div>
     {renderSelectOf('column', column, columnOptions, onChange)}

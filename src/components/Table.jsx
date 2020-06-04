@@ -19,7 +19,10 @@ const filterByNumPropertie = (list, { value, column, comparison }) => {
 const orderByStringProperties = (list, col, direction) => {
   const sortedList = (constants.numColumn.some((option) => option === col))
     ? list.sort((elemA, elemB) => elemA[col] - elemB[col])
-    : list.sort((elemA, elemB) => elemA[col] < elemB[col] ? -1 : 1);
+    : list.sort((elemA, elemB) => { 
+      if(elemA[col] < elemB[col]) return -1;
+      else return 1;
+    });
 
   if (direction === 'DESC') sortedList.reverse();
   return sortedList;
@@ -52,7 +55,7 @@ const Table = ({ planets, searchText, numFilters, column, sort }) => {
       {renderBody(planetsToShow, headers)}
     </table>
   );
-}
+};
 
 const mapStateToProps = ({ data, filters: { filterByName, filterByNumericValues, order } }) => ({
   planets: data,

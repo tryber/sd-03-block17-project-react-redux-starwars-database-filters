@@ -15,7 +15,7 @@ export const INITIAL_STATE = {
   filterByNumericValues: [],
   order: { column: 'Name', sort: 'ASC' },
   inProgress: defaultNumFilterElem,
-  orderInProgerss: { column: 'Name', sort: 'ASC'},
+  orderInProgerss: { column: 'Name', sort: 'ASC' },
 };
 
 function filtersReducer(filters = INITIAL_STATE, action) {
@@ -23,27 +23,22 @@ function filtersReducer(filters = INITIAL_STATE, action) {
   switch (action.type) {
     case TYPE_NAME: return { ...filters, filterByName: { name: action.text } };
     case CHANGE_VALUES:
-      const changedFilter = { ...inProgress, [action.filter]: action.value };
-      return ({ ...filters, inProgress: changedFilter });
-    case CREATE_NUMERIC_FILTER: return (allValuesSetted(inProgress))
-      ? ({
+      return ({ ...filters, inProgress: { ...inProgress, [action.filter]: action.value } });
+    case CREATE_NUMERIC_FILTER:
+      return (allValuesSetted(inProgress)) ? ({
         ...filters,
-        inProgress: defaultNumFilterElem,
         filterByNumericValues: [...numFilters, inProgress],
+        inProgress: defaultNumFilterElem,
       }) : filters;
     case REMOVE_FILTER:
       return ({
         ...filters,
-        filterByNumericValues: [
-          ...numFilters.slice(0, action.id),
-          ...numFilters.slice(action.id + 1),
-        ],
+        filterByNumericValues:
+          [ ...numFilters.slice(0, action.id), ...numFilters.slice(action.id + 1) ],
       });
     case ON_CHANGE_ORDER:
-      const newOrderInProgerss = { ...orderInProgerss, [action.prop]: action.value };
-      return ({ ...filters, orderInProgerss: newOrderInProgerss });
-    case ACTIVATE_ORDER:
-      return ({ ...filters, order: orderInProgerss });
+      return ({ ...filters, orderInProgerss: { ...orderInProgerss, [action.prop]: action.value } });
+    case ACTIVATE_ORDER: return ({ ...filters, order: orderInProgerss });
     default: return filters;
   }
 }

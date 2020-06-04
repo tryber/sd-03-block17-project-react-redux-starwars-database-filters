@@ -6,7 +6,7 @@ import fetchPlanets from '../actions/fetchPlanetsAction';
 
 class FetchData extends React.Component {
   componentDidMount() {
-    this.props.dispatchFetchPlanets();
+    this.props.fetchPlanets();
   }
 
   render() {
@@ -17,9 +17,9 @@ class FetchData extends React.Component {
 }
 
 const mapDipatchToProps = (dispatch) => ({
-  dispatchFetchPlanets: () => dispatch(fetchPlanets())
+  fetchPlanets: () => dispatch(fetchPlanets()),
 });
 
-FetchData.propTypes = { dispatchFetchPlanets: PropTypes.func.isRequired };
+FetchData.propTypes = { fetchPlanets: PropTypes.func.isRequired };
 
 export default connect(null, mapDipatchToProps)(FetchData);
