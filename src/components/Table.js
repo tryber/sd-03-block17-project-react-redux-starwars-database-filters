@@ -60,6 +60,15 @@ class Table extends React.Component {
     return dataSw;
   }
 
+  sortDescColName(columnLowerCase) {
+    const dataFiltered = this.dataFilterFunction();
+    return dataFiltered.sort(function (a, b) {
+      if (a[columnLowerCase] < b[columnLowerCase]) return 1;
+      if (a[columnLowerCase] > b[columnLowerCase]) return -1;
+      return 0;
+    });
+  }
+
   sortDescCol() {
     const { sortCol } = this.props;
     const { column } = sortCol;
@@ -67,9 +76,7 @@ class Table extends React.Component {
     const dataFiltered = this.dataFilterFunction();
     return dataFiltered.sort(function (a, b) {
       if (columnLowerCase === 'name') {
-        if (a[columnLowerCase] < b[columnLowerCase]) return 1;
-        if (a[columnLowerCase] > b[columnLowerCase]) return -1;
-        return 0;
+        return this.sortDescColName(columnLowerCase);
       }
       if (Number(a[columnLowerCase]) < Number(b[columnLowerCase])) return 1;
       if (Number(a[columnLowerCase]) > Number(b[columnLowerCase])) return -1;
