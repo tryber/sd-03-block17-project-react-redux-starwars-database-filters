@@ -81,8 +81,6 @@ function FilterComp({
 FilterComp.propTypes = {
   setNumericFilter: PropTypes.isRequired,
   filters: PropTypes.isRequired,
-  id: PropTypes.isRequired,
-  fireFilter: PropTypes.isRequired,
   changeId: PropTypes.func.isRequired,
   categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   changeCategory: PropTypes.func.isRequired,
