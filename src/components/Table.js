@@ -26,7 +26,7 @@ const tableCreator = (obj) =>
 const filteredPlanets = (filters, planets) => {
   let result = [...planets];
   filters.forEach(
-    ({column, comparison, value}) => {
+    ({ column, comparison, value }) => {
       if (Number(value) === 0) { return planets; }
       switch (comparison) {
         case 'maior que':
@@ -41,9 +41,9 @@ const filteredPlanets = (filters, planets) => {
         default:
           return result;
       }
-    }
+      return result;
+    },
   );
-  return result;
 };
 
 class Table extends React.Component {
