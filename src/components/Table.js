@@ -9,21 +9,32 @@ import TableData from './TableData';
 import { filterByNameAction } from '../actions/filterByNameAction';
 import { filterByNumericValuesAction } from '../actions/filterByNumericValuesAction';
 
+const greaterThan = (column, value, obj) => {
+  if (!(Number(obj[column]) > Number(value))) return false;
+  return true;
+};
+
+const lessThan = (column, value, obj) => {
+  if (!(Number(obj[column]) < Number(value))) return false;
+  return true;
+};
+
+const equal = (column, value, obj) => {
+  if (!(Number(obj[column]) === Number(value))) return false;
+  return true;
+};
+
 const GreaterLessEqual = (operator, column, value, obj) => {
   switch (operator) {
     case 'maior que':
-      if (!(Number(obj[column]) > Number(value))) return false;
-      break;
+      return greaterThan(column, value, obj);
     case 'menor que':
-      if (!(Number(obj[column]) < Number(value))) return false;
-      break;
+      return lessThan(column, value, obj);
     case 'igual a':
-      if (!(Number(obj[column]) === Number(value))) return false;
-      break;
+      return equal(column, value, obj);
     default:
       return true;
   }
-  return true;
 };
 
 class Table extends React.Component {
