@@ -65,6 +65,7 @@ class Table extends Component {
   componentDidUpdate(prevProps) {
     const { data, order } = this.props;
     this.checkState(prevProps, data, order);
+    this.checkOrder(prevProps, order, data);
   }
 
   checkOrder(prevProps, order, data) {
@@ -106,8 +107,6 @@ class Table extends Component {
 
     this.checkNumeriFilter(prevProps, filterByNumericValues, data);
 
-
-    this.checkOrder(prevProps, order, data);
 
     // if (prevProps.order !== order) {
     //   console.log('orderChanged', order.sort, order.column);
