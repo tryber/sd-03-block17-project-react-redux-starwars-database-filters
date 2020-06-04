@@ -24,10 +24,6 @@ class Table extends React.Component {
         { id: 13, title: 'terrain' },
       ],
     };
-    this.tbody = this.tbody.bind(this);
-    this.tbody = this.tbodyFiltersBig.bind(this);
-    this.tbody = this.tbodyFiltersLess.bind(this);
-    this.tbody = this.tbodyFiltersEqual.bind(this);
   }
 
   tbody(data, name) {
@@ -57,7 +53,7 @@ class Table extends React.Component {
     return (
       <tbody>
         {data.filter((item) => item.name.includes(name)
-          && parseInt(item[option]) > parseInt(valueFilter, 10))
+          && parseInt(item[option], 10) > parseInt(valueFilter, 10))
           .map((item) => <tr key={item.name}>
             <td>{item.name}</td>
             <td>{item.climate}</td>
@@ -81,7 +77,7 @@ class Table extends React.Component {
     return (
       <tbody>
         {data.filter((item) => item.name.includes(name)
-          && parseInt(item[option]) < parseInt(valueFilter, 10))
+          && parseInt(item[option], 10) < parseInt(valueFilter, 10))
           .map((item) => <tr key={item.name}>
             <td>{item.name}</td>
             <td>{item.climate}</td>
@@ -105,7 +101,7 @@ class Table extends React.Component {
     return (
       <tbody>
         {data.filter((item) => item.name.includes(name)
-          && parseInt(item[option]) === parseInt(valueFilter, 10))
+          && parseInt(item[option], 10) === parseInt(valueFilter, 10))
           .map((item) => <tr key={item.name}>
             <td>{item.name}</td>
             <td>{item.climate}</td>
@@ -165,10 +161,10 @@ class Table extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  option: state.reducerFilters.filters.filterByNumericValues[0].column,
-  comparison: state.reducerFilters.filters.filterByNumericValues[0].comparison,
-  valueFilter: state.reducerFilters.filters.filterByNumericValues[0].value,
-  isFiltered: state.reducerFilters.filters.filterByNumericValues[0].isFiltered,
+  option: state.filters.filterByNumericValues[0].column,
+  comparison: state.filters.filterByNumericValues[0].comparison,
+  valueFilter: state.filters.filterByNumericValues[0].value,
+  isFiltered: state.filters.filterByNumericValues[0].isFiltered,
 });
 
 Table.propTypes = {

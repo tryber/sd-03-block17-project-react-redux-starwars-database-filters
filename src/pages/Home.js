@@ -46,7 +46,7 @@ const mapStateToProps = (state) => ({
   data: state.requestData.data,
   isFetching: state.requestData.isFetching,
   error: state.requestData.error,
-  name: state.reducerFilters.filters.filterByName.name,
+  name: state.filters.filterByName.name,
 });
 
 const mapDispatchToProps = (dispatch) => ({

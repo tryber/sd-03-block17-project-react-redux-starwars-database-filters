@@ -35,50 +35,48 @@ const requestData = (state = stateDefault, action) => {
 };
 
 const stateFiltersDefault = {
-  filters:
-  {
-    filterByName: {
-      name: '',
-    },
-    filterByNumericValues: [
-      {
-        column: '',
-        comparison: '',
-        value: '',
-        isFiltered: false,
-      },
-    ],
+  filterByName: {
+    name: '',
   },
+  filterByNumericValues: [
+    {
+      column: '',
+      comparison: '',
+      value: '',
+      isFiltered: false,
+    },
+  ],
+
 };
 
-const reducerFilters = (state = stateFiltersDefault, action) => {
+const filters = (state = stateFiltersDefault, action) => {
   switch (action.type) {
     case NAME_FILTER:
       return {
-        filters: {
-          ...state.filters,
-          filterByName: { name: action.name },
-        },
+
+        ...state,
+        filterByName: { name: action.name },
+
       };
     case FILTER_SELECTORS:
       return {
-        filters: {
-          ...state.filters,
-          filterByNumericValues: [
-            {
-              column: action.filterSelect,
-              comparison: action.comparison,
-              value: action.valueFilter,
-              isFiltered: true,
-            },
-          ],
-        },
+
+        ...state,
+        filterByNumericValues: [
+          {
+            column: action.filterSelect,
+            comparison: action.comparison,
+            value: action.valueFilter,
+            isFiltered: true,
+          },
+        ],
+
       };
     default:
       return state;
   }
 };
 
-const rootReducer = combineReducers({ requestData, reducerFilters });
+const rootReducer = combineReducers({ requestData, filters });
 
 export default rootReducer;
