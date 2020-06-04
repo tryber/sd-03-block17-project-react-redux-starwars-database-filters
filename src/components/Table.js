@@ -1,14 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TableRow from './TableRow';
+import { connect } from 'react-redux';
+
+export const returnComparator = (col, comp, val, element) => {
+  switch (comp) {
+    case 'menor que':
+      return (element[col] < val);
+    case 'igual a':
+      return (element[col] === val);
+    case 'maior que':
+      return (element[col] > val);
+    default:
+      break;
+  }
+}
 
 class Table extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  // }
-
   render() {
-    const { planets, nameFilter } = this.props;
+    const { planets, nameFilter, numFilter } = this.props;
     return (
       <div>
         <h2>StarWars Datatable with Filters</h2>
@@ -28,7 +38,10 @@ class Table extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { planets.filter((planet) => (planet.name.toLowerCase()).includes(nameFilter.name))
+            { planets.filter((planet) => (
+              planet.name.toLowerCase()).includes(nameFilter.name) &&
+              returnComparator( numFilter[0].column, numFilter[0].comparison, numFilter[0].value, planet)
+              )
             .map((planet) => TableRow(planet)) }
           </tbody>
         </table>
@@ -37,8 +50,12 @@ class Table extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  numFilter: state.filterReducer.filterByNumericValues,
+});
+
 Table.propTypes = {
-  planet: PropTypes.shape({
+  planets: PropTypes.shape({
     name: PropTypes.string.isRequired,
     diameter: PropTypes.string.isRequired,
     population: PropTypes.string.isRequired,
@@ -48,11 +65,12 @@ Table.propTypes = {
     terrain: PropTypes.string.isRequired,
     surface_water: PropTypes.string.isRequired,
     gravity: PropTypes.string.isRequired,
-    //films: PropTypes.arrayOf(PropTypes.string.isRequired),
-    //created: PropTypes.string.isRequired,
-    //edited: PropTypes.string.isRequired,
+    // films: PropTypes.arrayOf(PropTypes.string.isRequired),
+    // created: PropTypes.string.isRequired,
+    // edited: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
   }).isRequired,
+  nameFilter: PropTypes.object,
 };
 
-export default Table;
+export default connect(mapStateToProps)(Table);

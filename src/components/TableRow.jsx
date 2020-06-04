@@ -18,6 +18,6 @@ const TableRow = (planet) => (
 
 TableRow.propTypes = {
   planet: PropTypes.objectOf(PropTypes.any).isRequired,
-}
+};
 
 export default TableRow;

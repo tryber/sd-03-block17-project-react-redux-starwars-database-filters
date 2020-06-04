@@ -1,13 +1,14 @@
 export const PROCESS_API_DATA = 'PROCESS_API_DATA';
 export const REQUEST_API_DATA = 'REQUEST_API_DATA';
-export const FILTER_TABLE = 'FILTER_TABLE';
+export const FILTER_NAME = 'FILTER_NAME';
+export const FILTER_NUMBER = 'FILTER_NUMBER';
 
 export const requestData = () => (
   {
     type: REQUEST_API_DATA,
   }
 );
-  
+
 export const receiveData = (data) => (
   {
     type: PROCESS_API_DATA,
@@ -17,9 +18,16 @@ export const receiveData = (data) => (
   }
 );
 
-export const filterRows = (searchTerm) => (
+export const filterName = (filterByName) => (
   {
-    type: FILTER_TABLE,
-    searchTerm,
+    type: FILTER_NAME,
+    filterByName,
+  }
+);
+
+export const filterNumber = (...params) => (
+  {
+    type: FILTER_NUMBER,
+    params,
   }
 );
