@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filterByNumericValues } from '../actions';
+import { filterByNumericValues } from '../../actions';
 
 const columns = [
   'population',
@@ -12,6 +12,8 @@ const columns = [
 ];
 
 const comparisons = ['maior que', 'menor que', 'igual a'];
+
+const filterColumnsOptions = (filters, value) => !filters.find(({ column }) => column === value);
 
 class FilterByValuesInput extends Component {
   constructor(props) {
@@ -25,6 +27,7 @@ class FilterByValuesInput extends Component {
   }
 
   renderColumnFilter() {
+    const { valueFilters } = this.props;
     return (
       <select
         id="column-filter"
@@ -32,10 +35,12 @@ class FilterByValuesInput extends Component {
         onChange={(event) => this.setState({ column: event.target.value })}
       >
         <option value="" />
-        {columns.map((column) => (
+        {columns.map((column) => (filterColumnsOptions(valueFilters, column)
+          && (
           <option value={column} key={column}>
             {column}
           </option>
+          )
         ))}
       </select>
     );
@@ -102,8 +107,13 @@ const mapDispatchToProps = (dispatch) => ({
   filtersParams: (filtersParams) => dispatch(filterByNumericValues(filtersParams)),
 });
 
-export default connect(null, mapDispatchToProps)(FilterByValuesInput);
+const mapStateToProps = (state) => ({
+  valueFilters: state.filters.filterByNumericValues,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterByValuesInput);
 
 FilterByValuesInput.propTypes = {
   filtersParams: PropTypes.func.isRequired,
+  valueFilters: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

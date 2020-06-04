@@ -1,5 +1,10 @@
 
-import { FILTER_BY_TEXT, FILTER_BY_NUMERIC_VALUES } from '../actions';
+import {
+  FILTER_BY_TEXT,
+  FILTER_BY_NUMERIC_VALUES,
+  REMOVE_FILTERS,
+  SORT_COLUMN,
+} from '../actions';
 
 const INITIAL_STATE = {
   filterByName: {
@@ -12,6 +17,10 @@ const INITIAL_STATE = {
       value: '',
     },
   ],
+  order: {
+    column: 'Name',
+    sort: 'ASC',
+  },
 };
 
 const filterByName = (state = INITIAL_STATE, action) => {
@@ -26,6 +35,17 @@ const filterByName = (state = INITIAL_STATE, action) => {
             ? action.params
             : [...state.filterByNumericValues.concat(action.params)],
       };
+    case REMOVE_FILTERS:
+      return {
+        ...state,
+        filterByNumericValues: [
+          ...state.filterByNumericValues.filter(
+            (filter) => filter !== action.value,
+          ),
+        ],
+      };
+    case SORT_COLUMN:
+      return { ...state, order: { column: action.value.column, sort: action.value.order } };
     default:
       return state;
   }
