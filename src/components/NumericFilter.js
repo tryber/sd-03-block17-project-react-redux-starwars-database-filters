@@ -119,14 +119,14 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(NumericFilter);
 
 NumericFilter.defaultProps = {
-  filterByNumericValues : [
+  filterByNumericValues: [
     {
       column: '',
       comparison: '',
       value: '',
     },
   ],
-}
+};
 
 NumericFilter.propTypes = {
   getPlanetByNumericValues: PropTypes.func.isRequired,
