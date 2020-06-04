@@ -93,8 +93,9 @@ export class DataTable extends Component {
 
   filterNumeric(filteredData) {
     const { filterByNumericValues } = this.props;
-    return filterByNumericValues.reduce((acc, { column, comparison, value }) => acc.filter((planet) => this.filterComparison(column, comparison, value, planet)),
-      filteredData);
+    return filterByNumericValues.reduce((acc, { column, comparison, value }) => {
+      return acc.filter((planet) => this.filterComparison(column, comparison, value, planet));
+    }, filteredData);
   }
 
   renderTableHead() {
