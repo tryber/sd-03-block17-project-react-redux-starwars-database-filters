@@ -1,8 +1,13 @@
-import { REQUEST_PLANETS, RECEIVE_PLANETS, FILTER_BY_NAME } from '../actions';
+import {
+  REQUEST_PLANETS,
+  RECEIVE_PLANETS,
+  FILTER_BY_NAME,
+  FILTER_IN_COLUMN,
+  FILTER_BY_COLUMN, } from '../actions';
 
 const INITIAL_STATE = {
   isFetching: false,
-  filters: {},
+  filters: { filterByNumericValues: [] },
   data: [],
   dataFiltered: [],
 };
@@ -27,6 +32,17 @@ function PlanetsReducer(state = INITIAL_STATE, action) {
         filters: { filterByName: { name: action.name } },
         dataFiltered: state.data.filter((planet) => planet.name.includes(action.name)),
       };
+      case FILTER_IN_COLUMN:
+        return {
+          ...state,
+          filters: { ...state.filters, filterByNumericValues: ['a']},
+        }
+      case FILTER_BY_COLUMN:
+        return {
+          ...state,
+          filters: { ...state.filters, filterByNumericValues: [action.payload.actualFilters]},
+          dataFiltered: action.payload.dataFiltered,
+        }
     default:
       return state;
   }

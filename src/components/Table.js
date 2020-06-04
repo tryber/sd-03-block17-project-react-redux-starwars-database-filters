@@ -9,6 +9,12 @@ class Table extends React.Component {
     getStarWarsPlanets();
   }
 
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevProps.dataFiltered !== this.props.dataFiltered) {
+  //       console.log(prevProps, this.props.dataFiltered);
+  //   }
+  // }
+
   renderTableTr() {
     const { dataFiltered } = this.props;
     return (
