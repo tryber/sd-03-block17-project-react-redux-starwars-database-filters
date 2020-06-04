@@ -16,6 +16,10 @@ class Filters extends Component {
       value: 0,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.selectColumn = this.selectColumn.bind(this);
+    this.selectComparison = this.selectComparison.bind(this);
+    this.filterValueInput = this.filterValueInput.bind(this);
+    this.filterButton = this.filterButton.bind(this);
   }
 
   handleChange(e) {
@@ -24,53 +28,79 @@ class Filters extends Component {
     });
   }
 
-  render() {
-    const { byName, byNumeric, avaliableFilters } = this.props;
+  selectColumn() {
+    const { avaliableFilters } = this.props;
+    return (
+      <select data-testid="column-filter" id="column" onChange={(e) => this.handleChange(e)}>
+        {avaliableFilters.columnFilters.reduce((acc, { name, avaliable }) => {
+          if (avaliable) acc.push(<Option key={name} name={name} />);
+          return acc;
+        }, [])}
+      </select>
+    );
+  }
+
+  selectComparison() {
+    const { avaliableFilters } = this.props;
+    return (
+      <select
+        data-testid="comparison-filter"
+        id="comparison"
+        onChange={(e) => this.handleChange(e)}
+      >
+        {avaliableFilters.comparisonFilters.map((filter) => (
+          <Option key={filter} name={filter} />
+        ))}
+      </select>
+    );
+  }
+
+  filterValueInput() {
+    const { value } = this.state;
+    return (
+      <input
+        data-testid="value-filter"
+        id="value"
+        type="number"
+        value={value}
+        onChange={(e) => this.handleChange(e)}
+      />
+    );
+  }
+
+  filterButton() {
+    const { byNumeric, avaliableFilters } = this.props;
     const { column, comparison, value } = this.state;
+    return (
+      <button
+        data-testid="button-filter"
+        type="button"
+        onClick={() => {
+          if (column !== 'all' && comparison !== 'all' && value) {
+            byNumeric(column, comparison, value);
+            const newAvaliableFilters = avaliableFilters.columnFilters;
+            newAvaliableFilters[
+              newAvaliableFilters.findIndex((filter) => filter.name === column)
+            ].avaliable = false;
+            disableSelect(newAvaliableFilters);
+            this.setState({ column: 'all' });
+          }
+        }}
+      >
+        Filtrar
+      </button>
+    );
+  }
+
+  render() {
+    const { byName } = this.props;
     return (
       <div>
         <input data-testid="name-filter" type="text" onChange={(e) => byName(e.target.value)} />
-        <select data-testid="column-filter" id="column" onChange={(e) => this.handleChange(e)}>
-          {avaliableFilters.columnFilters.reduce((acc, { name, avaliable }) => {
-            if (avaliable) acc.push(<Option key={name} name={name} />);
-            return acc;
-          }, [])}
-        </select>
-        <select
-          data-testid="comparison-filter"
-          id="comparison"
-          onChange={(e) => this.handleChange(e)}
-        >
-          {avaliableFilters.comparisonFilters
-            .map((filter) => <Option key={filter} name={filter} />)}
-        </select>
-        <input
-          data-testid="value-filter"
-          id="value"
-          type="number"
-          value={value}
-          onChange={(e) => this.handleChange(e)}
-        />
-        <button
-          data-testid="button-filter"
-          type="button"
-          onClick={() => {
-            if (
-              column !== 'all'
-              && comparison !== 'all'
-              && value
-            ) {
-              byNumeric(column, comparison, value);
-              const newAvaliableFilters = avaliableFilters.columnFilters;
-              newAvaliableFilters[newAvaliableFilters
-                .findIndex((filter) => filter.name === column)].avaliable = false;
-              disableSelect(newAvaliableFilters);
-              this.setState({ column: 'all' });
-            }
-          }}
-        >
-          Filtrar
-        </button>
+        {this.selectColumn()}
+        {this.selectComparison()}
+        {this.filterValueInput()}
+        {this.filterButton()}
       </div>
     );
   }
@@ -83,7 +113,8 @@ Filters.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(
-  { byName: filterByName, byNumeric: filterByNumericValue, disable: disableSelect }, dispatch,
+  { byName: filterByName, byNumeric: filterByNumericValue, disable: disableSelect },
+  dispatch,
 );
 
 const mapStateToProps = (state) => ({

@@ -79,6 +79,7 @@ Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFetching: PropTypes.bool.isRequired,
   nameFilter: PropTypes.string.isRequired,
+  filterByNumericValues: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps)(Table);
