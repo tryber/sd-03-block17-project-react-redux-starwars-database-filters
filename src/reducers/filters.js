@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   filterByName: {
     name: '',
   },
-  filterByNumericValues: []
+  filterByNumericValues: [],
 };
 
 const filters = (state = INITIAL_STATE, action) => {
@@ -21,9 +21,9 @@ const filters = (state = INITIAL_STATE, action) => {
         ...state,
         filterByNumericValues: [
           ...state.filterByNumericValues,
-          action.estado
-        ]
-      }
+          action.estado,
+        ],
+      },
     default:
       return state;
   }

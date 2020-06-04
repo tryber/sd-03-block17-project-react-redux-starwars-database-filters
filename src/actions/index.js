@@ -40,5 +40,5 @@ export const filterPlanetsByName = (value) => ({
 
 export const filterPlanetsByNumericValues = (estado) => ({
   type: FILTER_BY_NUMERIC_VALUES,
-  estado
+  estado,
 });

@@ -19,16 +19,16 @@ class Table extends Component {
     const { name, numericFilters, data } = this.props;
     const filterName = data.filter((planet) => (planet.name.toLowerCase()).includes(name));
     if (numericFilters.length !== 0) {
-      return numericFilters.reduce((newList, { column, comparison, value }) => 
+      return numericFilters.reduce((newList, { column, comparison, value }) =>
         newList.filter((planet) => {
-          if (comparison === 'maior que') return Number(planet[column]) > Number(value)
-          if (comparison === 'igual a') return Number(planet[column]) === Number(value)
-          if (comparison === 'menor que') return Number(planet[column]) < Number(value)
-          if (comparison === '') return planet
+          if (comparison === 'maior que') return Number(planet[column]) > Number(value);
+          if (comparison === 'igual a') return Number(planet[column]) === Number(value);
+          if (comparison === 'menor que') return Number(planet[column]) < Number(value);
+          return planet
         })
       , filterName);
     }
-    return filterName; 
+    return filterName;
   }
 
   render() {
@@ -68,10 +68,12 @@ Table.propTypes = {
   getPlanetsList: PropTypes.func.isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
   name: PropTypes.string.isRequired,
+  numericFilters: PropTypes.arrayOf(PropTypes.object),
 };
 
 Table.defaultProps = {
   data: null,
+  numericFilters: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
