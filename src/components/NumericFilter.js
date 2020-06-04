@@ -49,6 +49,16 @@ class NumericFilter extends React.Component {
     });
   }
 
+  static defaultProps = {
+    filterByNumericValues : [
+      {
+        column: '',
+        comparison: '',
+        value: '',
+      },
+    ],
+  }
+
   filterForms() {
     return (
       <div>
