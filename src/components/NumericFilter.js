@@ -121,5 +121,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(NumericFilter);
 
 NumericFilter.propTypes = {
   getPlanetByNumericValues: PropTypes.func.isRequired,
-  filterByNumericValues: PropTypes.arrayOf(object),
+  filterByNumericValues: PropTypes.array([
+    {
+      column: '',
+      comparison: '',
+      value: '',
+    },
+  ]),
 };
