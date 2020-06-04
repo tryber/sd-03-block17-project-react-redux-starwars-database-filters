@@ -126,12 +126,12 @@ describe.skip('2 - Sua página deve ter um campo de texto que filtra a tabela pa
   })
 })
 
-describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
+describe.skip('3 - Sua página deve ter um filtro para valores numéricos', () => {
 
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
-  test.skip('should have the column selection filter', async () => {
+  test('should have the column selection filter', async () => {
     const { findByTestId } = renderApp();
 
     const columnFilter = await findByTestId('column-filter');
@@ -181,7 +181,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
 
   })
 
-  test.skip('should have the value input filter', async () => {
+  test('should have the value input filter', async () => {
     const { findByTestId } = renderApp();
 
     const valueFilter = await findByTestId('value-filter');
@@ -189,7 +189,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     expect(valueFilter).toHaveProperty('nodeName', 'INPUT');
   });
   
-  test.skip('should have the filter button', async () => {
+  test('should have the filter button', async () => {
     const { findByTestId } = renderApp();
 
     const buttonFilter = await findByTestId('button-filter');
@@ -197,7 +197,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     expect(buttonFilter).toHaveProperty('nodeName', 'BUTTON');
   })
 
-  test.skip('should filter with less than', async () => {
+  test('should filter with less than', async () => {
     const { findByTestId, findAllByRole } = renderApp();
 
     const columnFilter = await findByTestId('column-filter');
@@ -216,7 +216,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     
   })
 
-  test.skip('should filter with greather than', async () => {
+  test('should filter with greather than', async () => {
     const { findByTestId, findAllByRole } = renderApp();
 
     const columnFilter = await findByTestId('column-filter');
@@ -234,7 +234,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     expect(tableRows).toHaveLength(5);
   })
 
-  test.skip('should filter with equal to', async () => {
+  test('should filter with equal to', async () => {
     const { findByTestId, findAllByRole, findByText } = renderApp();
     
     const columnFilter = await findByTestId('column-filter');
@@ -253,7 +253,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     expect(await findByText('Tatooine')).toBeInTheDocument();
   })
 
-  test.skip('should change store filter values', async () => {
+  test('should change store filter values', async () => {
     const expectedFilters = [
       { column: 'surface_water', comparison: 'menor que', value: '40' },
       { column: 'diameter', comparison: 'maior que', value: '8900' },
@@ -264,7 +264,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
 
 })
 
-describe.skip('4 -  Sua página deverá ser carregada com somente um filtro de valores numéricos', () => {
+describe('4 -  Sua página deverá ser carregada com somente um filtro de valores numéricos', () => {
   test('check avaiable filters', async () => {
     const { findByTestId } = renderApp();
 

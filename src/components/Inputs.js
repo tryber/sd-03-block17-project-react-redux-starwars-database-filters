@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { filterByNameAction } from '../actions/filterByNameAction';
+import { filtersNameAction } from '../actions/filtersNameAction';
 import { filterByNumericValuesAction } from '../actions/filterByNumericValuesAction';
 
 
@@ -50,14 +51,10 @@ class Inputs extends React.Component {
 
   numericSearchCol() {
     const { column } = this.state;
+    const { allFiltersArr } = this.props;
     return (
       <select onChange={this.handleChange} value={column} name="column" data-testid="column-filter">
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
-        <option value="all">all</option>
+        {allFiltersArr.map((e) => (<option key={e} value={e}>{e}</option>))}
       </select>
     );
   }
@@ -71,9 +68,9 @@ class Inputs extends React.Component {
         name="comparison"
         data-testid="comparison-filter"
       >
-        <option value="maior que">Maior que</option>
-        <option value="igual a">Igual a</option>
-        <option value="menor que">Menor que</option>
+        <option value="maior que">maior que</option>
+        <option value="igual a">igual a</option>
+        <option value="menor que">menor que</option>
         <option value="" />
       </select>
     );
@@ -98,18 +95,27 @@ class Inputs extends React.Component {
     );
   }
 
+  displayFilterName() {
+    const { allFiltersArr, changeFiltersDisplay } = this.props;
+    const { column } = this.state;
+    const index = allFiltersArr.indexOf(column);
+    const newArr = [...allFiltersArr];
+    newArr.splice(index, 1);
+    changeFiltersDisplay(newArr);
+  }
+
   numericFilter() {
     const { column, value, comparison } = this.state;
     const { filterByNumericValues } = this.props;
     const newObj = { column, value, comparison };
     this.setState({ column: '', value: '', comparison: '' });
     filterByNumericValues(newObj);
-    console.log('Button Search Chamado');
+    this.displayFilterName();
   }
 
   numericFilterButton() {
     return (
-      <button type="button" onClick={this.numericFilter}>
+      <button data-testid="button-filter" type="button" onClick={this.numericFilter}>
         Search
       </button>
     );
@@ -131,6 +137,7 @@ class Inputs extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   filterByName: (text) => dispatch(filterByNameAction(text)),
   filterByNumericValues: (obj) => dispatch(filterByNumericValuesAction(obj)),
+  changeFiltersDisplay: (arr) => dispatch(filtersNameAction(arr)),
 });
 
 const mapStateToProps = (state) => ({
@@ -138,20 +145,22 @@ const mapStateToProps = (state) => ({
   isLoading: state.apiSWReducer.loading,
   typedText: state.filters.filterByName.name,
   numericSearched: state.filters.filterByNumericValues,
+  allFiltersArr: state.filtersArrReducer.allFilters,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Inputs);
 
 Inputs.propTypes = {
   typedText: PropTypes.string,
-  // dataSw: PropTypes.arrayOf(PropTypes.object),
+  allFiltersArr: PropTypes.arrayOf(PropTypes.string).isRequired,
   filterByName: PropTypes.func,
+  changeFiltersDisplay: PropTypes.func,
   filterByNumericValues: PropTypes.func,
 };
 
 Inputs.defaultProps = {
   typedText: '',
-  // dataSw: [],
   filterByName: () => {},
   filterByNumericValues: () => {},
+  changeFiltersDisplay: () => {},
 };
