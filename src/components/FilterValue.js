@@ -41,10 +41,12 @@ class FilterValue extends React.Component {
   onNumberChange(event) {
     this.setState({ number: event.target.value });
   }
+
   onSelectChange(event, chave) {
     const { value } = event.target;
     this.setState({ [chave]: value });
   }
+
   onClick() {
     const { number, column, comparation } = this.state;
     this.props.filterByNumericValues(column, comparation, number);

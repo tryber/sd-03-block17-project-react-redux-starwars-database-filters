@@ -1,22 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes, { element } from 'prop-types';
+import PropTypes from 'prop-types';
 import { removeFilterNumeric } from '../action';
 
 function RemoveFilter({ numericValues, removeFilterNumeric }) {
-  const onClick = (index) => removeFilterNumeric(index)
-  return numericValues.map((element, index) => {
-    if (element.column === '') return false
-    return (
-      <div data-testid="filter" key={element.column} >
+  const onClick = (type) => removeFilterNumeric(type)
+  return numericValues.map((type) =>
+    (
+      <div data-testid="filter" key={type.column} >
         <span>
-          {console.log(index)}
-          {`${element.column} - ${element.comparison} - ${element.value} `}
+          {`${type.column} - ${type.comparison} - ${type.value} `}
         </span>
-        <button onClick={() => onClick(index)}>X</button>
-      </div >
+        <button type="button" onClick={() => onClick(type)}>X</button>
+      </div>
     )
-  });
+  );
 }
 
 const mapStateToProps = (state) => ({
@@ -24,8 +22,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeFilterNumeric: (index) =>
-    dispatch(removeFilterNumeric(index)),
+  removeFilterNumeric: (type) =>
+    dispatch(removeFilterNumeric(type)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RemoveFilter);

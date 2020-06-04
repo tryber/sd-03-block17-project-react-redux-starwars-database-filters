@@ -2,59 +2,72 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function Body({ planets, name, column, comparison, value }) {
-  const filters = () => (
-    planets.filter((planet) => {
-      switch (comparison) {
-        case 'maior que':
-          return planet.name.includes(name) && parseFloat(planet[column]) > parseFloat(value);
-        case 'menor que':
-          return planet.name.includes(name) && parseFloat(planet[column]) < parseFloat(value);
-        case 'igual a':
-          return planet.name.includes(name) && parseFloat(planet[column]) === parseFloat(value);
-        default:
-          return planet.name.includes(name);
-      }
-    })
-  );
+function Body({ planets, name, numericValues, column, sort }) {
+  const filters = () => {
+    if (numericValues.length === 0) return planets.filter((planet) => planet.name.includes(name));
+    return numericValues.reduce((acc, { column, comparison, value }) => (
+      acc.filter((planet) => {
+        switch (comparison) {
+          case 'maior que':
+            return planet.name.includes(name) && parseFloat(planet[column]) > parseFloat(value);
+          case 'menor que':
+            return planet.name.includes(name) && parseFloat(planet[column]) < parseFloat(value);
+          case 'igual a':
+            return planet.name.includes(name) && parseFloat(planet[column]) === parseFloat(value);
+          default:
+            return planet.name.includes(name);
+        }
+      })
+    ), planets)
+  };
+
+  const orders = () => {
+    switch (column) {
+      case 'Name':
+        return filters().sort((a, b) => {
+          if (sort === 'ASC') return a.name - b.name;
+          return b.name - a.name;
+        });
+      default:
+        return filters().sort((a, b) => {
+          if (sort === 'ASC') return a[column] - b[column];
+          return b[column] - a[column];
+        });
+    }
+  }
 
   return (
     <tbody>
-      {filters()
-        .map((planet) =>
-          <tr key={planet.name}>
-            <td>{planet.name}</td>
-            <td>{planet.rotation_period}</td>
-            <td>{planet.orbital_period}</td>
-            <td>{planet.diameter}</td>
-            <td>{planet.climate}</td>
-            <td>{planet.gravity}</td>
-            <td>{planet.terrain}</td>
-            <td>{planet.surface_water}</td>
-            <td>{planet.population}</td>
-            <td>{planet.films.map((film) => <span key={film}>{film}</span>)}</td>
-            <td>{planet.created}</td>
-            <td>{planet.edited}</td>
-            <td>{planet.url}</td>
-          </tr>,
-        )}
+      {orders().map((planet) =>
+        <tr key={planet.name}>
+          <td>{planet.name}</td>
+          <td>{planet.rotation_period}</td>
+          <td>{planet.orbital_period}</td>
+          <td>{planet.diameter}</td>
+          <td>{planet.climate}</td>
+          <td>{planet.gravity}</td>
+          <td>{planet.terrain}</td>
+          <td>{planet.surface_water}</td>
+          <td>{planet.population}</td>
+          <td>{planet.films.map((film) => <span key={film}>{film}</span>)}</td>
+          <td>{planet.created}</td>
+          <td>{planet.edited}</td>
+          <td>{planet.url}</td>
+        </tr>,
+      )}
     </tbody>
   );
 }
 
-const mapStateToProps = (state) => ({
-  planets: state.ReducerPlanets.data,
-  name: state.filters.filterByName.name,
-  column: state.filters.filterByNumericValues[
-    state.filters.filterByNumericValues.length - 1
-  ].column,
-  comparison: state.filters.filterByNumericValues[
-    state.filters.filterByNumericValues.length - 1
-  ].comparison,
-  value: state.filters.filterByNumericValues[
-    state.filters.filterByNumericValues.length - 1
-  ].value,
-});
+const mapStateToProps = (state) => {
+  return {
+    planets: state.ReducerPlanets.data,
+    name: state.filters.filterByName.name,
+    numericValues: state.filters.filterByNumericValues,
+    column: state.filters.order.column,
+    sort: state.filters.order.sort,
+  }
+};
 
 export default connect(mapStateToProps)(Body);
 
@@ -75,7 +88,9 @@ Body.propTypes = {
     url: PropTypes.string,
   })).isRequired,
   name: PropTypes.string.isRequired,
-  column: PropTypes.string.isRequired,
-  comparison: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  numericValues: PropTypes.arrayOf(PropTypes.shape({
+    column: PropTypes.string,
+    comparison: PropTypes.string,
+    value: PropTypes.string,
+  })).isRequired,
 };
