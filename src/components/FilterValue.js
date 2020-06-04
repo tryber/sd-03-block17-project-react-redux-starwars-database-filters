@@ -21,19 +21,6 @@ class FilterValue extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
-  updateColumn() {
-    const { numericValues } = this.props;
-    const columns = [
-      'population',
-      'orbital_period',
-      'diameter',
-      'rotation_period',
-      'surface_water',
-    ];
-    const stateColumns = numericValues.map(({ column }) => column);
-    return ['', ...columns.filter((column) => !stateColumns.includes(column))];
-  }
-
   componentDidMount() {
     this.updateColumn();
   }
@@ -90,12 +77,25 @@ class FilterValue extends React.Component {
     );
   }
 
+  updateColumn() {
+    const { numericValues } = this.props;
+    const columns = [
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ];
+    const stateColumns = numericValues.map(({ column }) => column);
+    return ['', ...columns.filter((column) => !stateColumns.includes(column))];
+  }
+
   render() {
     return (
       <div>
         {this.getColumns()}
         {this.getComparation()}
-        < input
+        <input
           className="input"
           type="number"
           data-testid="value-filter"

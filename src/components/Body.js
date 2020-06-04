@@ -2,39 +2,37 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function Body({ planets, name, numericValues, column, sort }) {
-  const filters = () => {
-    if (numericValues.length === 0) return planets.filter((planet) => planet.name.includes(name));
-    return numericValues.reduce((acc, { column, comparison, value }) => (
-      acc.filter((planet) => {
-        switch (comparison) {
-          case 'maior que':
-            return planet.name.includes(name) && parseFloat(planet[column]) > parseFloat(value);
-          case 'menor que':
-            return planet.name.includes(name) && parseFloat(planet[column]) < parseFloat(value);
-          case 'igual a':
-            return planet.name.includes(name) && parseFloat(planet[column]) === parseFloat(value);
-          default:
-            return planet.name.includes(name);
-        }
-      })
-    ), planets)
-  };
+function Body({ planets, name, numericValues, columnSort, sort }) {
+  const filters = () => (
+    numericValues.length === 0 ? planets.filter((planet) => planet.name.includes(name)) :
+      numericValues.reduce((acc, { column, comparison, value }) => (
+        acc.filter((planet) => {
+          switch (comparison) {
+            case 'maior que':
+              return planet.name.includes(name) && parseFloat(planet[column]) > parseFloat(value);
+            case 'menor que':
+              return planet.name.includes(name) && parseFloat(planet[column]) < parseFloat(value);
+            case 'igual a':
+              return planet.name.includes(name) && parseFloat(planet[column]) === parseFloat(value);
+            default:
+              return planet.name.includes(name);
+          }
+        })
+      ), planets)
+  );
 
   const orders = () => {
-    switch (column) {
+    switch (columnSort) {
       case 'Name':
-        return filters().sort((a, b) => {
-          if (sort === 'ASC') return a.name - b.name;
-          return b.name - a.name;
-        });
+        return filters().sort((a, b) => (
+          sort === 'ASC' ? a.name - b.name : b.name - a.name
+        ));
       default:
-        return filters().sort((a, b) => {
-          if (sort === 'ASC') return a[column] - b[column];
-          return b[column] - a[column];
-        });
+        return filters().sort((a, b) => (
+          sort === 'ASC' ? a[columnSort] - b[columnSort] : b[columnSort] - a[columnSort]
+        ));
     }
-  }
+  };
 
   return (
     <tbody>
@@ -59,15 +57,15 @@ function Body({ planets, name, numericValues, column, sort }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = (state) => (
+  {
     planets: state.ReducerPlanets.data,
     name: state.filters.filterByName.name,
     numericValues: state.filters.filterByNumericValues,
-    column: state.filters.order.column,
+    columnSort: state.filters.order.column,
     sort: state.filters.order.sort,
   }
-};
+);
 
 export default connect(mapStateToProps)(Body);
 
@@ -92,5 +90,9 @@ Body.propTypes = {
     column: PropTypes.string,
     comparison: PropTypes.string,
     value: PropTypes.string,
+    columnSort: PropTypes.string,
+    sort: PropTypes.string,
   })).isRequired,
+  columnSort: PropTypes.string.isRequired,
+  sort: PropTypes.string.isRequired,
 };

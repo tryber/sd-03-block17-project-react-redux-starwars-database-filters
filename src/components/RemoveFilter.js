@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { removeFilterNumeric } from '../action';
 
-function RemoveFilter({ numericValues, removeFilterNumeric }) {
-  const onClick = (type) => removeFilterNumeric(type)
+function RemoveFilter({ numericValues, removeNumeric }) {
+  const onClick = (type) => removeNumeric(type);
   return numericValues.map((type) =>
     (
       <div data-testid="filter" key={type.column} >
@@ -13,7 +13,7 @@ function RemoveFilter({ numericValues, removeFilterNumeric }) {
         </span>
         <button type="button" onClick={() => onClick(type)}>X</button>
       </div>
-    )
+    ),
   );
 }
 
@@ -22,7 +22,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeFilterNumeric: (type) =>
+  removeNumeric: (type) =>
     dispatch(removeFilterNumeric(type)),
 });
 

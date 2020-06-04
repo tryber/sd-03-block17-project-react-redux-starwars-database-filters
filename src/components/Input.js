@@ -31,6 +31,11 @@ class Input extends React.Component {
     this.setState({ [chave]: value });
   }
 
+  onClick() {
+    const { columnSort, inputSort } = this.state;
+    this.props.orderFunc(columnSort, inputSort);
+  }
+
   getColumns() {
     const columns = [
       'name',
@@ -80,11 +85,6 @@ class Input extends React.Component {
     );
   }
 
-  onClick() {
-    const { columnSort, inputSort } = this.state;
-    this.props.orderColumns(columnSort, inputSort);
-  }
-
   render() {
     return (
       <div>
@@ -100,7 +100,7 @@ class Input extends React.Component {
         <div>
           {this.getColumns()}
           {this.getRadios()}
-          <button data-testid='column-sort-button' type="button" onClick={this.onClick}>
+          <button data-testid="column-sort-button" type="button" onClick={this.onClick}>
             Ordenar
           </button>
         </div>
@@ -115,7 +115,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   filterByName: (name) => dispatch(filterByName(name)),
-  orderColumns: (column, sort) => dispatch(orderColumns(column, sort)),
+  orderFunc: (column, sort) => dispatch(orderColumns(column, sort)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Input);
