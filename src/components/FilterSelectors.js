@@ -41,9 +41,9 @@ class FilterSelectors extends React.Component {
         </select>
         <select required onChange={(event) => this.handleFilterChange(event, 'comparison')} testid="comparison-filter">
           <option value="" />
-          <option value="Maior que">Maior que</option>
-          <option value="Menor que">Menor que</option>
-          <option value="Igual a">Igual a</option>
+          <option value="maior que">Maior que</option>
+          <option value="menor que">Menor que</option>
+          <option value="igual a">Igual a</option>
         </select>
         <input
           value="0"
