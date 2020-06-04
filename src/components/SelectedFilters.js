@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { deleteFilter } from '../actions/index';
 
 class SelectedFilters extends Component {
   render() {
-    const { numericValues } = this.props;
+    const { numericValues, deleteFilter } = this.props;
     return (
       <span>
         {numericValues.map((filter) => {
           return (
-            <span className='tag is-dark is-normal' data-testid='filter' id={filter.column}>
+            <span className='tag is-dark is-normal' data-testid='filter' key={filter.column}>
               {filter.column}-{filter.comparison}-{filter.value}
-              <button class='delete is-normal'>X</button>
+              <button
+                className='delete is-normal'
+                id={filter.column}
+                onClick={(e) => deleteFilter(e.target.id)}
+              >
+                X
+              </button>
             </span>
           );
         })}
@@ -23,4 +30,8 @@ const mapStateToProps = (state) => ({
   numericValues: state.filters.filterByNumericValues,
 });
 
-export default connect(mapStateToProps)(SelectedFilters);
+const mapDispatchToProps = (dispatch) => ({
+  deleteFilter: (e) => dispatch(deleteFilter(e)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectedFilters);

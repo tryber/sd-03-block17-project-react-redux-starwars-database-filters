@@ -26,8 +26,16 @@ class Filters extends Component {
     });
   }
 
-  render() {
+  renderFilters() {
     const { numericValues } = this.props;
+    if (numericValues.length === 0 || numericValues[0].column) {
+      return <SelectedFilters />;
+    }
+
+    return null;
+  }
+
+  render() {
     return (
       <div>
         <InputByName />
@@ -41,7 +49,7 @@ class Filters extends Component {
           </div>
         </div>
         <FilterButton clickParam={this.state} />
-        {numericValues[0].column && <SelectedFilters />}
+        {this.renderFilters()}
       </div>
     );
   }
@@ -52,4 +60,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(Filters);
-
