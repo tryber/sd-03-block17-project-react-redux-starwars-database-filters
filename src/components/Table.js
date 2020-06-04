@@ -19,6 +19,29 @@ function filterPlanetsFunc(data, filters) {
   return filterPlanets;
 }
 
+function tbody(data, name) {
+  return (
+    <tbody>
+      {data.filter((item) => item.name.includes(name))
+        .map((item) => <tr key={item.name}>
+          <td>{item.name}</td>
+          <td>{item.climate}</td>
+          <td>{item.created}</td>
+          <td>{item.diameter}</td>
+          <td>{item.edited}</td>
+          <td>#</td>
+          <td>{item.gravity}</td>
+          <td>{item.orbital_period}</td>
+          <td>{item.population}</td>
+          <td>#</td>
+          <td>{item.rotation_period}</td>
+          <td>{item.surface_water}</td>
+          <td>{item.terrain}</td>
+        </tr>)}
+    </tbody>
+  );
+}
+
 class Table extends React.Component {
   constructor(props) {
     super(props);
@@ -42,8 +65,7 @@ class Table extends React.Component {
   }
 
 
-table() {
-    
+  table() {
     const { titles } = this.state;
     const { name, isFiltered, filters } = this.props;
     let { data } = this.props;
@@ -57,24 +79,7 @@ table() {
             {titles.map((item) => <th key={item.id}>{item.title}</th>)}
           </tr>
         </thead>
-        <tbody>
-          {data.filter((item) => item.name.includes(name))
-            .map((item) => <tr key={item.name}>
-              <td>{item.name}</td>
-              <td>{item.climate}</td>
-              <td>{item.created}</td>
-              <td>{item.diameter}</td>
-              <td>{item.edited}</td>
-              <td>#</td>
-              <td>{item.gravity}</td>
-              <td>{item.orbital_period}</td>
-              <td>{item.population}</td>
-              <td>#</td>
-              <td>{item.rotation_period}</td>
-              <td>{item.surface_water}</td>
-              <td>{item.terrain}</td>
-            </tr>)}
-        </tbody>
+        {tbody(data, name)}
       </table>
     );
   }
