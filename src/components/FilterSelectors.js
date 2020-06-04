@@ -32,7 +32,7 @@ class FilterSelectors extends React.Component {
     return (
       <div>
         <select required onChange={(event) => this.handleFilterChange(event, 'column')} data-testid="column-filter">
-          <option value="" />
+          <option />
           {columnFilter.map(
             (option) => !filters.find(({ column }) => column === option) && (
             <option>{option}</option>
@@ -40,10 +40,10 @@ class FilterSelectors extends React.Component {
           )}
         </select>
         <select required onChange={(event) => this.handleFilterChange(event, 'comparison')} data-testid="comparison-filter">
-          <option value="" />
-          <option value="maior que">Maior que</option>
-          <option value="menor que">Menor que</option>
-          <option value="igual a">Igual a</option>
+          <option />
+          <option value="maior que">maior que</option>
+          <option value="menor que">menor que</option>
+          <option value="igual a">igual a</option>
         </select>
         <input
           defaultValue="0"
