@@ -32,6 +32,21 @@ const getByNumericValue = (column, comparison, value) => ({
   value,
 });
 
+const doMoreFilter = (column) => ({
+  type: 'DO_FILTER',
+  column,
+});
+
+const removeFilter = (filter) => ({
+  type: 'REMOVE_FILTER',
+  filter,
+});
+
+const returnColumn = (column) => ({
+  type: 'RETURN_COLUMN',
+  column,
+});
+
 function fetchData() {
   return (dispatch) => {
     getInfo()
@@ -39,4 +54,14 @@ function fetchData() {
   };
 }
 
-export { getByName, fetchData, getByColumn, getByComparison, getByValue, getByNumericValue };
+export {
+  getByName,
+  fetchData,
+  getByColumn,
+  getByComparison,
+  getByValue,
+  getByNumericValue,
+  doMoreFilter,
+  removeFilter,
+  returnColumn,
+};
