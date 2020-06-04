@@ -3,16 +3,36 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchPlanetsList } from '../actions';
 import PlanetLine from './PlanetLine';
-
+import TableHeader from './TableHeader';
 
 class Table extends Component {
+  constructor(props) {
+    super(props);
+    this.filterPlanets = this.filterPlanets.bind(this);
+  }
   componentDidMount() {
     const { getPlanetsList } = this.props;
     getPlanetsList();
   }
 
+  filterPlanets() {
+    const { name, numericFilters, data } = this.props;
+    const filterName = data.filter((planet) => (planet.name.toLowerCase()).includes(name));
+    if (numericFilters.length !== 0) {
+      return numericFilters.reduce((newList, { column, comparison, value }) => 
+        newList.filter((planet) => {
+          if (comparison === 'maior que') return Number(planet[column]) > Number(value)
+          if (comparison === 'igual a') return Number(planet[column]) === Number(value)
+          if (comparison === 'menor que') return Number(planet[column]) < Number(value)
+          if (comparison === '') return planet
+        })
+      , filterName);
+    }
+    return filterName; 
+  }
+
   render() {
-    const { isFetching, data, name } = this.props;
+    const { isFetching, data } = this.props;
 
     if (isFetching) { return <p>Loading...</p>; }
 
@@ -20,25 +40,10 @@ class Table extends Component {
       return (
         <table>
           <thead>
-            <tr>
-              <th>Name</th>
-              <th>Rotation Period</th>
-              <th>Orbital Period</th>
-              <th>Diameter</th>
-              <th>Climate</th>
-              <th>Gravity</th>
-              <th>Terrain</th>
-              <th>Surface Water</th>
-              <th>Population</th>
-              <th>Films</th>
-              <th>Created</th>
-              <th>Edited</th>
-              <th>URL</th>
-            </tr>
+            <TableHeader />
           </thead>
           <tbody>
-            {data.filter((planet) => (planet.name.toLowerCase()).includes(name))
-                 .map((planet) => <PlanetLine planet={planet} key={planet.name} />)}
+            {this.filterPlanets().map((planet) => <PlanetLine planet={planet} key={planet.name} />)}
           </tbody>
         </table>
       );
@@ -51,6 +56,7 @@ const mapStateToProps = (state) => ({
   isFetching: state.planetsList.isFetching,
   data: state.planetsList.data,
   name: state.filters.filterByName.name,
+  numericFilters: state.filters.filterByNumericValues,
 });
 
 const mapDispatchToProps = (dispatch) => ({
