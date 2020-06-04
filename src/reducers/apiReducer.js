@@ -2,7 +2,7 @@ import {
   API_REQUEST,
   API_RECIEVE_SUCCESS,
   API_RECIVE_FAILURE,
-} from '../actions/apiAction';
+} from '../services/Types';
 
 const INITIAL_STATE = {
   data: [],

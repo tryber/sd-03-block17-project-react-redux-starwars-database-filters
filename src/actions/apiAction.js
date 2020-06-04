@@ -1,30 +1,33 @@
 import SWPlanetApiRequest from '../services/SWPlanetApiRequest';
+import {
+  API_REQUEST,
+  API_RECIEVE_SUCCESS,
+  API_RECIVE_FAILURE,
+} from '../services/Types';
 
-export const API_REQUEST = 'API_REQUEST';
-export const API_RECIEVE_SUCCESS = 'API_RECIEVE_SUCCESS';
-export const API_RECIVE_FAILURE = 'API_RECIEVE_FAILURE';
-
-const apiRequest = () => ({
+export const apiRequest = () => ({
   type: API_REQUEST,
+  loading: true,
 });
 
-const reciveApiDataSuccess = ({ response }) => ({
+export const reciveApiDataSuccess = ({ results }) => ({
   type: API_RECIEVE_SUCCESS,
-  data: response,
+  loading: false,
+  data: results,
 });
 
-const recieveApiDataFailure = (error) => ({
+export const recieveApiDataFailure = (error) => ({
   type: API_RECIVE_FAILURE,
-  error,
+  loading: false,
+  data: error,
 });
 
 export default function getApiData() {
   return (dispatch) => {
     dispatch(apiRequest());
-
     return SWPlanetApiRequest()
       .then(
-        (data) => dispatch(reciveApiDataSuccess(data)),
+        (planet) => dispatch(reciveApiDataSuccess(planet)),
         (error) => dispatch(recieveApiDataFailure(error.message)),
       );
   };
