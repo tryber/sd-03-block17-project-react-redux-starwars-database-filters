@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import fetchPlanets from '../actions/fetchPlanetsAction';
+import './FetchData.css';
 
 class FetchData extends React.Component {
   componentDidMount() {
-    this.props.fetchPlanets();
+    setTimeout(() => {
+      this.props.fetchPlanets();
+    }, 1000)
   }
 
   render() {
     return (
-      <div>Loading...</div>
+      <div className="loading">Loading...</div>
     );
   }
 }
