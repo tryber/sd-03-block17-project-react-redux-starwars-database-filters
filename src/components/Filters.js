@@ -114,7 +114,7 @@ export class Filters extends Component {
   }
 
   renderActiveFilters(filterByNumericValues) {
-    if (filterByNumericValues[0].column === '') return false;
+    if (filterByNumericValues.length === 0 || filterByNumericValues[0].column === '') return false;
     return (
       <div>
         {filterByNumericValues.map(({ column, comparison, value }) => (

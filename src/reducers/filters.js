@@ -51,11 +51,7 @@ const removeFilter = (state, column) => {
     },
     filterByNumericValues:
       (state.filterByNumericValues.length === 1)
-        ? [{
-          column: '',
-          comparison: '',
-          value: '',
-        }]
+        ? []
         : newArray,
     order: { ...state.order },
     options: [...state.options, column],

@@ -78,7 +78,6 @@ export class DataTable extends Component {
   }
 
   orderPlanets(filteredData) {
-    -
     const { order: { sort } } = this.props;
     let { order: { column } } = this.props;
     column = (column === 'Name') ? 'name' : column;
