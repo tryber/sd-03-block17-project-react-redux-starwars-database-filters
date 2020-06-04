@@ -23,10 +23,11 @@ const renderRadio = (value, text, callback) => (
 const OrderFilters = ({ columnValue, change, applyOrder, headers }) => (
   <fieldset className="container">
     <span>Order By Column</span>
-    <div>
+    <div className="">
       {renderRadio('ASC', 'Ascendent', change)}
       {renderRadio('DESC', 'Descendent', change)}
-      <label htmlFor="column-order">
+      <label htmlFor="column-order" className="container">
+        column
         <select
           className="radius-border"
           data-testid="column-sort"

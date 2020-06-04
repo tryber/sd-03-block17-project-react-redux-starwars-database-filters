@@ -24,14 +24,14 @@
 
 .container span {
   font-size: 1.2em;
-  text-align: center;
   margin-top: 10px;
+  text-align: center;
 }
 
 .filter-button {
+  background-color: rgb(38, 250, 38);
   font-family: sans-serif;
   font-size: 1em;
   font-weight: 700;
-  background-color: rgb(38, 250, 38);
   width: 100%
 }

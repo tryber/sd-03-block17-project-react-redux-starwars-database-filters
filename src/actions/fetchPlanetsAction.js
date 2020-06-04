@@ -13,7 +13,8 @@ const fetchPlanetsSucess = (planets) => {
     planets,
     headers,
   });
-}
+};
+
 const fetchPlanetsFailure = (error) => ({
   type: FETCH_PLANETS_FAILURE,
   error,

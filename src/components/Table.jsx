@@ -50,7 +50,7 @@ const Table = ({ planets, searchText, numFilters, column, sort, headers }) => {
   });
 
   return (
-    <>
+    <React.Fragment>
       <style jsx="global">
         {makeHeaders(headers)}
       </style>
@@ -59,7 +59,7 @@ const Table = ({ planets, searchText, numFilters, column, sort, headers }) => {
         <TableHeader headers={headers} />
         {renderBody(planetsToShow, headers)}
       </table>
-    </>
+    </React.Fragment>
   );
 };
 
