@@ -13,16 +13,12 @@ function orderColumns(data, column, order) {
     'rotation_period',
     'surface_water',
   ];
-  const sortedData = () => {
-    if (integersColumns.includes(column)) {
-      return data.sort(
-        (elementA, elementB) => elementA[column] - elementB[column],
-      );
-    }
-    return data.sort((elementA, elementB) => elementA[column].localeCompare(elementB[column]));
-  };
-  if (order === 'DESC') sortedData().reverse();
-  return sortedData();
+  const sortedData = (integersColumns.includes(column)) ? data.sort(
+    (elementA, elementB) => elementA[column] - elementB[column],
+  ) : data.sort((elementA, elementB) => elementA[column].localeCompare(elementB[column]));
+
+  if (order === 'DESC') sortedData.reverse();
+  return sortedData;
 }
 
 export class Home extends Component {
