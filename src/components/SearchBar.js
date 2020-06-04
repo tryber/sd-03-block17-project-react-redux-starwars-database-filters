@@ -40,7 +40,7 @@ class SearchBar extends Component {
     const comparison = ['', 'maior que', 'igual a', 'menor que'];
     const { valueFilters } = this.props;
     return (
-      <div>
+      <div className="filters-div">
         <NameFilter />
         <select
           id="column-filter"

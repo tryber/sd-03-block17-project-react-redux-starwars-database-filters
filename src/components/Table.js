@@ -38,7 +38,7 @@ class Table extends Component {
 
     if (data) {
       return (
-        <table>
+        <table className="table-div">
           <thead>
             <TableHeader />
           </thead>
