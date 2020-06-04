@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 import * as actions from '../actions/index';
 import store from '../store/index';
 
@@ -41,7 +41,6 @@ class NumericFilter extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.filterMenu = this.filterMenu.bind(this);
     this.filterForms = this.filterForms.bind(this);
-    this.showActivesFilters = this.showActivesFilters.bind(this);
   }
 
   handleChange(type, value) {
@@ -121,11 +120,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(NumericFilter);
 
 NumericFilter.propTypes = {
   getPlanetByNumericValues: PropTypes.func.isRequired,
-  filterByNumericValues: PropTypes.array([
-    {
-      column: '',
-      comparison: '',
-      value: '',
-    },
-  ]),
+  filterByNumericValues: PropTypes.arrayOf(PropTypes.object),
 };
