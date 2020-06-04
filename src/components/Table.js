@@ -3,11 +3,82 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import '../App.css';
 
+function tbody(data, name) {
+  return (
+    <tbody>
+      {data.filter((item) => item.name.includes(name))
+        .map((item) => <tr key={item.name}>
+          <td>{item.name}</td>
+          <td>{item.climate}</td>
+          <td>{item.created}</td>
+          <td>{item.diameter}</td>
+          <td>{item.edited}</td>
+          <td>#</td>
+          <td>{item.gravity}</td>
+          <td>{item.orbital_period}</td>
+          <td>{item.population}</td>
+          <td>#</td>
+          <td>{item.rotation_period}</td>
+          <td>{item.surface_water}</td>
+          <td>{item.terrain}</td>
+        </tr>)}
+    </tbody>
+  );
+}
+
+function tbodyFiltersLess(data, name, option, valueFilter) {
+  return (
+    <tbody>
+      {data.filter((item) => item.name.includes(name)
+        && parseInt(item[option], 10) < parseInt(valueFilter, 10))
+        .map((item) => <tr key={item.name}>
+          <td>{item.name}</td>
+          <td>{item.climate}</td>
+          <td>{item.created}</td>
+          <td>{item.diameter}</td>
+          <td>{item.edited}</td>
+          <td>#</td>
+          <td>{item.gravity}</td>
+          <td>{item.orbital_period}</td>
+          <td>{item.population}</td>
+          <td>#</td>
+          <td>{item.rotation_period}</td>
+          <td>{item.surface_water}</td>
+          <td>{item.terrain}</td>
+        </tr>)}
+    </tbody>
+  );
+}
+
 function tbodyFiltersBig(data, name, option, valueFilter) {
   return (
     <tbody>
       {data.filter((item) => item.name.includes(name)
         && parseInt(item[option], 10) > parseInt(valueFilter, 10))
+        .map((item) => <tr key={item.name}>
+          <td>{item.name}</td>
+          <td>{item.climate}</td>
+          <td>{item.created}</td>
+          <td>{item.diameter}</td>
+          <td>{item.edited}</td>
+          <td>#</td>
+          <td>{item.gravity}</td>
+          <td>{item.orbital_period}</td>
+          <td>{item.population}</td>
+          <td>#</td>
+          <td>{item.rotation_period}</td>
+          <td>{item.surface_water}</td>
+          <td>{item.terrain}</td>
+        </tr>)}
+    </tbody>
+  );
+}
+
+function tbodyFiltersEqual(data, name, option, valueFilter) {
+  return (
+    <tbody>
+      {data.filter((item) => item.name.includes(name)
+        && parseInt(item[option], 10) === parseInt(valueFilter, 10))
         .map((item) => <tr key={item.name}>
           <td>{item.name}</td>
           <td>{item.climate}</td>
@@ -49,79 +120,6 @@ class Table extends React.Component {
     };
   }
 
-  tbody(data, name) {
-    return (
-      <tbody>
-        {data.filter((item) => item.name.includes(name))
-          .map((item) => <tr key={item.name}>
-            <td>{item.name}</td>
-            <td>{item.climate}</td>
-            <td>{item.created}</td>
-            <td>{item.diameter}</td>
-            <td>{item.edited}</td>
-            <td>#</td>
-            <td>{item.gravity}</td>
-            <td>{item.orbital_period}</td>
-            <td>{item.population}</td>
-            <td>#</td>
-            <td>{item.rotation_period}</td>
-            <td>{item.surface_water}</td>
-            <td>{item.terrain}</td>
-          </tr>)}
-      </tbody>
-    );
-  }
-
-  
-
-  tbodyFiltersLess(data, name, option, valueFilter) {
-    return (
-      <tbody>
-        {data.filter((item) => item.name.includes(name)
-          && parseInt(item[option], 10) < parseInt(valueFilter, 10))
-          .map((item) => <tr key={item.name}>
-            <td>{item.name}</td>
-            <td>{item.climate}</td>
-            <td>{item.created}</td>
-            <td>{item.diameter}</td>
-            <td>{item.edited}</td>
-            <td>#</td>
-            <td>{item.gravity}</td>
-            <td>{item.orbital_period}</td>
-            <td>{item.population}</td>
-            <td>#</td>
-            <td>{item.rotation_period}</td>
-            <td>{item.surface_water}</td>
-            <td>{item.terrain}</td>
-          </tr>)}
-      </tbody>
-    );
-  }
-
-  tbodyFiltersEqual(data, name, option, valueFilter) {
-    return (
-      <tbody>
-        {data.filter((item) => item.name.includes(name)
-          && parseInt(item[option], 10) === parseInt(valueFilter, 10))
-          .map((item) => <tr key={item.name}>
-            <td>{item.name}</td>
-            <td>{item.climate}</td>
-            <td>{item.created}</td>
-            <td>{item.diameter}</td>
-            <td>{item.edited}</td>
-            <td>#</td>
-            <td>{item.gravity}</td>
-            <td>{item.orbital_period}</td>
-            <td>{item.population}</td>
-            <td>#</td>
-            <td>{item.rotation_period}</td>
-            <td>{item.surface_water}</td>
-            <td>{item.terrain}</td>
-          </tr>)}
-      </tbody>
-    );
-  }
-
   table() {
     const { data, name, option, valueFilter, isFiltered, comparison } = this.props;
     const { titles } = this.state;
@@ -132,7 +130,7 @@ class Table extends React.Component {
             {titles.map((item) => <th key={item.id}>{item.title}</th>)}
           </tr>
         </thead>
-        {!isFiltered && this.tbody(data, name)}
+        {!isFiltered && tbody(data, name)}
         {
           comparison === 'bigger_then' &&
           isFiltered &&
@@ -141,12 +139,12 @@ class Table extends React.Component {
         {
           comparison === 'less_then' &&
           isFiltered &&
-          this.tbodyFiltersLess(data, name, option, valueFilter)
+          tbodyFiltersLess(data, name, option, valueFilter)
         }
         {
           comparison === 'equal' &&
           isFiltered &&
-          this.tbodyFiltersEqual(data, name, option, valueFilter)
+          tbodyFiltersEqual(data, name, option, valueFilter)
         }
       </table>
     );
