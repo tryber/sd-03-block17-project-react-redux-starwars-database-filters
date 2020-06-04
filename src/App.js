@@ -1,26 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getApiDataSw } from './actions/apiSWAction';
+import Table from './components/Table';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  componentDidMount() {
+    const { apiRequestDispatch } = this.props;
+    apiRequestDispatch();
+  }
+
+  render() {
+    const { isLoading } = this.props;
+    if (!isLoading) {
+      return (
+        <div className="App">
+          <Table />
+        </div>
+      );
+    }
+    return (<span>Loading...</span>);
+  }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  apiRequestDispatch: () => dispatch(getApiDataSw()),
+});
+
+const mapStateToProps = (state) => ({
+  dataSw: state.apiSWReducer.data,
+  isLoading: state.apiSWReducer.loading,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+App.propTypes = {
+  apiRequestDispatch: PropTypes.func,
+  isLoading: PropTypes.bool,
+};
+
+App.defaultProps = {
+  apiRequestDispatch: () => {},
+  isLoading: true,
+};
