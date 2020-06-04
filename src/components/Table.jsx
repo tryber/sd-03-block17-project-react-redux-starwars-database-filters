@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {
   fetchData, getByName, getByNumericValue, doMoreFilter, removeFilter, returnColumn,
 } from '../actions/action';
-import store from '../store/store'
 
 const header = {
   name: 'nome',
@@ -116,9 +115,8 @@ class Table extends React.Component {
   }
 
   render() {
-    const { data, filter, numericFilter } = this.props;
+    const { data, filter, numericFilter, state } = this.props;
     const { nameFilter, filterValues } = this.state;
-    console.log(numericFilter)
     return (
       <div>
         <label htmlFor="name-filter">
@@ -126,7 +124,7 @@ class Table extends React.Component {
           <input onChange={(e) => this.changeFilterName(e)} id="name-filter" data-testid="name-filter" value={nameFilter} />
         </label>
         {this.renderNumericFilter()}
-        {filterValues && numericFilter.map((e) => (
+        {numericFilter.map((e) => (
           <div data-testid="filter">
             <span>{`Coluna: ${e.column}   `}</span>
             <span>{`Coluna: ${e.comparison}   `}</span>
@@ -134,6 +132,16 @@ class Table extends React.Component {
             <button type="button" onClick={() => this.doRemoveFilter(e)}>X</button>
           </div>
         ))}
+        <div>Ordenar por:
+            <select>
+              <option>nome</option>
+              <option>população</option>
+            </select>
+            <label htmlFor="asc">ASC<input type="radio" id="asc" name="ord" /></label>
+            <label htmlFor="desc">DESC<input type="radio" id="desc" name="ord" /></label>
+            <button type="button">ordenar</button>
+
+        </div>
         <table>
           <thead>
             <tr>
@@ -141,12 +149,12 @@ class Table extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {!filterValues && filter && data.filter((e) => e.name.includes(filter.name)).map((e) => (
+            {!filter && !filterValues && data.map((e) => (
               <tr key={e.name}>
                 {Object.keys(header).map((el) => <td key={e.name + el}>{e[el]}</td>)}
               </tr>
             ))}
-            {!filter && !filterValues && data.map((e) => (
+            {!filterValues && filter && data.filter((e) => e.name.includes(filter.value)).map((e) => (
               <tr key={e.name}>
                 {Object.keys(header).map((el) => <td key={e.name + el}>{e[el]}</td>)}
               </tr>
@@ -164,10 +172,11 @@ class Table extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  data: state.reducer.data,
-  filter: state.reducer.filters.filterByName,
-  numericFilter: state.reducer.filters.filterByNumericValues,
+  data: state.dataReducer.data,
+  filter: state.filters.filterByName,
+  numericFilter: state.filters.filterByNumericValues,
   columnOptions: state.columnsReducer,
+  state,
 });
 
 const mapDispatchToProps = (dispatch) => ({
