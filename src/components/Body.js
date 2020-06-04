@@ -1,41 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import filterFunc from './filterFunc';
+import orderFunc from './orderFunc';
 
 function Body({ planets, name, numericValues, columnSort, sort }) {
-  const orders = () => {
-    switch (columnSort) {
-      case 'Name':
-        return filterFunc(planets, name, numericValues).sort((a, b) => (
-          sort === 'ASC' ? a.name - b.name : b.name - a.name
-        ));
-      default:
-        return filterFunc(planets, name, numericValues).sort((a, b) => (
-          sort === 'ASC' ? a[columnSort] - b[columnSort] : b[columnSort] - a[columnSort]
-        ));
-    }
-  };
-
   return (
     <tbody>
-      {orders().map((planet) =>
-        <tr key={planet.name}>
-          <td>{planet.name}</td>
-          <td>{planet.rotation_period}</td>
-          <td>{planet.orbital_period}</td>
-          <td>{planet.diameter}</td>
-          <td>{planet.climate}</td>
-          <td>{planet.gravity}</td>
-          <td>{planet.terrain}</td>
-          <td>{planet.surface_water}</td>
-          <td>{planet.population}</td>
-          <td>{planet.films.map((film) => <span key={film}>{film}</span>)}</td>
-          <td>{planet.created}</td>
-          <td>{planet.edited}</td>
-          <td>{planet.url}</td>
-        </tr>,
-      )}
+      {orderFunc(planets, name, numericValues, columnSort, sort)
+        .map((planet) =>
+          <tr key={planet.name}>
+            <td>{planet.name}</td>
+            <td>{planet.rotation_period}</td>
+            <td>{planet.orbital_period}</td>
+            <td>{planet.diameter}</td>
+            <td>{planet.climate}</td>
+            <td>{planet.gravity}</td>
+            <td>{planet.terrain}</td>
+            <td>{planet.surface_water}</td>
+            <td>{planet.population}</td>
+            <td>{planet.films.map((film) => <span key={film}>{film}</span>)}</td>
+            <td>{planet.created}</td>
+            <td>{planet.edited}</td>
+            <td>{planet.url}</td>
+          </tr>,
+        )}
     </tbody>
   );
 }
