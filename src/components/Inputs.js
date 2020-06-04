@@ -57,7 +57,7 @@ class Inputs extends React.Component {
     const { allFiltersArr } = this.props;
     return (
       <select onChange={this.handleChange} value={column} name="column" data-testid="column-filter">
-        {allFiltersArr.map((e) => (<option key={e} value={e}>{e}</option>))}
+        {allFiltersArr.map((e, index) => (<option key={index} value={e}>{e}</option>))}
       </select>
     );
   }
@@ -127,7 +127,12 @@ class Inputs extends React.Component {
   colToSort() {
     const { sortColumn } = this.state;
     return (
-      <select data-testid="column-sort" value={sortColumn} name="sortColumn" onChange={this.handleChange}>
+      <select
+        data-testid="column-sort"
+        value={sortColumn}
+        name="sortColumn"
+        onChange={this.handleChange}
+      >
         <option value="name">name</option>
         <option value="rotational_period">rotational_period</option>
         <option value="orbital_period">orbital_period</option>
@@ -222,8 +227,6 @@ Inputs.propTypes = {
   filterByName: PropTypes.func,
   changeFiltersDisplay: PropTypes.func,
   filterByNumericValues: PropTypes.func,
-  sortAsc: PropTypes.func,
-  sortDesc: PropTypes.func,
   choosedCol: PropTypes.func,
 };
 
@@ -232,7 +235,5 @@ Inputs.defaultProps = {
   filterByName: () => {},
   filterByNumericValues: () => {},
   changeFiltersDisplay: () => {},
-  sortAsc: () => {},
-  sortDesc: () => {},
   choosedCol: () => {},
 };
