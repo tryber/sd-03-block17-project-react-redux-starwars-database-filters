@@ -6,11 +6,12 @@ import * as actions from '../actions/orderActions';
 import * as constants from '../services/constants';
 
 const renderRadio = (value, text, callback) => (
-  <label htmlFor="sort-filter-radio">
+  <label htmlFor={`sort-radio-${value}`}>
     {text}
     <input
+      className="radius-border"
       data-testid="column-sort-input"
-      id={value}
+      id={`sort-radio-${value}`}
       name="sort-filter-radio"
       onChange={() => callback('sort', value)}
       type="radio"
@@ -19,42 +20,46 @@ const renderRadio = (value, text, callback) => (
   </label>
 );
 
-const OrderFilters = ({ columnValue, change, refPlanet, applyOrder }) => {
-  const optionsList = Object.keys(refPlanet).filter((key) => key !== 'residents');
-  return (
+const OrderFilters = ({ columnValue, change, applyOrder, headers }) => (
+  <fieldset className="container">
+    <span>Order By Column</span>
     <div>
+      {renderRadio('ASC', 'Ascendent', change)}
+      {renderRadio('DESC', 'Descendent', change)}
       <label htmlFor="column-order">
         <select
+          className="radius-border"
           data-testid="column-sort"
           defaultValue={columnValue}
           id="column-order"
           name="column-order"
           onChange={({ target: { value } }) => change('column', value)}
         >
-          {constants.renderOptions(optionsList)}
+          {constants.renderOptions(headers)}
         </select>
       </label>
-      {renderRadio('ASC', 'Ascendent', change)}
-      {renderRadio('DESC', 'Descendent', change)}
       <button
+        className="radius-border filter-button"
         data-testid="column-sort-button"
         onClick={() => applyOrder()}
         type="button"
-      >Apply Order</button>
+      >
+        Apply Order
+      </button>
     </div>
-  );
-};
+  </fieldset>
+);
 
 OrderFilters.propTypes = {
   columnValue: PropTypes.string.isRequired,
-  refPlanet: PropTypes.shape(constants.planetShape()).isRequired,
+  headers: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   change: PropTypes.func.isRequired,
   applyOrder: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ data, filters: { order } }) => ({
+const mapStateToProps = ({ headers, filters: { order } }) => ({
   columnValue: order.column,
-  refPlanet: data[0],
+  headers,
 });
 
 const mapDispatchToProps = (dispatch) => ({

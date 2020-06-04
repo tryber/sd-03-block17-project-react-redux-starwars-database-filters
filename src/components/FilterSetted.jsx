@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import * as actions from '../actions/NumFilterActions';
 
 const FilterSetted = ({ id, column, comparison, value, removeFilter }) => (
-  <div data-testid="filter">
-    <p key={column}>
-      <span>{column} | {comparison} | {value}</span>
-    </p>
-    <button type="button" onClick={() => removeFilter(id)}>X</button>
+  <div data-testid="filter" className="filters container">
+    <span>{column} | {comparison} | {value}</span>
+    <button
+      className="radius-border filter-button"
+      type="button"
+      onClick={() => removeFilter(id)}
+    >
+      X
+    </button>
   </div>
 );
 
