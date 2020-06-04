@@ -60,7 +60,7 @@ export class FilterNumeric extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  filterNumber: (e,v,h) => dispatch(filterNumeric(e,v,h)),
+  filterNumber: (e,v,h) => dispatch(filterNumeric(e, v, h)),
 });
 
 FilterNumeric.propTypes = {

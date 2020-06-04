@@ -37,23 +37,36 @@ function requestReducer(state = INITIAL_STATE, action) {
         ...state,
         filters: { filterByName: { name: filterName, filteredPlanets: [filteredPlanets] } },
       }; }
-    case 'FILTER_PLANET_NUMERIC':
-      const column = action.column;
-      const comparison = action.comparison === 'maior que'? '>' :'menor que' ? '<' : ('igual a' ? '===': 'selecione');
-      console.log(comparison);
-      const value = action.value;
-      if( state.filters.filterByName.name === ' ') {
-        const filteredPlanets = state.data.results.filter(element => {
-              
-        });
-      } else {
-        state.filters.filterByName.filteredPlanets.filter(element => {
-          console.log(element);
-        });
+    case 'FILTER_PLANET_NUMERIC': {
+      const { column, comparison, value } = action.filters.filterByNumericValues[0];
+      let comparisonSignal = null;
+      console.log(comparison, 'signal');
+      if (comparison === 'maior que') {
+        console.log(comparisonSignal, 'signal');
+        comparisonSignal = 0;
+      } if (comparison === 'menor que') {
+        comparisonSignal = 1;
+      } if (comparison === 'igual a') {
+        comparisonSignal = 2;
       }
-      return {
-        ...state,
-      };
+      console.log(comparisonSignal, 'signal');
+      let filteredPlanets = [];
+      if (state.filters.filterByName.name === ' ') {
+        if (comparisonSignal === 0) {
+          filteredPlanets = {
+            ...state,
+            filters: { filterByName: {filteredPlanets: [filteredPlanets] } },
+          };
+          console.log(filteredPlanets);
+          return filteredPlanets;
+        } if (comparisonSignal === 1) {
+
+        } if (comparisonSignal === 2) {
+
+        }
+      }
+      return filteredPlanets;
+    }
     default:
       return state;
   }
