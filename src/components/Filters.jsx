@@ -36,11 +36,21 @@ class Filters extends Component {
             return acc;
           }, [])}
         </select>
-        <select data-testid="comparison-filter" id="comparison" onChange={(e) => this.handleChange(e)}>
+        <select
+          data-testid="comparison-filter"
+          id="comparison"
+          onChange={(e) => this.handleChange(e)}
+        >
           {avaliableFilters.comparisonFilters
             .map((filter) => <Option key={filter} name={filter} />)}
         </select>
-        <input data-testid="value-filter" id="value" type="number" value={value} onChange={(e) => this.handleChange(e)} />
+        <input
+          data-testid="value-filter"
+          id="value"
+          type="number"
+          value={value}
+          onChange={(e) => this.handleChange(e)}
+        />
         <button
           data-testid="button-filter"
           type="button"

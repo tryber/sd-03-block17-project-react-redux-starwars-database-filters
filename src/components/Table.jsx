@@ -3,16 +3,25 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TableLine from './TableLine';
 
+const lessThan = (planet, column, value) => {
+  if (Number(planet[column]) >= Number(value) || planet[column] === 'unknown') return false;
+  return true;
+};
+
+const largerThan = (planet, column, value) => {
+  if (Number(planet[column]) <= Number(value) || planet[column] === 'unknown') return false;
+  return true;
+};
+
+const equal = (planet, column, value) => {
+  if (Number(planet[column]) !== Number(value)) return false;
+  return true;
+};
+
 const switchComparison = (planet, column, comparison, value) => {
-  if (comparison === 'menor que') {
-    if (Number(planet[column]) >= Number(value) || planet[column] === 'unknown') return false;
-  }
-  if (comparison === 'maior que') {
-    if (Number(planet[column]) <= Number(value) || planet[column] === 'unknown') return false;
-  }
-  if (comparison === 'igual a') {
-    if (Number(planet[column]) !== Number(value)) return false;
-  }
+  if (comparison === 'menor que') return lessThan(planet, column, value);
+  if (comparison === 'maior que') return largerThan(planet, column, value);
+  if (comparison === 'igual a') return equal(planet, column, value);
   return true;
 };
 
@@ -25,8 +34,8 @@ const isFiltered = (planet, nameFilter, filterByNumericValues) => {
   return true;
 };
 
-const planets = (data, nameFilter, filterByNumericValues) =>
-  data.reduce((acc, planet) => {
+const planets = (data, nameFilter, filterByNumericValues) => data
+  .reduce((acc, planet) => {
     if (isFiltered(planet, nameFilter, filterByNumericValues)) {
       acc.push(<TableLine key={planet.name} planet={planet} />);
     }
