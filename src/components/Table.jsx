@@ -85,13 +85,7 @@ class Table extends Component {
     }
   }
 
-  checkState(prevProps, data, order) {
-    const { filters: { filterByNumericValues } } = this.props;
-
-
-    if (prevProps.data !== data) {
-      this.setState({ filteredNumberData: data });
-    }
+  checkNumeriFilter(prevProps, filterByNumericValues, data) {
     if (prevProps.filters.filterByNumericValues !== filterByNumericValues) {
       let filteredNumberData = data;
       filterByNumericValues.forEach(({ comparison: type, column: name, value }) => {
@@ -100,6 +94,18 @@ class Table extends Component {
 
       this.setState({ filteredNumberData });
     }
+  }
+
+  checkState(prevProps, data, order) {
+    const { filters: { filterByNumericValues } } = this.props;
+
+
+    if (prevProps.data !== data) {
+      this.setState({ filteredNumberData: data });
+    }
+
+    this.checkNumeriFilter(prevProps, filterByNumericValues, data);
+
 
     this.checkOrder(prevProps, order, data);
 
