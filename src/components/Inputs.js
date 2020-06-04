@@ -55,9 +55,10 @@ class Inputs extends React.Component {
   numericSearchCol() {
     const { column } = this.state;
     const { allFiltersArr } = this.props;
+    // console.log(allFiltersArr)
     return (
       <select onChange={this.handleChange} value={column} name="column" data-testid="column-filter">
-        {allFiltersArr.map((e, index) => (<option key={index} value={e}>{e}</option>))}
+        {allFiltersArr.map((e) => (<option key={e} value={e}>{e}</option>))}
       </select>
     );
   }

@@ -11,9 +11,7 @@ const displayFilterName = (column, arrFilters, dispatchOne) => {
 };
 
 const displaySearches = (column, arrSearches, dispatch) => {
-  const index = arrSearches.indexOf(column);
-  const newArr = [...arrSearches];
-  newArr.splice(index, 1);
+  const newArr = [...arrSearches].filter((e) => e.column !== column);
   dispatch(newArr);
 };
 

@@ -1,7 +1,7 @@
 import { FILTERS_NAME_ARR } from '../actions/filtersNameAction';
 
 const INITIAL_STATE = {
-  allFilters: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water', 'all'],
+  allFilters: ['', 'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
 };
 
 const filtersArrReducer = (state = INITIAL_STATE, action) => {
@@ -9,7 +9,7 @@ const filtersArrReducer = (state = INITIAL_STATE, action) => {
     case FILTERS_NAME_ARR:
       return {
         ...state,
-        allFilters: action.newArr,
+        allFilters: [...action.newArr],
       };
     default:
       return state;
