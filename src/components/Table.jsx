@@ -6,8 +6,7 @@ import TableHeader from './TableHeader';
 import TableRow from './TableRow';
 import * as constants from '../services/constants';
 
-const filterByNumPropertie = (list, especifications) => {
-  const { value, column, comparison } = especifications;
+const filterByNumPropertie = (list, { value, column, comparison }) => {
   const numValue = Number(value);
   switch (comparison) {
     case 'maior que': return list.filter((obj) => Number(obj[column]) > numValue);
@@ -37,6 +36,7 @@ const renderBody = (planets, properties) => (
 
 const Table = ({ planets, searchText, numFilters, column, sort }) => {
   if (planets.length === 0) return <div>None Planet Found</div>;
+
   const headers = Object.keys(planets[0]).filter((key) => key !== 'residents');
 
   let planetsToShow = planets.filter((planet) => planet.name.includes(searchText));

@@ -3,9 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions/orderActions';
-import * as funcAPI from '../services/functions';
+import * as constants from '../services/constants';
 
-const OrderFilters = ({ columnValue, radioValue, change, refPlanet, applyOrder }) => {
+const renderRadio = (value, text, callback) => (
+  <label htmlFor="sort">
+    {text}
+    <input
+      data-testid="column-sort-input"
+      id={value}
+      name="sort"
+      onChange={() => callback('sort', value)}
+      type="radio"
+      value={value}
+    />
+  </label>
+);
+
+const OrderFilters = ({ columnValue, change, refPlanet, applyOrder }) => {
   const optionsList = Object.keys(refPlanet).filter((key) => key !== 'residents');
   return (
     <div>
@@ -16,28 +30,12 @@ const OrderFilters = ({ columnValue, radioValue, change, refPlanet, applyOrder }
           id="column-order"
           name="column-order"
           onChange={({ target: { value } }) => change('column', value)}
-        >{funcAPI.renderOptions(optionsList)}</select>
+        >
+          {constants.renderOptions(optionsList)}
+        </select>
       </label>
-      <label>
-        Ascendente
-        <input
-          data-testid="column-sort-input"
-          name="sort"
-          onChange={() => change('sort', 'ASC')}
-          type="radio"
-          value="ASC"
-        />
-      </label>
-      <label>
-        Descendente
-        <input
-          data-testid="column-sort-input"
-          name="sort"
-          onChange={() => change('sort', 'DESC')}
-          type="radio"
-          value="DESC"
-        />
-      </label>
+      {renderRadio('ASC', 'Ascendent', change)}
+      {renderRadio('DESC', 'Descendent', change)}
       <button
         data-testid="column-sort-button"
         onClick={() => applyOrder()}
@@ -50,7 +48,9 @@ const OrderFilters = ({ columnValue, radioValue, change, refPlanet, applyOrder }
 OrderFilters.propTypes = {
   columnValue: PropTypes.string.isRequired,
   radioValue: PropTypes.string.isRequired,
+  refPlanet: PropTypes.shape(constants.planetShape()).isRequired,
   change: PropTypes.func.isRequired,
+  applyOrder: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ data, filters: { order } }) => ({

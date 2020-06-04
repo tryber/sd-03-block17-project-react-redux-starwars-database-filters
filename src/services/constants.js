@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 export const planetShape = () => ({
@@ -24,3 +25,7 @@ export const numColumn = [
   'rotation_period',
   'surface_water',
 ];
+
+export const renderOptions = (optionsList) => (
+  ['', ...optionsList].map((option) => <option key={option} value={option}>{option}</option>)
+);

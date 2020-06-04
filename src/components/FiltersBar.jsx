@@ -9,9 +9,9 @@ import OrderFilters from './OrderFilters';
 import * as constants from '../services/constants';
 
 const takeUnused = (completeList, usedListOfObj) => (
-  completeList.filter((option) =>
+  completeList.filter((option) => (
     usedListOfObj.every(({ column }) => column !== option)
-  )
+  ))
 );
 
 const FilterBar = ({ numFilters }) => (
@@ -33,7 +33,7 @@ const FilterBar = ({ numFilters }) => (
     </section>
     <section>
       <OrderFilters />
-     </section>
+    </section>
   </section>
 );
 
@@ -45,6 +45,6 @@ FilterBar.propTypes = {
   numFilters: PropTypes.arrayOf(
     PropTypes.objectOf(PropTypes.string.isRequired),
   ).isRequired,
-}
+};
 
 export default connect(mapStateToProps)(FilterBar);
