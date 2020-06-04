@@ -294,10 +294,19 @@ describe('4 -  Sua página deverá ser carregada com somente um filtro de valore
   test('each filter should have a X button that removes the filter', async () => {
     const { findAllByTestId, queryAllByTestId } = renderApp();
     let selectedFilters = await findAllByTestId('filter');
-    for(let filter of selectedFilters) {
-      const removeButton = filter.querySelector('button');
-      fireEvent.click(removeButton);
-    }
+
+    let removeButton = selectedFilters[0].querySelector('button');
+
+    fireEvent.click(removeButton);
+
+    selectedFilters = await findAllByTestId('filter');
+    removeButton = selectedFilters[0].querySelector('button');
+    fireEvent.click(removeButton);
+
+    selectedFilters = await findAllByTestId('filter');
+    removeButton = selectedFilters[0].querySelector('button');
+    fireEvent.click(removeButton);
+
     selectedFilters = await queryAllByTestId('filter');
     expect(selectedFilters).toHaveLength(0);
     expect(store.getState().filters.filterByNumericValues).toHaveLength(0);
