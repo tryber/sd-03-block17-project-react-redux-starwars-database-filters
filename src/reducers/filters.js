@@ -23,7 +23,7 @@ const filters = (state = INITIAL_STATE, action) => {
           ...state.filterByNumericValues,
           action.estado,
         ],
-      },
+      };
     default:
       return state;
   }
