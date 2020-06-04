@@ -64,9 +64,7 @@ class Table extends Component {
         <table>
           <thead>
             <tr>
-              <th>
-                {tableCell().props.map((cell) => <td key={cell}>{cell}</td>)}
-              </th>
+              {tableCell().props.map((cell) => <th key={cell}>{cell}</th>)}
             </tr>
           </thead>
           <tbody>
