@@ -14,7 +14,7 @@ class ValueFilters extends Component {
     });
     this.columnChange = this.columnChange.bind(this);
     this.biggerChange = this.biggerChange.bind(this);
-    this.numberChange = this.numberChange.bind(this);
+    this.numb = this.numb.bind(this);
   }
 
   columnChange(value) {
