@@ -264,7 +264,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
 
 })
 
-/* describe('4 -  Sua página deverá ser carregada com somente um filtro de valores numéricos', () => {
+describe('4 -  Sua página deverá ser carregada com somente um filtro de valores numéricos', () => {
   test('check avaiable filters', async () => {
     const { findByTestId } = renderApp();
 
@@ -285,7 +285,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
   })
 })
 
-describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao ser clicado, o apaga e desfaz suas filtragens dos dados da tabela', () => {
+/* describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao ser clicado, o apaga e desfaz suas filtragens dos dados da tabela', () => {
   test('should show the previously selected filters', async () => {
     const { findAllByTestId, findByText } = renderApp();
     const selectedFilters = await findAllByTestId('filter');
