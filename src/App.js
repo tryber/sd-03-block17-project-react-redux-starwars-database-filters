@@ -1,16 +1,19 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import Table from './components/Table';
+import store from './store/index';
 import './App.css';
 
-import Table from './components/Table';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Table />
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Provider store={store}>
+          <Table />
+        </Provider>
+      </div>
+    );
+  }
 }
 
 export default App;
