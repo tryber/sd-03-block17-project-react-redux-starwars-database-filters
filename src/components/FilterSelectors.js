@@ -28,14 +28,11 @@ class FilterSelectors extends React.Component {
   }
 
   render() {
-    const {
-      state,
-      props: { submitFilter, filters },
-    } = this;
+    const { state, props: { submitFilter, filters } } = this;
     return (
       <div>
         <select required onChange={(event) => this.handleFilterChange(event, 'column')} data-testid="column-filter">
-          <option value=""> </option>
+          <option value="" />
           {columnFilter.map(
             (option) => !filters.find(({ column }) => column === option) && (
             <option>{option}</option>
@@ -43,7 +40,7 @@ class FilterSelectors extends React.Component {
           )}
         </select>
         <select required onChange={(event) => this.handleFilterChange(event, 'comparison')} testid="comparison-filter">
-          <option value=""> </option>
+          <option value="" />
           <option value="Maior que">Maior que</option>
           <option value="Menor que">Menor que</option>
           <option value="Igual a">Igual a</option>

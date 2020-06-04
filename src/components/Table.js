@@ -79,7 +79,7 @@ Table.propTypes = {
   dispatchFetch: propTypes.func.isRequired,
   name: propTypes.string.isRequired,
   filterByNumericValues: propTypes.arrayOf(propTypes.object),
-  planet: propTypes.shape({
+/*   planet: propTypes.shape({
     name: propTypes.string,
     rotation_period: propTypes.string,
     diameter: propTypes.string,
@@ -92,7 +92,7 @@ Table.propTypes = {
     created: propTypes.string,
     edited: propTypes.string,
     url: propTypes.string,
-  }).isRequired,
+  }).isRequired, */
 };
 
 Table.defaultProps = {
