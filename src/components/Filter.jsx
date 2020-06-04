@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 export function Filter({
-  column, comparison, value, handleClick, filters,
+  column, comparison, value, handleClick,
 }) {
   function click() {
     handleClick(column);
@@ -13,13 +14,21 @@ export function Filter({
       <span>{comparison}</span>
       <span>{value}</span>
       <div data-testid="filter">
-        <span>{column}</span>
+        <span>{ }</span>
         <button onClick={click} type="button">x</button>
       </div>
 
     </div>
   );
 }
+
+Filter.propTypes = {
+  column: PropTypes.string.isRequired,
+  comparison: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};
+
 
 const mapStateToProps = (state) => ({
   filters: state.filters.filterByNumericValues,
@@ -31,4 +40,4 @@ const mapDispatchToProps = {
 
 };
 
-export default connect(null, mapDispatchToProps)(Filter);
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

@@ -11,6 +11,38 @@ const initialState = {
   ],
 };
 
+function returnDeleteFilter(state, action) {
+  return {
+    ...state,
+    filters: {
+      ...state.filters,
+      filterByNumericValues: state.filters.filterByNumericValues
+        .filter((e) => (e.column !== action.payload)),
+    },
+  };
+}
+
+function returnNumericFilter(state, action) {
+  return {
+    ...state,
+    filters: {
+      ...state.filters,
+      filterByNumericValues: [...state.filters.filterByNumericValues, action.payload],
+    },
+  };
+}
+
+function returnChangeCategory(state, action) {
+  if (action.payload.type === 'remove') {
+    return {
+      ...state, categories: state.categories.filter((e) => e.filter !== action.payload.pay),
+    };
+  }
+  return {
+    ...state, categories: [...state.categories, action.payload.pay],
+  };
+}
+
 function emptyReducer(state = initialState, action) {
   switch (action.type) {
     case 'API_CALL':
@@ -20,41 +52,18 @@ function emptyReducer(state = initialState, action) {
       return { ...state, filters: { ...state.filters, filterByName: { name: action.filter } } };
 
     case 'SET_NUMERIC_FILTER': {
-      return {
-        ...state,
-        filters: {
-          ...state.filters,
-          filterByNumericValues: [...state.filters.filterByNumericValues, action.payload],
-        },
-      };
+      return returnNumericFilter(state, action);
     }
     case 'DELETE_FILTER': {
-      return {
-        ...state,
-        filters: {
-          ...state.filters,
-          filterByNumericValues: state.filters.filterByNumericValues
-            .filter((e) => (e.column !== action.payload)),
-        },
-      };
+      return returnDeleteFilter(state, action);
     }
-
     case 'CHANGE_ID': {
       return {
         ...state, id: state.id + action.payload,
       };
     }
     case 'CHANGE_CATEGORY':
-      if (action.payload.type === 'remove') {
-        return {
-          ...state, categories: state.categories.filter((e) => e.filter !== action.payload.pay),
-        };
-      }
-
-      return {
-        ...state, categories: [...state.categories, action.payload.pay],
-      };
-
+      return returnChangeCategory(state, action);
 
     default:
       return state;
