@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchingPlanetsInfo, filterByText } from '../actions/actionsCreators';
+import { filterByText } from '../actions/actionsCreators';
 import Table from '../components/table/Table';
 import FilterContainer from '../components/filters/FilterContainer';
 
-export class Home extends Component {
+class Home extends Component {
   static makeComparison(column, comparison, value, element) {
     switch (comparison) {
       case 'maior que':
@@ -27,17 +27,12 @@ export class Home extends Component {
       'rotation_period',
       'surface_water',
     ];
-    const sortedData = (integersColumns.includes(column)) ? data.sort(
-      (elemA, elemB) => elemA[column] - elemB[column],
-    ) : data.sort((elemA, elemB) => elemA[column].localeCompare(elemB[column]));
+    const sortedData = integersColumns.includes(column)
+      ? data.sort((elemA, elemB) => elemA[column] - elemB[column])
+      : data.sort((elemA, elemB) => elemA[column].localeCompare(elemB[column]));
 
     if (order === 'DESC') sortedData.reverse();
     return sortedData;
-  }
-
-  componentDidMount() {
-    const { getPlanetsInfo } = this.props;
-    getPlanetsInfo();
   }
 
   filterDataByText(data) {
@@ -61,8 +56,8 @@ export class Home extends Component {
     const { valueFilters } = this.props;
     if (valueFilters) {
       return valueFilters.reduce(
-        (acc, { column, comparison, value }) => acc.filter((element) => Home
-          .makeComparison(column, comparison, value, element)),
+        (acc, { column, comparison, value }) => acc
+          .filter((element) => Home.makeComparison(column, comparison, value, element)),
         this.sortDataFilter(data),
       );
     }
@@ -70,7 +65,7 @@ export class Home extends Component {
   }
 
   render() {
-    const { data, planetName, loading } = this.props;
+    const { data, planetName } = this.props;
     return (
       <div>
         <div>
@@ -78,18 +73,13 @@ export class Home extends Component {
             onChange={(event) => planetName(event.target.value)}
           />
         </div>
-        {loading ? (
-          <h1>Loading..</h1>
-        ) : (
-          <Table data={this.filterDataByNumericValue(data)} />
-        )}
+        <Table data={this.filterDataByNumericValue(data)} />
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getPlanetsInfo: () => dispatch(fetchingPlanetsInfo()),
   planetName: (planetName) => dispatch(filterByText(planetName)),
 });
 
@@ -114,11 +104,9 @@ Home.defaultProps = {
 };
 
 Home.propTypes = {
-  getPlanetsInfo: PropTypes.func.isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   nameFilter: PropTypes.string,
   planetName: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
   valueFilters: PropTypes.arrayOf(PropTypes.object),
   sortColumnFilter: PropTypes.string.isRequired,
   sortOrderFilter: PropTypes.string.isRequired,

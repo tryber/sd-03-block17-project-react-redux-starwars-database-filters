@@ -5,7 +5,7 @@ import {
 } from '../actions/actions';
 
 const INITIAL_STATE = {
-  loading: false,
+  loading: true,
   data: [],
 };
 
@@ -16,7 +16,7 @@ const planetsInfoReducer = (state = INITIAL_STATE, action) => {
     case PLANET_INFO_REQUEST_SUCESS:
       return { ...state, loading: action.loading, data: [...action.data] };
     case PLANET_INFO_REQUEST_FAILURE:
-      return { ...state, loading: action.loading, error: action.error };
+      return { ...state, loading: action.loading, error: action.data };
     default:
       return state;
   }
