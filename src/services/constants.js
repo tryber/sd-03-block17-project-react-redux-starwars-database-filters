@@ -17,7 +17,7 @@ export const planetShape = () => ({
   url: PropTypes.string.isRequired,
 });
 
-export const columnOptions = [
+export const numColumn = [
   'population',
   'orbital_period',
   'diameter',

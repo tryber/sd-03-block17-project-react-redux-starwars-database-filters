@@ -6,7 +6,7 @@ import SearchBox from './SearchBox';
 import NumFilter from './NumFilter';
 import FilterSetted from './FilterSetted';
 import OrderFilters from './OrderFilters';
-import { columnOptions } from '../services/constants';
+import * as constants from '../services/constants';
 
 const takeUnused = (completeList, usedListOfObj) => (
   completeList.filter((option) =>
@@ -20,7 +20,7 @@ const FilterBar = ({ numFilters }) => (
       <SearchBox />
     </section>
     <section>
-      <NumFilter columnOptions={takeUnused(columnOptions, numFilters)} />
+      <NumFilter columnOptions={takeUnused(constants.numColumn, numFilters)} />
       {numFilters.map(({ column, comparison, value }, id) => (
         <FilterSetted
           id={id}

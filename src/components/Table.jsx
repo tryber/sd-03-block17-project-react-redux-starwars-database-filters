@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import TableHeader from './TableHeader';
 import TableRow from './TableRow';
-import { planetShape } from '../services/constants';
+import * as constants from '../services/constants';
 
 const filterByNumPropertie = (list, especifications) => {
   const { value, column, comparison } = especifications;
@@ -17,14 +17,11 @@ const filterByNumPropertie = (list, especifications) => {
   }
 }
 
-const orderByStringProperties = (list, column, direction) => {
-  const col = column.toLowerCase();
-  const sortedList = list.sort((elemA, elemB) => {
-    if (isNaN(Number(elemA[col])) && isNaN(Number(elemB[col]))) {
-      return elemA[col] < elemB[col] ? -1 : 1;
-    }
-    return elemA[col] - elemB[col];
-  });
+const orderByStringProperties = (list, col, direction) => {
+  const sortedList = (constants.numColumn.some((option) => option === col))
+    ? list.sort((elemA, elemB) => elemA[col] - elemB[col])
+    : list.sort((elemA, elemB) => elemA[col] < elemB[col] ? -1 : 1);
+
   if (direction === 'DESC') sortedList.reverse();
   return sortedList;
 };
@@ -38,13 +35,12 @@ const renderBody = (planets, properties) => (
   </tbody>
 );
 
-const Table = ({ planets, searchText, numFilters, order }) => {
+const Table = ({ planets, searchText, numFilters, column, sort }) => {
   if (planets.length === 0) return <div>None Planet Found</div>;
   const headers = Object.keys(planets[0]).filter((key) => key !== 'residents');
-  
-  
+
   let planetsToShow = planets.filter((planet) => planet.name.includes(searchText));
-  planetsToShow = orderByStringProperties(planetsToShow, order.column, order.sort);
+  planetsToShow = orderByStringProperties(planetsToShow, column.toLowerCase(), sort);
   numFilters.forEach((filter) => {
     planetsToShow = filterByNumPropertie(planetsToShow, filter);
   });
@@ -62,19 +58,17 @@ const mapStateToProps = ({ data, filters: { filterByName, filterByNumericValues,
   planets: data,
   searchText: filterByName.name,
   numFilters: filterByNumericValues,
-  order,
+  ...order, // column and sort
 });
 
 Table.propTypes = {
   searchText: PropTypes.string.isRequired,
-  planets: PropTypes.arrayOf(PropTypes.shape(planetShape()).isRequired).isRequired,
+  planets: PropTypes.arrayOf(PropTypes.shape(constants.planetShape()).isRequired).isRequired,
   numFilters: PropTypes.arrayOf(
     PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
   ).isRequired,
-  order: PropTypes.shape({
-    column: PropTypes.string.isRequired,
-    sort: PropTypes.string.isRequired,
-  }).isRequired,
+  column: PropTypes.string.isRequired,
+  sort: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(Table);
