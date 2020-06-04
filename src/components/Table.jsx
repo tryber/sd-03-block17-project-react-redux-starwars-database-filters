@@ -14,15 +14,12 @@ const filterByNumPropertie = (list, { value, column, comparison }) => {
     case 'igual a': return list.filter((obj) => Number(obj[column]) === numValue);
     default: return list;
   }
-}
+};
 
 const orderByStringProperties = (list, col, direction) => {
   const sortedList = (constants.numColumn.some((option) => option === col))
     ? list.sort((elemA, elemB) => elemA[col] - elemB[col])
-    : list.sort((elemA, elemB) => { 
-      if(elemA[col] < elemB[col]) return -1;
-      else return 1;
-    });
+    : list.sort((elemA, elemB) => elemA[col].localeCompare(elemB[col]));
 
   if (direction === 'DESC') sortedList.reverse();
   return sortedList;

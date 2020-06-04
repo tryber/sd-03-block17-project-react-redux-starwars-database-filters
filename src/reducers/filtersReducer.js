@@ -10,6 +10,8 @@ const defaultNumFilterElem = {
   value: '',
 };
 
+const removeByIndex = (array, id) => ([...array.slice(0, id), ...array.slice(id + 1)]);
+
 export const INITIAL_STATE = {
   filterByName: { name: '' },
   filterByNumericValues: [],
@@ -31,11 +33,7 @@ function filtersReducer(filters = INITIAL_STATE, action) {
         inProgress: defaultNumFilterElem,
       }) : filters;
     case REMOVE_FILTER:
-      return ({
-        ...filters,
-        filterByNumericValues:
-          [ ...numFilters.slice(0, action.id), ...numFilters.slice(action.id + 1) ],
-      });
+      return ({ ...filters, filterByNumericValues: removeByIndex(numFilters, action.id) });
     case ON_CHANGE_ORDER:
       return ({ ...filters, orderInProgerss: { ...orderInProgerss, [action.prop]: action.value } });
     case ACTIVATE_ORDER: return ({ ...filters, order: orderInProgerss });
