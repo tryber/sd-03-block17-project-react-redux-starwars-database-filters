@@ -1,18 +1,17 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import store from './store';
 import Table from './components/Table';
 import SearchBar from './components/SearchBar';
+import Header from './components/Header';
 
 function App() {
   return (
-    <Provider store={store}>
-      <div className="App">
-        <SearchBar />
-        <Table />
-      </div>
-    </Provider>
+    <div className="App">
+      <Header />
+      <SearchBar />
+      <Table />
+    </div>
   );
 }
 

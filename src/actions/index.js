@@ -19,7 +19,6 @@ export function fetchData() {
           throw (res.error);
         }
         dispatch(fetchDataSuccess(res.results));
-        console.log(res.results);
         return res.results;
       })
       .catch((error) => {
