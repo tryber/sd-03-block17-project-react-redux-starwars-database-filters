@@ -94,6 +94,7 @@ export class DataTable extends Component {
   filterNumeric(filteredData) {
     const { filterByNumericValues } = this.props;
     return filterByNumericValues.reduce((acc, { column, comparison, value }) => {
+      console.log('teste');
       return acc.filter((planet) => this.filterComparison(column, comparison, value, planet));
     }, filteredData);
   }
