@@ -53,12 +53,12 @@ class ValueFilters extends Component {
             <option value="rotation_period">rotation_period</option>
             <option value="surface_water">surface_water</option>
           </select>
-          <select data-testid="value-filter" value={value} onChange={this.biggerChange}>
+          <select data-testid="comparison-filter" value={value} onChange={this.biggerChange}>
             <option value="maior que">Maior que</option>
             <option value="menor que">Menor que</option>
             <option value="igual a">Igual a</option>
           </select>
-          <input type="number" value={numberOfPopulation} onChange={this.numberChange} />
+          <input data-testid='value-filter' type="number" value={numberOfPopulation} onChange={this.numberChange} />
           <button type="submit" data-testid="button-filter">filtar</button>
         </form>
       </div>
