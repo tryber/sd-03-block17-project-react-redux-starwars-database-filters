@@ -5,16 +5,20 @@ import '../App.css';
 
 
 function filterPlanetsFunc(data, filters) {
+  let dataParam = [...data];
   let filterPlanets;
   filters.forEach((item) => {
     if (item.comparison === 'bigger_then') {
-      filterPlanets = data.filter((element) => parseInt(element[item.column], 10) > parseInt(item.value, 10));
+      filterPlanets = dataParam.filter((element) =>
+        parseInt(element[item.column], 10) > parseInt(item.value, 10));
     } else if (item.comparison === 'less_then') {
-      filterPlanets = data.filter((element) => parseInt(element[item.column], 10) < parseInt(item.value, 10));
+      filterPlanets = dataParam.filter((element) =>
+        parseInt(element[item.column], 10) < parseInt(item.value, 10));
     } else if (item.comparison === 'equal') {
-      filterPlanets = data.filter((element) => parseInt(element[item.column], 10) === parseInt(item.value, 10));
+      filterPlanets = dataParam.filter((element) =>
+        parseInt(element[item.column], 10) === parseInt(item.value, 10));
     }
-    data = filterPlanets;
+    dataParam = filterPlanets;
   });
   return filterPlanets;
 }
@@ -97,8 +101,6 @@ const mapStateToProps = (state) => ({
   filters: state.filters.filterByNumericValues,
   isFiltered: state.filters.isFiltered,
 });
-
-
 
 Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
