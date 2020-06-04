@@ -10,7 +10,7 @@ class InputsNumerics extends React.Component {
     this.state = {
       filterSelect: 'population',
       comparison: 'bigger_then',
-      valueFilter: 0,
+      valueFilter: '',
     };
     this.onChangeFilterSelect = this.onChangeFilterSelect.bind(this);
     this.onChangeComparison = this.onChangeComparison.bind(this);
@@ -40,10 +40,10 @@ class InputsNumerics extends React.Component {
     return (
       <select data-testid="column-filter" onChange={this.onChangeFilterSelect}>
         <option value="population">population</option>
-        <option value="orbital_period">Orbital period</option>
-        <option value="diameter">Diameter</option>
-        <option value="rotation_period">Rotation period</option>
-        <option value="surface_water">Rurface water</option>
+        <option value="orbital_period">orbital_period</option>
+        <option value="diameter">diameter</option>
+        <option value="rotation_period">rotation_period</option>
+        <option value="surface_water">surface_water</option>
       </select>
     );
   }
@@ -51,9 +51,9 @@ class InputsNumerics extends React.Component {
   selectComparison() {
     return (
       <select data-testid="comparison-filter" onChange={this.onChangeComparison}>
-        <option value="bigger_then">Maior que</option>
-        <option value="less_then">Menor que</option>
-        <option value="equal">Igual</option>
+        <option value="bigger_then">maior que</option>
+        <option value="less_then">menor que</option>
+        <option value="equal">igual a</option>
       </select>
     );
   }
