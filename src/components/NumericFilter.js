@@ -22,6 +22,14 @@ const comparisonOptions = [
 
 let showFilter = true;
 
+const verifyColumns = (obj) => {
+  if (obj.length > 1) {
+    showFilter = true;
+  } else {
+    showFilter = false;
+  }
+};
+
 class NumericFilter extends React.Component {
   constructor(props) {
     super(props);
@@ -32,6 +40,7 @@ class NumericFilter extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.filterMenu = this.filterMenu.bind(this);
+    this.filterForms = this.filterForms.bind(this);
     this.showActivesFilters = this.showActivesFilters.bind(this);
   }
 
@@ -39,6 +48,30 @@ class NumericFilter extends React.Component {
     this.setState({
       [type]: value,
     });
+  }
+
+  filterForms() {
+    return <div>
+      <label htmlFor="column-filter">Filtre por coluna</label>
+      <select
+        data-testid="column-filter" name="column-filter"
+        onChange={(e) => this.handleChange('column', e.target.value)}
+      >
+      {columnOptions.map((e) => <option key={e} value={e}>{e}</option>)}
+      </select>
+      <label htmlFor="comparison-filter">Condição</label>
+      <select
+        data-testid="comparison-filter" name="comparison-filter"
+        onChange={(e) => this.handleChange('comparison', e.target.value)}
+      >
+      {comparisonOptions.map((e) => <option key={e} value={e}>{e}</option>)}
+      </select>
+      <label htmlFor="value-filter">Valor</label>
+      <input
+        data-testid="value-filter" type="number" maxLength="12"
+        onChange={(e) => this.handleChange('value', e.target.value)}
+      />
+    </div>
   }
 
   filterMenu() {
@@ -51,10 +84,12 @@ class NumericFilter extends React.Component {
     });
   }
 
-  showActivesFilters (filters) {
+  showActivesFilters(filters) {
     filters.map(({ column, comparison, value }) => {
+      console.log(column, comparison, value);
       if (column !== '' && comparison !== '' && value !== '') {
-        return <div key={`${column} Filter`}><span>{`Filter: ${column} ${comparison} ${value}`}</span></div>
+        console.log('estou aqui');
+        return <div key={`${column} Filter`}><span>{`Filter: ${column} ${comparison} ${value}`}</span></div>;
       }
       return undefined;
     });
@@ -62,34 +97,22 @@ class NumericFilter extends React.Component {
 
   render() {
     this.filterMenu();
-    (columnOptions.length > 1) ? showFilter = true : showFilter = false;
+    verifyColumns(columnOptions);
     const { getPlanetByNumericValues, filterByNumericValues } = this.props;
     return (
       <div>
-        {showFilter && <div>
-          <label htmlFor="column-filter">Filtre por coluna</label>
-          <select
-            data-testid="column-filter" name="column-filter"
-            onChange={(e) => this.handleChange('column', e.target.value)}
-          >
-            {columnOptions.map((e) => <option key={e} value={e}>{e}</option>)}
-          </select>
-          <label htmlFor="comparison-filter">Condição</label>
-          <select
-            data-testid="comparison-filter" name="comparison-filter"
-            onChange={(e) => this.handleChange('comparison', e.target.value)}
-          >
-            {comparisonOptions.map((e) => <option key={e} value={e}>{e}</option>)}
-          </select>
-          <label htmlFor="value-filter">Valor</label>
-          <input
-            data-testid="value-filter" type="number" maxLength="12"
-            onChange={(e) => this.handleChange('value', e.target.value)}
-          />
-          <button
-            data-testid="button-filter" onClick={() => getPlanetByNumericValues(this.state)}
-          >Filtrar</button></div>
-        }{this.showActivesFilters(filterByNumericValues)}
+        {showFilter && this.filterForms()}
+        <button
+          data-testid="button-filter" onClick={() => getPlanetByNumericValues(this.state)}
+        >Filtrar</button>
+        {
+        filterByNumericValues.map(({ column, comparison, value }) => {
+          if (column !== '' && comparison !== '' && value !== '') {
+            return <div key={`${column} Filter`}><span>{`Filter: ${column} ${comparison} ${value}`}</span></div>;
+          }
+          return undefined;
+        })
+        }
       </div>
     );
   }
