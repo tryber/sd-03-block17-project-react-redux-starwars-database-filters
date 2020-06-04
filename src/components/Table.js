@@ -48,8 +48,6 @@ Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetching: PropTypes.bool.isRequired,
   nameFilter: PropTypes.string.isRequired,
-  column: PropTypes.string.isRequired,
-  sort: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(Table);
