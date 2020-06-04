@@ -34,15 +34,34 @@ const isFiltered = (planet, nameFilter, filterByNumericValues) => {
   return true;
 };
 
-const planets = (data, nameFilter, filterByNumericValues) => data
+const sortPlanets = (planetA, planetB, { column, sort }) => {
+  let columnA = planetA.props.planet[column.toLowerCase()];
+  let columnB = planetB.props.planet[column.toLowerCase()];
+  if (Number(planetA.props.planet[column])) {
+    columnA = Number(columnA);
+    columnB = Number(columnB);
+  }
+  if (sort === 'ASC') {
+    if (columnA > columnB) return 1;
+    if (columnA < columnB) return -1;
+  }
+  if (sort === 'DESC') {
+    if (columnA < columnB) return 1;
+    if (columnA > columnB) return -1;
+  }
+  return 0;
+};
+
+const planets = (data, nameFilter, filterByNumericValues, order) => data
   .reduce((acc, planet) => {
     if (isFiltered(planet, nameFilter, filterByNumericValues)) {
       acc.push(<TableLine key={planet.name} planet={planet} />);
     }
     return acc;
-  }, []);
+  }, [])
+  .sort((planetA, planetB) => sortPlanets(planetA, planetB, order));
 
-const Table = ({ data, isFetching, nameFilter, filterByNumericValues }) => {
+const Table = ({ data, isFetching, nameFilter, filterByNumericValues, order }) => {
   if (isFetching) return <p>loading</p>;
   return (
     <table>
@@ -63,7 +82,7 @@ const Table = ({ data, isFetching, nameFilter, filterByNumericValues }) => {
           <th>url</th>
         </tr>
       </thead>
-      <tbody>{planets(data, nameFilter, filterByNumericValues)}</tbody>
+      <tbody>{planets(data, nameFilter, filterByNumericValues, order)}</tbody>
     </table>
   );
 };
@@ -73,6 +92,7 @@ const mapStateToProps = (state) => ({
   isFetching: state.planetsReducer.isFetching,
   nameFilter: state.filters.filterByName.name,
   filterByNumericValues: state.filters.filterByNumericValues,
+  order: state.filters.order,
 });
 
 Table.propTypes = {

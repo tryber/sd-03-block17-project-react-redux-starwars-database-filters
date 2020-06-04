@@ -8,6 +8,7 @@ import Option from './Option';
 import disableSelect from '../actions/disableSelect';
 import removeFilter from '../actions/removeFilter';
 import enableSelect from '../actions/enableSelect';
+import changeOrder from '../actions/changeOrder';
 
 class Filters extends Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class Filters extends Component {
       column: 'all',
       comparison: 'all',
       value: 0,
+      orderColumn: 'name',
+      orderSort: 'ASC',
     };
     this.handleChange = this.handleChange.bind(this);
     this.selectColumn = this.selectColumn.bind(this);
@@ -23,6 +26,9 @@ class Filters extends Component {
     this.filterValueInput = this.filterValueInput.bind(this);
     this.filterButton = this.filterButton.bind(this);
     this.activeFiltersTable = this.activeFiltersTable.bind(this);
+    this.columnSort = this.columnSort.bind(this);
+    this.sortRadios = this.sortRadios.bind(this);
+    this.sortInput = this.sortInput.bind(this);
   }
 
   handleChange(e) {
@@ -105,8 +111,7 @@ class Filters extends Component {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={
-              () => {
+              onClick={() => {
                 const newActiveFilters = activeFilters;
                 newActiveFilters.splice(index, 1);
                 rmFilter(newActiveFilters);
@@ -115,14 +120,73 @@ class Filters extends Component {
                   newAvaliableFilters.findIndex((filter) => filter.name === column)
                 ].avaliable = true;
                 enableSelect(newAvaliableFilters);
-              }
-            }
+              }}
             >
               X
             </button>
           </li>
         ))}
       </ul>
+    );
+  }
+
+  columnSort() {
+    return (
+      <select data-testid="column-sort" id="orderColumn" onChange={(e) => this.handleChange(e)}>
+        <option>name</option>
+        <option>climate</option>
+        <option>created</option>
+        <option>diameter</option>
+        <option>edited</option>
+        <option>films</option>
+        <option>gravity</option>
+        <option>orbital_period</option>
+        <option>population</option>
+        <option>rotation_period</option>
+        <option>surface_water</option>
+        <option>terrain</option>
+        <option>url</option>
+      </select>
+    );
+  }
+
+  handleSortRadioClick(e) {
+    this.setState({
+      orderSort: e.target.value,
+    });
+  }
+
+  sortRadios() {
+    return (
+      <div>
+        <input
+          type="radio"
+          data-testid="column-sort-input"
+          name="order"
+          value="ASC"
+          onClick={(e) => this.handleSortRadioClick(e)}
+        />
+        <input
+          type="radio"
+          data-testid="column-sort-input"
+          name="order"
+          value="DESC"
+          onClick={(e) => this.handleSortRadioClick(e)}
+        />
+      </div>
+    );
+  }
+
+  sortInput() {
+    const { changeSort } = this.props;
+    const { orderColumn, orderSort } = this.state;
+    return (
+      <input
+        type="button"
+        value="ordenar"
+        data-testid="column-sort-button"
+        onClick={() => changeSort({ column: orderColumn, sort: orderSort })}
+      />
     );
   }
 
@@ -136,6 +200,9 @@ class Filters extends Component {
         {this.filterValueInput()}
         {this.filterButton()}
         {this.activeFiltersTable()}
+        {this.columnSort()}
+        {this.sortRadios()}
+        {this.sortInput()}
       </div>
     );
   }
@@ -149,16 +216,18 @@ Filters.propTypes = {
   activeFilters: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(
-  {
-    byName: filterByName,
-    byNumeric: filterByNumericValue,
-    disable: disableSelect,
-    rmFilter: removeFilter,
-    enable: enableSelect,
-  },
-  dispatch,
-);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      byName: filterByName,
+      byNumeric: filterByNumericValue,
+      disable: disableSelect,
+      rmFilter: removeFilter,
+      enable: enableSelect,
+      changeSort: changeOrder,
+    },
+    dispatch,
+  );
 
 const mapStateToProps = (state) => ({
   avaliableFilters: state.filters.avaliableFilters,

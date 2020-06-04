@@ -308,7 +308,7 @@ describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao 
   });
 })
 
-describe.skip('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou descendente', () => {
+describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou descendente', () => {
   test('check planet table starting order', async () => {
     let sortedPlanets = [];
     for(let planet of testData.results) {

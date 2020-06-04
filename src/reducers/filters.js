@@ -4,11 +4,16 @@ import {
   DISABLE_SELECT,
   REMOVE_FILTER,
   ENABLE_SELECT,
+  CHANGE_ORDER,
 } from '../actions/types';
 
 const initialState = {
   filterByName: { name: '' },
   filterByNumericValues: [],
+  order: {
+    column: 'Name',
+    sort: 'ASC',
+  },
   avaliableFilters: {
     columnFilters: [
       { name: 'all', avaliable: true },
@@ -49,6 +54,8 @@ export default (state = initialState, { type, payload }) => {
       };
     case REMOVE_FILTER:
       return { ...state, filterByNumericValues: [...payload] };
+    case CHANGE_ORDER:
+      return { ...state, order: { ...payload } };
     default:
       return state;
   }
