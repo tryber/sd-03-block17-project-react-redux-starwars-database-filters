@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import propTypes, { arrayOf } from 'prop-types';
+import propTypes from 'prop-types';
 import { handleFetch } from '../actions/fetchActions';
 
 import TableHeaders from './TableHeaders';
