@@ -3,6 +3,7 @@ import {
   API_REQUEST,
   API_RECIEVE_SUCCESS,
   API_RECIVE_FAILURE,
+  FILTER_BY_PLANET_TEXT,
 } from '../services/Types';
 
 export const apiRequest = () => ({
@@ -32,3 +33,8 @@ export default function getApiData() {
       );
   };
 }
+
+export const filterByPlanetText = (name) => ({
+  type: FILTER_BY_PLANET_TEXT,
+  name,
+});
