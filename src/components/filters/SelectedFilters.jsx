@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { removeFilters } from '../actions/actionsCreators';
+import { removeFilters } from '../../actions/actionsCreators';
 
 class SelectedFilters extends Component {
   constructor(props) {

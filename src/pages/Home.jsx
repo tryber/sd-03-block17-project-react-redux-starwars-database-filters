@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchingPlanetsInfo, filterByText } from '../actions/actionsCreators';
 import Table from '../components/table/Table';
-import FilterByNameBar from '../components/FilterByNameBar';
-import FilterByValuesBar from '../components/FilterByValuesBar';
-import SelectedFilters from '../components/SelectedFilters';
+import FilterByNameBar from '../components/filters/FilterByNameBar';
+import FilterByValuesBar from '../components/filters/FilterByValuesBar';
+import SelectedFilters from '../components/filters/SelectedFilters';
 
 function makeComparison(column, comparison, value, element) {
   switch (comparison) {
