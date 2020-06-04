@@ -7,12 +7,14 @@ import TableHeaders from './TableHeaders';
 // import TableRow from './TableRow';
 
 const numericFilter = (planet, column, comparison, value) => {
+  console.log(planet[column])
+  console.log(value)
   switch (comparison) {
-    case 'Maior que':
+    case 'maior que':
       return Number(planet[column]) > Number(value);
-    case 'Menor que':
+    case 'menor que':
       return Number(planet[column]) < Number(value);
-    case 'Igual a':
+    case 'igual a':
       return Number(planet[column]) === Number(value);
     default:
       return [];
@@ -32,6 +34,7 @@ class Table extends React.Component {
 
   filterNumeric(filteredData) {
     const { filterByNumericValues } = this.props;
+    console.log('----------------------------------', filterByNumericValues);
     return filterByNumericValues.reduce((acc, {
       column, comparison, value,
     }) => acc.filter((planet) => numericFilter(planet, column, comparison, value)), filteredData);
@@ -42,7 +45,7 @@ class Table extends React.Component {
       data, name,
     } = this.props;
     let mapPlanets = data;
-    mapPlanets = filterByText(data, name);
+    mapPlanets = filterByText(mapPlanets, name);
     mapPlanets = this.filterNumeric(mapPlanets);
     console.log(mapPlanets);
     return (

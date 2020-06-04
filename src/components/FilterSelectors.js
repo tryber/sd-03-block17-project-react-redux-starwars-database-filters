@@ -39,14 +39,14 @@ class FilterSelectors extends React.Component {
             ),
           )}
         </select>
-        <select required onChange={(event) => this.handleFilterChange(event, 'comparison')} testid="comparison-filter">
+        <select required onChange={(event) => this.handleFilterChange(event, 'comparison')} data-testid="comparison-filter">
           <option value="" />
           <option value="maior que">Maior que</option>
           <option value="menor que">Menor que</option>
           <option value="igual a">Igual a</option>
         </select>
         <input
-          value="0"
+          defaultValue="0"
           onChange={(event) => this.handleFilterChange(event, 'value')}
           data-testid="value-filter"
           type="number"
@@ -60,7 +60,6 @@ class FilterSelectors extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   const columnFitlerChoosed = state.filters.filterByNumericValues;
   return {
     filters: columnFitlerChoosed,
