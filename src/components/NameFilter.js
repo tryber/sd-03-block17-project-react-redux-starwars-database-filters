@@ -6,11 +6,13 @@ import { filterPlanetsByName } from '../actions';
 class NameFilter extends React.Component {
   render() {
     return (
-      <input
-        type="text"
-        data-testid="name-filter"
-        onChange={(event) => this.props.filterPlanetsByName(event.target.value.toLowerCase())}
-      />
+      <div>
+        <input
+          type="text"
+          data-testid="name-filter"
+          onChange={(event) => this.props.filterPlanetsByName(event.target.value.toLowerCase())}
+        />
+      </div>
     );
   }
 }

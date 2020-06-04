@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { filterPlanetsByNumericValues } from '../actions';
-import NameFilter from './ColumnFilter';
+import NameFilter from './NameFilter';
+import FilterList from './FilterList';
 
 const filterColumnsOptions = (filters, value) => !filters.find(({ column }) => column === value);
-
 
 class SearchBar extends Component {
   constructor(props) {
@@ -63,6 +63,7 @@ class SearchBar extends Component {
           onChange={(event) => this.handleChange(event, 'value')}
         />
         <button data-testid="button-filter" onClick={this.handleClick}>Filter</button>
+        <FilterList />
       </div>
     );
   }
