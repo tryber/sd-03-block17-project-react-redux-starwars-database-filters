@@ -50,9 +50,9 @@ class Table extends React.Component {
           (planet) => (
             <tr key={planet.name}>
               <td>{planet.name}</td>
-              <td>{`${planet.rotation_period} hours`}</td>
-              <td>{`${planet.orbital_period} days`}</td>
-              <td>{`${planet.diameter} km`}</td>
+              <td>{planet.rotation_period}</td>
+              <td>{planet.orbital_period}</td>
+              <td>{planet.diameter}</td>
               <td>{planet.climate}</td>
               <td>{planet.gravity}</td>
               <td>{planet.terrain}</td>

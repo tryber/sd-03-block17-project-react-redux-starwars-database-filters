@@ -18,6 +18,7 @@ class SearchBar extends React.Component {
     return (
       <div>
         <input
+          data-testid="name-filter"
           className="form-control"
           type="text"
           placeholder="Planet name"
