@@ -52,7 +52,8 @@ class Table extends React.Component {
   tbodyFiltersBig(data, name, option, valueFilter) {
     return (
       <tbody>
-        {data.filter((item) => item.name.includes(name) && parseInt(item[option]) > valueFilter)
+        {data.filter((item) => item.name.includes(name)
+          && parseInt(item[option]) > parseInt(valueFilter, 10))
           .map((item) => <tr key={item.name}>
             <td>{item.name}</td>
             <td>{item.climate}</td>
@@ -75,7 +76,8 @@ class Table extends React.Component {
   tbodyFiltersLess(data, name, option, valueFilter) {
     return (
       <tbody>
-        {data.filter((item) => item.name.includes(name) && parseInt(item[option]) < valueFilter)
+        {data.filter((item) => item.name.includes(name)
+          && parseInt(item[option]) < parseInt(valueFilter, 10))
           .map((item) => <tr key={item.name}>
             <td>{item.name}</td>
             <td>{item.climate}</td>
@@ -98,7 +100,8 @@ class Table extends React.Component {
   tbodyFiltersEqual(data, name, option, valueFilter) {
     return (
       <tbody>
-        {data.filter((item) => item.name.includes(name) && parseInt(item[option]) === valueFilter)
+        {data.filter((item) => item.name.includes(name)
+          && parseInt(item[option]) === parseInt(valueFilter, 10))
           .map((item) => <tr key={item.name}>
             <td>{item.name}</td>
             <td>{item.climate}</td>
