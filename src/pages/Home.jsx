@@ -5,22 +5,6 @@ import { fetchingPlanetsInfo, filterByText } from '../actions/actionsCreators';
 import Table from '../components/table/Table';
 import FilterContainer from '../components/filters/FilterContainer';
 
-function orderColumns(data, column, order) {
-  const integersColumns = [
-    'population',
-    'orbital_period',
-    'diameter',
-    'rotation_period',
-    'surface_water',
-  ];
-  const sortedData = (integersColumns.includes(column)) ? data.sort(
-    (elementA, elementB) => elementA[column] - elementB[column],
-  ) : data.sort((elementA, elementB) => elementA[column].localeCompare(elementB[column]));
-
-  if (order === 'DESC') sortedData.reverse();
-  return sortedData;
-}
-
 export class Home extends Component {
   static makeComparison(column, comparison, value, element) {
     switch (comparison) {
@@ -33,6 +17,22 @@ export class Home extends Component {
       default:
         return [];
     }
+  }
+
+  static orderColumns(data, column, order) {
+    const integersColumns = [
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ];
+    const sortedData = (integersColumns.includes(column)) ? data.sort(
+      (elemA, elemB) => elemA[column] - elemB[column],
+    ) : data.sort((elemA, elemB) => elemA[column].localeCompare(elemB[column]));
+
+    if (order === 'DESC') sortedData.reverse();
+    return sortedData;
   }
 
   componentDidMount() {
@@ -50,7 +50,7 @@ export class Home extends Component {
 
   sortDataFilter(data) {
     const { sortColumnFilter, sortOrderFilter } = this.props;
-    return orderColumns(
+    return Home.orderColumns(
       this.filterDataByText(data),
       sortColumnFilter.toLowerCase(),
       sortOrderFilter,
