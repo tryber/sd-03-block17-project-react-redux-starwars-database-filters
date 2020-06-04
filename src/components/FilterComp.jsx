@@ -4,21 +4,21 @@ import { connect } from 'react-redux';
 import Filter from './Filter';
 
 function FilterComp({
-  setNumericFilter, filters, fireFilter, changeId, categories, changeCategory,
+  setNumericFilter, filters, changeId, categories, changeCategory,
 }) {
-  const [filtersArray, setFilters] = React.useState([]);
+  // const [filtersArray, setFilters] = React.useState([]);
 
   const [column, setColumn] = React.useState('select');
   const [comparison, setcomparison] = React.useState('choose');
   const [value, setValue] = React.useState('');
-  const [id, setId] = React.useState(0);
+  // const [id, setId] = React.useState(0);
   const ref = React.useRef();
 
   function handleClick() {
     setNumericFilter({ column, comparison, value });
-    setFilters(filters);
+    // setFilters(filters);
     changeId(1);
-    setId((previd) => previd + 1);
+    // setId((previd) => previd + 1);
     setColumn('select');
     setcomparison('choose');
     setValue('');
