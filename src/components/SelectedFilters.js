@@ -33,6 +33,7 @@ const SelectedFilters = (props) => {
           <div>{e.comparison}</div>
           <div>{e.value}</div>
           <button
+            data-testid="filter"
             type="button"
             onClick={() => {
               displayFilterName(e.column, allFiltersArr, changeFiltersDisplay);

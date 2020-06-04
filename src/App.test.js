@@ -30,7 +30,7 @@ const mockFetch = () => {
   global.fetch = jest.fn(() => apiResponse);
 };
 
-describe.skip('1 - Fazer uma requisição para o endpoint /planets da API de Star Wars e preencher uma tabela com os dados retornados, com exceção dos da coluna residents', () => {
+describe('1 - Fazer uma requisição para o endpoint /planets da API de Star Wars e preencher uma tabela com os dados retornados, com exceção dos da coluna residents', () => {
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
@@ -79,7 +79,7 @@ describe.skip('1 - Fazer uma requisição para o endpoint /planets da API de Sta
 
 })
 
-describe.skip('2 - Sua página deve ter um campo de texto que filtra a tabela para somente exibir planetas cujos nomes incluam o texto digitado', () => {
+describe('2 - Sua página deve ter um campo de texto que filtra a tabela para somente exibir planetas cujos nomes incluam o texto digitado', () => {
 
   beforeAll(mockFetch);
   beforeEach(cleanup);
@@ -126,7 +126,7 @@ describe.skip('2 - Sua página deve ter um campo de texto que filtra a tabela pa
   })
 })
 
-describe.skip('3 - Sua página deve ter um filtro para valores numéricos', () => {
+describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
 
   beforeAll(mockFetch);
   beforeEach(cleanup);
@@ -285,7 +285,7 @@ describe('4 -  Sua página deverá ser carregada com somente um filtro de valore
   })
 })
 
-describe.skip('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao ser clicado, o apaga e desfaz suas filtragens dos dados da tabela', () => {
+describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao ser clicado, o apaga e desfaz suas filtragens dos dados da tabela', () => {
   test('should show the previously selected filters', async () => {
     const { findAllByTestId, findByText } = renderApp();
     const selectedFilters = await findAllByTestId('filter');
