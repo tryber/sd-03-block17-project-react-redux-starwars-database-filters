@@ -23,18 +23,27 @@ const tableCreator = (obj) =>
     <td>{obj.url}</td>
   </tr>;
 
-const filteredPlanets = ({ column, comparison, value }, planets) => {
-  if (Number(value) === 0) { return planets; }
-  switch (comparison) {
-    case 'maior que':
-      return planets.filter((e) => (e[column] - value) > 0);
-    case 'menor que':
-      return planets.filter((e) => (value - e[column]) > 0);
-    case 'igual a':
-      return planets.filter((e) => (e[column] - value) === 0);
-    default:
-      return planets;
-  }
+const filteredPlanets = (filters, planets) => {
+  let result = [...planets];
+  filters.forEach(
+    ({column, comparison, value}) => {
+      if (Number(value) === 0) { return planets; }
+      switch (comparison) {
+        case 'maior que':
+          result = result.filter((e) => (e[column] - value) > 0);
+          break;
+        case 'menor que':
+          result = result.filter((e) => (value - e[column]) > 0);
+          break;
+        case 'igual a':
+          result = result.filter((e) => (e[column] - value) === 0);
+          break;
+        default:
+          return result;
+      }
+    }
+  );
+  return result;
 };
 
 class Table extends React.Component {
@@ -43,7 +52,6 @@ class Table extends React.Component {
     const { filterByNumericValues } = this.props;
     const dataReceived = planets.length;
     let planetoides = [];
-    let planetoidesLength = 0;
     let dataReady = false;
     let dataKeys = [];
     let regex = '';
@@ -53,8 +61,7 @@ class Table extends React.Component {
       regex = new RegExp(`${filterByName}`, 'i');
       dataKeys.splice(cutData, 1);
       dataReady = true;
-      planetoidesLength = filterByNumericValues.length;
-      planetoides = [...filteredPlanets(filterByNumericValues[planetoidesLength - 1], planets)];
+      planetoides = [...filteredPlanets(filterByNumericValues, planets)];
     }
     return (
       <div>
