@@ -23,7 +23,7 @@ export const recieveApiDataFailure = (error) => ({
   data: error,
 });
 
-export default function getApiData() {
+export function getApiData() {
   return (dispatch) => {
     dispatch(apiRequest());
     return SWPlanetApiRequest()
