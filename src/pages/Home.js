@@ -71,11 +71,11 @@ class Home extends React.Component {
   }
 
   render() {
-    const { data, isFetching } = this.props;
+    const { data, isFetching, getByName } = this.props;
     return (
       <div className="Home">
         <div>
-          <Filters />
+          <Filters onChange={(event) => getByName(event.target.value)} />
         </div>
         {isFetching ? (
           <h1>Loading..</h1>
@@ -119,6 +119,7 @@ Home.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFetching: PropTypes.bool.isRequired,
   nameFilter: PropTypes.string,
+  getByName: PropTypes.func.isRequired,
   numericFilter: PropTypes.arrayOf(PropTypes.object),
   sortColumnFilter: PropTypes.string.isRequired,
   sortOrderFilter: PropTypes.string.isRequired,
