@@ -38,6 +38,19 @@ function requestReducer(state = INITIAL_STATE, action) {
         filters: { filterByName: { name: filterName, filteredPlanets: [filteredPlanets] } },
       }; }
     case 'FILTER_PLANET_NUMERIC':
+      const column = action.column;
+      const comparison = action.comparison === 'maior que'? '>' :'menor que' ? '<' : ('igual a' ? '===': 'selecione');
+      console.log(comparison);
+      const value = action.value;
+      if( state.filters.filterByName.name === ' ') {
+        const filteredPlanets = state.data.results.filter(element => {
+              
+        });
+      } else {
+        state.filters.filterByName.filteredPlanets.filter(element => {
+          console.log(element);
+        });
+      }
       return {
         ...state,
       };
