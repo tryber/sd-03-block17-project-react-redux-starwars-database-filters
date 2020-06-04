@@ -10,7 +10,7 @@ class ValueFilters extends Component {
     this.state = ({
       population: 'population',
       value: 'maior que',
-      numberOfPopulation: 0,
+      numbOfPop: 0,
     });
     this.columnChange = this.columnChange.bind(this);
     this.biggerChange = this.biggerChange.bind(this);
@@ -29,9 +29,9 @@ class ValueFilters extends Component {
     });
   }
 
-  numberChange(event) {
+  numb(event) {
     this.setState({
-      numberOfPopulation: event.target.value,
+      numbOfPop: event.target.value,
     });
   }
 
@@ -39,10 +39,10 @@ class ValueFilters extends Component {
     const submitChange = (event) => {
       event.preventDefault();
       const { submitToState } = this.props;
-      const { population, value, numberOfPopulation } = this.state;
-      submitToState(population, value, numberOfPopulation);
+      const { population, value, numbOfPop } = this.state;
+      submitToState(population, value, numbOfPop);
     };
-    const { population, value, numberOfPopulation } = this.state;
+    const { population, value, numbOfPop } = this.state;
     return (
       <div>
         <form onSubmit={submitChange}>
@@ -58,7 +58,7 @@ class ValueFilters extends Component {
             <option value="menor que">Menor que</option>
             <option value="igual a">Igual a</option>
           </select>
-          <input data-testid='value-filter' type="number" value={numberOfPopulation} onChange={this.numberChange} />
+          <input data-testid="value-filter" type="number" value={numbOfPop} onChange={this.numb} />
           <button type="submit" data-testid="button-filter">filtar</button>
         </form>
       </div>
@@ -71,8 +71,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  submitToState: (population, value, numberOfPopulation) => dispatch(
-    optionPopulation(population, value, numberOfPopulation),
+  submitToState: (population, value, numbOfPop) => dispatch(
+    optionPopulation(population, value, numbOfPop),
   ),
 });
 
