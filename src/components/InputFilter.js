@@ -17,12 +17,9 @@ const mapDispatchToPros = (dispatch) => ({
   dispatchInput: (text) => dispatch(filterByName(text)),
 });
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    value: state.filters.filterByName.name,
-  };
-};
+const mapStateToProps = (state) => ({
+  value: state.filters.filterByName.name,
+});
 export default connect(mapStateToProps, mapDispatchToPros)(InputFilter);
 
 InputFilter.propTypes = {

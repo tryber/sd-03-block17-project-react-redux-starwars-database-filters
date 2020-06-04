@@ -4,17 +4,16 @@ import { excludeFilterAction } from '../actions/cancelFilter';
 
 
 const removeFilterElement = (e, column, removeFilter) => {
-  e.target.remove();
   removeFilter(column);
 };
 
 const SelectedFilters = ({ selectedFilters, removeFilter }) => selectedFilters.map((
   { column, comparison, value },
 ) => (
-  <p data-testid="filter">
+  <div key={column} data-testid="filter">
     {`${column} ${comparison} ${value}`}
     <button type="button" onClick={(e) => removeFilterElement(e, column, removeFilter)}>X</button>
-  </p>
+  </div>
 ));
 
 const mapStateToProps = (state) => ({
