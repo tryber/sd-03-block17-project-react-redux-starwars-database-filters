@@ -18,7 +18,7 @@ const head = [
   'url',
 ];
 
-function OrderFilter({ categories, order, sendData }) {
+function OrderFilter({ order, sendData }) {
   const [column, setColumn] = useState(order.column);
   const [sort, setOrder] = useState(order.sort);
 
@@ -47,14 +47,20 @@ function OrderFilter({ categories, order, sendData }) {
         value="DESC"
       />
       <label htmlFor="DESC">DSC</label>
-      <button onClick={() => sendData({ column, sort })} data-testid="column-sort-button" type="button">Filter</button>
+      <button
+        onClick={() => sendData({ column, sort })}
+        data-testid="column-sort-button"
+        type="button"
+      >
+Filter
+
+      </button>
 
     </div>
   );
 }
 
 OrderFilter.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   order: PropTypes.objectOf(PropTypes.string).isRequired,
   sendData: PropTypes.func.isRequired,
 };
