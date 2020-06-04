@@ -1,32 +1,25 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import React from 'react';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import fetchPlanets from './actions/fetchPlanets';
+import { connect } from 'react-redux';
 import Table from './components/Table';
+import FetchData from './components/FetchData';
+import FiltersBar from './components/FiltersBar';
 import './App.css';
-import Filters from './components/Filters';
 
-class App extends Component {
-  componentDidMount() {
-    const { fetch } = this.props;
-    fetch();
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <Filters />
-        <Table />
-      </div>
-    );
-  }
-}
-
-App.propTypes = {
-  fetch: PropTypes.func.isRequired,
+const App = ({ loading }) => {
+  if (loading) return <FetchData />;
+  return (
+    <div className="App">
+      <FiltersBar />
+      <Table />
+    </div>
+  );
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ fetch: fetchPlanets }, dispatch);
+const mapStateToProps = (state) => ({
+  loading: state.isFetching,
+});
 
-export default connect(null, mapDispatchToProps)(App);
+App.propTypes = { loading: PropTypes.bool.isRequired };
+
+export default connect(mapStateToProps)(App);
