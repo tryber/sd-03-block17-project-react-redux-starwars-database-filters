@@ -17,7 +17,7 @@ class FilterList extends React.Component {
               <span>{`${filter.column} `}</span>
               <span>{`${filter.comparison} `}</span>
               <span>{filter.value}</span>
-            </p>
+            </p>,
           )}
         </div>
       );
