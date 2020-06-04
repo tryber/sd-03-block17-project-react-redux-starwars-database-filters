@@ -7,8 +7,6 @@ import TableHeaders from './TableHeaders';
 // import TableRow from './TableRow';
 
 const numericFilter = (planet, column, comparison, value) => {
-  console.log(planet[column])
-  console.log(value)
   switch (comparison) {
     case 'maior que':
       return Number(planet[column]) > Number(value);
@@ -34,7 +32,6 @@ class Table extends React.Component {
 
   filterNumeric(filteredData) {
     const { filterByNumericValues } = this.props;
-    console.log('----------------------------------', filterByNumericValues);
     return filterByNumericValues.reduce((acc, {
       column, comparison, value,
     }) => acc.filter((planet) => numericFilter(planet, column, comparison, value)), filteredData);
@@ -47,7 +44,6 @@ class Table extends React.Component {
     let mapPlanets = data;
     mapPlanets = filterByText(mapPlanets, name);
     mapPlanets = this.filterNumeric(mapPlanets);
-    console.log(mapPlanets);
     return (
       <table border="1px">
         <tbody>
