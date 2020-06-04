@@ -83,6 +83,15 @@ class Table extends React.Component {
       return 0;
     });
   }
+  
+  sortAscColWithoutName(columnLowerCase) {
+    const dataFiltered = this.dataFilterFunction();
+    return dataFiltered.sort(function (a, b) {
+      if (Number(a[columnLowerCase]) > Number(b[columnLowerCase])) return 1;
+      if (Number(a[columnLowerCase]) < Number(b[columnLowerCase])) return -1;
+      return 0;
+    });
+  }
 
   sortAscCol() {
     const { sortCol } = this.props;
@@ -95,9 +104,10 @@ class Table extends React.Component {
         if (a[columnLowerCase] < b[columnLowerCase]) return -1;
         return 0;
       }
-      if (Number(a[columnLowerCase]) > Number(b[columnLowerCase])) return 1;
-      if (Number(a[columnLowerCase]) < Number(b[columnLowerCase])) return -1;
-      return 0;
+      return this.sortAscColWithoutName(columnLowerCase);
+      // if (Number(a[columnLowerCase]) > Number(b[columnLowerCase])) return 1;
+      // if (Number(a[columnLowerCase]) < Number(b[columnLowerCase])) return -1;
+      // return 0;
     });
   }
 
