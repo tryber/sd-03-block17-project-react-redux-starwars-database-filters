@@ -3,6 +3,29 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import '../App.css';
 
+function tbodyFiltersBig(data, name, option, valueFilter) {
+  return (
+    <tbody>
+      {data.filter((item) => item.name.includes(name)
+        && parseInt(item[option], 10) > parseInt(valueFilter, 10))
+        .map((item) => <tr key={item.name}>
+          <td>{item.name}</td>
+          <td>{item.climate}</td>
+          <td>{item.created}</td>
+          <td>{item.diameter}</td>
+          <td>{item.edited}</td>
+          <td>#</td>
+          <td>{item.gravity}</td>
+          <td>{item.orbital_period}</td>
+          <td>{item.population}</td>
+          <td>#</td>
+          <td>{item.rotation_period}</td>
+          <td>{item.surface_water}</td>
+          <td>{item.terrain}</td>
+        </tr>)}
+    </tbody>
+  );
+}
 
 class Table extends React.Component {
   constructor(props) {
@@ -49,29 +72,7 @@ class Table extends React.Component {
     );
   }
 
-  tbodyFiltersBig(data, name, option, valueFilter) {
-    return (
-      <tbody>
-        {data.filter((item) => item.name.includes(name)
-          && parseInt(item[option], 10) > parseInt(valueFilter, 10))
-          .map((item) => <tr key={item.name}>
-            <td>{item.name}</td>
-            <td>{item.climate}</td>
-            <td>{item.created}</td>
-            <td>{item.diameter}</td>
-            <td>{item.edited}</td>
-            <td>#</td>
-            <td>{item.gravity}</td>
-            <td>{item.orbital_period}</td>
-            <td>{item.population}</td>
-            <td>#</td>
-            <td>{item.rotation_period}</td>
-            <td>{item.surface_water}</td>
-            <td>{item.terrain}</td>
-          </tr>)}
-      </tbody>
-    );
-  }
+  
 
   tbodyFiltersLess(data, name, option, valueFilter) {
     return (
@@ -135,7 +136,7 @@ class Table extends React.Component {
         {
           comparison === 'bigger_then' &&
           isFiltered &&
-          this.tbodyFiltersBig(data, name, option, valueFilter)
+          tbodyFiltersBig(data, name, option, valueFilter)
         }
         {
           comparison === 'less_then' &&

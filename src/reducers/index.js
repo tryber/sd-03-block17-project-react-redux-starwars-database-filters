@@ -53,14 +53,11 @@ const filters = (state = stateFiltersDefault, action) => {
   switch (action.type) {
     case NAME_FILTER:
       return {
-
         ...state,
         filterByName: { name: action.name },
-
       };
     case FILTER_SELECTORS:
       return {
-
         ...state,
         filterByNumericValues: [
           {
@@ -70,7 +67,6 @@ const filters = (state = stateFiltersDefault, action) => {
             isFiltered: true,
           },
         ],
-
       };
     default:
       return state;
