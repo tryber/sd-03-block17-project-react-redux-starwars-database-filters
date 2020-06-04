@@ -41,20 +41,14 @@ class SearchBar extends Component {
     const { valueFilters } = this.props;
     return (
       <div>
-        <div>
           <NameFilter />
-        </div>
         <select
           id="column-filter"
           data-testid="column-filter"
           onChange={(event) => this.handleChange(event, 'column')}
         >
-          {columns.map((column) => (filterColumnsOptions(valueFilters, column)
-            && (
-              <option value={column} key={column}>
-                {column}
-              </option>
-            )
+          {columns.map((column) => (filterColumnsOptions(valueFilters, column) &&
+            (<option value={column} key={column}>{column}</option>)
           ))}
         </select>
         <select
