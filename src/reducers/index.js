@@ -1,7 +1,15 @@
 const initialState = {
   data: { results: [] },
-  filters: { filterByName: { name: '' }, filterByNumericValues: [] },
+  filters: {
+    filterByName: { name: '' },
+    filterByNumericValues: [],
+    order: {
+      column: 'Name',
+      sort: 'ASC',
+    },
+  },
   id: 0,
+
   categories: [
     'population',
     'orbital_period',
@@ -64,6 +72,14 @@ function emptyReducer(state = initialState, action) {
     }
     case 'CHANGE_CATEGORY':
       return returnChangeCategory(state, action);
+
+    case 'SET_ORDER':
+      return {
+        ...state,
+        filters: {
+          ...state.filters, order: action.payload,
+        },
+      };
 
     default:
       return state;

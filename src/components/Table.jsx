@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FilterComp from './FilterComp';
+import OrderFilter from './OrderFilter';
 
 const head = [
   'name',
@@ -18,14 +19,19 @@ const head = [
   'edited',
   'url',
 ];
+function sortFunction(column) {
+  return (a, b) => {
+    if (a[column] > b[column]) {
+      return 1;
+    }
+    if (a[column] < b[column]) {
+      return -1;
+    }
+    return 0;
+  };
+}
 
-const filterArray = [
-  { filter: 'population', name: 'Population' },
-  { filter: 'orbital_period', name: 'Período orbital' },
-  { filter: 'diameter', name: 'Diâmetro' },
-  { filter: 'rotation_period', name: 'Periodo Rotacional' },
-  { filter: 'surface_water', name: 'Agua na superfície' },
-];
+const strings = ['name', 'climate', 'terrain', 'films', 'url'];
 
 function setFilter(type, name, value) {
   if (type === 'maior que') {
@@ -45,7 +51,7 @@ class Table extends Component {
     super(props);
     const { data } = this.props;
     this.state = {
-      filteredNumberData: data,
+      filteredNumberData: data.sort(sortFunction('name')),
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -57,11 +63,11 @@ class Table extends Component {
 
 
   componentDidUpdate(prevProps) {
-    const { data } = this.props;
-    this.checkState(prevProps, data);
+    const { data, order } = this.props;
+    this.checkState(prevProps, data, order);
   }
 
-  checkState(prevProps, data) {
+  checkState(prevProps, data, order) {
     const { filters: { filterByNumericValues } } = this.props;
 
 
@@ -74,6 +80,22 @@ class Table extends Component {
         filteredNumberData = filteredNumberData.filter(setFilter(type, name, value));
       });
 
+      this.setState({ filteredNumberData });
+    }
+
+    if (prevProps.order !== order) {
+      console.log('orderChanged', order.sort, order.column);
+      let filteredNumberData = data;
+      if (order.sort === 'ASC') {
+        console.log(strings.includes(order.column));
+        filteredNumberData = strings.includes(order.column)
+          ? filteredNumberData.sort(sortFunction(order.column))
+          : filteredNumberData.sort((a, b) => a[order.column] - b[order.column]);
+      } else if (order.sort === 'DSC') {
+        filteredNumberData = strings.includes(order.column)
+          ? filteredNumberData.sort(sortFunction(order.column)).reverse()
+          : filteredNumberData.sort((a, b) => b[order.column] - a[order.column]);
+      }
       this.setState({ filteredNumberData });
     }
   }
@@ -115,8 +137,9 @@ class Table extends Component {
     return (
       <div>
         {this.renderInput(filterByName)}
+        <OrderFilter />
 
-        <FilterComp filterArray={filterArray} />
+        <FilterComp />
         <table>
           <thead>
             <tr>
@@ -145,6 +168,7 @@ Table.propTypes = {
   filters: PropTypes.isRequired,
   setNameFilter: PropTypes.isRequired,
   data: PropTypes.isRequired,
+  order: PropTypes.objectOf(PropTypes.string).isRequired,
 
 };
 
@@ -162,6 +186,7 @@ function mapState(state) {
   return {
     data: state.data.results,
     filters: state.filters,
+    order: state.filters.order,
 
   };
 }
