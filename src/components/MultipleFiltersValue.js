@@ -22,9 +22,9 @@ const apiResults = (value) => value.map((row, index) => (
 
 const objectAccess = (value, access, optionMap) => {
   switch (value) {
-    case 'Maior que':
+    case 'maior que':
       return Number(access) > Number(optionMap);
-    case 'Menor que':
+    case 'menor que':
       return Number(access) < Number(optionMap);
     default:
       return Number(access) === Number(optionMap);

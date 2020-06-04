@@ -9,7 +9,7 @@ class ValueFilters extends Component {
 
     this.state = ({
       population: 'population',
-      value: 'Maior que',
+      value: 'maior que',
       numberOfPopulation: 0,
     });
     this.columnChange = this.columnChange.bind(this);
@@ -54,9 +54,9 @@ class ValueFilters extends Component {
             <option value="surface_water">surface_water</option>
           </select>
           <select data-testid="value-filter" value={value} onChange={this.biggerChange}>
-            <option value="Maior que">Maior que</option>
-            <option value="Menor que">Menor que</option>
-            <option value="Igual a">Igual a</option>
+            <option value="maior que">Maior que</option>
+            <option value="menor que">Menor que</option>
+            <option value="igual a">Igual a</option>
           </select>
           <input type="number" value={numberOfPopulation} onChange={this.numberChange} />
           <button type="submit" data-testid="button-filter">filtar</button>
