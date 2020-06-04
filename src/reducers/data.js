@@ -7,7 +7,6 @@ const INITIAL_STATE = {
 };
 
 const data = (state = INITIAL_STATE, action) => {
-  console.log('Planetas: ', action.planets);
   switch (action.type) {
     case REQUEST_API:
       return {
