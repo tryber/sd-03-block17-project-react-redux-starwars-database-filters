@@ -10,7 +10,7 @@ import { elementType } from 'prop-types';
 
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import reducer from './store/reducers';
+import reducer from './reducers';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
