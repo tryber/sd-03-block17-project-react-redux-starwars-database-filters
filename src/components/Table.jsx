@@ -34,6 +34,16 @@ const isFiltered = (planet, nameFilter, filterByNumericValues) => {
   return true;
 };
 
+const ascOrder = (columnA, columnB) => {
+  if (columnA > columnB) return 1;
+  return -1;
+};
+
+const descOrder = (columnA, columnB) => {
+  if (columnA < columnB) return 1;
+  return -1;
+};
+
 const sortPlanets = (planetA, planetB, { column, sort }) => {
   let columnA = planetA.props.planet[column.toLowerCase()];
   let columnB = planetB.props.planet[column.toLowerCase()];
@@ -41,14 +51,8 @@ const sortPlanets = (planetA, planetB, { column, sort }) => {
     columnA = Number(columnA);
     columnB = Number(columnB);
   }
-  if (sort === 'ASC') {
-    if (columnA > columnB) return 1;
-    if (columnA < columnB) return -1;
-  }
-  if (sort === 'DESC') {
-    if (columnA < columnB) return 1;
-    if (columnA > columnB) return -1;
-  }
+  if (sort === 'ASC') return ascOrder(columnA, columnB);
+  if (sort === 'DESC') return descOrder(columnA, columnB);
   return 0;
 };
 
@@ -100,6 +104,7 @@ Table.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   nameFilter: PropTypes.string.isRequired,
   filterByNumericValues: PropTypes.arrayOf(PropTypes.object).isRequired,
+  order: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default connect(mapStateToProps)(Table);

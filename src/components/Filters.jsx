@@ -212,6 +212,7 @@ Filters.propTypes = {
   byName: PropTypes.func.isRequired,
   byNumeric: PropTypes.func.isRequired,
   rmFilter: PropTypes.func.isRequired,
+  changeSort: PropTypes.func.isRequired,
   avaliableFilters: PropTypes.objectOf(PropTypes.array).isRequired,
   activeFilters: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
