@@ -43,6 +43,7 @@ class Table extends React.Component {
     const { filterByNumericValues } = this.props;
     const dataReceived = planets.length;
     let planetoides = [];
+    let planetoidesLength = 0;
     let dataReady = false;
     let dataKeys = [];
     let regex = '';
@@ -52,7 +53,8 @@ class Table extends React.Component {
       regex = new RegExp(`${filterByName}`, 'i');
       dataKeys.splice(cutData, 1);
       dataReady = true;
-      planetoides = [...filteredPlanets(filterByNumericValues[0], planets)];
+      planetoidesLength = filterByNumericValues.length;
+      planetoides = [...filteredPlanets(filterByNumericValues[planetoidesLength -1], planets)];
     }
     return (
       <div>
