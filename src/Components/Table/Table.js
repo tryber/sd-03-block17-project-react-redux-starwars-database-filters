@@ -3,50 +3,50 @@ import { connect } from 'react-redux';
 
 import { fetchRequestAPI } from '../Actions';
 import InputNamePlanet from './InputNamePlanet';
+import CreateTable from './CreateTable';
+import NavBar from './NavBar';
 
 import './Table.css';
-import CreateTable from './CreateTable';
+
+function switchComparison(column, comparison, value, planet) {
+  switch (comparison) {
+    case 'maior que':
+      return Number(planet[column]) > Number(value);
+    case 'igual a':
+      return Number(planet[column]) === Number(value);
+    case 'menor que':
+      return Number(planet[column]) < Number(value);
+    default:
+      return [];
+  }
+}
 
 class Table extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.hearderTable = this.hearderTable.bind(this)
-  }
   componentDidMount() {
     const { apiRequestDispatch } = this.props;
 
     apiRequestDispatch();
   }
 
-  hearderTable() {
-    return (
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Rotation</th>
-          <th>Orbital</th>
-          <th>Diameter</th>
-          <th>Climate</th>
-          <th>Gravity</th>
-          <th>Terrain</th>
-          <th>Surface Water</th>
-          <th>Population</th>
-          <th>films</th>
-          <th>created</th>
-          <th>edited</th>
-          <th>url</th>
-        </tr>
-      </thead>
-    );
+  filterSelectedValues(data) {
+    const { selectInput } = this.props;
+    console.log(selectInput)
+    if (selectInput) {
+      return selectInput.reduce(
+        (acc, { column, comparison, value }) =>
+          acc.filter((planet) => switchComparison(column, comparison, value, planet)),
+        this.filteredPlanet(data),
+      );
+    }
+    return this.filteredPlanet(data);
   }
 
   filteredPlanet(data) {
     const { nameInput } = this.props;
     if (nameInput !== '') {
-    return data.filter(({ name }) => name.toLowerCase().includes(nameInput.toLowerCase()));
+      return data.filter(({ name }) => name.toLowerCase().includes(nameInput.toLowerCase()));
     }
-  return data;
+    return data;
   }
 
   render() {
@@ -60,11 +60,11 @@ class Table extends React.Component {
         </div>
         <div className="input-filter">
           <InputNamePlanet />
+          <NavBar />
         </div>
-        <table >
-          {this.hearderTable()}
-          <CreateTable data={this.filteredPlanet(data)} />
-        </table>
+        <div >
+          <CreateTable data={this.filterSelectedValues(data)} />
+        </div>
         {loading && <h1>Loading...</h1>}
       </div>
     );
@@ -75,6 +75,7 @@ const mapStateToProps = (state) => ({
   data: state.requestAPIReducer.data,
   loading: state.requestAPIReducer.loading,
   nameInput: state.filters.filterByName.name,
+  selectInput: state.filters.filterByNumericValues,
 });
 
 const mapDispatchToProps = (dispatch) => ({

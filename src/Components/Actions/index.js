@@ -1,8 +1,9 @@
-import RootAPI from '../services/RootAPI';
+import RootAPI from '../service/RootAPI';
 import {
   API_REQUEST,
   REQUEST_SUCCESS,
   INPUT_NAME,
+  FILTER_BY_NUMBERS,
 } from '../Types';
 
 const requestAPI = () => ({ type: API_REQUEST });
@@ -27,3 +28,7 @@ export const filters = (name) => ({
   value: name,
 });
 
+export const filterByNumber = (usa) => ({
+  type: FILTER_BY_NUMBERS,
+  payload: usa,
+});
