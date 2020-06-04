@@ -118,7 +118,7 @@ class Table extends Component {
     }
   }
 
-  checkState(prevProps, data, order) {
+  checkState(prevProps, data) {
     const { filters: { filterByNumericValues } } = this.props;
 
 
