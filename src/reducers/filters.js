@@ -2,6 +2,7 @@ import {
   FILTER_BY_TEXT,
   FILTER_BY_NUMERIC_VALUES,
   REMOVE_FILTERS,
+  SORT_COLUMN,
 } from '../actions/actions';
 
 const INITIAL_STATE = {
@@ -15,6 +16,10 @@ const INITIAL_STATE = {
       value: '',
     },
   ],
+  order: {
+    column: 'Name',
+    sort: 'ASC',
+  },
 };
 
 const filters = (state = INITIAL_STATE, action) => {
@@ -25,7 +30,7 @@ const filters = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         filterByNumericValues:
-          (state.filterByNumericValues[0].column === '')
+          state.filterByNumericValues[0].column === ''
             ? action.params
             : [...state.filterByNumericValues.concat(action.params)],
       };
@@ -33,9 +38,13 @@ const filters = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         filterByNumericValues: [
-          ...state.filterByNumericValues.filter((filter) => filter !== action.value),
+          ...state.filterByNumericValues.filter(
+            (filter) => filter !== action.value,
+          ),
         ],
       };
+    case SORT_COLUMN:
+      return { ...state, order: { column: action.value.column, sort: action.value.order } };
     default:
       return state;
   }

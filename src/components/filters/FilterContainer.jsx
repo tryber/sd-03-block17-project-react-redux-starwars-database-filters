@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FilterByNameBar from './FilterByNameBar';
 import FilterByValuesBar from './FilterByValuesBar';
 import SelectedFilters from './SelectedFilters';
+import SortColumnsFilter from './SortColumnsFilter';
 
 function FilterContainer({ onChange }) {
   return (
@@ -13,6 +14,9 @@ function FilterContainer({ onChange }) {
       </div>
       <div>
         <SelectedFilters />
+      </div>
+      <div>
+        <SortColumnsFilter />
       </div>
     </div>
   );

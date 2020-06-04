@@ -103,6 +103,11 @@ class FilterByValuesBar extends Component {
   }
 }
 
+FilterByValuesBar.propTypes = {
+  filtersParams: PropTypes.func.isRequired,
+  valueFilters: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
 const mapStateToProps = (state) => ({
   valueFilters: state.filters.filterByNumericValues,
 });
@@ -112,8 +117,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterByValuesBar);
-
-FilterByValuesBar.propTypes = {
-  filtersParams: PropTypes.func.isRequired,
-  valueFilters: PropTypes.arrayOf(PropTypes.object).isRequired,
-};

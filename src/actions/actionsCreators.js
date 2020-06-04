@@ -5,6 +5,7 @@ import {
   FILTER_BY_TEXT,
   FILTER_BY_NUMERIC_VALUES,
   REMOVE_FILTERS,
+  SORT_COLUMN,
 } from './actions';
 import { getAllPlanetsFromAPI } from '../services/starWarsAPI';
 
@@ -50,6 +51,11 @@ const removeFilters = (value) => ({
   value,
 });
 
+const sortColumns = (value) => ({
+  type: SORT_COLUMN,
+  value,
+});
+
 export {
   requestPlanetsInfo,
   requestPlanetInfoSucess,
@@ -58,4 +64,5 @@ export {
   filterByText,
   filterByNumericValues,
   removeFilters,
+  sortColumns,
 };

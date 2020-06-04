@@ -74,8 +74,6 @@ const mapStateToProps = (state) => ({
   valueFilters: state.filters.filterByNumericValues,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
-
 Home.defaultProps = {
   nameFilter: '',
   valueFilters: [
@@ -95,3 +93,5 @@ Home.propTypes = {
   loading: PropTypes.bool.isRequired,
   valueFilters: PropTypes.arrayOf(PropTypes.object),
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

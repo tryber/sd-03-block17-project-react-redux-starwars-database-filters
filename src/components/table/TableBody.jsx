@@ -33,6 +33,6 @@ const TableBody = ({ data }) => (
   </tbody>
 );
 
-export default TableBody;
-
 TableBody.propTypes = { data: PropTypes.arrayOf(PropTypes.object).isRequired };
+
+export default TableBody;
