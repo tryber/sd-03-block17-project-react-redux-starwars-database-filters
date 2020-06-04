@@ -5,19 +5,40 @@ import { fetchingPlanetsInfo, filterByText } from '../actions/actionsCreators';
 import Table from '../components/table/Table';
 import FilterContainer from '../components/filters/FilterContainer';
 
-function makeComparison(column, comparison, value, element) {
-  switch (comparison) {
-    case 'maior que':
-      return Number(element[column]) > Number(value);
-    case 'menor que':
-      return Number(element[column]) < Number(value);
-    case 'igual a':
-      return Number(element[column]) === Number(value);
-    default:
-      return [];
-  }
+function orderColumns(data, column, order) {
+  const integersColumns = [
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ];
+  const sortedData = () => {
+    if (integersColumns.includes(column)) {
+      return data.sort(
+        (elementA, elementB) => elementA[column] - elementB[column],
+      );
+    }
+    return data.sort((elementA, elementB) => elementA[column].localeCompare(elementB[column]));
+  };
+  if (order === 'DESC') sortedData().reverse();
+  return sortedData();
 }
+
 export class Home extends Component {
+  static makeComparison(column, comparison, value, element) {
+    switch (comparison) {
+      case 'maior que':
+        return Number(element[column]) > Number(value);
+      case 'menor que':
+        return Number(element[column]) < Number(value);
+      case 'igual a':
+        return Number(element[column]) === Number(value);
+      default:
+        return [];
+    }
+  }
+
   componentDidMount() {
     const { getPlanetsInfo } = this.props;
     getPlanetsInfo();
@@ -31,16 +52,25 @@ export class Home extends Component {
     return data;
   }
 
+  sortDataFilter(data) {
+    const { sortColumnFilter, sortOrderFilter } = this.props;
+    return orderColumns(
+      this.filterDataByText(data),
+      sortColumnFilter.toLowerCase(),
+      sortOrderFilter,
+    );
+  }
+
   filterDataByNumericValue(data) {
     const { valueFilters } = this.props;
     if (valueFilters) {
       return valueFilters.reduce(
-        (acc, { column, comparison, value }) => acc
-          .filter((element) => makeComparison(column, comparison, value, element)),
-        this.filterDataByText(data),
+        (acc, { column, comparison, value }) => acc.filter((element) => Home
+          .makeComparison(column, comparison, value, element)),
+        this.sortDataFilter(data),
       );
     }
-    return this.filterDataByText(data);
+    return this.sortDataFilter(data);
   }
 
   render() {
@@ -72,6 +102,8 @@ const mapStateToProps = (state) => ({
   loading: state.planetsInfoReducer.loading,
   nameFilter: state.filters.filterByName.name,
   valueFilters: state.filters.filterByNumericValues,
+  sortColumnFilter: state.filters.order.column,
+  sortOrderFilter: state.filters.order.sort,
 });
 
 Home.defaultProps = {
@@ -92,6 +124,8 @@ Home.propTypes = {
   planetName: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   valueFilters: PropTypes.arrayOf(PropTypes.object),
+  sortColumnFilter: PropTypes.string.isRequired,
+  sortOrderFilter: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
