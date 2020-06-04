@@ -6,6 +6,8 @@ import TableHeader from './TableHeader';
 import TableRow from './TableRow';
 import * as constants from '../services/constants';
 
+import './Table.css'
+
 const filterByNumPropertie = (list, { value, column, comparison }) => {
   const numValue = Number(value);
   switch (comparison) {
@@ -34,10 +36,12 @@ const renderBody = (planets, properties) => (
   </tbody>
 );
 
-const Table = ({ planets, searchText, numFilters, column, sort }) => {
-  if (planets.length === 0) return <div>None Planet Found</div>;
+const makeHeaders = (headers) => headers.reduce((string, prop, index) => (
+  string += (`td:nth-of-type(${index + 1}):before { content: "${prop}"; }
+`)), '');
 
-  const headers = Object.keys(planets[0]).filter((key) => key !== 'residents');
+const Table = ({ planets, searchText, numFilters, column, sort, headers }) => {
+  if (planets.length === 0) return <div>None Planet Found</div>;
 
   let planetsToShow = planets.filter((planet) => planet.name.includes(searchText));
   planetsToShow = orderByStringProperties(planetsToShow, column.toLowerCase(), sort);
@@ -46,17 +50,27 @@ const Table = ({ planets, searchText, numFilters, column, sort }) => {
   });
 
   return (
-    <table>
-      <caption>Star Wars Planets</caption>
-      <TableHeader headers={headers} />
-      {renderBody(planetsToShow, headers)}
-    </table>
+    <>
+      <style jsx="global">
+        {makeHeaders(headers)}
+      </style>
+      <table className="table">
+        <caption>Star Wars Planets</caption>
+        <TableHeader headers={headers} />
+        {renderBody(planetsToShow, headers)}
+      </table>
+    </>
   );
 };
 
-const mapStateToProps = ({ data, filters: { filterByName, filterByNumericValues, order } }) => ({
+const mapStateToProps = ({
+  data,
+  headers,
+  filters: { filterByName, filterByNumericValues, order },
+}) => ({
   planets: data,
   searchText: filterByName.name,
+  headers,
   numFilters: filterByNumericValues,
   ...order, // column and sort
 });
@@ -64,6 +78,7 @@ const mapStateToProps = ({ data, filters: { filterByName, filterByNumericValues,
 Table.propTypes = {
   searchText: PropTypes.string.isRequired,
   planets: PropTypes.arrayOf(PropTypes.shape(constants.planetShape()).isRequired).isRequired,
+  headers: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   numFilters: PropTypes.arrayOf(
     PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
   ).isRequired,

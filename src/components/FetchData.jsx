@@ -7,9 +7,7 @@ import './FetchData.css';
 
 class FetchData extends React.Component {
   componentDidMount() {
-    setTimeout(() => {
-      this.props.fetchPlanets();
-    }, 1000)
+    this.props.fetchPlanets();
   }
 
   render() {

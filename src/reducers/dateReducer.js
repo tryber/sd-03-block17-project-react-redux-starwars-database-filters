@@ -20,6 +20,7 @@ function dataReducer(state = INITIAL_STATE, action) {
         ...state,
         isFetching: false,
         data: [...action.planets],
+        headers: [...action.headers],
       });
 
     case FETCH_PLANETS_FAILURE:

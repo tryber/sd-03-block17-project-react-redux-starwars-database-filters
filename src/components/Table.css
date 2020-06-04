@@ -1,0 +1,40 @@
+table, tbody, td, tr {
+  display: block;
+  border: 1px solid #ccc;
+  flex-basis: 60%;
+}
+
+table {
+  display: flex;
+  flex-direction: column;
+}
+
+thead tr {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+}
+
+td {
+  border: none;
+  font-size: 1.3em;
+  padding-left: 50%;
+  position: relative;
+  word-wrap: break-word;
+}
+
+td:before {
+  left: 6px;
+  padding-right: 10px;
+  position: absolute;
+  top: 6px;
+  white-space: nowrap;
+  width: 45%;
+}
+
+caption {
+  font-size: 3em;
+  font-family: monospace;
+  font-weight: 700;
+  text-align: center;
+}
