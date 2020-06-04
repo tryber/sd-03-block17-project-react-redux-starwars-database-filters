@@ -24,6 +24,10 @@ class Table extends React.Component {
         { id: 13, title: 'terrain' },
       ],
     };
+    this.tbody = this.tbody.bind(this);
+    this.tbody = this.tbodyFiltersBig.bind(this);
+    this.tbody = this.tbodyFiltersLess.bind(this);
+    this.tbody = this.tbodyFiltersEqual.bind(this);
   }
 
   tbody(data, name) {
