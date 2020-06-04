@@ -46,6 +46,29 @@ function setFilter(type, name, value) {
   return (e) => e;
 }
 
+
+function checkAsc(order, data) {
+  let filteredNumberData = data;
+
+  filteredNumberData = strings.includes(order.column)
+    ? filteredNumberData.sort(sortFunction(order.column))
+    : filteredNumberData.sort((a, b) => a[order.column] - b[order.column]);
+
+
+  return filteredNumberData;
+}
+
+function checkDesc(order, data) {
+  let filteredNumberData = data;
+
+  filteredNumberData = strings.includes(order.column)
+    ? filteredNumberData.sort(sortFunction(order.column)).reverse()
+    : filteredNumberData.sort((a, b) => b[order.column] - a[order.column]);
+
+  return filteredNumberData;
+}
+
+
 class Table extends Component {
   constructor(props) {
     super(props);
@@ -68,20 +91,18 @@ class Table extends Component {
     this.checkOrder(prevProps, order, data);
   }
 
+
   checkOrder(prevProps, order, data) {
     if (prevProps.order !== order) {
       console.log('orderChanged', order.sort, order.column);
-      let filteredNumberData = data;
+      let filteredNumberData;
       if (order.sort === 'ASC') {
-        console.log(strings.includes(order.column));
-        filteredNumberData = strings.includes(order.column)
-          ? filteredNumberData.sort(sortFunction(order.column))
-          : filteredNumberData.sort((a, b) => a[order.column] - b[order.column]);
-      } else if (order.sort === 'DSC') {
-        filteredNumberData = strings.includes(order.column)
-          ? filteredNumberData.sort(sortFunction(order.column)).reverse()
-          : filteredNumberData.sort((a, b) => b[order.column] - a[order.column]);
+        filteredNumberData = checkAsc(order, data);
       }
+      if (order.sort === 'DSC') {
+        filteredNumberData = checkDesc(order, data);
+      }
+
       this.setState({ filteredNumberData });
     }
   }
@@ -106,23 +127,6 @@ class Table extends Component {
     }
 
     this.checkNumeriFilter(prevProps, filterByNumericValues, data);
-
-
-    // if (prevProps.order !== order) {
-    //   console.log('orderChanged', order.sort, order.column);
-    //   let filteredNumberData = data;
-    //   if (order.sort === 'ASC') {
-    //     console.log(strings.includes(order.column));
-    //     filteredNumberData = strings.includes(order.column)
-    //       ? filteredNumberData.sort(sortFunction(order.column))
-    //       : filteredNumberData.sort((a, b) => a[order.column] - b[order.column]);
-    //   } else if (order.sort === 'DSC') {
-    //     filteredNumberData = strings.includes(order.column)
-    //       ? filteredNumberData.sort(sortFunction(order.column)).reverse()
-    //       : filteredNumberData.sort((a, b) => b[order.column] - a[order.column]);
-    //   }
-    //   this.setState({ filteredNumberData });
-    // }
   }
 
   handleChange(e) {
