@@ -41,7 +41,7 @@ class SearchBar extends Component {
     const { valueFilters } = this.props;
     return (
       <div>
-          <NameFilter />
+        <NameFilter />
         <select
           id="column-filter"
           data-testid="column-filter"
