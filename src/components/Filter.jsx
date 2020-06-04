@@ -2,28 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 export function Filter({
-  column, comparison, value, handleClick, setFilters, filtersArray,
+  column, comparison, value, handleClick, filters,
 }) {
   function click() {
-    handleClick({ type: 'add', pay: { filter: column } });
-    setFilters(filtersArray.filter((e) => e.column !== column));
+    handleClick(column);
   }
   return (
     <div>
       <span>{column}</span>
       <span>{comparison}</span>
       <span>{value}</span>
-      <button onClick={click} type="button" data-testid="filter">x</button>
+      <div data-testid="filter">
+        <span>{column}</span>
+        <button onClick={click} type="button">x</button>
+      </div>
+
     </div>
   );
 }
 
-// const mapStateToProps = (state) => ({
-// });
+const mapStateToProps = (state) => ({
+  filters: state.filters.filterByNumericValues,
+});
 
 
 const mapDispatchToProps = {
-  handleClick: (payload) => ({ type: 'CHANGE_CATEGORY', payload }),
+  handleClick: (payload) => ({ type: 'DELETE_FILTER', payload }),
 
 };
 

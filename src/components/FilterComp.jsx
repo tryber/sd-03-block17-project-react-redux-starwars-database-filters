@@ -19,6 +19,9 @@ function FilterComp({
     setFilters(filters);
     changeId(1);
     setId((previd) => previd + 1);
+    setColumn('select');
+    setcomparison('choose');
+    setValue('');
 
     changeCategory({ type: 'remove', pay: ref.current.value });
   }
@@ -27,11 +30,7 @@ function FilterComp({
     <div>
 
       {filters.map((e) => (
-        <Filter
-          setFilters={setFilters}
-          filtersArray={filtersArray}
-          {...e}
-        />
+        <Filter {...e} />
       ))}
 
       <select

@@ -28,6 +28,16 @@ function emptyReducer(state = initialState, action) {
         },
       };
     }
+    case 'DELETE_FILTER': {
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          filterByNumericValues: state.filters.filterByNumericValues
+            .filter((e) => (e.column !== action.payload)),
+        },
+      };
+    }
 
     case 'CHANGE_ID': {
       return {
