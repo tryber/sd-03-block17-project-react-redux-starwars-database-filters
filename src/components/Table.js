@@ -30,11 +30,14 @@ const filteredPlanets = (filters, planets) => {
       if (Number(value) === 0) { return planets; }
       switch (comparison) {
         case 'maior que':
-          return result = result.filter((e) => (e[column] - value) > 0);
+          result = result.filter((e) => (e[column] - value) > 0);
+          return result;
         case 'menor que':
-          return result = result.filter((e) => (value - e[column]) > 0);
+          result = result.filter((e) => (value - e[column]) > 0);
+          return result;
         case 'igual a':
-          return result = result.filter((e) => (e[column] - value) === 0);
+          result = result.filter((e) => (e[column] - value) === 0);
+          return result;
         default:
           return result;
       }
