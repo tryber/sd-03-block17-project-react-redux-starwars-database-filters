@@ -11,7 +11,7 @@ class SearchBar extends React.Component {
       column: '',
       comparison: '',
       value: '',
-      columnOptions: ["","population", "orbital_period", "diameter", "rotation_period", "surface_water"],
+      columnOptions: ['', 'population', 'orbital_period',  'diameter', 'rotation_period', 'surface_water'],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -30,7 +30,7 @@ class SearchBar extends React.Component {
       column: this.state.column,
       comparison: this.state.comparison,
       value: this.state.value,
-    }
+    };
     this.props.filterPlanetsByNumericValues(searchFilters);
     this.filterOptions();
   }
@@ -55,16 +55,16 @@ class SearchBar extends React.Component {
     } */
     const newColumns = this.state.columnOptions.reduce((acc, option) => {
       if (option !== this.state.column) {
-        acc.push(option)
+        acc.push(option);
       }
       return acc;
     }, []);
-    this.setState({ 
+    this.setState({
       column: '',
       comparison: '',
       value: '',
       columnOptions: newColumns,
-    })
+    });
   }
 
   render() {
@@ -73,7 +73,7 @@ class SearchBar extends React.Component {
         <NameFilter />
         <div>
           <label htmlFor="filter">Filter By Numeric Value:</label>
-          <select 
+          <select
             value={this.state.column}
             id="filter"
             onChange={(event) => this.handleChange(event, 'column')}
@@ -81,7 +81,11 @@ class SearchBar extends React.Component {
           >
             {this.state.columnOptions.map((option) => <option value={option} key={option}>{option}</option>)}
           </select>
-          <select value={this.state.comparison} onChange={(event) => this.handleChange(event, 'comparison')} data-testid="comparison-filter">
+          <select
+            value={this.state.comparison}
+            onChange={(event) => this.handleChange(event, 'comparison')}
+            data-testid="comparison-filter"
+          >
             <option value="" />
             <option value="maior que">maior que</option>
             <option value="igual a">igual a</option>
@@ -98,9 +102,9 @@ class SearchBar extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+/* const mapStateToProps = (state) => ({
   numericFilters: state.filters.filterByNumericValues,
-});
+}); */
 
 const mapDispatchToProps = (dispatch) => ({
   filterPlanetsByNumericValues: (estado) => dispatch(filterPlanetsByNumericValues(estado)),
@@ -108,12 +112,12 @@ const mapDispatchToProps = (dispatch) => ({
 
 SearchBar.propTypes = {
   filterPlanetsByNumericValues: PropTypes.func,
-  numericFilters: PropTypes.arrayOf(PropTypes.object),
+  // numericFilters: PropTypes.arrayOf(PropTypes.object),
 };
 
 SearchBar.defaultProps = {
   filterPlanetsByNumericValues: null,
-  numericFilters: null,
+  // numericFilters: null,
 };
 
-export default connect(mapStateToProps , mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
