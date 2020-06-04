@@ -1,4 +1,7 @@
-import { FILTER_BY_NAME } from '../actions/index';
+import {
+  FILTER_BY_NAME,
+  FILTER_BY_NUMERIC_VALUE,
+} from '../actions/index';
 
 const initialState = {
   filterByName: {
@@ -9,7 +12,7 @@ const initialState = {
       column: '',
       comparison: '',
       value: '',
-    }
+    },
   ],
 };
 
@@ -23,6 +26,16 @@ export const filters = (state = initialState, action) => {
           name: action.payload,
         },
       };
+    }
+
+    case FILTER_BY_NUMERIC_VALUE: {
+      const {column, comparison, value} = action.payload
+      return {
+        ...state,
+        filterByNumericValues: (state.filterByNumericValues[0].column === '')
+          ? [{column, comparison, value}] 
+          : [...state.filterByNumericValues, {column, comparison, value}],
+      }
     }
 
     default:

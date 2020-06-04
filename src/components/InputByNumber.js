@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
 
 class InputByNumber extends Component {
   render() {
+    const { changeFilter } = this.props;
     return (
       <div>
         <p className='control'>
           <input
+            id='value'
             className='input is-info'
             type='number'
             placeholder='Informe um número'
             data-testid='value-filter'
+            onChange={(e) => changeFilter(e)}
           />
         </p>
       </div>
@@ -18,5 +20,4 @@ class InputByNumber extends Component {
   }
 }
 
-// export default connect(null, mapDispatchToProps)(InputByNumber);
 export default InputByNumber;

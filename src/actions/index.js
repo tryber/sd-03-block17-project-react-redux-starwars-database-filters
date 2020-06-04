@@ -4,9 +4,7 @@ export const REQUEST_PLANETS = 'REQUEST_PLANETS';
 export const REQUEST_PLANETS_SUCCESS = 'REQUEST_PLANETS_SUCCESS';
 export const REQUEST_PLANETS_FAILURE = 'REQUEST_PLANETS_FAILURE';
 export const FILTER_BY_NAME = 'FILTER_BY_NAME';
-export const FILTER_BY_COLUMN = 'FILTER_BY_COLUMN'
-export const FILTER_BY_COMPARISON = 'FILTER_BY_COMPARISON'
-export const FILTER_BY_VALUE = 'FILTER_BY_VALUE'
+export const FILTER_BY_NUMERIC_VALUE = 'FILTER_BY_NUMERIC_VALUE';
 
 const requestPlanets = () => ({
   type: REQUEST_PLANETS, 
@@ -38,3 +36,8 @@ export const filterByName = (payload) => ({
   type: FILTER_BY_NAME,
   payload,
 })
+
+export const filterByNumericValue = (payload) => ({
+  type: FILTER_BY_NUMERIC_VALUE,
+  payload,
+});

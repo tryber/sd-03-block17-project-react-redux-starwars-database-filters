@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 class SelectColumn extends Component {
+  verifyAvaliableFilters() {
+    const { numericValues, optionState } = this.props;
+    const avaliableOptions = [];
+    const shouldNotBeAvaliable = numericValues.map(({ column }) => column);
+    optionState.forEach((option) => {
+      if (shouldNotBeAvaliable.every((notAoption) => notAoption !== option)) {
+        avaliableOptions.push(option);
+      }
+    });
+
+    return avaliableOptions;
+  }
+
   render() {
+    const { changeFilter } = this.props;
+
     return (
       <div className='control'>
         <div className='select is-info'>
-          <select data-testid='column-filter'>
+          <select
+            id='column'
+            data-testid='column-filter'
+            onChange={(e) => changeFilter(e)}
+          >
             <option value=''></option>
-            <option value='population'>population</option>
-            <option value='orbital_period'>orbital_period</option>
-            <option value='diameter'>diameter</option>
-            <option value='rotation_period'>rotation_period</option>
-            <option value='surface_water'>surface_water</option>
+            {this.verifyAvaliableFilters().map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -20,5 +39,9 @@ class SelectColumn extends Component {
   }
 }
 
-// export default connect(null, mapDispatchToProps)(SelectColumn);
-export default SelectColumn;
+const mapStateToProps = (state) => ({
+  optionState: state.apiReducer.optionData,
+  numericValues: state.filters.filterByNumericValues,
+});
+
+export default connect(mapStateToProps)(SelectColumn);

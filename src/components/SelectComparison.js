@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
 
 class SelectComparison extends Component {
   render() {
+    const { changeFilter } = this.props;
     return (
       <div className='control'>
         <div className='select is-info'>
-          <select data-testid='comparison-filter'>
+          <select
+            data-testid='comparison-filter'
+            id='comparison'
+            onChange={(e) => changeFilter(e)}
+          >
             <option value=''></option>
-            <option value='biggerThen'>maior que</option>
-            <option value='equalTo'>igual a</option>
-            <option value='lessThan'>menor que</option>
+            <option value='maior que'>maior que</option>
+            <option value='igual a'>igual a</option>
+            <option value='menor que'>menor que</option>
           </select>
         </div>
       </div>
@@ -18,5 +22,4 @@ class SelectComparison extends Component {
   }
 }
 
-// export default connect(null, mapDispatchToProps)(SelectComparison);
 export default SelectComparison;
