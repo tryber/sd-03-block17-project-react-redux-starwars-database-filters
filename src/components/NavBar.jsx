@@ -37,7 +37,7 @@ class NavBar extends Component {
               data-testid="column-filter"
               onClick={(e) => this.handleChangeInput('column', e.target.value)}
             >
-              <option>NodeName</option>
+              <option></option>
               <option>population</option>
               <option>orbital_period</option>
               <option>diameter</option>
@@ -66,14 +66,13 @@ class NavBar extends Component {
 
   render() {
     const { selectInput } = this.props;
-    const usa = this.state;
     return (
       <div>
         {this.sideBar()}
         <button
           type="button"
           data-testid="button-filter"
-          onClick={() => selectInput(usa)}
+          onClick={() => selectInput(this.state)}
         >
           Filtrar
         </button>

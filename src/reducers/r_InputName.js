@@ -1,10 +1,15 @@
-import { FILTER_BY_NAME, FILTER_BY_NUMBERS } from '../action/index';
+import { FILTER_BY_NAME, FILTER_BY_NUMBERS, FILTER_NUMERIC_VALUES } from '../action/index';
 
 const INITIAL_STATE = {
   filterByName: {
     name: '',
   },
   filterByNumericValues: [
+    {
+      column: '',
+      comparison: '',
+      value: '',
+    },
     {
       column: '',
       comparison: '',
@@ -25,8 +30,16 @@ const filters = (state = INITIAL_STATE, action) => {
     case FILTER_BY_NUMBERS:
       return {
         ...state,
-        filterByNumericValues: (!state.filterByNumericValues.payload)
-          ? action.payload : [...state.filterByNumericValues.concat(action.payload)],
+        filterByNumericValues: (state.filterByNumericValues[0].column === '')
+          ? [{ ...action.payload }] : [...state.filterByNumericValues.concat(action.payload)],
+      };
+    case FILTER_NUMERIC_VALUES:
+      return {
+        ...state,
+        filterByName: {
+          filterByNumericValues: (state.filterByNumericValues === '')
+            ? action.payload : '',
+        },
       };
     default:
       return state;
@@ -34,11 +47,3 @@ const filters = (state = INITIAL_STATE, action) => {
 };
 
 export default filters;
-
-// [
-//   {
-//     column: action.column,
-//     comparison: action.comparison,
-//     value: action.value,
-//   },
-// ],

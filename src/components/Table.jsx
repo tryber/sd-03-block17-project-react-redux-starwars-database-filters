@@ -23,6 +23,18 @@ const tableForm = () => (
     </tr>
   </thead>
 );
+function switchComparison(column, comparison, value, planet) {
+  switch (comparison) {
+    case 'maior que':
+      return Number(planet[column]) > Number(value);
+    case 'igual a':
+      return Number(planet[column]) === Number(value);
+    case 'menor que':
+      return Number(planet[column]) < Number(value);
+    default:
+      return [];
+  }
+}
 
 class Table extends React.Component {
 
@@ -37,7 +49,21 @@ class Table extends React.Component {
   //   }
   // }
 
-  filteredPlanets(planets) {
+
+  filterSelectedValues(data) {
+    const { selectInput } = this.props;
+    console.log(selectInput);
+    if (selectInput) {
+      return selectInput.reduce(
+        (acc, { column, comparison, value }) =>
+          acc.filter((planet) => switchComparison(column, comparison, value, planet)),
+        this.filteredPlanet(data),
+      );
+    }
+    return this.filteredPlanet(data);
+  }
+
+  filteredPlanet(planets) {
     const { filterByName } = this.props;
     if (filterByName !== '') {
       return planets.filter(({ name }) => name.toLowerCase().includes(filterByName.toLowerCase()));
@@ -47,6 +73,7 @@ class Table extends React.Component {
 
   render() {
     const { planets, isFetching } = this.props;
+    const planetsData = planets;
     return (
       <div className="container">
         <h1 className="titleTable">
@@ -59,7 +86,7 @@ class Table extends React.Component {
           <table>
             {tableForm()}
             <tbody>
-              {isFetching ? 'Loading' : <TableData data={this.filteredPlanets(planets)} />}
+              {isFetching ? 'Loading' : <TableData data={this.filterSelectedValues(planetsData)} />}
             </tbody>
           </table>
         </div>
@@ -77,6 +104,9 @@ const mapStateToProps = (state) => ({
   selectInput: state.filters.filterByNumericValues,
 });
 
+// Table.propType = {
+
+// }
 // const mapDispatch = dispatch =>
 //   bindActionCreators({ filterByName }, dispatch);
 

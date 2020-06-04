@@ -264,26 +264,26 @@ describe('2 - Sua página deve ter um campo de texto que filtra a tabela para so
 
   })
 
-  // describe('4 -  Sua página deverá ser carregada com somente um filtro de valores numéricos', () => {
-  //   test('check avaiable filters', async () => {
-  //     const { findByTestId } = renderApp();
+  describe('4 -  Sua página deverá ser carregada com somente um filtro de valores numéricos', () => {
+    test('check avaiable filters', async () => {
+      const { findByTestId } = renderApp();
 
-  //     const columnFilter = await findByTestId('column-filter');
+      const columnFilter = await findByTestId('column-filter');
 
-  //     expect(columnFilter.children).toHaveLength(3);
+      expect(columnFilter.children).toHaveLength(3);
 
-  //     const expectedColumnFilters = ['orbital_period',
-  //                                    'rotation_period'];
+      const expectedColumnFilters = ['orbital_period',
+                                     'rotation_period'];
 
-  //     let foundColumnFilterArray = [];
+      let foundColumnFilterArray = [];
       
-  //     for(let filter of columnFilter.children) {
-  //       foundColumnFilterArray.push(filter.innerHTML);
-  //     }
+      for(let filter of columnFilter.children) {
+        foundColumnFilterArray.push(filter.innerHTML);
+      }
 
-  //     expect(foundColumnFilterArray).toEqual(expect.arrayContaining(expectedColumnFilters));
-  //   })
-  // })
+      expect(foundColumnFilterArray).toEqual(expect.arrayContaining(expectedColumnFilters));
+    })
+  })
 
   // describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao ser clicado, o apaga e desfaz suas filtragens dos dados da tabela', () => {
   //   test('should show the previously selected filters', async () => {
