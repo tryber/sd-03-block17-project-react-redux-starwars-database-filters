@@ -32,6 +32,7 @@ class NumericFilter extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.filterMenu = this.filterMenu.bind(this);
+    this.showActivesFilters = this.showActivesFilters.bind(this);
   }
 
   handleChange(type, value) {
@@ -40,26 +41,32 @@ class NumericFilter extends React.Component {
     });
   }
 
-  
   filterMenu() {
     store.subscribe(() => {
       const { column } = this.state;
-      let columnPos = columnOptions.indexOf(column);
+      const columnPos = columnOptions.indexOf(column);
       if (columnPos > 0) {
         columnOptions.splice(columnPos, 1);
       }
     });
   }
 
+  showActivesFilters (filters) {
+    filters.map(({ column, comparison, value }) => {
+      if (column !== '' && comparison !== '' && value !== '') {
+        return <div key={`${column} Filter`}><span>{`Filter: ${column} ${comparison} ${value}`}</span></div>
+      }
+      return undefined;
+    });
+  }
+
   render() {
     this.filterMenu();
     (columnOptions.length > 1) ? showFilter = true : showFilter = false;
-
     const { getPlanetByNumericValues, filterByNumericValues } = this.props;
     return (
       <div>
-        {showFilter &&
-        <div>
+        {showFilter && <div>
           <label htmlFor="column-filter">Filtre por coluna</label>
           <select
             data-testid="column-filter" name="column-filter"
@@ -80,19 +87,9 @@ class NumericFilter extends React.Component {
             onChange={(e) => this.handleChange('value', e.target.value)}
           />
           <button
-            data-testid="button-filter"
-            onClick={() => getPlanetByNumericValues(this.state)}
-          >Filtrar</button>
-        </div>
-        }
-        <div>
-          {filterByNumericValues.map(({ column, comparison, value }) => {
-            if (column !== '' && comparison !== '' && value !== '') {
-              return <div key={`${column} Filter`}><span>{`Filter: ${column} ${comparison} ${value}`}</span></div>
-            }
-            return undefined;
-          })}
-        </div>
+            data-testid="button-filter" onClick={() => getPlanetByNumericValues(this.state)}
+          >Filtrar</button></div>
+        }{this.showActivesFilters(filterByNumericValues)}
       </div>
     );
   }
