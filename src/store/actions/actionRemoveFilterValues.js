@@ -1,8 +1,7 @@
 import * as types from './actionTypes';
 
-const actionRemoveFilterValues = (index, column) => ({
+const actionRemoveFilterValues = (column) => ({
   type: types.REMOVE_FILTER_VALUE,
-  index,
   column,
 });
 

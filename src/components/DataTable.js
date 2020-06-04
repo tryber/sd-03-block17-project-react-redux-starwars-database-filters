@@ -78,7 +78,10 @@ export class DataTable extends Component {
   }
 
   orderPlanets(filteredData) {
-    const { order: { column, sort } } = this.props;
+    -
+    const { order: { sort } } = this.props;
+    let { order: { column } } = this.props;
+    column = (column === 'Name') ? 'name' : column;
     const numberValues = ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
     const newData = (sort === 'ASC')
       ? this.orderASC(numberValues, column, filteredData)

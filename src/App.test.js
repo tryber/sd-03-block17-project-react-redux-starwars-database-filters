@@ -323,6 +323,7 @@ describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou 
       appPlanetList.push(row.children[0].innerHTML);
     }
     appPlanetList.shift();
+    console.log(store.getState())
     expect(sortedPlanets).toEqual(appPlanetList);
     expect(store.getState().filters.order.column).toEqual('Name');
     expect(store.getState().filters.order.sort).toEqual('ASC');

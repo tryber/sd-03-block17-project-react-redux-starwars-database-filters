@@ -39,9 +39,9 @@ export class Filters extends Component {
     return true;
   }
 
-  handleRemove(index, column) {
+  handleRemove(column) {
     const { removeFilter } = this.props;
-    removeFilter(index, column);
+    removeFilter(column);
   }
 
   renderInputName() {
@@ -114,16 +114,17 @@ export class Filters extends Component {
   }
 
   renderActiveFilters(filterByNumericValues) {
+    if (filterByNumericValues[0].column === '') return false;
     return (
       <div>
-        {filterByNumericValues.map(({ column, comparison, value }, index) => (
+        {filterByNumericValues.map(({ column, comparison, value }) => (
           <p data-testid="filter">
             {`Filtro aplicado: ${column} | ${comparison} | ${value} `}
             <button
+              key={column}
               type="button"
               value="X"
-
-              onClick={() => this.handleRemove(index, column)}
+              onClick={() => this.handleRemove(column)}
             >
               X
             </button>
@@ -146,7 +147,7 @@ export class Filters extends Component {
         </div>
         <SortFilters />
         <div>
-          {filterByNumericValues[0].column !== '' && this.renderActiveFilters(filterByNumericValues)}
+          {this.renderActiveFilters(filterByNumericValues)}
         </div>
       </div>
     );
@@ -178,7 +179,11 @@ Filters.propTypes = {
 };
 
 Filters.defaultProps = {
-  filterByNumericValues: [],
+  filterByNumericValues: [{
+    column: '',
+    comparison: '',
+    value: '',
+  }],
   options: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
 };
 

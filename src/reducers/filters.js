@@ -12,7 +12,7 @@ const INICIAL_STATE = {
     },
   ],
   order: {
-    column: 'name',
+    column: 'Name',
     sort: 'ASC',
   },
   options: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
@@ -42,23 +42,21 @@ const addFilter = (state, column, comparison, value) => ({
   options: [...state.options].filter((option) => option !== column),
 });
 
-const removeFilter = (state, index, column) => {
-  const newArray = [...state.filterByNumericValues];
-  newArray.splice(index, 1);
+const removeFilter = (state, column) => {
+  const newArray = [...state.filterByNumericValues].filter((item) => item.column !== column);
+  console.log(column);
   return {
     filterByName: {
       ...state.filterByName,
     },
     filterByNumericValues:
       (state.filterByNumericValues.length === 1)
-        ? [
-          {
-            column: '',
-            comparison: '',
-            value: '',
-          },
-        ]
-        : [...newArray],
+        ? [{
+          column: '',
+          comparison: '',
+          value: '',
+        }]
+        : newArray,
     order: { ...state.order },
     options: [...state.options, column],
   };
@@ -80,7 +78,7 @@ const filters = (state = INICIAL_STATE, action) => {
     case types.ADD_FILTER_VALUE:
       return addFilter(state, action.column, action.comparison, action.value);
     case types.REMOVE_FILTER_VALUE:
-      return removeFilter(state, action.index, action.column);
+      return removeFilter(state, action.column);
     case types.SORT_FILTER:
       return sortFilter(state, action.order);
     default:
