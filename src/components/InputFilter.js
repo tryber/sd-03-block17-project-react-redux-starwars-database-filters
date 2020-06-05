@@ -19,7 +19,7 @@ export class InputFilter extends Component {
     return (
       <div>
         <input
-          name="filter"
+          id="filter_name"
           placeholder="Filtro por nome de Planeta"
           onChange={(e) => this.filterByName(e)}
           data-testid="name-filter"

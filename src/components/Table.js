@@ -6,7 +6,7 @@ export class Table extends Component {
   renderTableBody(filtername) {
     const { value: { data } } = this.props;
     const { results } = data;
-    console.log(filtername.toLowerCase());
+   if(document.getElementsByName('filter_name').value !== '') {
     return results.filter((element) => {
       const lowerName = element.name.toLowerCase();
       return lowerName.includes(filtername);
@@ -27,7 +27,7 @@ export class Table extends Component {
           <td>{element.edited}</td>
           <td>{element.url}</td>
         </tr>
-      ));
+      ));}
   }
 
   render() {

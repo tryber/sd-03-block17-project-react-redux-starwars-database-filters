@@ -3,13 +3,13 @@ const INITIAL_STATE = {
   data: { results: ['Loading ....'] },
   filters: {
     filterByName: {
-      name: ' ',
+      name: '',
     },
   },
   filterByNumericValues: [
     {
-      column: ' ',
-      comparison: ' ',
+      column: '',
+      comparison: '',
       value: 0,
     }],
 };
