@@ -36,21 +36,21 @@ const renderBody = (planets, properties) => (
   </tbody>
 );
 
-const makeHeaders = (headers, ...stringStyles) => {
-  const nthOfType_before = (order, title) => (`
+const makeHeadersInMultiHeadersTable = (headers, ...stringStyles) => {
+  const nthOfTypeBefore = (order, title) => (`
   td:nth-of-type(${order}):before {
     content: "${title}";
   }`);
 
   return (
     <style>
-      {stringStyles.reduce((str, style) => str.concat(style) , '')
+      {stringStyles.reduce((str, style) => str.concat(style), '')
       + headers.reduce((string, prop, index) => (
-          string.concat(nthOfType_before(index + 1, constants.frendlyUser(prop)))
+          string.concat(nthOfTypeBefore(index + 1, constants.frendlyUser(prop)))
       ), '')}
     </style>
   );
-}
+};
 
 const Table = ({ planets, searchText, numFilters, column, sort, headers }) => {
   if (planets.length === 0) return <div>None Planet Found</div>;
@@ -63,7 +63,7 @@ const Table = ({ planets, searchText, numFilters, column, sort, headers }) => {
 
   return (
     <React.Fragment>
-      {makeHeaders(headers)}
+      {makeHeadersInMultiHeadersTable(headers)}
       <table className="table">
         <caption>Star Wars Planets</caption>
         <TableHeader headers={headers} />
