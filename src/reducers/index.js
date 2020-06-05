@@ -65,17 +65,12 @@ function requestReducer(state = INITIAL_STATE, action) {
     }
     case 'FILTER_PLANET_NUMERIC': {
       const { name } = action.filters.filterByName;
-      // const comparisonSignal = retornaSign(comparison);
-      // // let filteredPlanets = [];
-      // if (state.filters.filterByName.name === ' ') {
-      //   filteredPlanets = filtraNumericData(comparisonSignal, state, column, value);
-
-      // }
       return {
         ...state,
         filters: {
           filterByName: { name },
-          filterByNumericValues: [...state.filters.filterByNumericValues, action.filters.filterByNumericValues[0]],
+          filterByNumericValues: [...state.filters.filterByNumericValues,
+            action.filters.filterByNumericValues[0]],
         },
       }; }
     default:
