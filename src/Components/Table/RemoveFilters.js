@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { removeFilters } from '../Actions';
 
 class RemoveFilters extends Component {
@@ -39,7 +39,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removed: (value) => dispatch(removeFilters(value))
+  removed: (value) => dispatch(removeFilters(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RemoveFilters);

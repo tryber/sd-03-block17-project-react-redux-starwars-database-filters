@@ -21,13 +21,14 @@ const filters = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         filterByNumericValues: (state.filterByNumericValues[0].column === '')
-          ? [{...action.payload}] : [...state.filterByNumericValues.concat(action.payload)],
+          ? [{ ...action.payload }] : [...state.filterByNumericValues.concat(action.payload)],
       };
     case REMOVE_FILTER:
       return {
         ...state,
-        filterByNumericValues: [...state.filterByNumericValues.filter((filter) => filter !== action.value)],
-      }
+        filterByNumericValues:
+          [...state.filterByNumericValues.filter((filter) => filter !== action.value)],
+      };
     default:
       return state;
   }

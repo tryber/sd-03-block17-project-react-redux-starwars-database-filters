@@ -24,16 +24,16 @@ class NavBar extends Component {
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.filterColumn = this.filterColumn.bind(this);
   }
-  
+
   handleChangeInput(name, value) {
     this.setState({
       [name]: value,
     });
   }
-  
-  filterColumn(valueFilter, option){
+
+  filterColumn(valueFilter, option) {
     return !valueFilter.find(({ column }) => column === option);
-  } 
+  }
 
   sideBar() {
     const { valueFilter } = this.props;
@@ -43,8 +43,8 @@ class NavBar extends Component {
           <select
             data-testid="column-filter"
             onChange={(e) => this.handleChangeInput('column', e.target.value)}
-            >
-            <option value='' />
+          >
+            <option value="" />
             {columns.map((column) => (this.filterColumn(valueFilter, column)
             && (
               <option key={column}>{column}</option>

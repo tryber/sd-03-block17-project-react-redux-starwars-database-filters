@@ -1,23 +1,23 @@
 import React from 'react';
 
+const headers = [
+  'Name',
+  'Rotation',
+  'Orbital',
+  'Diameter',
+  'Climate',
+  'Gravity',
+  'Terrain',
+  'Surface',
+  'Population',
+  'films',
+  'created',
+  'edited',
+  'url',
+];
+
 export default function CreateTable(props) {
   const { data } = props;
-  const headers = [
-    'Name',
-    'Rotation',
-    'Orbital',
-    'Diameter',
-    'Climate',
-    'Gravity',
-    'Terrain',
-    'Surface',
-    'Population',
-    'films',
-    'created',
-    'edited',
-    'url',
-  ];
-
   return (
     <table>
       <thead>
