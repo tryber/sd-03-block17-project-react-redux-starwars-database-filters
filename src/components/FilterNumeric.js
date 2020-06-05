@@ -11,7 +11,7 @@ export class FilterNumeric extends Component {
 
   filterNumbers() {
     const { filterNumber } = this.props;
-    const textInput = document.getElementsByName('filter_name');
+    const textInput = document.getElementById('filter_name');
     const column = document.getElementById('filter');
     const comparation = document.getElementById('comparation');
     const value = document.getElementById('input-value');
