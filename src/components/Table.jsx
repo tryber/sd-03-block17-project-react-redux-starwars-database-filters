@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  fetchData, getByName, getByNumericValue, doMoreFilter, removeFilter, returnColumn,
+  fetchData, getByName, getByNumericValue, doMoreFilter, removeFilter, returnColumn, sortColumns, changedataASC, changedataDESC,
 } from '../actions/action';
 
 const header = {
@@ -39,6 +39,9 @@ class Table extends React.Component {
       comparison: '',
       value: '',
       filterValues: false,
+      asc: true,
+      desc: false,
+      ordercolumn: 'name',
     };
   }
 
@@ -71,9 +74,7 @@ class Table extends React.Component {
     const { getByNumericValue, doMoreFilter } = this.props;
     const { column, comparison, value } = this.state;
     getByNumericValue(column, comparison, value);
-    this.setState({
-      filterValues: true, column: '', comparison: '', value: '',
-    });
+    this.setState({ filterValues: true });
     doMoreFilter(column);
   }
 
@@ -114,9 +115,28 @@ class Table extends React.Component {
     );
   }
 
+  changeSortColumn(e) {
+    this.setState({ ordercolumn: e.target.value });
+  }
+
+  changeASC() {
+    this.setState((state) => ({ asc: !state.asc, desc: !state.desc }));
+  }
+
+  changeDESC() {
+    this.setState((state) => ({ asc: !state.asc, desc: !state.desc }));
+  }
+
+  doSortColumns(ordercolumn, asc, desc) {
+    const { sortColumns, changedataASC, changedataDESC } = this.props;
+    if (asc) { sortColumns(ordercolumn, asc); changedataASC(ordercolumn); }
+    if (desc) { sortColumns(ordercolumn, desc); changedataDESC(ordercolumn); }
+  }
+
   render() {
-    const { data, filter, numericFilter, state } = this.props;
-    const { nameFilter, filterValues } = this.state;
+    const { data, filter, numericFilter, order, columnOptions } = this.props;
+    const { nameFilter, filterValues, asc, desc, ordercolumn } = this.state;
+    console.log(numericFilter)
     return (
       <div>
         <label htmlFor="name-filter">
@@ -132,20 +152,20 @@ class Table extends React.Component {
             <button type="button" onClick={() => this.doRemoveFilter(e)}>X</button>
           </div>
         ))}
-        <div>Ordenar por:
-            <select>
-              <option>nome</option>
-              <option>população</option>
-            </select>
-            <label htmlFor="asc">ASC<input type="radio" id="asc" name="ord" /></label>
-            <label htmlFor="desc">DESC<input type="radio" id="desc" name="ord" /></label>
-            <button type="button">ordenar</button>
-
+        <div>
+          <div>Ordenar por:
+          <select value={ordercolumn} data-testid="column-sort" onChange={(e) => this.changeSortColumn(e)}>
+            {Object.keys(header).map((e) => <option value={e}>{e}</option>)}
+          </select>
+            <label><input type="radio" data-testid="column-sort-input" value="ASC" id="asc" checked={asc} onClick={() => this.changeASC()} />ASC</label>
+            <label><input type="radio" data-testid="column-sort-input" id="desc" value="DESC" checked={desc} onClick={() => this.changeDESC()} />DESC</label>
+            <button type="button" data-testid="column-sort-button" onClick={() => this.doSortColumns(ordercolumn, asc, desc)}>ordenar</button>
+          </div>
         </div>
         <table>
           <thead>
             <tr>
-              {Object.values(header).map((e) => <th>{e}</th>)}
+              {Object.keys(header).map((e) => <th>{e}</th>)}
             </tr>
           </thead>
           <tbody>
@@ -175,6 +195,7 @@ const mapStateToProps = (state) => ({
   data: state.dataReducer.data,
   filter: state.filters.filterByName,
   numericFilter: state.filters.filterByNumericValues,
+  order: state.filters.order,
   columnOptions: state.columnsReducer,
   state,
 });
@@ -186,6 +207,9 @@ const mapDispatchToProps = (dispatch) => ({
   doMoreFilter: (column) => dispatch(doMoreFilter(column)),
   removeFilter: (filter) => dispatch(removeFilter(filter)),
   returnColumn: (column) => dispatch(returnColumn(column)),
+  sortColumns: (column, sort) => dispatch(sortColumns(column, sort)),
+  changedataASC: (column) => dispatch(changedataASC(column)),
+  changedataDESC: (column) => dispatch(changedataDESC(column)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

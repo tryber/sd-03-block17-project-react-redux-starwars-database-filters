@@ -25,6 +25,7 @@ const getByValue = (value) => ({
   value,
 });
 
+
 const getByNumericValue = (column, comparison, value) => ({
   type: 'FILTER_NUMERIC',
   column,
@@ -47,6 +48,22 @@ const returnColumn = (column) => ({
   column,
 });
 
+const sortColumns = (column, sort) => ({
+  type: 'SORT_COLUMNS',
+  column,
+  sort,
+});
+
+const changedataASC = (column) => ({
+  type: 'CHANGE_DATAASC',
+  column,
+});
+
+const changedataDESC = (column) => ({
+  type: 'CHANGE_DATADESC',
+  column,
+});
+
 function fetchData() {
   return (dispatch) => {
     getInfo()
@@ -64,4 +81,7 @@ export {
   doMoreFilter,
   removeFilter,
   returnColumn,
+  sortColumns,
+  changedataASC,
+  changedataDESC,
 };
