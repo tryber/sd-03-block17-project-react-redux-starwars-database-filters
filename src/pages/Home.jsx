@@ -72,7 +72,7 @@ const Home = ({
   ) : (
     <div>
       <div>
-        <FilterContainer onChange={(event) => planetName(event.target.value)} />
+        <FilterContainer />
       </div>
       {filterDataByNumericValue.length === 0 ? (
         <h1>Nenhum Planeta Encontrado</h1>
@@ -82,10 +82,6 @@ const Home = ({
     </div>
   );
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  planetName: (planetName) => dispatch(filterByText(planetName)),
-});
 
 const mapStateToProps = (state) => ({
   data: state.planetsInfoReducer.data,
@@ -111,10 +107,9 @@ Home.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   loading: PropTypes.bool.isRequired,
   nameFilter: PropTypes.string,
-  planetName: PropTypes.func.isRequired,
   sortColumnFilter: PropTypes.string.isRequired,
   sortOrderFilter: PropTypes.string.isRequired,
   valueFilters: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);
