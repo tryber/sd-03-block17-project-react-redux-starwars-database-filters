@@ -1,4 +1,4 @@
-import { INPUT_NAME, FILTER_BY_NUMBERS } from '../Components/Types';
+import { INPUT_NAME, FILTER_BY_NUMBERS, REMOVE_FILTER } from '../Components/Types';
 
 const INITIAL_STATE = {
   filterByName: {
@@ -23,6 +23,11 @@ const filters = (state = INITIAL_STATE, action) => {
         filterByNumericValues: (state.filterByNumericValues[0].column === '')
           ? [{...action.payload}] : [...state.filterByNumericValues.concat(action.payload)],
       };
+    case REMOVE_FILTER:
+      return {
+        ...state,
+        filterByNumericValues: [...state.filterByNumericValues.filter((filter) => filter !== action.value)],
+      }
     default:
       return state;
   }

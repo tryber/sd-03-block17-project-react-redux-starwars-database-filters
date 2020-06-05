@@ -16,16 +16,17 @@ export default function CreateTable(props) {
     'created',
     'edited',
     'url',
-  ]
+  ];
+
   return (
     <table>
       <thead>
-        {headers.map((title) =>
-          <th key={title}>{title}</th>
-        )}
+        <tr>
+          {headers.map((title) => <th key={title}>{title}</th>)}
+        </tr>
       </thead>
       <tbody>
-        {data && data.map((planet, i) =>
+        {data.map((planet, i) =>
           <tr key={`${planet.name} row`} className={i % 2 === 0 ? 'Par' : 'Impar'}>
             <td>{planet.name}</td>
             <td>{planet.rotation_period}</td>

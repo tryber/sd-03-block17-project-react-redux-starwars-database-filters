@@ -5,6 +5,7 @@ import { fetchRequestAPI } from '../Actions';
 import InputNamePlanet from './InputNamePlanet';
 import CreateTable from './CreateTable';
 import NavBar from './NavBar';
+import RemoveFilters from './RemoveFilters';
 
 import './Table.css';
 
@@ -30,7 +31,6 @@ class Table extends React.Component {
 
   filterSelectedValues(data) {
     const { selectInput } = this.props;
-    console.log(selectInput)
     if (selectInput) {
       return selectInput.reduce(
         (acc, { column, comparison, value }) =>
@@ -52,7 +52,7 @@ class Table extends React.Component {
   render() {
     const { loading, data } = this.props;
     return (
-      <div className="TabelaProdutos" >
+      <div>
         <div>
           <hr style={{ border: 'outset' }} />
           <h1>Star Wars Table</h1>
@@ -61,8 +61,9 @@ class Table extends React.Component {
         <div className="input-filter">
           <InputNamePlanet />
           <NavBar />
+          <RemoveFilters />
         </div>
-        <div >
+        <div className="TabelaProdutos">
           <CreateTable data={this.filterSelectedValues(data)} />
         </div>
         {loading && <h1>Loading...</h1>}

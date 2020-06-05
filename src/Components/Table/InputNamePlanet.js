@@ -9,16 +9,13 @@ class InputNamePlanet extends Component {
   render() {
     const { getFilters } = this.props;
     return (
-      <form className="value">
-        <div className="form-group">
-          <input
-            className="form-control"
-            placeholder="Filter Name"
-            type="text"
-            data-testid="name-filter"
-            onChange={(e) => getFilters(e.target.value)}
-          />
-        </div>
+      <form>
+        <input
+          placeholder="Filter Name"
+          type="text"
+          data-testid="name-filter"
+          onChange={(e) => getFilters(e.target.value)}
+        />
       </form>
     );
   }

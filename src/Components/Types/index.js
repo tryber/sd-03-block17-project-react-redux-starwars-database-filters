@@ -2,3 +2,4 @@ export const API_REQUEST = 'API_REQUEST';
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 export const INPUT_NAME = 'INPUT_NAME';
 export const FILTER_BY_NUMBERS = 'FILTER_BY_NUMBERS';
+export const REMOVE_FILTER = 'REMOVE_FILTER';

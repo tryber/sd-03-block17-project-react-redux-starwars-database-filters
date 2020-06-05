@@ -23,9 +23,12 @@ const renderApp = () => {
 }
 
 const mockFetch = () => {
-  const apiResponse = Promise.resolve(testData);
+  const apiResponse = Promise.resolve({
+    json: () => Promise.resolve(testData),
+    ok: true,
+  });
   global.fetch = jest.fn(() => apiResponse);
-}
+};
 
 describe('1 - Fazer uma requisição para o endpoint /planets da API de Star Wars e preencher uma tabela com os dados retornados, com exceção dos da coluna residents', () => {
   beforeAll(mockFetch);
@@ -115,11 +118,11 @@ describe('2 - Sua página deve ter um campo de texto que filtra a tabela para so
     const { findByTestId } = renderApp();
     const filterField = await findByTestId('name-filter');
     fireEvent.change(filterField, {target: { value: 'o' }});
-    expect(store.getState().filters.filterByName.value).toEqual('o');
+    expect(store.getState().filters.filterByName.name).toEqual('o');
     fireEvent.change(filterField, {target: { value: 'oo' }});
-    expect(store.getState().filters.filterByName.value).toEqual('oo');
+    expect(store.getState().filters.filterByName.name).toEqual('oo');
     fireEvent.change(filterField, {target: { value: '' }});
-    expect(store.getState().filters.filterByName.value).toEqual('');
+    expect(store.getState().filters.filterByName.name).toEqual('');
   })
 })
 

@@ -5,7 +5,7 @@
 .TabelaProdutos table {
   border: black solid 1px;
   margin: auto;
-  width: 70%;
+  width: 90%;
 }
 
 .TabelaProdutos .Par {
@@ -17,16 +17,8 @@
 }
 
 .input-filter {
-  align-items: center;
-  border: double;
-  cursor: pointer;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  max-width: 90%;
   margin: auto;
-  margin-bottom: 10px;
-  width: 77%;
-}
-
-.value {
-  margin-top: 1.5%;
 }
