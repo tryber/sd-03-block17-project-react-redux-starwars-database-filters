@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchPlanetsList } from '../actions';
 import PlanetLine from './PlanetLine';
-import TableHeader from './TableHeader';
+import HeaderTable from './HeaderTable';
 
 class Table extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class Table extends Component {
       return (
         <table className="table-div">
           <thead>
-            <TableHeader />
+            <HeaderTable />
           </thead>
           <tbody>
             {this.filterPlanets().map((planet) => <PlanetLine planet={planet} key={planet.name} />)}
