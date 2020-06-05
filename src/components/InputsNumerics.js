@@ -12,7 +12,7 @@ class InputsNumerics extends React.Component {
       comparison: 'bigger_then',
       valueFilter: '',
       options: [
-        { value: '', text: ''},
+        { value: '', text: '' },
         { value: 'population', text: 'population' },
         { value: 'orbital_period', text: 'orbital_period' },
         { value: 'diameter', text: 'diameter' },
@@ -44,8 +44,8 @@ class InputsNumerics extends React.Component {
     const { selectors } = this.props;
     selectors(filterSelect, comparison, valueFilter);
     const newOptions = options.filter((item) =>
-    item.value !== filterSelect || item.value === "");
-    this.setState({ options: newOptions});
+    item.value !== filterSelect || item.value === '');
+    this.setState({ options: newOptions });
   }
 
   selectFilter() {
