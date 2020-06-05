@@ -1,0 +1,47 @@
+body {
+  /* background-image: url(https://ncdfaesa.files.wordpress.com/2016/12/stars.jpg?w=810&h=424&crop=1); */
+  font-family: monospace;
+  margin: 0;
+}
+
+.header {
+  align-items: center;
+  background: black;
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu {
+  background-image: url(https://notizie.tiscali.it/export/sites/notizie/.galleries/16/terra_siamo_soli.jpg_471698149.jpg);
+  flex-grow: 1;
+}
+
+.menu ul {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.menu li {
+  color: whitesmoke;
+  font-size: 1.3em;
+  list-style: none;
+  margin: 1px 15px;
+}
+
+.menu select {
+  border-radius: 1px;
+  margin: 1px;
+}
+
+.menu option {
+  background-color: whitesmoke;
+}
+
+.menu input {
+  border-radius: 2px;
+}
+
+h1 {
+  color: antiquewhite;
+  font-size: 1.7em;
+}

@@ -1,24 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import Table from './components/Table';
+import NavBar from './components/NavBar';
+import FilterPlanets from './components/FilterPlanets';
+import RemoveFilters from './components/RemoveFilters';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <NavBar />
+      <FilterPlanets />
+      <Table />
+      <RemoveFilters />
     </div>
   );
 }
