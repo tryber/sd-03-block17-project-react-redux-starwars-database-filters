@@ -21,26 +21,55 @@ class SortField extends React.Component {
     });
   }
 
+  renderRadio() {
+    return (
+      <span>
+        <label htmlFor="sort">
+          Ascendente
+          <input
+            data-testid="column-sort-input"
+            name="sort"
+            onChange={(e) => this.handleState(e)}
+            type="radio"
+            value="ASC"
+            defaultValue
+          />
+        </label>
+        <label htmlFor="sort">
+          Descendente
+          <input
+            data-testid="column-sort-input"
+            name="sort"
+            onChange={(e) => this.handleState(e)}
+            type="radio"
+            value="DESC"
+          />
+        </label>
+      </span>
+    );
+  }
+
   render() {
     const { column, sort } = this.state;
     const { columns } = this.props;
     return (
       <div>
-        <select data-testid="column-sort" onChange={(e) => this.handleState(e)} name="column" defaultValue="Name">
+        <select
+          data-testid="column-sort"
+          onChange={(e) => this.handleState(e)}
+          name="column"
+          defaultValue="Name"
+        >
           {!!columns && Object.keys(columns).map((value) => (<option>{value}</option>))}
         </select>
-        <label name="sort">
-          {' '}
-          Ascendente
-          <input data-testid="column-sort-input" name="sort" onChange={(e) => this.handleState(e)} type="radio" value="ASC" defaultValue />
-        </label>
-        <label name="sort">
-          {' '}
-          Descendente
-          <input data-testid="column-sort-input" name="sort" onChange={(e) => this.handleState(e)} type="radio" value="DESC" />
-        </label>
-
-        <button data-testid="column-sort-button" type="button" onClick={() => this.formatDataToDispatch(column, sort)}>Sort</button>
+        {this.renderRadio()}
+        <button
+          data-testid="column-sort-button"
+          type="button"
+          onClick={() => this.formatDataToDispatch(column, sort)}
+        >
+          Sort
+        </button>
       </div>
     );
   }
