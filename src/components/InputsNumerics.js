@@ -8,9 +8,17 @@ class InputsNumerics extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterSelect: 'population',
+      filterSelect: '',
       comparison: 'bigger_then',
       valueFilter: '',
+      options: [
+        { value: '', text: ''},
+        { value: 'population', text: 'population' },
+        { value: 'orbital_period', text: 'orbital_period' },
+        { value: 'diameter', text: 'diameter' },
+        { value: 'rotation_period', text: 'rotation_period' },
+        { value: 'surface_water', text: 'surface_water' },
+      ],
     };
     this.onChangeFilterSelect = this.onChangeFilterSelect.bind(this);
     this.onChangeComparison = this.onChangeComparison.bind(this);
@@ -19,7 +27,8 @@ class InputsNumerics extends React.Component {
   }
 
   onChangeFilterSelect(event) {
-    this.setState({ filterSelect: event.target.value });
+    const { value } = event.target;
+    this.setState({ filterSelect: value });
   }
 
   onChangeComparison(event) {
@@ -31,19 +40,26 @@ class InputsNumerics extends React.Component {
   }
 
   onClickDispatchSelectors() {
-    const { filterSelect, comparison, valueFilter } = this.state;
+    const { filterSelect, comparison, valueFilter, options } = this.state;
     const { selectors } = this.props;
     selectors(filterSelect, comparison, valueFilter);
+    const newOptions = options.filter((item) =>
+    item.value !== filterSelect || item.value === "");
+    this.setState({ options: newOptions});
   }
 
   selectFilter() {
+    const { options } = this.state;
     return (
       <select data-testid="column-filter" onChange={this.onChangeFilterSelect}>
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {
+          options.map((item) =>
+            <option
+              key={item.value}
+              value={item.value}>
+              {item.text}
+            </option>)
+        }
       </select>
     );
   }
