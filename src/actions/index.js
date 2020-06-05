@@ -28,7 +28,7 @@ export function requestFetch() {
 
     return apiPlanets().then(
       (json) => dispatch(successPlanets(json.results)),
-      (error) => dispatch(failurePlanets(error))
+      (error) => dispatch(failurePlanets(error)),
     );
   };
 }

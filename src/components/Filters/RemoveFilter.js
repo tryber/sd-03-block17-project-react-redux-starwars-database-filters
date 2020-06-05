@@ -32,7 +32,7 @@ RemoveFilter.propTypes = {
       column: PropTypes.string,
       comparison: PropTypes.string,
       value: PropTypes.string,
-    })
+    }),
   ).isRequired,
   removeNumeric: PropTypes.func.isRequired,
 };

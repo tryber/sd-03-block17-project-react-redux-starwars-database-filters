@@ -12,7 +12,7 @@ function Filters() {
       <FilterOrder />
       <RemoveFilter />
     </div>
-  )
-};
+  );
+}
 
 export default Filters;

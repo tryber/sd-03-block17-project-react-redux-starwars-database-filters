@@ -67,7 +67,7 @@ TableBody.propTypes = {
       created: PropTypes.string,
       edited: PropTypes.string,
       url: PropTypes.string,
-    })
+    }),
   ).isRequired,
   name: PropTypes.string.isRequired,
   numericValues: PropTypes.arrayOf(
@@ -77,7 +77,7 @@ TableBody.propTypes = {
       value: PropTypes.string,
       columnSort: PropTypes.string,
       sort: PropTypes.string,
-    })
+    }),
   ).isRequired,
   columnSort: PropTypes.string.isRequired,
   sort: PropTypes.string.isRequired,

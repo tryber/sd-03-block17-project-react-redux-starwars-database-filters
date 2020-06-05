@@ -40,22 +40,6 @@ class FilterValue extends React.Component {
     this.setState({ number: '', column: '', comparation: '' });
   }
 
-  updateColumn() {
-    const { numericValues } = this.props;
-    const columns = [
-      'population',
-      'orbital_period',
-      'diameter',
-      'rotation_period',
-      'surface_water',
-    ];
-    const stateColumns = numericValues.map(({ column }) => column);
-    return [
-      '',
-      ...columns.filter((option) => !stateColumns.includes(option)),
-    ];
-  }
-
   getColumns() {
     const select = this.updateColumn();
     return (
@@ -88,6 +72,22 @@ class FilterValue extends React.Component {
         ))}
       </select>
     );
+  }
+
+  updateColumn() {
+    const { numericValues } = this.props;
+    const columns = [
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ];
+    const stateColumns = numericValues.map(({ column }) => column);
+    return [
+      '',
+      ...columns.filter((option) => !stateColumns.includes(option)),
+    ];
   }
 
   render() {

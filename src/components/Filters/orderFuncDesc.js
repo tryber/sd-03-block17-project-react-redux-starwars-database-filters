@@ -13,7 +13,7 @@ const orderFuncDesc = (planets, name, numericValues, columnSort) => {
     return orderName(filter);
   }
   return filterFunc(planets, name, numericValues).sort(
-    (a, b) => b[columnSort] - a[columnSort]
+    (a, b) => b[columnSort] - a[columnSort],
   );
 };
 
