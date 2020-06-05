@@ -40,6 +40,16 @@ function doCompare(e, el) {
 }
 
 class Table extends React.Component {
+  static renderTableheaders() {
+    return (
+      <thead>
+        <tr>
+          {Object.keys(header).map((e) => <th>{e}</th>)}
+        </tr>
+      </thead>
+    );
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -152,7 +162,7 @@ class Table extends React.Component {
   renderASCButton() {
     const { asc } = this.state;
     return (
-      <label>
+      <label htmlFor= "asc">
         <input
           type="radio"
           data-testid="column-sort-input"
@@ -169,7 +179,7 @@ class Table extends React.Component {
   renderDESCButton() {
     const { desc } = this.state;
     return (
-      <label>
+      <label htmlFor="desc">
         <input
           type="radio"
           data-testid="column-sort-input"
@@ -238,16 +248,6 @@ class Table extends React.Component {
     );
   }
 
-  static renderTableheaders() {
-    return (
-      <thead>
-        <tr>
-          {Object.keys(header).map((e) => <th>{e}</th>)}
-        </tr>
-      </thead>
-    );
-  }
-
   renderTableData() {
     const { filter, data } = this.props;
     const { filterValues } = this.state;
@@ -284,6 +284,8 @@ class Table extends React.Component {
   }
 
   render() {
+    const { order } = this.props;
+    console.log(order);
     return (
       <div>
         {this.renderNameFilter()}
