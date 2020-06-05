@@ -7,7 +7,7 @@ class Filters extends Component {
   static renderOptions(array, state) {
     return (
       array.map(function (e) {
-        return (state.includes(e)) ? false : <option>{e}</option>
+        return (state.includes(e)) ? false : <option>{e}</option>;
       })
     );
   }
