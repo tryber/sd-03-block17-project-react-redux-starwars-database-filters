@@ -9,8 +9,8 @@ class ValueFilters extends Component {
 
     this.state = ({
       population: 'population',
-      value: 'maior que',
-      numbOfPop: 0,
+      value: 'igual a',
+      numbOfPop: '200000',
     });
     this.columnChange = this.columnChange.bind(this);
     this.biggerChange = this.biggerChange.bind(this);
@@ -36,31 +36,31 @@ class ValueFilters extends Component {
   }
 
   render() {
-    const submitChange = (event) => {
-      event.preventDefault();
+    const submitChange = () => {
       const { submitToState } = this.props;
       const { population, value, numbOfPop } = this.state;
+      console.log(value)
       submitToState(population, value, numbOfPop);
     };
     const { population, value, numbOfPop } = this.state;
     return (
       <div>
-        <form onSubmit={submitChange}>
-          <select data-testid="column-filter" value={population} onChange={this.columnChange}>
-            <option value="population">population</option>
-            <option value="orbital_period">orbital_period</option>
-            <option value="diameter">diameter</option>
-            <option value="rotation_period">rotation_period</option>
-            <option value="surface_water">surface_water</option>
-          </select>
-          <select data-testid="comparison-filter" value={value} onChange={this.biggerChange}>
-            <option value="maior que">Maior que</option>
-            <option value="menor que">Menor que</option>
-            <option value="igual a">Igual a</option>
-          </select>
-          <input data-testid="value-filter" type="number" value={numbOfPop} onChange={this.numb} />
-          <button type="submit" data-testid="button-filter">filtar</button>
-        </form>
+        <select data-testid="column-filter" value={population} onChange={this.columnChange}>
+          <option>-</option>
+          <option value="population">population</option>
+          <option value="orbital_period">orbital_period</option>
+          <option value="diameter">diameter</option>
+          <option value="rotation_period">rotation_period</option>
+          <option value="surface_water">surface_water</option>
+        </select>
+        <select data-testid="comparison-filter" value={value} onChange={this.biggerChange}>
+          <option>-</option>
+          <option value="maior que">maior que</option>
+          <option value="menor que">menor que</option>
+          <option value="igual a">igual a</option>
+        </select>
+        <input data-testid="value-filter" type="number" value={numbOfPop} onChange={this.numb} />
+        <button type="submit" data-testid="button-filter" onClick={() => submitChange()}>filtrar</button>
       </div>
     );
   }

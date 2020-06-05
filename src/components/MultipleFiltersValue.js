@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const apiResults = (value) => value.map((row, index) => (
-  <tr key={row.name[index]}>
+const apiResults = (value) => value.map((row) => (
+  <tr key={row.name}>
     <td key={value.name}>{row.name}</td>
     <td key={value.rotation_period}>{row.rotation_period}</td>
     <td key={value.orbital_period}>{row.orbital_period}</td>
@@ -20,33 +20,37 @@ const apiResults = (value) => value.map((row, index) => (
   </tr>
 ));
 
-const objectAccess = (value, access, optionMap) => {
+const objectAccess = (value, access, optionMap, test) => {
   switch (value) {
     case 'maior que':
-      return Number(access) > Number(optionMap);
+      return Number(access) > Number(optionMap[test.length - 1]);
     case 'menor que':
-      return Number(access) < Number(optionMap);
+      return Number(access) < Number(optionMap[test.length - 1]);
+    case 'igual a':
+      return Number(access) === Number(optionMap[test.length - 1]);
     default:
-      return Number(access) === Number(optionMap);
+      return Number(access) === Number(optionMap[test.length - 1]);
   }
 };
 
 const multipleFilters = (value, planet, comparison, filterByOption) => {
+  console.log('value', value);
   switch (value) {
     case 'population':
-      return objectAccess(comparison[0], planet.population,
-        filterByOption.map((el) => el.value));
+      return objectAccess(comparison[comparison.length - 1], planet.population,
+        filterByOption.map((el) => el.value), filterByOption.map((el, index) => el && index));
     case 'rotation_period':
-      return objectAccess(comparison[0], planet.rotation_period,
-        filterByOption.map((el) => el.value));
+      return objectAccess(comparison[comparison.length - 1], planet.rotation_period,
+        filterByOption.map((el) => el.value), filterByOption.map((el, index) => el && index));
     case 'orbital_period':
-      return objectAccess(comparison[0], planet.orbital_period,
-        filterByOption.map((el) => el.value));
+      return objectAccess(comparison[comparison.length - 1], planet.orbital_period,
+        filterByOption.map((el) => el.value), filterByOption.map((el, index) => el && index));
     case 'diameter':
-      return objectAccess(comparison[0], planet.diameter, filterByOption.map((el) => el.value));
+      return objectAccess(comparison[comparison.length - 1], planet.diameter, filterByOption.map((el) => el.value),
+        filterByOption.map((el, index) => el && index));
     default:
-      return objectAccess(comparison[0], planet.surface_water,
-        filterByOption.map((el) => el.value));
+      return objectAccess(comparison[comparison.length - 1], planet.surface_water,
+        filterByOption.map((el) => el.value), filterByOption.map((el, index) => el && index));
   }
 };
 
@@ -57,16 +61,16 @@ class MultipleFiltersValue extends Component {
     const comparison = filterByOption.map((el) => el.comparison);
     return (
       apiResults(results.filter(
-        (planet) => multipleFilters(column[0], planet, comparison, filterByOption),
+        (planet) => multipleFilters(column[column.length - 1], planet, comparison, filterByOption),
       ))
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  all: state.apiData,
-  filterBynameProp: state.apiData.filters.filterByName.name,
-  filterByOption: state.apiData.filters.filterByNumericValues,
+  all: state,
+  filterBynameProp: state.filters.filterByName.name,
+  filterByOption: state.filters.filterByNumericValues,
 });
 
 MultipleFiltersValue.propTypes = {

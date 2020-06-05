@@ -7,17 +7,11 @@ export const inicialState = {
   data: [],
   filters:
   {
+    filtered: false,
     filterByName: {
       name: '',
     },
-    filterByNumericValues: [
-      {
-        filtered: false,
-        column: '',
-        comparison: '',
-        value: '',
-      },
-    ],
+    filterByNumericValues: [],
   },
 };
 
@@ -31,21 +25,23 @@ export function apiData(state = inicialState, action) {
       return {
         ...state,
         filters: {
+          filtered: false,
           filterByName: { name: action.planetName },
-          filterByNumericValues: [{ filtered: false }],
         },
       };
     case SUBMIT_OPTION_POPULATION:
       return {
         ...state,
         filters: {
+          filtered: true,
           filterByName: { name: '' },
-          filterByNumericValues: [{
-            filtered: true,
-            column: action.column,
-            comparison: action.comparison,
-            value: action.value,
-          }],
+          filterByNumericValues: [
+            ...state.filters.filterByNumericValues,
+            {
+              column: action.column,
+              comparison: action.comparison,
+              value: action.value,
+            }],
         },
       };
     default:

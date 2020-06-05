@@ -24,8 +24,8 @@ const tableCell = () => ({
   ],
 });
 
-const apiResults = (value) => value.map((row, index) => (
-  <tr key={row.name[index]}>
+const apiResults = (value) => value.map((row) => (
+  <tr key={row.name}>
     <td key={value.name}>{row.name}</td>
     <td key={value.rotation_period}>{row.rotation_period}</td>
     <td key={value.orbital_period}>{row.orbital_period}</td>
@@ -68,8 +68,8 @@ class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            {showResults && filterByOption.map((el) => el.filtered)[0] && <MultipleFiltersValue />}
-            {showResults && !filterByOption.map((el) => el.filtered)[0] &&
+            {showResults && filterByOption && <MultipleFiltersValue />}
+            {showResults && !filterByOption &&
             apiResults(results.filter(
               (planet) => planet.name.toLowerCase().indexOf(filterBynameProp.toLowerCase()) !== -1,
             ))}
@@ -87,9 +87,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const MapStateToProps = (state) => ({
-  all: state.apiData,
-  filterBynameProp: state.apiData.filters.filterByName.name,
-  filterByOption: state.apiData.filters.filterByNumericValues,
+  all: state,
+  filterBynameProp: state.filters.filterByName.name,
+  filterByOption: state.filters.filtered,
 });
 
 Table.propTypes = {
