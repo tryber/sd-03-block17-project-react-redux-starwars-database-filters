@@ -86,14 +86,14 @@ const Table = (
     }`);
 
   return (
-    <>
+    <React.Fragment>
       {isClassic || makeHeadersInMultiHeadersTable(headers, extraStyle)}
       <table className="table" style={generateStyle(isClassic)}>
         <caption>Star Wars Planets</caption>
         <TableHeader headers={headers} isClassic={isClassic} />
         {renderBody(planetsToShow, headers, isClassic)}
       </table>
-    </>
+    </React.Fragment>
   );
 };
 
