@@ -345,7 +345,7 @@ describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou 
       sortedPlanets.push(parseInt(planet.diameter, 10));
     }
     sortedPlanets = sortedPlanets.sort((a, b) => a - b);
-
+console.log(sortedPlanets);
     const { findByTestId, findAllByTestId, findAllByRole } = renderApp();
     const columnSort = await findByTestId('column-sort');
     const sortButton = await findByTestId('column-sort-button');
@@ -365,7 +365,9 @@ describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou 
       appPlanetList.push(parseInt(row.children[3].innerHTML));
     }
     appPlanetList.shift();
-
+    console.log(rows[1].children[3].innerHTML);
+    console.log(sortedPlanets.reverse());
+    console.log(appPlanetList);
     expect(appPlanetList).toEqual(sortedPlanets.reverse());
   });
 });
