@@ -1,10 +1,8 @@
 import { QUERY_BY_NAME, SAVE_FILTERS } from '../actions/index';
 
 const initialState = {
-  filters: {
-    filterByNumericValue: [],
+    filterByNumericValues: [],
     filterByName: { name: '' },
-  },
 };
 
 function FilterReducer(state = initialState, action) {
@@ -12,25 +10,19 @@ function FilterReducer(state = initialState, action) {
     case QUERY_BY_NAME:
       return {
         ...state,
-        filters: {
-          ...state.filters,
           filterByName: { name: action.payload },
-        },
       };
     case SAVE_FILTERS:
       return {
         ...state,
-        filters: {
-          ...state.filters,
-          filterByNumericValue: [
-            ...state.filters.filterByNumericValue,
+          filterByNumericValues: [
+            ...state.filterByNumericValues,
             {
               column: action.column,
               comparison: action.comparison,
-              value: Number(action.value),
+              value: action.value,
             },
           ],
-        },
       };
     default:
       return state;

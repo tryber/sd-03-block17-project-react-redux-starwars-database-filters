@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 class TableBody extends Component {
   render() {
     const { loading, planets } = this.props;
-    if (loading) {
-      return <tbody><tr><td>LOADING...</td></tr></tbody>;
-    }
+    // if (loading) {
+    //   return <tbody><tr><td>LOADING...</td></tr></tbody>;
+    // }
     return (
       <tbody>
         {planets.map((planet) => (

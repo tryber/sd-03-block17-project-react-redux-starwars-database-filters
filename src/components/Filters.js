@@ -15,7 +15,7 @@ class Filters extends Component {
 
     this.state = {
       columnSelector: 'population',
-      comparisonSelector: 'Maior que',
+      comparisonSelector: 'maior que',
       valueFilter: 0,
     };
   }
@@ -31,8 +31,9 @@ class Filters extends Component {
 
   render() {
     const { hdlQry } = this.props;
-    const colArray = ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
-    const compArray = ['Maior que', 'Menor que', 'Igual a'];
+    const colArray = ['select', 'population', 'orbital_period', 
+      'diameter', 'rotation_period', 'surface_water'];
+    const compArray = ['select', 'maior que', 'menor que', 'igual a'];
     return (
       <div className="filters">
         <label htmlFor="name-in">Filtrar por nome</label>
@@ -53,7 +54,7 @@ class Filters extends Component {
           data-testid="value-filter" type="number"
           onChange={(e) => this.handle(e, 'valueFilter')}
         />
-        <button type="button" data-testid="button-filter" onClick={() => this.btn()}>Filtro</button>
+        <button type="button" data-testid="button-filter" onClick={() => this.btn()}>Filtr</button>
       </div>
     );
   }
