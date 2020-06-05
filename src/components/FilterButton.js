@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { filterByNumericValue } from '../actions/index';
-import PropTypes from 'prop-types';
 
 class FilterButton extends Component {
   render() {
@@ -30,6 +30,10 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(null, mapDispatchToProps)(FilterButton);
 
 FilterButton.PropTypes = {
-  clickParam = PropTypes.object.isRequired,
-  filterTable = PropTypes.func.isRequired,
-}
+  clickParam: PropTypes.object.isRequired,
+  filterTable: PropTypes.func.isRequired,
+};
+
+FilterButton.defaultProps = {
+  clickParam: { column: '', comparison: '', value: '' },
+};
