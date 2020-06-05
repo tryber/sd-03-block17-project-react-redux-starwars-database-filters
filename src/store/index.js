@@ -4,6 +4,6 @@ import Filter from '../reducers/filter';
 import Planet from '../reducers/planet';
 
 
-const store = createStore(combineReducers( { Filter, Planet }), applyMiddleware(thunk));
+const store = createStore(combineReducers({ Filter, Planet }), applyMiddleware(thunk));
 
 export default store;

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 class TableHeader extends Component {
   render() {
-    return(
+    return (
       <thead>
-          <tr>
+        <tr>
           <th>Names</th>
           <th>Climate</th>
           <th>Created</th>
@@ -20,7 +20,7 @@ class TableHeader extends Component {
           <th>URL</th>
         </tr>
       </thead>
-    )
+    );
   }
 }
 

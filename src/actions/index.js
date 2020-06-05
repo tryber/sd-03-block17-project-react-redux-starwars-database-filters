@@ -1,4 +1,4 @@
-import { fetchAPI } from '../services/fetchAPI';
+import fetchAPI from '../services/fetchAPI';
 
 export const REQUESTING_PLANETS = 'REQUESTING_PLANETS';
 export const RECEIVE_PLANETS = 'RECEIVE_PLANETS';
@@ -6,7 +6,7 @@ export const REQUEST_FAIL = 'REQUEST_FAIL';
 export const QUERY_BY_NAME = 'QUERY_BY_NAME';
 export const SAVE_FILTERS = 'SAVE_FILTERS';
 
-export const requestPlanets = () => ({ type: REQUESTING_PLANETS  });
+export const requestPlanets = () => ({ type: REQUESTING_PLANETS });
 
 
 export const receivePlanets = (planetList) => (
@@ -23,7 +23,7 @@ export const fetchFail = (error) => (
   }
 );
 
-export function fetchPlanets () {
+export function fetchPlanets() {
   return (dispatch) => {
     dispatch(requestPlanets());
     return fetchAPI()
@@ -32,18 +32,16 @@ export function fetchPlanets () {
         (error) => dispatch(fetchFail(error.message)),
       );
   };
-};
+}
 
 export const queryByName = (query) => ({
   type: QUERY_BY_NAME,
   payload: query,
 });
 
-export const saveFilters = (column, comparison, value) => {
-  return ({
+export const saveFilters = (column, comparison, value) => ({
     type: SAVE_FILTERS,
     column,
     comparison,
-    value
+    value,
   });
-};

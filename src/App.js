@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 import Table from './components/Table';
 import { fetchPlanets } from './actions';
-import { connect } from 'react-redux';
 import Filters from './components/Filters';
 
 class App extends Component {
-  componentDidMount () {
+  componentDidMount() {
     const { fetchPlanetList } = this.props;
     fetchPlanetList();
   }
@@ -20,8 +20,8 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   fetchPlanetList: () => dispatch(fetchPlanets()),
-})
+});
 
 export default connect(null, mapDispatchToProps)(App);

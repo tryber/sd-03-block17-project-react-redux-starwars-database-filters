@@ -7,24 +7,24 @@ const initialState = {
 };
 
 function PlanetReducer(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case REQUESTING_PLANETS:
       return {
         ...state,
         loading: true,
-    }
-    case RECEIVE_PLANETS: 
+      };
+    case RECEIVE_PLANETS:
       return {
         ...state,
         data: action.payload.results,
         loading: false,
-    }
-    case REQUEST_FAIL: 
+      };
+    case REQUEST_FAIL:
       return {
         ...state,
         error: action.payload.message,
         loading: false,
-    }
+      };
     default:
       return state;
   }
