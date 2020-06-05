@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import './Layout/NavBar.css';
 import { filterByNumber } from '../action/index';
 
@@ -90,6 +91,20 @@ class NavBar extends Component {
     );
   }
 }
+
+NavBar.propTypes = {
+  selectInput: PropTypes.func.isRequired,
+};
+
+NavBar.propTypes = {
+  valueFilter: PropTypes.arrayOf(
+    PropTypes.shape({
+      column: PropTypes.string,
+      comparison: PropTypes.string,
+      value: PropTypes.string,
+    }),
+  ).isRequired,
+};
 
 const mapState = (state) => ({
   valueFilter: state.filters.filterByNumericValues,

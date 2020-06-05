@@ -49,8 +49,8 @@ const TableData = (props) => {
   );
 };
 
-TableData.propType = {
-  TableData: PropTypes.func.isRequired,
+TableData.propTypes = {
+  // TableData: PropTypes.func.isRequired,
   data: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,

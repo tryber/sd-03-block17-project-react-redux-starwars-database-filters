@@ -67,7 +67,7 @@ const mapStateToProps = (state) => ({
   selectInput: state.filters.filterByNumericValues,
 });
 
-Table.propType = {
+Table.propTypes = {
   planets: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
