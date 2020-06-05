@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
-import { queryByName, saveFilters } from '../actions';
 import { connect } from 'react-redux';
+import { queryByName, saveFilters } from '../actions';
 
 class Filters extends Component {
+  static renderOptions(array) {
+    return (
+      array.map((e) => <option>{e}</option>)
+    );
+  }
+
   constructor(props) {
     super(props);
-    
+
     this.state = {
       columnSelector: 'population',
       comparisonSelector: 'Maior que',
@@ -13,16 +19,10 @@ class Filters extends Component {
     };
   }
 
-  static renderOptions(array) {
-    return (
-      array.map((e) => <option>{e}</option>)
-    );
-  }
-  
   handle(event, stateId) {
     this.setState({ [stateId]: event.target.value });
   }
-  
+
   btn() {
     const { columnSelector, comparisonSelector, valueFilter } = this.state;
     this.props.handleFilterBtn(columnSelector, comparisonSelector, valueFilter);

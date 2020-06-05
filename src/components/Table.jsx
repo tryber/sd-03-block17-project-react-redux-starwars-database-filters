@@ -15,7 +15,7 @@ class Table extends Component {
   render() {
     const { planetList, nameFilter, numericFilters } = this.props;
     let sortedList = planetList.filter((planet) => planet.name.includes(nameFilter));
-    numericFilters.forEach((e) => { sortedList = Table.handleFilter(sortedList, e) });
+    numericFilters.forEach((e) => { sortedList = Table.handleFilter(sortedList, e); });
     return (
       <table>
         <TableHeader />

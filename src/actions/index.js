@@ -40,8 +40,8 @@ export const queryByName = (query) => ({
 });
 
 export const saveFilters = (column, comparison, value) => ({
-    type: SAVE_FILTERS,
-    column,
-    comparison,
-    value,
-  });
+  type: SAVE_FILTERS,
+  column,
+  comparison,
+  value,
+});
