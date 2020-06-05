@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Home from './pages/Home';
+import Header from './components/Header';
+import FetchData from './components/FetchData';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = ({ loading }) => (
+  <div className="App">
+    <Header />
+    {loading ? <FetchData /> : <Home />}
+  </div>
+);
 
-export default App;
+App.propTypes = { loading: PropTypes.bool.isRequired };
+
+const mapStateToProps = (state) => ({
+  loading: state.planetsInfoReducer.loading,
+});
+
+export default connect(mapStateToProps)(App);
