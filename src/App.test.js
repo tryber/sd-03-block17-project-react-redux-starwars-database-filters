@@ -295,11 +295,24 @@ describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao 
   test('each filter should have a X button that removes the filter', async () => {
     const { findAllByTestId, queryAllByTestId } = renderApp();
     let selectedFilters = await findAllByTestId('filter');
+    let removeButton = selectedFilters[0].querySelector('button');
 
+<<<<<<< HEAD
     for (let filter of selectedFilters) {
       const removeButton = filter.querySelector('button');
       fireEvent.click(removeButton);
     }
+=======
+    fireEvent.click(removeButton);
+
+    selectedFilters = await findAllByTestId('filter');
+    removeButton = selectedFilters[0].querySelector('button');
+    fireEvent.click(removeButton);
+
+    selectedFilters = await findAllByTestId('filter');
+    removeButton = selectedFilters[0].querySelector('button');
+    fireEvent.click(removeButton);
+>>>>>>> bcb8fbb6307948f58b26a73be73c41a4a10a1437
 
     selectedFilters = await queryAllByTestId('filter');
 

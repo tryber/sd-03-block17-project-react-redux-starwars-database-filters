@@ -89,7 +89,6 @@ class Table extends React.Component {
   }
 
   render() {
-    console.log('Dado recebido', this.props.data)
     return (
       <div>
         {this.table()}

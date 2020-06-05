@@ -46,13 +46,7 @@ class InputsNumerics extends React.Component {
     selectors(filterSelect, comparison, valueFilter);
     const newOptions = options.filter((item) =>
       item.value !== filterSelect || item.value === '');
-    if (filterSelect !== '') {
-      this.setState({ optionsSelected: [...optionsSelected, filterSelect] });
-    }
-    this.setState({
-      options: newOptions,
-      filterSelect: '',
-    });
+    this.setState({ options: newOptions });
   }
 
   selectFilter() {
