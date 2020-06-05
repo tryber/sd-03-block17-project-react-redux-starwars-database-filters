@@ -8,9 +8,9 @@ const columns = ['population', 'orbital_period', 'diameter',
 
 const comparisons = ['', 'maior que', 'igual a', 'menor que'];
 
-const filterColumn = (valueFilter, option) => {
+function filterColumn(valueFilter, option) {
   return !valueFilter.find(({ column }) => column === option);
-};
+}
 
 class NavBar extends Component {
   constructor(props) {

@@ -51,9 +51,7 @@ class Table extends React.Component {
         </h1>
         <div className="TabelaProdutos">
           <DispatchStore />
-          <tbody>
-            {isFetching ? 'Loading' : <TableData data={this.filterSelectedValues(planetsData)} />}
-          </tbody>
+          {isFetching ? 'Loading' : <TableData data={this.filterSelectedValues(planetsData)} />}
         </div>
         {/* <div className="barFilter">
         </div> */}
@@ -85,6 +83,15 @@ Table.propType = {
       created: PropTypes.string,
       edited: PropTypes.string,
       url: PropTypes.string,
+    }),
+  ).isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  filterByName: PropTypes.string.isRequired,
+  selectInput: PropTypes.arrayOf(
+    PropTypes.shape({
+      column: PropTypes.string,
+      comparison: PropTypes.string,
+      value: PropTypes.string,
     }),
   ).isRequired,
 };
