@@ -34,7 +34,7 @@ describe('1 - Fazer uma requisição para o endpoint /planets da API de Star War
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
-  test('it calls SWAPI', () => {
+  test('it calls SWAPI', () => {   
     renderApp();
     expect(fetch).toHaveBeenCalled();
   })
@@ -42,7 +42,7 @@ describe('1 - Fazer uma requisição para o endpoint /planets da API de Star War
   test('it uses SWAPI data', async () => {
     const { findByText, findAllByText } = renderApp();
     const planets = testData.results;
-    for (let planetIndex in planets) {
+    for(let planetIndex in planets) {
       const name = await findByText(planets[planetIndex].name);
       const rotationPeriod = await findAllByText(planets[planetIndex].rotation_period);
       const orbitalPeriod = await findAllByText(planets[planetIndex].orbital_period);
@@ -91,10 +91,10 @@ describe('2 - Sua página deve ter um campo de texto que filtra a tabela para so
   })
 
   test('input filter should change results', async () => {
-    const { findAllByRole, findByTestId, findByText } = renderApp();
+    const { findAllByRole , findByTestId, findByText } = renderApp();
     const filterField = await findByTestId('name-filter');
 
-    fireEvent.change(filterField, { target: { value: 'o' } });
+    fireEvent.change(filterField, {target: { value: 'o' }});
     let tableRows = await findAllByRole('row');
     expect(tableRows).toHaveLength(8);
     expect(await findByText('Coruscant')).toBeInTheDocument();
@@ -105,23 +105,23 @@ describe('2 - Sua página deve ter um campo de texto que filtra a tabela para so
     expect(await findByText('Naboo')).toBeInTheDocument();
     expect(await findByText('Tatooine')).toBeInTheDocument();
 
-    fireEvent.change(filterField, { target: { value: 'oo' } });
+    fireEvent.change(filterField, {target: { value: 'oo' }});
     tableRows = await findAllByRole('row');
     expect(tableRows).toHaveLength(3);
     expect(await findByText('Naboo')).toBeInTheDocument();
     expect(await findByText('Tatooine')).toBeInTheDocument();
 
-    fireEvent.change(filterField, { target: { value: '' } });
+    fireEvent.change(filterField, {target: { value: '' }});
   })
 
   test('should change store filter values', async () => {
     const { findByTestId } = renderApp();
     const filterField = await findByTestId('name-filter');
-    fireEvent.change(filterField, { target: { value: 'o' } });
+    fireEvent.change(filterField, {target: { value: 'o' }});
     expect(store.getState().filters.filterByName.name).toEqual('o');
-    fireEvent.change(filterField, { target: { value: 'oo' } });
+    fireEvent.change(filterField, {target: { value: 'oo' }});
     expect(store.getState().filters.filterByName.name).toEqual('oo');
-    fireEvent.change(filterField, { target: { value: '' } });
+    fireEvent.change(filterField, {target: { value: '' }});
     expect(store.getState().filters.filterByName.name).toEqual('');
   })
 })
@@ -141,14 +141,14 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     expect(columnFilter.children).toHaveLength(6);
 
     const expectedColumnFilters = ['population',
-      'orbital_period',
-      'diameter',
-      'rotation_period',
-      'surface_water'];
+                                   'orbital_period',
+                                   'diameter',
+                                   'rotation_period',
+                                   'surface_water'];
 
     let foundColumnFilterArray = [];
 
-    for (let item of columnFilter.children) {
+    for(let item of columnFilter.children) {
       expect(item).toHaveProperty('nodeName', 'OPTION');
       foundColumnFilterArray.push(item.innerHTML);
     }
@@ -167,12 +167,12 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
 
 
     const expectedColumnComparisons = ['maior que',
-      'igual a',
-      'menor que'];
+                                       'igual a',
+                                       'menor que'];
 
     let foundComparisonFilterArray = [];
-
-    for (let item of comparisonFilter.children) {
+    
+    for(let item of comparisonFilter.children) {
       expect(item).toHaveProperty('nodeName', 'OPTION');
       foundComparisonFilterArray.push(item.innerHTML);
     }
@@ -188,7 +188,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
 
     expect(valueFilter).toHaveProperty('nodeName', 'INPUT');
   });
-
+  
   test('should have the filter button', async () => {
     const { findByTestId } = renderApp();
 
@@ -205,15 +205,15 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     const valueFilter = await findByTestId('value-filter');
     const buttonFilter = await findByTestId('button-filter');
 
-    fireEvent.change(columnFilter, { target: { value: "surface_water" } });
-    fireEvent.change(comparisonFilter, { target: { value: "menor que" } });
-    fireEvent.change(valueFilter, { target: { value: '40' } });
+    fireEvent.change(columnFilter, {target: { value: "surface_water" }});
+    fireEvent.change(comparisonFilter, {target: { value: "menor que" }});
+    fireEvent.change(valueFilter, {target: { value: '40' }});
     fireEvent.click(buttonFilter);
 
     const tableRows = await findAllByRole('row');
     expect(tableRows).toHaveLength(7);
 
-
+    
   })
 
   test('should filter with greather than', async () => {
@@ -224,9 +224,9 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     const valueFilter = await findByTestId('value-filter');
     const buttonFilter = await findByTestId('button-filter');
 
-    fireEvent.change(columnFilter, { target: { value: "diameter" } });
-    fireEvent.change(comparisonFilter, { target: { value: "maior que" } });
-    fireEvent.change(valueFilter, { target: { value: '8900' } })
+    fireEvent.change(columnFilter, {target: { value: "diameter" }});
+    fireEvent.change(comparisonFilter, {target: { value: "maior que" }});
+    fireEvent.change(valueFilter, {target: { value: '8900' }})
     fireEvent.click(buttonFilter);
 
     const tableRows = await findAllByRole('row')
@@ -236,15 +236,15 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
 
   test('should filter with equal to', async () => {
     const { findByTestId, findAllByRole, findByText } = renderApp();
-
+    
     const columnFilter = await findByTestId('column-filter');
     const comparisonFilter = await findByTestId('comparison-filter');
     const valueFilter = await findByTestId('value-filter');
     const buttonFilter = await findByTestId('button-filter');
 
-    fireEvent.change(columnFilter, { target: { value: "population" } });
-    fireEvent.change(comparisonFilter, { target: { value: "igual a" } });
-    fireEvent.change(valueFilter, { target: { value: '200000' } })
+    fireEvent.change(columnFilter, {target: { value: "population" }});
+    fireEvent.change(comparisonFilter, {target: { value: "igual a" }});
+    fireEvent.change(valueFilter, {target: { value: '200000' }})
     fireEvent.click(buttonFilter);
 
     const tableRows = await findAllByRole('row')
@@ -257,7 +257,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     const expectedFilters = [
       { column: 'surface_water', comparison: 'menor que', value: '40' },
       { column: 'diameter', comparison: 'maior que', value: '8900' },
-      { column: 'population', comparison: 'igual a', value: '200000' }
+      { column: 'population', comparison: 'igual a', value: '200000'}
     ]
     expect(store.getState().filters.filterByNumericValues).toEqual(expectedFilters);
   })
@@ -273,11 +273,11 @@ describe('4 -  Sua página deverá ser carregada com somente um filtro de valore
     expect(columnFilter.children).toHaveLength(3);
 
     const expectedColumnFilters = ['orbital_period',
-      'rotation_period'];
+                                   'rotation_period'];
 
     let foundColumnFilterArray = [];
-
-    for (let filter of columnFilter.children) {
+    
+    for(let filter of columnFilter.children) {
       foundColumnFilterArray.push(filter.innerHTML);
     }
 
@@ -297,12 +297,6 @@ describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao 
     let selectedFilters = await findAllByTestId('filter');
     let removeButton = selectedFilters[0].querySelector('button');
 
-<<<<<<< HEAD
-    for (let filter of selectedFilters) {
-      const removeButton = filter.querySelector('button');
-      fireEvent.click(removeButton);
-    }
-=======
     fireEvent.click(removeButton);
 
     selectedFilters = await findAllByTestId('filter');
@@ -312,7 +306,6 @@ describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao 
     selectedFilters = await findAllByTestId('filter');
     removeButton = selectedFilters[0].querySelector('button');
     fireEvent.click(removeButton);
->>>>>>> bcb8fbb6307948f58b26a73be73c41a4a10a1437
 
     selectedFilters = await queryAllByTestId('filter');
 
@@ -324,7 +317,7 @@ describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao 
 describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou descendente', () => {
   test('check planet table starting order', async () => {
     let sortedPlanets = [];
-    for (let planet of testData.results) {
+    for(let planet of testData.results) {
       sortedPlanets.push(planet.name);
     };
     sortedPlanets = sortedPlanets.sort();
@@ -332,7 +325,7 @@ describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou 
     const { findAllByRole } = renderApp();
     const rows = await findAllByRole('row');
     let appPlanetList = [];
-    for (let row of rows) {
+    for(let row of rows) {
       appPlanetList.push(row.children[0].innerHTML);
     }
     appPlanetList.shift();
@@ -343,7 +336,7 @@ describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou 
 
   test('change table order', async () => {
     let sortedPlanets = [];
-    for (let planet of testData.results) {
+    for(let planet of testData.results) {
       sortedPlanets.push(parseInt(planet.diameter, 10));
     };
     sortedPlanets = sortedPlanets.sort((a, b) => a - b);
@@ -353,17 +346,17 @@ describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou 
     const sortButton = await findByTestId('column-sort-button');
     const sortInput = await findAllByTestId('column-sort-input');
 
-    fireEvent.change(columnSort, { target: { value: 'diameter' } })
+    fireEvent.change(columnSort, {target: { value: 'diameter' }})
 
-    const ascInput = sortInput.filter((input) => input.value == `DESC`)[0];
+    const ascInput = sortInput.filter((input) => input.value == `DESC` )[0];
 
     fireEvent.click(ascInput);
-
+    
     await fireEvent.click(sortButton);
 
     const rows = await findAllByRole('row');
     let appPlanetList = [];
-    for (let row of rows) {
+    for(let row of rows) {
       appPlanetList.push(parseInt(row.children[3].innerHTML));
     }
     appPlanetList.shift();
