@@ -13,7 +13,7 @@ class ListFilters extends React.Component {
         return undefined;
       })
     );
-  };
+  }
 }
 
 const mapStateToProps = (state) => ({
@@ -21,6 +21,16 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(ListFilters);
+
+ListFilters.defaultProps = {
+  filterByNumericValues: [
+    {
+      column: '',
+      comparison: '',
+      value: '',
+    },
+  ],
+};
 
 ListFilters.propTypes = {
   filterByNumericValues: PropTypes.arrayOf(PropTypes.object),

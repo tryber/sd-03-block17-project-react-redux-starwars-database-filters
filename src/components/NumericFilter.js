@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../actions/index';
 
-let columnOptions = [
+const columnOptions = [
   'select column',
   'population',
   'orbital_period',
@@ -12,7 +12,7 @@ let columnOptions = [
   'surface_water',
 ];
 
-let comparisonOptions = [
+const comparisonOptions = [
   'select',
   'maior que',
   'igual a',
@@ -77,16 +77,6 @@ class NumericFilter extends React.Component {
         >Filtrar</button>
       </div>
     );
-  }
-
-  listFilters() {
-    const { filterByNumericValues } = this.props;
-    filterByNumericValues.map(({ column, comparison, value }) => {
-      if (column && comparison && value) {
-        return <div key={`${column} Filter`}><span>{`Filter: ${column} ${comparison} ${value}`}</span></div>;
-      }
-      return undefined;
-    })
   }
 
   filterMenu() {
