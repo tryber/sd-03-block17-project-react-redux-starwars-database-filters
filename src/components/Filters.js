@@ -33,14 +33,8 @@ class Filters extends Component {
     const compArray = [ 'Maior que', 'Menor que', 'Igual a'];
     return (
       <div className='filters'>
-        <label htmlFor='name-filter'>Filtrar por nome</label>
-        <input 
-          id='name-filter' 
-          data-testid='name-filter' 
-          type='text'
-          onChange={e => handleQuery(e.target.value)}
-        />
-        <div className='NumFilters'>
+        <label htmlFor='name-in'>Filtrar por nome</label>
+        <input id='name-in' data-testid='name-filter' type='text' onChange={e => handleQuery(e)} />
         <select 
           data-testid='column-filter'
           onChange={e => this.handleSelectors(e.target.value, 'columnSelector')}
@@ -58,14 +52,13 @@ class Filters extends Component {
           onChange={e => this.handleSelectors(e.target.value, 'valueFilter')} 
         />
         <button type='button' data-testid='button-filter' onClick={() => this.btnClick()}>Filtro</button>
-        </div>
       </div>
     )
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  handleQuery: (query) => dispatch(queryByName(query)),
+  handleQuery: (event) => dispatch(queryByName(event.target.value)),
   handleFilterBtn: (column, comparison, value) => dispatch(saveFilters(column, comparison, value)),
 })
  
