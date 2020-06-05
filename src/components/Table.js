@@ -8,13 +8,13 @@ function filterPlanetsFunc(data, filters) {
   let dataParam = [...data];
   let filterPlanets;
   filters.forEach((item) => {
-    if (item.comparison === 'bigger_then') {
+    if (item.comparison === 'maior que') {
       filterPlanets = dataParam.filter((element) =>
         parseInt(element[item.column], 10) > parseInt(item.value, 10));
-    } else if (item.comparison === 'less_then') {
+    } else if (item.comparison === 'menor que') {
       filterPlanets = dataParam.filter((element) =>
         parseInt(element[item.column], 10) < parseInt(item.value, 10));
-    } else if (item.comparison === 'equal') {
+    } else if (item.comparison === 'igual a') {
       filterPlanets = dataParam.filter((element) =>
         parseInt(element[item.column], 10) === parseInt(item.value, 10));
     }
@@ -89,6 +89,7 @@ class Table extends React.Component {
   }
 
   render() {
+    console.log('Dado recebido', this.props.data)
     return (
       <div>
         {this.table()}

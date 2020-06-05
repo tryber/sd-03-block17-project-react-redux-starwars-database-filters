@@ -9,7 +9,7 @@ class InputsNumerics extends React.Component {
     super(props);
     this.state = {
       filterSelect: '',
-      comparison: 'bigger_then',
+      comparison: '',
       valueFilter: '',
       options: [
         { value: '', text: '' },
@@ -19,6 +19,7 @@ class InputsNumerics extends React.Component {
         { value: 'rotation_period', text: 'rotation_period' },
         { value: 'surface_water', text: 'surface_water' },
       ],
+      optionsSelected: [],
     };
     this.onChangeFilterSelect = this.onChangeFilterSelect.bind(this);
     this.onChangeComparison = this.onChangeComparison.bind(this);
@@ -40,12 +41,18 @@ class InputsNumerics extends React.Component {
   }
 
   onClickDispatchSelectors() {
-    const { filterSelect, comparison, valueFilter, options } = this.state;
+    const { filterSelect, comparison, valueFilter, options, optionsSelected } = this.state;
     const { selectors } = this.props;
     selectors(filterSelect, comparison, valueFilter);
     const newOptions = options.filter((item) =>
       item.value !== filterSelect || item.value === '');
-    this.setState({ options: newOptions });
+    if (filterSelect !== '') {
+      this.setState({ optionsSelected: [...optionsSelected, filterSelect] });
+    }
+    this.setState({
+      options: newOptions,
+      filterSelect: '',
+    });
   }
 
   selectFilter() {
@@ -68,9 +75,10 @@ class InputsNumerics extends React.Component {
   selectComparison() {
     return (
       <select data-testid="comparison-filter" onChange={this.onChangeComparison}>
-        <option value="bigger_then">maior que</option>
-        <option value="less_then">menor que</option>
-        <option value="equal">igual a</option>
+        <option value=""></option>
+        <option value="maior que">maior que</option>
+        <option value="menor que">menor que</option>
+        <option value="igual a">igual a</option>
       </select>
     );
   }

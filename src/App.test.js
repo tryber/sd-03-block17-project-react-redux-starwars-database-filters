@@ -208,6 +208,7 @@ describe('3 - Sua página deve ter um filtro para valores numéricos', () => {
     fireEvent.change(columnFilter, {target: { value: "surface_water" }});
     fireEvent.change(comparisonFilter, {target: { value: "menor que" }});
     fireEvent.change(valueFilter, {target: { value: '40' }});
+    console.log(store.getState().requestData.data)
     fireEvent.click(buttonFilter);
 
     const tableRows = await findAllByRole('row');
