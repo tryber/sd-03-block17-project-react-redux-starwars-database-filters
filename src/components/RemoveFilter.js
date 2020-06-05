@@ -35,4 +35,5 @@ RemoveFilter.propTypes = {
     value: PropTypes.string,
   })).isRequired,
   removeFilterNumeric: PropTypes.func.isRequired,
+  removeNumeric: PropTypes.func.isRequired,
 };
