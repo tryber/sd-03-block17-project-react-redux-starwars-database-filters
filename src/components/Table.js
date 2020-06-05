@@ -53,7 +53,7 @@ class Table extends Component {
       const { namesSearch } = this.props;
       namesSearch(value.target.value);
     };
-    const { all: { showResults, data: { results } },
+    const { all, all: { showResults, data: { results } },
       filterBynameProp, filterByOption,
     } = this.props;
     return (
@@ -73,7 +73,7 @@ class Table extends Component {
             apiResults(results.filter(
               (planet) => planet.name.toLowerCase().indexOf(filterBynameProp.toLowerCase()) !== -1,
             ))}
-          </tbody>
+          </tbody>{console.log(all.filters.filterByNumericValues)}
         </table>
         {!showResults && <h1>Carregando</h1>}
       </div>

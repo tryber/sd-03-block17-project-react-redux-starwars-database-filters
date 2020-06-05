@@ -22,7 +22,6 @@ const apiResults = (value) => value.map((row) => (
 ));
 
 const objectAccess = (value, access, optionMap, test) => {
-  console.log(value);
   switch (value) {
     case 'maior que':
       return Number(access) > Number(optionMap[test.length - 1]);

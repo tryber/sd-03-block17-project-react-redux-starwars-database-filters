@@ -24,10 +24,7 @@ export function apiData(state = inicialState, action) {
     case NAME_SEARCHED:
       return {
         ...state,
-        filters: {
-          filtered: false,
-          filterByName: { name: action.planetName },
-        },
+        filters: { filtered: false, filterByName: { name: action.planetName } },
       };
     case SUBMIT_OPTION_POPULATION:
       return {
