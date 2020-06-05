@@ -4,23 +4,25 @@ import { connect } from 'react-redux';
 
 const apiResults = (value) => value.map((row) => (
   <tr key={row.name}>
-    <td key={value.name}>{row.name}</td>
-    <td key={value.rotation_period}>{row.rotation_period}</td>
-    <td key={value.orbital_period}>{row.orbital_period}</td>
-    <td key={value.diameter}>{row.diameter}</td>
-    <td key={value.climate}>{row.climate}</td>
-    <td key={value.gravity}>{row.gravity}</td>
-    <td key={value.terrain}>{row.terrain}</td>
-    <td key={value.surface_Water}>{row.surface_water}</td>
-    <td key={value.population}>{row.population}</td>
-    <td key={value.films}>{row.films}</td>
-    <td key={value.created}>{row.created}</td>
-    <td key={value.edited}>{row.edited}</td>
-    <td key={value.url}>{row.url}</td>
+    <td>{row.map((el) => <tr>{el.name}</tr>)}</td>
+    <td>{row.map((el) => <tr>{el.rotation_period}</tr>)}</td>
+    <td>{row.map((el) => <tr>{el.orbital_period}</tr>)}</td>
+    <td>{row.map((el) => <tr>{el.diameter}</tr>)}</td>
+    <td>{row.map((el) => <tr>{el.diameter}</tr>)}</td>
+    <td>{row.map((el) => <tr>{el.climate}</tr>)}</td>
+    <td>{row.map((el) => <tr>{el.gravity}</tr>)}</td>
+    <td>{row.map((el) => <tr>{el.terrain}</tr>)}</td>
+    <td>{row.map((el) => <tr>{el.surface_water}</tr>)}</td>
+    <td>{row.map((el) => <tr>{el.population}</tr>)}</td>
+    <td>{row.map((el) => <tr>{el.films}</tr>)}</td>
+    <td>{row.map((el) => <tr>{el.created}</tr>)}</td>
+    <td>{row.map((el) => <tr>{el.edited}</tr>)}</td>
+    <td>{row.map((el) => <tr>{el.url}</tr>)}</td>
   </tr>
 ));
 
 const objectAccess = (value, access, optionMap, test) => {
+  console.log(value);
   switch (value) {
     case 'maior que':
       return Number(access) > Number(optionMap[test.length - 1]);
@@ -29,46 +31,44 @@ const objectAccess = (value, access, optionMap, test) => {
     case 'igual a':
       return Number(access) === Number(optionMap[test.length - 1]);
     default:
-      return Number(access) === Number(optionMap[test.length - 1]);
+      return false;
   }
 };
 
 const multipleFilters = (value, planet, comparison, filterByOption) => {
-  console.log('value', value);
   switch (value) {
     case 'population':
-      return objectAccess(comparison[comparison.length - 1], planet.population,
+      return objectAccess(comparison, planet.population,
         filterByOption.map((el) => el.value), filterByOption.map((el, index) => el && index));
     case 'rotation_period':
-      return objectAccess(comparison[comparison.length - 1], planet.rotation_period,
+      return objectAccess(comparison, planet.rotation_period,
         filterByOption.map((el) => el.value), filterByOption.map((el, index) => el && index));
     case 'orbital_period':
-      return objectAccess(comparison[comparison.length - 1], planet.orbital_period,
+      return objectAccess(comparison, planet.orbital_period,
         filterByOption.map((el) => el.value), filterByOption.map((el, index) => el && index));
     case 'diameter':
-      return objectAccess(comparison[comparison.length - 1], planet.diameter, filterByOption.map((el) => el.value),
+      return objectAccess(comparison, planet.diameter, filterByOption.map((el) => el.value),
         filterByOption.map((el, index) => el && index));
     default:
-      return objectAccess(comparison[comparison.length - 1], planet.surface_water,
-        filterByOption.map((el) => el.value), filterByOption.map((el, index) => el && index));
+      return false;
   }
 };
 
+
 class MultipleFiltersValue extends Component {
   render() {
-    const { all: { data: { results } }, filterByOption } = this.props;
-    const column = filterByOption.map((el) => el.column);
-    const comparison = filterByOption.map((el) => el.comparison);
+    const { comparisonMultiple, all: { data: { results } }, filterByOption } = this.props;
     return (
-      apiResults(results.filter(
-        (planet) => multipleFilters(column[column.length - 1], planet, comparison, filterByOption),
-      ))
+      apiResults(comparisonMultiple.map((el) => results.filter(
+        (planet) => multipleFilters(el.column, planet, el.comparison, filterByOption),
+      )))
     );
   }
 }
 
 const mapStateToProps = (state) => ({
   all: state,
+  comparisonMultiple: state.filters.filterByNumericValues,
   filterBynameProp: state.filters.filterByName.name,
   filterByOption: state.filters.filterByNumericValues,
 });
@@ -76,6 +76,7 @@ const mapStateToProps = (state) => ({
 MultipleFiltersValue.propTypes = {
   filterByOption: PropTypes.func.isRequired,
   all: PropTypes.func.isRequired,
+  comparisonMultiple: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(MultipleFiltersValue);

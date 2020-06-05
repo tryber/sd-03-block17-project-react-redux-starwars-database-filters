@@ -35,11 +35,11 @@ class ValueFilters extends Component {
     });
   }
 
+
   render() {
     const submitChange = () => {
       const { submitToState } = this.props;
       const { population, value, numbOfPop } = this.state;
-      console.log(value)
       submitToState(population, value, numbOfPop);
     };
     const { population, value, numbOfPop } = this.state;
@@ -60,7 +60,9 @@ class ValueFilters extends Component {
           <option value="igual a">igual a</option>
         </select>
         <input data-testid="value-filter" type="number" value={numbOfPop} onChange={this.numb} />
-        <button type="submit" data-testid="button-filter" onClick={() => submitChange()}>filtrar</button>
+        <button type="submit" data-testid="button-filter" onClick={() => submitChange()}>
+          filtrar
+        </button>
       </div>
     );
   }
