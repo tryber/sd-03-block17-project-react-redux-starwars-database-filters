@@ -1,5 +1,10 @@
-function emptyReducer() {
-  return {};
-}
+import { combineReducers } from 'redux';
+import selectPlanets from './planets';
+import filters from './filters';
 
-export default emptyReducer;
+const rootReducer = combineReducers({
+  selectPlanets,
+  filters,
+});
+
+export default rootReducer;
