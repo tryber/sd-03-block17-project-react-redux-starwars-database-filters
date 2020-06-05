@@ -43,8 +43,7 @@ const filters = (state = INITIAL_STATE, action) => {
         ...state,
         filterByNumericValues: [...newFilterState],
       };
-    default:
-      return state;
+    default: return state;
   }
 };
 

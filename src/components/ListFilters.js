@@ -10,10 +10,10 @@ class ListFilters extends React.Component {
       filterByNumericValues.map(({ column, comparison, value }, index) => {
         if (column && comparison && value) {
           return (
-          <div key={`${column} Filter`} data-testid="filter">
-            <span>{`Filter ${index}: ${column} ${comparison} ${value}`}</span>
-            <button onClick={() => clearFilter(index)}>X</button>
-          </div>
+            <div key={`${column} Filter`} data-testid="filter">
+              <span>{`Filter ${index}: ${column} ${comparison} ${value}`}</span>
+              <button onClick={() => clearFilter(index)}>X</button>
+            </div>
           );
         }
         return undefined;
