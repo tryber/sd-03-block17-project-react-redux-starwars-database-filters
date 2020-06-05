@@ -30,6 +30,15 @@ function retornaSign(comparison) {
   return null;
 }
 
+function filtraByName(action, state) {
+  const filterName = action.filters.filterByName.name.toLowerCase();
+  return state.data.results.filter((element) => {
+    const lowerName = element.name.toLowerCase();
+    return lowerName.includes(filterName);
+  });
+
+}
+
 function filtraNumericData(comparisonSignal, state, column, value) {
   if (comparisonSignal === 0) {
     return state.data.results.filter((element) => element[column] > value);
@@ -49,10 +58,7 @@ function requestReducer(state = INITIAL_STATE, action) {
       return { ...state, data: action.data };
     case 'FILTER_PLANET_DATA': {
       const filterName = action.filters.filterByName.name.toLowerCase();
-      const filteredPlanets = state.data.results.filter((element) => {
-        const lowerName = element.name.toLowerCase();
-        return lowerName.includes(filterName);
-      });
+      const filteredPlanets = filtraByName(action, state);
       return {
         ...state,
         filters: { filterByName: { name: filterName, filteredPlanets: [filteredPlanets] } },
