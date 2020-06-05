@@ -46,7 +46,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   data: state.apiReducer.data,
   loading: state.apiReducer.loading,
-  nameFilter: state.filterReducer.filterByName.name,
+  nameFilter: state.filters.filterByName.name,
 });
 
 Home.defaultProps = {
