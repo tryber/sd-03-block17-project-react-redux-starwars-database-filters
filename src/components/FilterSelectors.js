@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { submitNumericFilter } from '../actions/submitNumFilter';
 
-const columnFilter = [
+export const columnFilter = [
   'population',
   'orbital_period',
   'diameter',

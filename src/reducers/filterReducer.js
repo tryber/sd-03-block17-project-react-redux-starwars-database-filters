@@ -1,12 +1,17 @@
 import { INPUT_CHANGE } from '../actions/textInputActions';
 import { SUBMIT_FILTER } from '../actions/submitNumFilter';
 import { CANCEL_FILTER } from '../actions/cancelFilter';
+import { SUBMIT_SORT } from '../actions/submitSortAction';
 
 const INITIAL_STATE = {
   filterByName: {
     name: '',
   },
   filterByNumericValues: [],
+  order: {
+    sort: 'ASC',
+    column: 'Name',
+  },
 };
 
 const handleTextInput = (state, textFilter) => ({
@@ -26,6 +31,11 @@ const removeFitler = (state, filters) => ({
   filterByNumericValues: filters,
 });
 
+const submitSort = (state, { column, sort }) => ({
+  ...state,
+  order: { column, sort },
+});
+
 const textFilterReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case INPUT_CHANGE:
@@ -36,6 +46,8 @@ const textFilterReducer = (state = INITIAL_STATE, action) => {
       return removeFitler(state, state.filterByNumericValues.filter(
         (e) => e.column !== action.payload.filter,
       ));
+    case SUBMIT_SORT:
+      return submitSort(state, action.payload);
     default:
       return state;
   }
