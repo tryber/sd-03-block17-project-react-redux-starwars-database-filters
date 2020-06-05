@@ -5,7 +5,15 @@ import { filterByText } from '../actions/actionsCreators';
 import Table from '../components/table/Table';
 import FilterContainer from '../components/filters/FilterContainer';
 
-function makeComparison(column, comparison, value, element) {
+const integersColumns = [
+  'population',
+  'orbital_period',
+  'diameter',
+  'rotation_period',
+  'surface_water',
+];
+
+const makeComparison = (column, comparison, value, element) => {
   switch (comparison) {
     case 'maior que':
       return Number(element[column]) > Number(value);
@@ -16,16 +24,9 @@ function makeComparison(column, comparison, value, element) {
     default:
       return [];
   }
-}
+};
 
-function orderColumns(data, column, order) {
-  const integersColumns = [
-    'population',
-    'orbital_period',
-    'diameter',
-    'rotation_period',
-    'surface_water',
-  ];
+const orderColumns = (data, column, order) => {
   const sortedData = integersColumns.includes(column)
     ? data.sort((a, b) => a[column] - b[column])
     : data.sort((a, b) => {
@@ -36,7 +37,7 @@ function orderColumns(data, column, order) {
 
   if (order === 'DESC') return sortedData.reverse();
   return sortedData;
-}
+};
 
 const Home = ({
   nameFilter,
@@ -58,7 +59,6 @@ const Home = ({
       .filter((element) => makeComparison(column, comparison, value, element)),
     sortDataFilter,
   );
-
 
   return (
     <div>
