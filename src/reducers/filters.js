@@ -37,7 +37,7 @@ const filters = (state = INITIAL_STATE, action) => {
       };
     case REMOVE_FILTER:
       newFilterState = state.filterByNumericValues.filter((e, index, array) =>
-        e !== array[action.index]
+        e !== array[action.index],
       );
       return {
         ...state,
