@@ -73,7 +73,7 @@ class Table extends Component {
             apiResults(results.filter(
               (planet) => planet.name.toLowerCase().indexOf(filterBynameProp.toLowerCase()) !== -1,
             ))}
-          </tbody>{console.log(all.filters.filterByNumericValues)}
+          </tbody>
         </table>
         {!showResults && <h1>Carregando</h1>}
       </div>
