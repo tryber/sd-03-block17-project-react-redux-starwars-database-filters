@@ -6,6 +6,11 @@ import { getApiData, filterByPlanetText } from '../actions/apiAction';
 import FilterContainer from '../components/filters/FilterContainer';
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.filterDataByText = this.filterDataByText.bind(this);
+  }
+
   componentDidMount() {
     const { getPlanetsInfo } = this.props;
     getPlanetsInfo();
@@ -13,6 +18,7 @@ class Home extends Component {
 
   filterDataByText(data) {
     const { nameFilter } = this.props;
+    console.log(nameFilter);
     if (nameFilter !== '') {
       return data.filter(({ name }) => name.toLowerCase().includes(nameFilter.toLowerCase()));
     }
@@ -26,7 +32,7 @@ class Home extends Component {
         <div>
           <FilterContainer onChange={(event) => planetName(event.target.value)} />
         </div>
-        {loading ? (<h1>loading...</h1>) : <Table data={data} /> }
+        {loading ? (<h1>loading...</h1>) : <Table data={this.filterDataByText(data)} /> }
       </div>
     );
   }
