@@ -6,9 +6,9 @@ import TableHeader from './TableHeader';
 class Table extends Component {
   handleFilter (list, { column, comparison, value }) {
     switch (comparison) {
-      case 'Maior que': return list.filter((planet => Number(planet[column] > value)));
-      case 'Menor que': return list.filter((planet => Number(planet[column] < value)));
-      case 'Igual a': return list.filter((planet => Number(planet[column] === value)));
+      case 'Maior que': return list.filter((planet => Number(planet[column]) > value));
+      case 'Menor que': return list.filter((planet => Number(planet[column]) < value));
+      case 'Igual a': return list.filter((planet => Number(planet[column]) === value));
       default: return list;
     }
   }
@@ -28,8 +28,8 @@ class Table extends Component {
 const mapStateToProps = (state) => {
   console.log(state)
   return ({
-  planetList: state.data,
-  nameFilter: state.filters.filterByName.name,
-  numericFilters: state.filters.filterByNumericValue,
+  planetList: state.Planet.data,
+  nameFilter: state.Filter.filters.filterByName.name,
+  numericFilters: state.Filter.filters.filterByNumericValue,
 })}
  export default connect(mapStateToProps)(Table);

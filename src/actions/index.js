@@ -1,4 +1,4 @@
-import { fetchAPI, fetchByName } from '../services/fetchAPI';
+import { fetchAPI } from '../services/fetchAPI';
 
 export const REQUESTING_PLANETS = 'REQUESTING_PLANETS';
 export const RECEIVE_PLANETS = 'RECEIVE_PLANETS';

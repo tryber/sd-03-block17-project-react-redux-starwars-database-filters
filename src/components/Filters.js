@@ -18,11 +18,11 @@ class Filters extends Component {
     )
   }
 
-  handleSelectors(value, stateId) {
-    this.setState({ [stateId]: value })
+  handle(event, stateId) {
+    this.setState({ [stateId]: event.target.value })
   }
 
-  btnClick() {
+  btn() {
     const { columnSelector, comparisonSelector, valueFilter } = this.state;
     this.props.handleFilterBtn(columnSelector, comparisonSelector, valueFilter);
   }
@@ -37,21 +37,21 @@ class Filters extends Component {
         <input id='name-in' data-testid='name-filter' type='text' onChange={e => handleQuery(e)} />
         <select 
           data-testid='column-filter'
-          onChange={e => this.handleSelectors(e.target.value, 'columnSelector')}
+          onChange={e => this.handle(e, 'columnSelector')}
         >
           {this.renderOptions(colArray)}
         </select>
         <select 
           data-testid='comparison-filter' 
-          onChange={e => this.handleSelectors(e.target.value, 'comparisonSelector')}
+          onChange={e => this.handle(e, 'comparisonSelector')}
         >
           {this.renderOptions(compArray)}
         </select>
         <input 
           data-testid='value-filter' type='number' 
-          onChange={e => this.handleSelectors(e.target.value, 'valueFilter')} 
+          onChange={e => this.handle(e, 'valueFilter')} 
         />
-        <button type='button' data-testid='button-filter' onClick={() => this.btnClick()}>Filtro</button>
+        <button type='button' data-testid='button-filter' onClick={() => this.btn()}>Filtro</button>
       </div>
     )
   }

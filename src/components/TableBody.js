@@ -37,8 +37,8 @@ class TableBody extends Component {
 }
 
 const mapStateToProps = state => ({
-  loading: state.loading,
-  error: state.error,
+  loading: state.Planet.loading,
+  error: state.Planet.error,
 })
 
 export default connect(mapStateToProps)(TableBody)

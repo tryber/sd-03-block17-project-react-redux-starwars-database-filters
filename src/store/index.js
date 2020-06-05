@@ -1,8 +1,9 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk'
-import reducer from '../reducers'
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
+import Filter from '../reducers/filter';
+import Planet from '../reducers/planet';
 
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(combineReducers( { Filter, Planet }), applyMiddleware(thunk));
 
 export default store;
