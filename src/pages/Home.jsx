@@ -64,7 +64,8 @@ const Home = ({
       <div>
         <FilterContainer onChange={(event) => planetName(event.target.value)} />
       </div>
-      <Table data={filterDataByNumericValue} />
+      {filterDataByNumericValue.length === 0 ? <h1>Nenhum Planeta Encontrado</h1>
+        : <Table data={filterDataByNumericValue} />}
     </div>
   );
 };
