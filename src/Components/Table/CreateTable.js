@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const headers = [
   'Name',
@@ -47,3 +48,23 @@ export default function CreateTable(props) {
     </table>
   );
 }
+
+CreateTable.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      rotation_period: PropTypes.string,
+      orbital_period: PropTypes.string,
+      diameter: PropTypes.string,
+      climate: PropTypes.string,
+      gravity: PropTypes.string,
+      terrain: PropTypes.string,
+      surface_water: PropTypes.string,
+      population: PropTypes.string,
+      film: PropTypes.string,
+      created: PropTypes.string,
+      edited: PropTypes.string,
+      url: PropTypes.string,
+    }),
+  ).isRequired,
+};

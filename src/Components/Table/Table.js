@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { fetchRequestAPI } from '../Actions';
 import InputNamePlanet from './InputNamePlanet';
@@ -82,5 +83,18 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   apiRequestDispatch: () => dispatch(fetchRequestAPI()),
 });
+
+Table.propTypes = {
+  planets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  filterByName: PropTypes.string.isRequired,
+  selectInput: PropTypes.arrayOf(
+    PropTypes.shape({
+      column: PropTypes.string,
+      comparison: PropTypes.string,
+      value: PropTypes.string,
+    }),
+  ).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

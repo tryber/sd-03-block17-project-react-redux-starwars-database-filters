@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { filterByNumber } from '../Actions';
+import PropTypes from 'prop-types';
 
 const columns = [
   'population',
@@ -12,6 +13,10 @@ const columns = [
 
 const comparisons = ['', 'maior que', 'igual a', 'menor que'];
 
+function filterColumn(valueFilter, option) {
+  return !valueFilter.find(({ column }) => column === option);
+}
+
 class NavBar extends Component {
   constructor(props) {
     super(props);
@@ -22,17 +27,12 @@ class NavBar extends Component {
     };
     this.sideBar = this.sideBar.bind(this);
     this.handleChangeInput = this.handleChangeInput.bind(this);
-    this.filterColumn = this.filterColumn.bind(this);
   }
 
   handleChangeInput(name, value) {
     this.setState({
       [name]: value,
     });
-  }
-
-  filterColumn(valueFilter, option) {
-    return !valueFilter.find(({ column }) => column === option);
   }
 
   sideBar() {
@@ -45,10 +45,10 @@ class NavBar extends Component {
             onChange={(e) => this.handleChangeInput('column', e.target.value)}
           >
             <option value="" />
-            {columns.map((column) => (this.filterColumn(valueFilter, column)
-            && (
-              <option key={column}>{column}</option>
-            )
+            {columns.map((column) => (filterColumn(valueFilter, column)
+              && (
+                <option key={column}>{column}</option>
+              )
             ))}
           </select>
           <select
@@ -93,5 +93,19 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   selectInput: (e) => dispatch(filterByNumber(e)),
 });
+
+NavBar.propTypes = {
+  selectInput: PropTypes.func.isRequired,
+};
+
+NavBar.propTypes = {
+  valueFilter: PropTypes.arrayOf(
+    PropTypes.shape({
+      column: PropTypes.string,
+      comparison: PropTypes.string,
+      value: PropTypes.string,
+    }),
+  ).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

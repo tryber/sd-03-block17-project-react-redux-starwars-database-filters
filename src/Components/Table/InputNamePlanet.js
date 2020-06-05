@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { filters } from '../Actions';
 
@@ -24,5 +25,13 @@ class InputNamePlanet extends Component {
 const mapDispatchToProps = (dispatch) => ({
   getFilters: (e) => dispatch(filters(e)),
 });
+
+InputNamePlanet.propTypes = {
+  getFilters: PropTypes.func.isRequired,
+}
+
+InputNamePlanet.defaultProps = {
+  getFilters: PropTypes.func.isRequired,
+}
 
 export default connect(null, mapDispatchToProps)(InputNamePlanet);
