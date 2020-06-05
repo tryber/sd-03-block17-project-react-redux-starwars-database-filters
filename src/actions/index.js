@@ -6,6 +6,7 @@ export const RECEIVE_API_ERROR = 'RECEIVE_API_ERROR';
 export const FILTER_BY_NAME = 'FILTER_BY_NAME';
 export const FILTER_BY_NUMERIC_VALUES = 'FILTER_BY_NUMERIC_VALUES';
 export const RECEIVE_FILTERED_PLANETS = 'RECEIVE_FILTERED_PLANETS';
+export const REMOVE_FILTER = 'REMOVE_FILTER';
 
 const requestPlanets = () => ({
   type: REQUEST_API,
@@ -45,4 +46,9 @@ export const filterByNumericValues = (data) => ({
 export const filteredPlanets = (data) => ({
   type: RECEIVE_FILTERED_PLANETS,
   planets: data,
+});
+
+export const removeFilter = (index) => ({
+  type: REMOVE_FILTER,
+  index,
 });

@@ -19,6 +19,8 @@ const comparisonOptions = [
   'menor que',
 ];
 
+let newColumnOptions = [...columnOptions];
+
 let showFilter = true;
 
 const verifyColumns = (obj) => {
@@ -48,6 +50,22 @@ class NumericFilter extends React.Component {
     });
   }
 
+  filterMenu() {
+    const { filterByNumericValues } = this.props;
+    // Thanks for topic
+    // https://stackoverflow.com/
+    // questions/14515382/javascript-compare-two-arrays-return-differences-but
+    const filterColumnArray = filterByNumericValues.map(({column}) => column);
+    newColumnOptions = [...columnOptions];
+    let index; 
+    for (let i=0; i<filterColumnArray.length; i++) {
+      index = newColumnOptions.indexOf(filterColumnArray[i]);
+      if (index > -1) {
+          newColumnOptions.splice(index, 1);
+      }
+    }
+  }
+  
   filterForms() {
     const { getPlanetByNumericValues } = this.props;
     return (
@@ -57,7 +75,7 @@ class NumericFilter extends React.Component {
           data-testid="column-filter" name="column-filter"
           onChange={(e) => this.handleChange('column', e.target.value)}
         >
-          {columnOptions.map((e) => <option key={e} value={e}>{e}</option>)}
+          {newColumnOptions.map((e) => <option key={e} value={e}>{e}</option>)}
         </select>
         <label htmlFor="comparison-filter">Condição</label>
         <select
@@ -76,17 +94,6 @@ class NumericFilter extends React.Component {
         >Filtrar</button>
       </div>
     );
-  }
-
-  filterMenu() {
-    const { filterByNumericValues } = this.props;
-    const columnPos = filterByNumericValues.map(({ column }) => column);
-    columnPos.forEach((column) => {
-      const position = columnOptions.indexOf(column);
-      if (position > 0) {
-        columnOptions.splice(position, 1);
-      }
-    });
   }
 
   render() {

@@ -1,5 +1,5 @@
 import { FILTER_BY_NAME, FILTER_BY_NUMERIC_VALUES } from '../actions/index';
-
+import { REMOVE_FILTER } from '../actions/index';
 const INITIAL_STATE = {
   filterByName: {
     name: '',
@@ -32,6 +32,12 @@ const filters = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         filterByNumericValues: [...state.filterByNumericValues, action.data],
+      };
+    case REMOVE_FILTER:
+      const newFilterState = state.filterByNumericValues.filter((e, index, array) => e !== array[action.index]);
+      return {
+        ...state,
+        filterByNumericValues: [...newFilterState],
       };
     default:
       return state;
