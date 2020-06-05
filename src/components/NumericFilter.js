@@ -40,7 +40,6 @@ class NumericFilter extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.filterMenu = this.filterMenu.bind(this);
     this.filterForms = this.filterForms.bind(this);
-    this.listFilters = this.listFilters.bind(this);
   }
 
   handleChange(type, value) {
