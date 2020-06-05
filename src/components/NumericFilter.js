@@ -55,17 +55,17 @@ class NumericFilter extends React.Component {
     // Thanks for topic
     // https://stackoverflow.com/
     // questions/14515382/javascript-compare-two-arrays-return-differences-but
-    const filterColumnArray = filterByNumericValues.map(({column}) => column);
+    const filterColumnArray = filterByNumericValues.map(({ column }) => column);
     newColumnOptions = [...columnOptions];
-    let index; 
-    for (let i=0; i<filterColumnArray.length; i++) {
+    let index;
+    for (let i = 0; i < filterColumnArray.length; i += 1) {
       index = newColumnOptions.indexOf(filterColumnArray[i]);
       if (index > -1) {
-          newColumnOptions.splice(index, 1);
+        newColumnOptions.splice(index, 1);
       }
     }
   }
-  
+
   filterForms() {
     const { getPlanetByNumericValues } = this.props;
     return (

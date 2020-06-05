@@ -9,10 +9,12 @@ class ListFilters extends React.Component {
     return (
       filterByNumericValues.map(({ column, comparison, value }, index) => {
         if (column && comparison && value) {
-          return <div key={`${column} Filter`} data-testid="filter">
+          return (
+          <div key={`${column} Filter`} data-testid="filter">
             <span>{`Filter ${index}: ${column} ${comparison} ${value}`}</span>
             <button onClick={() => clearFilter(index)}>X</button>
-          </div>;
+          </div>
+          );
         }
         return undefined;
       })
@@ -42,4 +44,5 @@ ListFilters.defaultProps = {
 
 ListFilters.propTypes = {
   filterByNumericValues: PropTypes.arrayOf(PropTypes.object),
+  clearFilter: PropTypes.func.isRequired,
 };
