@@ -1,20 +1,19 @@
 import filterFunc from './filterFunc';
 
+const orderName = (array) => {
+  return array.sort(function (a, b) {
+    if (a.name < b.name) { return -1; }
+    if (a.name > b.name) { return 1; }
+    return 0;
+  });
+}
+
 const orderFuncAsc = (planets, name, numericValues, columnSort) => {
   if (columnSort === 'Name') {
-    return filterFunc(planets, name, numericValues)
-      .sort((a, b) => a.name - b.name);
+    const filter = filterFunc(planets, name, numericValues);
+    return orderName(filter);
   }
   return filterFunc(planets, name, numericValues).sort((a, b) => a[columnSort] - b[columnSort]);
 };
 
 export default orderFuncAsc;
-
-/* return ((columnSort === 'Name') &&
-    filterFunc(planets, name, numericValues).sort((a, b) => (
-      sort === 'ASC' ? a.name - b.name : b.name - a.name
-    )))
-    ||
-    filterFunc(planets, name, numericValues).sort((a, b) => (
-      sort === 'ASC' ? a[columnSort] - b[columnSort] : b[columnSort] - a[columnSort]
-    )); */

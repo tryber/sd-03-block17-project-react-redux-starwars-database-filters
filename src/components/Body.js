@@ -42,6 +42,11 @@ const mapStateToProps = (state) => (
 
 export default connect(mapStateToProps)(Body);
 
+Body.defaultProps = {
+  columnSort: 'Name',
+  sort: 'ASC',
+}
+
 Body.propTypes = {
   planets: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,

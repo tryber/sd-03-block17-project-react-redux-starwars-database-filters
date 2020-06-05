@@ -10,7 +10,7 @@ class Input extends React.Component {
 
     this.state = {
       text: '',
-      columnSort: 'name',
+      columnSort: 'Name',
       inputSort: 'ASC',
     };
 
@@ -38,7 +38,7 @@ class Input extends React.Component {
 
   getColumns() {
     const columns = [
-      'name',
+      'Name',
       'population',
       'orbital_period',
       'diameter',
