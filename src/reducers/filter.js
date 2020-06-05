@@ -15,14 +15,14 @@ function FilterReducer(state = initialState, action) {
     case SAVE_FILTERS:
       return {
         ...state,
-          filterByNumericValues: [
-            ...state.filterByNumericValues,
-            {
-              column: action.column,
-              comparison: action.comparison,
-              value: action.value,
-            },
-          ],
+        filterByNumericValues: [
+          ...state.filterByNumericValues,
+          {
+            column: action.column,
+            comparison: action.comparison,
+            value: action.value,
+          },
+        ],
       };
     default:
       return state;

@@ -31,7 +31,7 @@ class Filters extends Component {
 
   render() {
     const { hdlQry } = this.props;
-    const colArray = ['select', 'population', 'orbital_period', 
+    const colArray = ['select', 'population', 'orbital_period',
       'diameter', 'rotation_period', 'surface_water'];
     const compArray = ['select', 'maior que', 'menor que', 'igual a'];
     return (

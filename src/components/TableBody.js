@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class TableBody extends Component {
   render() {
-    const { loading, planets } = this.props;
-    // if (loading) {
-    //   return <tbody><tr><td>LOADING...</td></tr></tbody>;
-    // }
+    const { planets } = this.props;
     return (
       <tbody>
         {planets.map((planet) => (
@@ -35,12 +31,7 @@ class TableBody extends Component {
 }
 
 TableBody.propTypes = {
-  loading: PropTypes.bool.isRequired,
   planets: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  loading: state.Planet.loading,
-});
-
-export default connect(mapStateToProps)(TableBody);
+export default (TableBody);
