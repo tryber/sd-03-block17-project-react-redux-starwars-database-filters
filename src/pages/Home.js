@@ -11,6 +11,14 @@ class Home extends Component {
     this.filterDataByText = this.filterDataByText.bind(this);
   }
 
+  const intColumns = [
+  'population',
+  'orbital_period',
+  'diameter',
+  'rotation_period',
+  'surface_water',
+];
+
   componentDidMount() {
     const { getPlanetsInfo } = this.props;
     getPlanetsInfo();
@@ -51,6 +59,13 @@ const mapStateToProps = (state) => ({
 
 Home.defaultProps = {
   nameFilter: '',
+  valueFilters: [
+    {
+      column: '',
+      comparison: '',
+      value: '',
+    },
+  ],
 };
 
 Home.propTypes = {

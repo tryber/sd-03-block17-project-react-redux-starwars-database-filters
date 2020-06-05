@@ -4,6 +4,7 @@ import {
   API_RECIEVE_SUCCESS,
   API_RECIVE_FAILURE,
   FILTER_BY_PLANET_TEXT,
+  FILTER_BY_NUMERIC_VALUES,
 } from '../services/Types';
 
 export const apiRequest = () => ({
@@ -37,4 +38,9 @@ export function getApiData() {
 export const filterByPlanetText = (name) => ({
   type: FILTER_BY_PLANET_TEXT,
   name,
+});
+
+export const filterByNumericValues = (...params) => ({
+  type: FILTER_BY_NUMERIC_VALUES,
+  params,
 });
