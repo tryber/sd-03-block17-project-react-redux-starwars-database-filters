@@ -4,19 +4,19 @@ import PropTypes from 'prop-types';
 import { sortColumns } from '../../actions/actionsCreators';
 
 const columns = [
-  'Name',
-  'Rotation_period',
-  'Orbital_period',
-  'Diameter',
-  'Climate',
-  'Gravity',
-  'Terrain',
-  'Surface_water',
-  'Population',
-  'Films',
-  'Created',
-  'Edited',
-  'URL',
+  'name',
+  'rotation_period',
+  'orbital_period',
+  'diameter',
+  'climate',
+  'gravity',
+  'terrain',
+  'surface_water',
+  'population',
+  'films',
+  'created',
+  'edited',
+  'url',
 ];
 
 class SortColumnsFilter extends Component {
@@ -33,7 +33,7 @@ class SortColumnsFilter extends Component {
     return (
       <select
         data-testid="column-sort"
-        onChange={(event) => this.setState({ column: event.target.value || 'diameter' })}
+        onChange={(event) => this.setState({ column: event.target.value })}
       >
         <option value="" />
         {columns.map((column) => (
