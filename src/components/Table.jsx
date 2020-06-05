@@ -7,8 +7,8 @@ import {
 const header = {
   name: 'nome',
   population: 'população',
-  diameter: 'diametro',
   climate: 'clima',
+  diameter: 'diametro',
   created: 'criado em',
   gravity: 'gravidade',
   orbital_period: 'período de órbita',
@@ -136,7 +136,6 @@ class Table extends React.Component {
   render() {
     const { data, filter, numericFilter, order, columnOptions } = this.props;
     const { nameFilter, filterValues, asc, desc, ordercolumn } = this.state;
-    console.log(numericFilter)
     return (
       <div>
         <label htmlFor="name-filter">
