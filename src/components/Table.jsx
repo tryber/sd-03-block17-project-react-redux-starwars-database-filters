@@ -4,25 +4,6 @@ import './Layout/Table.css';
 import DispatchStore from '../services/dispatchStore';
 import TableData from './TableData';
 
-const tableForm = () => (
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Rotation</th>
-      <th>Orbital</th>
-      <th>Diameter</th>
-      <th>Climate</th>
-      <th>Gravity</th>
-      <th>Terrain</th>
-      <th>Surface Water</th>
-      <th>Population</th>
-      <th>films</th>
-      <th>created</th>
-      <th>edited</th>
-      <th>url</th>
-    </tr>
-  </thead>
-);
 function switchComparison(column, comparison, value, planet) {
   switch (comparison) {
     case 'maior que':
@@ -37,19 +18,6 @@ function switchComparison(column, comparison, value, planet) {
 }
 
 class Table extends React.Component {
-
-  // filterSelectedValues() {
-  //   const { selectInput, planets } = this.props;
-  //   const { column, comparison, value } = selectInput;
-
-  //   let arrayFilterPlanets = [];
-
-  //   if (column && comparison && value) {
-  //     return planets.map((elem) => elem.name)
-  //   }
-  // }
-
-
   filterSelectedValues(data) {
     const { selectInput } = this.props;
     console.log(selectInput);
@@ -80,18 +48,14 @@ class Table extends React.Component {
           como príncipe lutaste com Deus e com os homens, e prevaleceste.
           Gênesis 32:28
         </h1>
-        {/* {this.filterSelectedValues()} */}
         <div className="TabelaProdutos">
           <DispatchStore />
-          <table>
-            {tableForm()}
-            <tbody>
-              {isFetching ? 'Loading' : <TableData data={this.filterSelectedValues(planetsData)} />}
-            </tbody>
-          </table>
+          <tbody>
+            {isFetching ? 'Loading' : <TableData data={this.filterSelectedValues(planetsData)} />}
+          </tbody>
         </div>
-        <div className="barFilter">
-        </div>
+        {/* <div className="barFilter">
+        </div> */}
       </div>
     );
   }

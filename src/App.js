@@ -4,6 +4,7 @@ import './App.css';
 import Table from './components/Table';
 import NavBar from './components/NavBar';
 import FilterPlanets from './components/FilterPlanets';
+import RemoveFilters from './components/RemoveFilters';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <NavBar />
       <FilterPlanets />
       <Table />
+      <RemoveFilters />
     </div>
   );
 }

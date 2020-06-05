@@ -13,16 +13,12 @@ class FilterPlanets extends Component {
         <input
           type="text"
           data-testid="name-filter"
-          onChange={(e) => console.log(getPlanetByname(e.target.value))}
+          onChange={(e) => getPlanetByname(e.target.value)}
         />
       </div>
     );
   }
 }
-
-// const mapStateToProps = (state) => ({
-//   data: state.requestAPI.data,
-// });
 
 const mapDispatchToProps = (dispatch) => ({
   getPlanetByname: (e) => dispatch(filterByName(e)),

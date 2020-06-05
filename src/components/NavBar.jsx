@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import './Layout/NavBar.css';
 import { filterByNumber } from '../action/index';
 
+
+
 class NavBar extends Component {
   constructor(props) {
     super(props);
@@ -11,19 +13,32 @@ class NavBar extends Component {
       comparison: '',
       value: '',
     };
-
     this.sideBar = this.sideBar.bind(this);
     this.handleChangeInput = this.handleChangeInput.bind(this);
+    this.filterColumn = this.filterColumn.bind(this);
   }
 
   handleChangeInput(name, value) {
     this.setState({
-      ...this.state,
       [name]: value,
     });
   }
 
+  filterColumn(valueFilter, option) {
+    return !valueFilter.find(({ column }) => column === option);
+  }
+
+  // verifyColumns = (columns, values, options) => {
+  //   if(options) return options.map((elem) => <options>{elem}</options>);
+  //   return false;
+  // }
+
   sideBar() {
+    const { selectInput, valueFilter } = this.props;
+    console.log(valueFilter);
+    const columns = ['population', 'orbital_period', 'diameter',
+      'rotation_period', 'surface_water'];
+    const comparisons = ['', 'maior que', 'igual a', 'menor que'];
     return (
       <header className="header">
         <h1>Monkey Planets</h1>
@@ -33,31 +48,36 @@ class NavBar extends Component {
             <li>Start</li>
             <li>About</li>
             <li>Contats</li>
-            <select
-              data-testid="column-filter"
-              onClick={(e) => this.handleChangeInput('column', e.target.value)}
+            <button
+              type="button"
+              data-testid="button-filter"
+              onClick={() => selectInput(this.state)}
             >
-              <option>a</option>
-              <option>population</option>
-              <option>orbital_period</option>
-              <option>diameter</option>
-              <option>rotation_period</option>
-              <option>surface_water</option>
-            </select>
-            <select
-              data-testid="comparison-filter"
-              onClick={(e) => this.handleChangeInput('comparison', e.target.value)}
-            >
-              <option>NodeName</option>
-              <option>maior que</option>
-              <option>igual a</option>
-              <option>menor que</option>
-            </select>
+              Filtrar
+            </button>
             <input
               type="number"
               data-testid="value-filter"
               onChange={(e) => this.handleChangeInput('value', e.target.value)}
             />
+            <select
+              data-testid="column-filter"
+              onChange={(e) => this.handleChangeInput('column', e.target.value)}
+            >
+              {/* {this.verifyColumns('', '', columns)} */}
+              <option value="" />
+              {columns.map((list) => (this.filterColumn(valueFilter, list)
+                && (<option key={list}>{list}</option>)
+
+              ))}
+            </select>
+            <select
+              data-testid="comparison-filter"
+              onChange={(e) => this.handleChangeInput('comparison', e.target.value)}
+            >
+              {comparisons.map((list) => <option key={list}>{list}</option>)}
+            </select>
+
           </ul>
         </nav>
       </header>
@@ -65,24 +85,20 @@ class NavBar extends Component {
   }
 
   render() {
-    const { selectInput } = this.props;
     return (
       <div>
         {this.sideBar()}
-        <button
-          type="button"
-          data-testid="button-filter"
-          onClick={() => selectInput(this.state)}
-        >
-          Filtrar
-        </button>
       </div>
     );
   }
 }
 
+const mapState = (state) => ({
+  valueFilter: state.filters.filterByNumericValues,
+});
+
 const mapDispatch = (dispatch) => ({
   selectInput: (e) => dispatch(filterByNumber(e)),
 });
 
-export default connect(null, mapDispatch)(NavBar);
+export default connect(mapState, mapDispatch)(NavBar);
