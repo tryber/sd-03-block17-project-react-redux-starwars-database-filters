@@ -15,6 +15,32 @@ const INITIAL_STATE = {
     }],
 };
 
+function retornaSign(comparison) {
+  let comparisonSignal;
+  if (comparison === 'maior que') {
+    comparisonSignal = 0;
+    return comparisonSignal;
+  } if (comparison === 'menor que') {
+    comparisonSignal = 1;
+    return comparisonSignal;
+  } if (comparison === 'igual a') {
+    comparisonSignal = 2;
+    return comparisonSignal;
+  }
+  return null;
+}
+
+function filtraNumericData (comparisonSignal, state, column, value) {
+  if (comparisonSignal === 0) {
+    return state.data.results.filter((element) => element[column] > value);
+  } if (comparisonSignal === 1) {
+    return state.data.results.filter((element) => element[column] < value);
+  } if (comparisonSignal === 2) {
+    return state.data.results.filter((element) => element[column] === value);
+  }
+  return null;
+}
+
 function requestReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'REQUEST_DATA':
@@ -41,26 +67,11 @@ function requestReducer(state = INITIAL_STATE, action) {
     case 'FILTER_PLANET_NUMERIC': {
       const { column, comparison, value } = action.filters.filterByNumericValues[0];
       let comparisonSignal = null;
-      console.log(comparison, 'signal');
-      if (comparison === 'maior que') {
-        console.log(comparisonSignal, 'signal');
-        comparisonSignal = 0;
-      } if (comparison === 'menor que') {
-        comparisonSignal = 1;
-      } if (comparison === 'igual a') {
-        comparisonSignal = 2;
-      }
+      comparisonSignal = retornaSign(comparison);
       console.log(comparisonSignal, 'signal');
       let filteredPlanets = [];
       if (state.filters.filterByName.name === ' ') {
-        if (comparisonSignal === 0) {
-          filteredPlanets = state.data.results.filter((element) => element[column] > value);
-          console.log(filteredPlanets);
-        } if (comparisonSignal === 1) {
-          filteredPlanets = state.data.results.filter((element) => element[column] < value);
-        } if (comparisonSignal === 2) {
-          filteredPlanets = state.data.results.filter((element) => element[column] === value);
-        }
+        filteredPlanets = filtraNumericData(comparisonSignal, state, column, value);
       }
       return {
         ...state,
@@ -70,7 +81,8 @@ function requestReducer(state = INITIAL_STATE, action) {
             column,
             comparison,
             value,
-} }
+          },
+        },
       };
     }
     default:
