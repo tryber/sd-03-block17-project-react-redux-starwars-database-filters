@@ -1,0 +1,8 @@
+.loading {
+  font-family: lobster;
+  font-size: 3em;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -100%);
+}

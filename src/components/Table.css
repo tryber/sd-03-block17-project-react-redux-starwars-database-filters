@@ -1,0 +1,15 @@
+table, tbody, td, tr {
+  border: 1px solid #ccc;
+  flex-basis: 60%;
+}
+
+table {
+  overflow: auto;
+}
+
+caption {
+  border: 2px solid #ccc;
+  font-size: 3em;
+  font-weight: 700;
+  text-align: center;
+}

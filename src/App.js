@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import Table from './components/Table';
+import FetchData from './components/FetchData';
+import FiltersBar from './components/FiltersBar';
+
 import './App.css';
 
-function App() {
+const App = ({ loading }) => {
+  if (loading) return <FetchData />;
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <FiltersBar />
+      <Table />
     </div>
   );
-}
+};
 
-export default App;
+const mapStateToProps = (state) => ({
+  loading: state.isFetching,
+});
+
+App.propTypes = { loading: PropTypes.bool.isRequired };
+
+export default connect(mapStateToProps)(App);
