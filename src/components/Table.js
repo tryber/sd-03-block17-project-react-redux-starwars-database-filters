@@ -16,11 +16,15 @@ const tableCreator = (obj) =>
     <td>{obj.surface_water}</td>
     <td>{obj.population}</td>
     <td>
-      {obj.films.map((e) => e)}
+      {obj.films.map((e) =>
+        <p key={e}><a href={e} target="_blank" rel="noopener noreferrer">{e}</a></p>)
+      }
     </td>
     <td>{obj.created}</td>
     <td>{obj.edited}</td>
-    <td>{obj.url}</td>
+    <td>
+      <a href={obj.url} target="_blank" rel="noopener noreferrer">{obj.url}</a>
+    </td>
   </tr>;
 
 const filteredPlanets = (filters, planets) => {
