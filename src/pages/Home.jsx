@@ -26,7 +26,11 @@ const makeComparison = (column, comparison, value, element) => {
   }
 };
 
-const orderInteger = (data, column) => data.sort((a, b) => a[column] - b[column]);
+const orderInteger = (data, column) => data.sort((a, b) => {
+  if (a[column] === 'unknown') return -1;
+  if (b[column] === 'unknown') return 1;
+  return Number(a[column]) - Number(b[column]);
+});
 const orderString = (data, column) => data.sort((a, b) => {
   if (a[column] < b[column]) return -1;
   if (a[column] > b[column]) return 1;
