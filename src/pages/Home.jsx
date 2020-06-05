@@ -48,7 +48,6 @@ const Home = ({
   data,
   loading,
   nameFilter,
-  planetName,
   sortColumnFilter,
   sortOrderFilter,
   valueFilters,
