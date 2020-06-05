@@ -81,6 +81,7 @@ class SortColumnsFilter extends Component {
         type="button"
         data-testid="column-sort-button"
         onClick={() => sortParams({ column, order })}
+        disabled={column === ''}
       >
         Ordenar
       </button>
