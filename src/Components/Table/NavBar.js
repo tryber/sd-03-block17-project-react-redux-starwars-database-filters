@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { filterByNumber } from '../Actions';
 import PropTypes from 'prop-types';
+import { filterByNumber } from '../Actions';
 
 const columns = [
   'population',

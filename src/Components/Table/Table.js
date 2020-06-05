@@ -95,6 +95,7 @@ Table.propTypes = {
       value: PropTypes.string,
     }),
   ).isRequired,
+  apiRequestDispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
