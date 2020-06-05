@@ -85,9 +85,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Table.propTypes = {
-  planets: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  filterByName: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  loading: PropTypes.bool.isRequired,
+  nameInput: PropTypes.string.isRequired,
   selectInput: PropTypes.arrayOf(
     PropTypes.shape({
       column: PropTypes.string,

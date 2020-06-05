@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { removeFilters } from '../Actions';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 
 class RemoveFilters extends Component {
   constructor(props) {
@@ -44,14 +44,14 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 RemoveFilters.propTypes = {
-  filters: PropType.arrayOf(
-    PropType.shape({
-      column: PropType.string,
-      comparison: PropType.string,
-      value: PropType.string,
+  filters: PropTypes.arrayOf(
+    PropTypes.shape({
+      column: PropTypes.string,
+      comparison: PropTypes.string,
+      value: PropTypes.string,
     }),
   ).isRequired,
-  removed: PropType.func.isRequired,
+  removed: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RemoveFilters);

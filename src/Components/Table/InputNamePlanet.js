@@ -28,10 +28,10 @@ const mapDispatchToProps = (dispatch) => ({
 
 InputNamePlanet.propTypes = {
   getFilters: PropTypes.func.isRequired,
-}
+};
 
 InputNamePlanet.defaultProps = {
   getFilters: PropTypes.func.isRequired,
-}
+};
 
 export default connect(null, mapDispatchToProps)(InputNamePlanet);
