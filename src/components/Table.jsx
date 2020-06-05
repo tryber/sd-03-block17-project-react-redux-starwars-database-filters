@@ -27,14 +27,27 @@ const orderByStringProperties = (list, col, direction) => {
   return sortedList;
 };
 
-const renderBody = (planets, properties) => (
-  <tbody>
+const renderBody = (planets, properties, isClassic) => (
+  <tbody style={isClassic ? { border: '1px solid #ccc'} : { display: 'block', flexBasis: '60%' }}>
     {planets
       .map((planet) =>
-        <TableRow key={planet.name} planet={planet} properties={properties} />)
+        <TableRow
+          key={planet.name}
+          planet={planet}
+          properties={properties}
+          isClassic={isClassic}
+        />
+      )
     }
   </tbody>
 );
+
+const generateStyle = (isClassic) => isClassic ? { display: 'inline-block', overFlow: 'auto' } : ({
+  border: '1px solid #ccc',
+  display: 'flex',
+  flexDirection: 'column',
+  flexBasis: '60%',
+});
 
 const makeHeadersInMultiHeadersTable = (headers, ...stringStyles) => {
   const nthOfTypeBefore = (order, title) => (`
@@ -52,7 +65,9 @@ const makeHeadersInMultiHeadersTable = (headers, ...stringStyles) => {
   );
 };
 
-const Table = ({ planets, searchText, numFilters, column, sort, headers }) => {
+const Table = (
+  { planets, searchText, numFilters, column, sort, headers, isClassic }
+) => {
   if (planets.length === 0) return <div>None Planet Found</div>;
 
   let planetsToShow = planets.filter((planet) => planet.name.includes(searchText));
@@ -61,13 +76,18 @@ const Table = ({ planets, searchText, numFilters, column, sort, headers }) => {
     planetsToShow = filterByNumPropertie(planetsToShow, filter);
   });
 
+  const extraStyle = (`
+    td:before {
+      left: 6px;padding-right: 10px;position: absolute;top: 6px;white-space: nowrap;width: 45%;
+    }`);
+
   return (
     <React.Fragment>
-      {makeHeadersInMultiHeadersTable(headers)}
-      <table className="table">
+      {isClassic || makeHeadersInMultiHeadersTable(headers, extraStyle)}
+      <table className="table" style={generateStyle(isClassic)}>
         <caption>Star Wars Planets</caption>
-        <TableHeader headers={headers} />
-        {renderBody(planetsToShow, headers)}
+        <TableHeader headers={headers} isClassic={isClassic} />
+        {renderBody(planetsToShow, headers, isClassic)}
       </table>
     </React.Fragment>
   );
@@ -77,12 +97,14 @@ const mapStateToProps = ({
   data,
   headers,
   filters: { filterByName, filterByNumericValues, order },
+  format
 }) => ({
   planets: data,
   searchText: filterByName.name,
   headers,
   numFilters: filterByNumericValues,
   ...order, // column and sort
+  isClassic: format,
 });
 
 Table.propTypes = {
@@ -94,6 +116,9 @@ Table.propTypes = {
   ).isRequired,
   column: PropTypes.string.isRequired,
   sort: PropTypes.string.isRequired,
+  isClassic: PropTypes.bool,
 };
+
+PropTypes.defaultProps = { isClassic: false };
 
 export default connect(mapStateToProps)(Table);

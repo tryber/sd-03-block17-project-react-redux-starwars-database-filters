@@ -1,3 +1,7 @@
+import dataReducer, { INITIAL_STATE as props } from './dateReducer';
+import filtersReducer, { INITIAL_STATE as filters } from './filtersReducer';
+import aplicationFormatReducer, { INITIAL_STATE as format } from './aplicationFormatReducer';
+
 import {
   REQUEST_PLANETS,
   FETCH_PLANETS_SUCESS,
@@ -6,13 +10,12 @@ import {
 import { CHANGE_VALUES, CREATE_NUMERIC_FILTER, REMOVE_FILTER } from '../actions/NumFilterActions';
 import { ON_CHANGE_ORDER, ACTIVATE_ORDER } from '../actions/orderActions';
 import { TYPE_NAME } from '../actions/SearchTextAction';
-
-import dataReducer, { INITIAL_STATE as props } from './dateReducer';
-import filtersReducer, { INITIAL_STATE as filters } from './filtersReducer';
+import { CHANGE_TABLE } from '../actions/changeTableActions';
 
 const INITIAL_STATE = {
   filters,
   ...props,
+  format,
 };
 
 const Reducer = (state = INITIAL_STATE, action) => {
@@ -32,6 +35,13 @@ const Reducer = (state = INITIAL_STATE, action) => {
         ...state,
         filters: filtersReducer(state.filters, action),
       };
+
+    case CHANGE_TABLE:
+      return { 
+        ...state,
+        format: aplicationFormatReducer(state.format, action)
+      };
+
     default:
       return state;
   }

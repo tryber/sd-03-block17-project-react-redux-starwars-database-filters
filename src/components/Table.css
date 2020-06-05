@@ -1,39 +1,14 @@
 table, tbody, td, tr {
   border: 1px solid #ccc;
-  display: block;
   flex-basis: 60%;
 }
 
 table {
-  display: flex;
-  flex-direction: column;
-}
-
-thead tr {
-  left: -9999px;
-  position: absolute;
-  top: -9999px;
-}
-
-td {
-  border: none;
-  font-size: 1.3em;
-  padding-left: 50%;
-  position: relative;
-  word-wrap: break-word;
-}
-
-td:before {
-  left: 6px;
-  padding-right: 10px;
-  position: absolute;
-  top: 6px;
-  white-space: nowrap;
-  width: 45%;
+  overflow: auto;
 }
 
 caption {
-  font-family: monospace;
+  border: 2px solid #ccc;
   font-size: 3em;
   font-weight: 700;
   text-align: center;
