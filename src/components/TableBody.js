@@ -37,7 +37,7 @@ class TableBody extends Component {
 TableBody.propTypes = {
   loading: PropTypes.bool.isRequired,
   planets: PropTypes.arrayOf(PropTypes.object).isRequired,
-}
+};
 
 const mapStateToProps = (state) => ({
   loading: state.Planet.loading,
