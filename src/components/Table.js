@@ -10,15 +10,15 @@ class Table extends React.Component {
     switch (comparison) {
       case 'maior que':
         return planets.filter(
-          (planet) => Number(planet[column]) > Number(value),
+          (planet) => Number(planet[column]) > Number(value)
         );
       case 'menor que':
         return planets.filter(
-          (planet) => Number(planet[column]) < Number(value),
+          (planet) => Number(planet[column]) < Number(value)
         );
       case 'igual a':
         return planets.filter(
-          (planet) => Number(planet[column]) === Number(value),
+          (planet) => Number(planet[column]) === Number(value)
         );
       default:
         return planets;
@@ -30,13 +30,43 @@ class Table extends React.Component {
     return planets.filter(({ name }) => name.includes(searched));
   }
 
+  sortBySelectedOrder(planets, selectedOrder) {
+    const { sort } = selectedOrder;
+    switch (sort) {
+      case 'ASC': {
+        const { column } = selectedOrder;
+        planets.sort((a,b) => {
+          return a[column.toLowerCase()] > b[column.toLowerCase()];
+        })
+
+        return planets;
+      }
+
+      case 'DESC': {
+        const { column } = selectedOrder;
+        planets.sort((a,b) => {
+          return a[column.toLowerCase()] < b[column.toLowerCase()];
+        })
+
+        return planets;
+      }
+
+      default: {
+        return planets;
+      }
+    }
+  }
+
   filterByParams() {
-    const { planets, numericValues } = this.props;
+    const { planets, numericValues, selectedOrder } = this.props;
+
     let arrFiltered = this.filterByName(planets);
+
+    this.sortBySelectedOrder(arrFiltered, selectedOrder);
 
     numericValues.forEach(
       (filtro) =>
-        (arrFiltered = Table.filterByNumericValues(arrFiltered, filtro)),
+        (arrFiltered = Table.filterByNumericValues(arrFiltered, filtro))
     );
 
     return arrFiltered;
@@ -44,8 +74,8 @@ class Table extends React.Component {
 
   render() {
     return (
-      <div className="table-container">
-        <table className="table is-hoverable is-striped">
+      <div className='table-container'>
+        <table className='table is-hoverable is-striped'>
           <TableHeaders />
           <TableBody arrPlanets={this.filterByParams()} />
         </table>
@@ -58,6 +88,7 @@ const mapStateToProps = (state) => ({
   planets: state.apiReducer.data,
   searched: state.filters.filterByName.name,
   numericValues: state.filters.filterByNumericValues,
+  selectedOrder: state.filters.order,
 });
 
 export default connect(mapStateToProps)(Table);
@@ -69,9 +100,11 @@ Table.propTypes = {
 };
 
 Table.defaultProps = {
-  numericValues: [{
-    column: 'population',
-    comparison: 'maior que',
-    value: '150000',
-  }],
+  numericValues: [
+    {
+      column: 'population',
+      comparison: 'maior que',
+      value: '150000',
+    },
+  ],
 };

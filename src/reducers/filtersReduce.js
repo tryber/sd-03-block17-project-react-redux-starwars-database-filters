@@ -2,6 +2,7 @@ import {
   FILTER_BY_NAME,
   FILTER_BY_NUMERIC_VALUE,
   DELETE_FILTER,
+  SORT,
 } from '../actions/index';
 
 const initialState = {
@@ -15,6 +16,10 @@ const initialState = {
       value: '',
     },
   ],
+  order: {
+    column: 'Name',
+    sort: 'ASC',
+  }
 };
 
 const filters = (state = initialState, action) => {
@@ -46,6 +51,17 @@ const filters = (state = initialState, action) => {
         filterByNumericValues:
           state.filterByNumericValues.filter((filtereds) => filtereds.column !== action.payload),
       };
+    }
+
+    case SORT: {
+      const { column, sort } = action.payload;
+      return {
+        ...state,
+        order: {
+          column,
+          sort,
+        }
+      }
     }
 
     default:

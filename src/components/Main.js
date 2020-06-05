@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 
 import Table from './Table';
 import Filters from './Filters';
+import FilterAscDesc from './FilterAscDesc';
 import { callServiceAPI } from '../actions';
 
 class Main extends Component {
@@ -20,6 +21,9 @@ class Main extends Component {
         ) : (
           <div>
             <Filters />
+            <div className="custom">
+              <FilterAscDesc />
+            </div>
             <Table />
           </div>
         )}
