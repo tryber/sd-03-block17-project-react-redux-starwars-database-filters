@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 export class Table extends Component {
-  renderTableBody(filtername) {
+  renderTableBody(filtername, filterByNumericValues) {
     const { value: { data } } = this.props;
     const { results } = data;
+    console.log([filterByNumericValues]);
     if (document.getElementsByName('filter_name').value !== '') {
       return results.filter((element) => {
         const lowerName = element.name.toLowerCase();
@@ -34,7 +35,8 @@ export class Table extends Component {
 
   render() {
     const { value: { data } } = this.props;
-    const { value: { filters: { filterByName } } } = this.props;
+    const { value: { filters: { filterByName: { name } } } } = this.props;
+    const { value: { filters } } = this.props;
     const { results } = data;
     console.log(this.props);
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
@@ -55,7 +57,8 @@ export class Table extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.renderTableBody(filterByName.name)}
+                  {console.log(filters)}
+                  {this.renderTableBody(name, filters)}
                 </tbody>
               </table>
             </div>
