@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { queryByName, saveFilters } from '../actions';
 
 class Filters extends Component {
-  static renderOptions(array) {
+  static renderOptions(array, state) {
     return (
-      array.map((e) => <option>{e}</option>)
+      array.map((e) => (state.includes(e))? false : <option>{e}</option>)
     );
   }
 
@@ -30,7 +30,7 @@ class Filters extends Component {
   }
 
   render() {
-    const { hdlQry } = this.props;
+    const { hdlQry, okFilters } = this.props;
     const colArray = ['select', 'population', 'orbital_period',
       'diameter', 'rotation_period', 'surface_water'];
     const compArray = ['select', 'maior que', 'menor que', 'igual a'];
@@ -42,13 +42,13 @@ class Filters extends Component {
           data-testid="column-filter"
           onChange={(e) => this.handle(e, 'columnSelector')}
         >
-          {Filters.renderOptions(colArray)}
+          {Filters.renderOptions(colArray, okFilters)}
         </select>
         <select
           data-testid="comparison-filter"
           onChange={(e) => this.handle(e, 'comparisonSelector')}
         >
-          {Filters.renderOptions(compArray)}
+          {Filters.renderOptions(compArray, okFilters)}
         </select>
         <input
           data-testid="value-filter" type="number"
@@ -70,4 +70,8 @@ const mapDispatchToProps = (dispatch) => ({
   handleFilterBtn: (column, comparison, value) => dispatch(saveFilters(column, comparison, value)),
 });
 
-export default connect(null, mapDispatchToProps)(Filters);
+const mapStateToProps = (state) => ({
+  okFilters: state.filters.usedFilters
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);
