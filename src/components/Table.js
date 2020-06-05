@@ -16,9 +16,9 @@ class Table extends React.Component {
   // }
 
   renderTableTr() {
-    const { dataFiltered } = this.props;
+    const { data } = this.props;
     return (
-      dataFiltered.map((planeta) =>
+      data.map((planeta) =>
         <tr key={planeta.name}>
           <td>{planeta.name}</td>
           <td>{planeta.population}</td>
@@ -68,7 +68,7 @@ class Table extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  dataFiltered: state.dataFiltered,
+  data: state.data,
   filters: state.filters,
 });
 
@@ -77,7 +77,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Table.propTypes = {
-  dataFiltered: PropTypes.arrayOf(PropTypes.shape({
+  data: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     population: PropTypes.string.isRequired,
     climate: PropTypes.string.isRequired,

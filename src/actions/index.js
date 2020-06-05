@@ -3,6 +3,7 @@ export const RECEIVE_PLANETS = 'RECEIVE_PLANETS';
 export const FILTER_BY_NAME = 'FILTER_BY_NAME';
 export const FILTER_IN_COLUMN = 'FILTER_IN_COLUMN';
 export const FILTER_BY_COLUMN = 'FILTER_BY_COLUMN';
+export const ACTIVATE_FILTERS = 'ACTIVATE_FILTERS';
 
 const requestPlanets = () => ({
   type: REQUEST_PLANETS,
@@ -25,6 +26,11 @@ export const filterInNumberValues = (payload) => ({
 
 export const filterByNumberValues = (payload) => ({
   type: FILTER_BY_COLUMN,
+  payload,
+});
+
+export const activateFilters = (payload) => ({
+  type: ACTIVATE_FILTERS,
   payload,
 });
 

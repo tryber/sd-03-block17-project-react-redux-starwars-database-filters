@@ -2,17 +2,30 @@ import {
   REQUEST_PLANETS,
   RECEIVE_PLANETS,
   FILTER_BY_NAME,
-  FILTER_IN_COLUMN,
+  ACTIVATE_FILTERS,
   FILTER_BY_COLUMN, } from '../actions';
 
 const INITIAL_STATE = {
   isFetching: false,
-  filters: { filterByNumericValues: [] },
+  filters: { filterByName: { name: '' }, filterByNumericValues: [] },
   data: [],
-  dataFiltered: [],
 };
 
-function PlanetsReducer(state = INITIAL_STATE, action) {
+function activeFiltersReturn(state, action) {
+  const { filters, filters: { filterByNumericValues } } = state;
+  return {
+    ...state,
+    filters: {
+      ...filters,
+      filterByNumericValues: [
+        ...filterByNumericValues,
+        action.payload.actualFilters
+      ]},
+  }
+}
+
+function filters(state = INITIAL_STATE, action) {
+  const { data, filters } = state;
   switch (action.type) {
     case REQUEST_PLANETS:
       return {
@@ -20,32 +33,23 @@ function PlanetsReducer(state = INITIAL_STATE, action) {
         isFetching: true,
       };
     case RECEIVE_PLANETS:
-      return {
-        ...state,
-        isFetching: false,
-        data: action.data.results,
-        dataFiltered: action.data.results,
-      };
+      return { ...state, isFetching: false, data: action.data.results, };
     case FILTER_BY_NAME:
       return {
         ...state,
-        filters: { filterByName: { name: action.name } },
-        dataFiltered: state.data.filter((planet) => planet.name.includes(action.name)),
+        filters: {...filters, filterByName: { name: action.name } },
+        data: data.filter((planet) => planet.name.includes(action.name)),
       };
-      case FILTER_IN_COLUMN:
-        return {
-          ...state,
-          filters: { ...state.filters, filterByNumericValues: ['a']},
-        }
+      case ACTIVATE_FILTERS:
+        return activeFiltersReturn(state, action);
       case FILTER_BY_COLUMN:
         return {
           ...state,
-          filters: { ...state.filters, filterByNumericValues: [action.payload.actualFilters]},
-          dataFiltered: action.payload.dataFiltered,
+          data: action.payload.data,
         }
     default:
       return state;
   }
 }
 
-export default PlanetsReducer;
+export default filters;

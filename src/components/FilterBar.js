@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filterByName, filterInNumberValues, filterByNumberValues } from '../actions';
+import { filterByName, activateFilters, filterByNumberValues } from '../actions';
 
 class FilterBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { actualFilters: {} }
+    this.state = { actualFilters: { column: '', comparison: '', value: ''} }
     this.handleSelectColumn = this.handleSelectColumn.bind(this)
     this.handleInterval = this.handleInterval.bind(this)
     this.handleInput = this.handleInput.bind(this)
@@ -28,39 +28,40 @@ class FilterBar extends React.Component {
     this.setState((state) => ({ actualFilters: {...state.actualFilters, value } }));
   }
 
-  activateFilter() {
-    const { actualFilters: { column, comparison, value } } = this.state;
-    const { filterByNumberValues, dataFiltered } = this.props;
-    const newDataFiltered = dataFiltered.reduce((data, planet) => {
-      if (comparison === 'maior que') {
-        if ((parseInt(planet[column])) > parseInt(value)) data.push(planet);
-      }
-      else if (comparison === 'menor que') {
-        if (parseInt(planet[column]) < parseInt(value)) data.push(planet);
-      }
-      else {
-        if (parseInt(planet[column]) === parseInt(value)) data.push(planet);
-      }
-      return data;
-    }, []);
-    filterByNumberValues({ dataFiltered: [...newDataFiltered], actualFilters: { ...this.state.actualFilters } });
+
+  concatFilters() {
+    const { filters, data } = this.props;
+    return filters.filterByNumericValues.reduce((acumulator, { column, comparison, value }) => {
+      return acumulator.reduce((dataFiltered, planet) => {
+        if (comparison === 'maior que') {
+          if ((parseInt(planet[column])) > parseInt(value)) dataFiltered.push(planet);
+        }
+        else if (comparison === 'menor que') {
+          if (parseInt(planet[column]) < parseInt(value)) dataFiltered.push(planet);
+        }
+        else {
+          if (parseInt(planet[column]) === parseInt(value)) dataFiltered.push(planet);
+        }
+        return dataFiltered;
+      }, []);
+    }, data);
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { filterInNumberValuesTo } = this.props;
-  //   if (prevState.actualFilters !== this.state.actualFilters) {
-  //     filterInNumberValuesTo(this.state.actualFilters);
-  //   }
-  // }
+  activateFilter() {
+    const { activateFiltersTo } = this.props;
+    activateFiltersTo({ actualFilters: { ...this.state.actualFilters } });
+  }
 
-  // activateFilter() {
-  //   const { filterInNumberValuesTo } = this.props;
-  //   filterInNumberValuesTo(this.state.actualFilters);
-  // }
+  componentDidUpdate(prevProps, _prevState) {
+    if (prevProps.filters !== this.props.filters) {
+      const { filterByNumberValues } = this.props;
+      const newDataFiltered = this.concatFilters();
+      filterByNumberValues({ data: [...newDataFiltered] });
+    }
+  }
 
   render() {
     const { filterByNameTo } = this.props;
-    const { actualFilters } = this.state;
     return (
       <div>
         <form>
@@ -98,19 +99,18 @@ class FilterBar extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   filterByNameTo: (name) => dispatch(filterByName(name)),
-  filterInNumberValuesTo: (payload) => dispatch(filterInNumberValues(payload)),
   filterByNumberValues: (payload) => dispatch(filterByNumberValues(payload)),
+  activateFiltersTo: (payload) => dispatch(activateFilters(payload))
 });
 
 const mapStateToProps = (state) => ({
   filters: state.filters,
-  dataFiltered: state.dataFiltered,
+  data: state.data,
 })
 
 
 FilterBar.propTypes = {
   filterByNameTo: PropTypes.func.isRequired,
-  filterInNumberValuesTo: PropTypes.func.isRequired,
   filterByNumberValues: PropTypes.func.isRequired,
 };
 
