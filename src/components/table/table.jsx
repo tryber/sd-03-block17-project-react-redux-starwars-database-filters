@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import RenderThead from './renderThead';
-import { requestAction } from '../../actions';
+import { requestAction, textChanged } from '../../actions';
 
 class Table extends React.Component {
   componentDidMount() {
@@ -10,39 +10,70 @@ class Table extends React.Component {
     requestTable();
   }
 
+  filterTable() {
+    const { name, table } = this.props;
+    if (name) {
+      return table.filter(
+        (planet) => planet
+          .name
+          .toLowerCase()
+          .includes(
+            name.toLowerCase(),
+          ),
+      );
+    }
+    return table;
+  }
+
+  handleChange(e) {
+    const { search } = this.props;
+    search(e);
+    this.filterTable();
+  }
+
   renderTbody() {
-    const { table } = this.props;
+    const filteredTable = this.filterTable();
     return (
-      (table.map((planet) => (
-        <tr key={planet.name}>
-          <td>{planet.name}</td>
-          <td>{planet.rotation_period}</td>
-          <td>{planet.orbital_period}</td>
-          <td>{planet.diameter}</td>
-          <td>{planet.climate}</td>
-          <td>{planet.gravity}</td>
-          <td>{planet.terrain}</td>
-          <td>{planet.surface_water}</td>
-          <td>{planet.population}</td>
-          <td>{planet.films}</td>
-          <td>{planet.created}</td>
-          <td>{planet.edited}</td>
-          <td>{planet.url}</td>
-        </tr>
-      )))
+      <tbody>
+        {filteredTable.map((planet) => (
+          <tr key={planet.name}>
+            <td>{planet.name}</td>
+            <td>{planet.rotation_period}</td>
+            <td>{planet.orbital_period}</td>
+            <td>{planet.diameter}</td>
+            <td>{planet.climate}</td>
+            <td>{planet.gravity}</td>
+            <td>{planet.terrain}</td>
+            <td>{planet.surface_water}</td>
+            <td>{planet.population}</td>
+            <td>{planet.films}</td>
+            <td>{planet.created}</td>
+            <td>{planet.edited}</td>
+            <td>{planet.url}</td>
+          </tr>
+        ))}
+      </tbody>
     );
   }
 
   render() {
-    const { table } = this.props;
+    const { name } = this.props;
 
     return (
       <div className="table-container">
+        <label>
+          Pesquisa:&nbsp;
+          <input
+            type="text"
+            data-testid="name-filter"
+            onChange={({ target: { value } }) => this.handleChange(value)}
+            value={name}
+          />
+        </label>
+        <br />
         <table>
           <RenderThead />
-          <tbody>
-            {this.renderTbody()}
-          </tbody>
+          {this.renderTbody()}
         </table>
       </div>
     );
@@ -50,7 +81,9 @@ class Table extends React.Component {
 }
 
 Table.propTypes = {
+  name: PropTypes.string.isRequired,
   requestTable: PropTypes.func.isRequired,
+  search: PropTypes.func.isRequired,
   table: PropTypes.arrayOf(PropTypes.shape({
     climate: PropTypes.string,
     created: PropTypes.string,
@@ -70,10 +103,12 @@ Table.propTypes = {
 
 const mapStateTProps = (state) => ({
   table: state.requestReducer.data,
+  name: state.filters.filterByName.name,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   requestTable: () => dispatch(requestAction()),
+  search: (e) => dispatch(textChanged(e)),
 });
 
 export default connect(mapStateTProps, mapDispatchToProps)(Table);

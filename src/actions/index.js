@@ -27,3 +27,7 @@ export const requestAction = () => (dispatch) => {
       (err) => dispatch('dispatch erros', err),
     );
 };
+
+export const TEXT_CHANGED = 'TEXT_CHANGED';
+
+export const textChanged = (text) => ({ type: TEXT_CHANGED, text });
