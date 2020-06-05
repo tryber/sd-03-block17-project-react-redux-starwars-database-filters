@@ -61,11 +61,12 @@ class Table extends React.Component {
 
     return (
       <div className="table-container">
-        <label>
+        <label htmlFor="name-filter">
           Pesquisa:&nbsp;
           <input
-            type="text"
+            id="name-filter"
             data-testid="name-filter"
+            type="text"
             onChange={({ target: { value } }) => this.handleChange(value)}
             value={name}
           />
