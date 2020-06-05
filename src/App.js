@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import api from './service/api';
 
-function App() {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state= {dados:[]};
+  }
+  componentDidMount() {
+    this.setState({...this.state,dados:api()})
+  }
+  render(){
+    console.log(this.state.dados.results)
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React!
-        </a>
+        {JSON.stringify(this.state.dados.results)}
       </header>
     </div>
   );
+  }
 }
 
 export default App;

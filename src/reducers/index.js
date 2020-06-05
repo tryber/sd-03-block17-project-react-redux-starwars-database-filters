@@ -1,5 +1,7 @@
-function emptyReducer() {
+// import { combineReducers } from 'redux';
+
+function reducer() {
   return {};
 }
 
-export default emptyReducer;
+export default reducer;
