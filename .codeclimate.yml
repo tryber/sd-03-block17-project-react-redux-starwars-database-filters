@@ -32,6 +32,7 @@ checks:
 exclude_patterns:
   - "**/*.test.js"
   - "src/serviceWorker.js"
+  - "node_modules/"
   - "src/index.css"
   - "src/App.css"
   - "**/libs/*.css"
