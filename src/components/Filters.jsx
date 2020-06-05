@@ -222,8 +222,8 @@ const mapDispatchToProps = (dispatch) =>
     {
       byName: filterByName,
       byNumeric: filterByNumericValue,
-      disable: disable,
-      enable: enable,
+      disable,
+      enable,
       rmFilter: removeFilter,
       changeSort: orderChange,
     },
