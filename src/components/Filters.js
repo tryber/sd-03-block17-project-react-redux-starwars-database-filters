@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { queryByName, saveFilters } from '../actions';
 
 class Filters extends Component {
@@ -57,6 +58,11 @@ class Filters extends Component {
     );
   }
 }
+
+Filters.propTypes = {
+  hdlQry: PropTypes.func.isRequired,
+  handleFilterBtn: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   hdlQry: (event) => dispatch(queryByName(event.target.value)),

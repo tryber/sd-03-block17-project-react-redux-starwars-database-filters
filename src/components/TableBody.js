@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class TableBody extends Component {
   render() {
-    const { loading, error, planets } = this.props;
+    const { loading, planets } = this.props;
     if (loading) {
       return <tbody><tr><td>LOADING...</td></tr></tbody>;
-    }
-    if (error) {
-      return <tbody><tr><td>{error}</td></tr></tbody>;
     }
     return (
       <tbody>
@@ -36,9 +34,13 @@ class TableBody extends Component {
   }
 }
 
+TableBody.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  planets: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
+
 const mapStateToProps = (state) => ({
   loading: state.Planet.loading,
-  error: state.Planet.error,
 });
 
 export default connect(mapStateToProps)(TableBody);

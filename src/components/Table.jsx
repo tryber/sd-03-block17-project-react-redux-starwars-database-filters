@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import TableBody from './TableBody';
 import TableHeader from './TableHeader';
 
@@ -24,6 +25,12 @@ class Table extends Component {
     );
   }
 }
+
+Table.propTypes = {
+  planetList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  nameFilter: PropTypes.string.isRequired,
+  numericFilters: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 const mapStateToProps = (state) => {
   console.log(state);
