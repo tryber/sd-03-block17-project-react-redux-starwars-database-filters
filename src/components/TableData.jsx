@@ -1,24 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+const headers = [
+  'Name',
+  'Rotation',
+  'Orbital',
+  'Diameter',
+  'Climate',
+  'Gravity',
+  'Terrain',
+  'Surface',
+  'Population',
+  'films',
+  'created',
+  'edited',
+  'url',
+];
 
 const TableData = (props) => {
   const { data } = props;
-
-  const headers = [
-    'Name',
-    'Rotation',
-    'Orbital',
-    'Diameter',
-    'Climate',
-    'Gravity',
-    'Terrain',
-    'Surface',
-    'Population',
-    'films',
-    'created',
-    'edited',
-    'url',
-  ];
-
   return (
     <table>
       <thead>
@@ -49,8 +49,24 @@ const TableData = (props) => {
   );
 };
 
-// const mapStateToProps = (state) => ({
-//   data: state.requestAPI.data,
-// });
+TableData.propType = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      rotation_period: PropTypes.string,
+      orbital_period: PropTypes.string,
+      diameter: PropTypes.string,
+      climate: PropTypes.string,
+      gravity: PropTypes.string,
+      terrain: PropTypes.string,
+      surface_water: PropTypes.string,
+      population: PropTypes.string,
+      film: PropTypes.string,
+      created: PropTypes.string,
+      edited: PropTypes.string,
+      url: PropTypes.string,
+    }),
+  ).isRequired,
+};
 
 export default TableData;

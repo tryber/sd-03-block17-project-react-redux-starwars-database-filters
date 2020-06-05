@@ -31,7 +31,7 @@ const filters = (state = INITIAL_STATE, action) => {
     case REMOVE_FILTERS:
       return {
         ...state,
-        filterByNumericValues: [...state.filterByNumericValues.concat(action.value)],
+        filterByNumericValues: [...state.filterByNumericValues.filter((l) => l !== action.value)],
       };
     default:
       return state;

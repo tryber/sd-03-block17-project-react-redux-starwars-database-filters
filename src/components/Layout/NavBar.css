@@ -12,8 +12,8 @@ body {
 }
 
 .menu {
-  flex-grow: 1;
   background-image: url(https://notizie.tiscali.it/export/sites/notizie/.galleries/16/terra_siamo_soli.jpg_471698149.jpg);
+  flex-grow: 1;
 }
 
 .menu ul {
