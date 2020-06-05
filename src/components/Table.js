@@ -32,7 +32,7 @@ export class Table extends Component {
 
   render() {
     const { value: { data } } = this.props;
-    const { value: { filters: { filterByName: {name}}}} = this.props;
+    const { value: { filters: { filterByName: { name } } } } = this.props;
     const { results } = data;
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
