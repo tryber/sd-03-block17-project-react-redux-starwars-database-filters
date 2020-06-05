@@ -53,7 +53,7 @@ class Table extends Component {
       const { namesSearch } = this.props;
       namesSearch(value.target.value);
     };
-    const { all, all: { showResults, data: { results } },
+    const { all: { showResults, data: { results } },
       filterBynameProp, filterByOption,
     } = this.props;
     return (
