@@ -60,7 +60,7 @@ class Table extends React.Component {
 
     return (
       (numericFilter.length === 0) && filter && data.filter((e) => e.name
-        .includes(filter.value)).map((e) => (
+        .includes(filter.name)).map((e) => (
           <tr key={e.name}>
             {header.map((el) => <td key={e.name + el}>{e[el]}</td>)}
           </tr>
@@ -112,9 +112,9 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
 
 Table.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.string).isRequired,
+  data: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
   filter: PropTypes.shape({
-    value: PropTypes.string,
+    name: PropTypes.string,
   }).isRequired,
   numericFilter: PropTypes.arrayOf(PropTypes.object).isRequired,
   order: PropTypes.shape({
