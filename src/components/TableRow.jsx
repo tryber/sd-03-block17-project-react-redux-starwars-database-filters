@@ -12,9 +12,9 @@ const generateTDStyle = (isClassic) => (
   })
 );
 
-const generateTRStyle = (isClassic) => {
-  return isClassic ? {} : ({ display: 'block', flexBasis: '60%' });
-};
+const generateTRStyle = (isClassic) => (
+  isClassic ? {} : ({ display: 'block', flexBasis: '60%' })
+);
 
 const TableRow = ({ planet, properties, isClassic }) => (
   <tr style={generateTRStyle(isClassic)}>
