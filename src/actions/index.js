@@ -3,8 +3,9 @@ import getPlanetsList from '../services/swapi';
 export const REQUEST_PLANETS_LIST = 'REQUEST_PLANETS_LIST';
 export const RECEIVE_PLANETS_LIST_SUCCESS = 'RECEIVE_PLANETS_LIST_SUCCESS';
 export const RECEIVE_PLANETS_LISTS_FAILURE = 'RECEIVE_PLANETS_LISTS_FAILURE';
-export const FILTER_BY_NAME = 'FILTER_BY_NAME';
-export const FILTER_BY_NUMERIC_VALUES = 'FILTER_BY_NUMERIC_VALUES';
+export const FILTER_NAME = 'FILTER_NAME';
+export const FILTER_NUMERIC_VALUES = 'FILTER_NUMERIC_VALUES';
+export const REMOVE_FILTER = 'REMOVE_FILTER';
 
 const requestPlanetsList = () => ({
   type: REQUEST_PLANETS_LIST
@@ -34,11 +35,16 @@ export function fetchPlanetsList() {
 }
 
 export const filterPlanetsByName = (value) => ({
-  type: FILTER_BY_NAME,
+  type: FILTER_NAME,
   value,
 });
 
 export const filterPlanetsByNumericValues = (estado) => ({
-  type: FILTER_BY_NUMERIC_VALUES,
+  type: FILTER_NUMERIC_VALUES,
+  estado,
+});
+
+export const removeFilter = (estado) => ({
+  type: REMOVE_FILTER,
   estado,
 });

@@ -1,4 +1,4 @@
-import { FILTER_BY_NAME, FILTER_BY_NUMERIC_VALUES } from '../actions';
+import { FILTER_NAME, FILTER_NUMERIC_VALUES, REMOVE_FILTER } from '../actions';
 
 const INITIAL_STATE = {
   filterByName: {
@@ -9,19 +9,28 @@ const INITIAL_STATE = {
 
 const filters = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case FILTER_BY_NAME:
+    case FILTER_NAME:
       return {
         ...state,
         filterByName: {
           name: action.value,
         },
       };
-    case FILTER_BY_NUMERIC_VALUES:
+    case FILTER_NUMERIC_VALUES:
       return {
         ...state,
         filterByNumericValues: [
           ...state.filterByNumericValues,
           action.estado,
+        ],
+      };
+    case REMOVE_FILTER:
+      return {
+        ...state,
+        filterByNumericValues: [
+          ...state.filterByNumericValues.filter(
+            (filter) => filter !== action.estado,
+          ),
         ],
       };
     default:
