@@ -44,7 +44,7 @@ class InputsNumerics extends React.Component {
     const { selectors } = this.props;
     selectors(filterSelect, comparison, valueFilter);
     const newOptions = options.filter((item) =>
-    item.value !== filterSelect || item.value === '');
+      item.value !== filterSelect || item.value === '');
     this.setState({ options: newOptions });
   }
 
@@ -56,7 +56,8 @@ class InputsNumerics extends React.Component {
           options.map((item) =>
             <option
               key={item.value}
-              value={item.value}>
+              value={item.value}
+            >
               {item.text}
             </option>)
         }
