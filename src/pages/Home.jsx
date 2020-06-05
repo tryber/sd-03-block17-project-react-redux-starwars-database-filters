@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { filterByText } from '../actions/actionsCreators';
 import Table from '../components/table/Table';
 import FilterContainer from '../components/filters/FilterContainer';
+import FetchData from '../components/FetchData';
 
 const integersColumns = [
   'population',
@@ -45,12 +46,13 @@ const orderColumns = (data, column, order) => {
 };
 
 const Home = ({
+  data,
+  loading,
   nameFilter,
+  planetName,
   sortColumnFilter,
   sortOrderFilter,
   valueFilters,
-  data,
-  planetName,
 }) => {
   const filterDataByText = data.filter(({ name }) => name.toLowerCase()
     .includes(nameFilter.toLowerCase()));
@@ -65,13 +67,18 @@ const Home = ({
     sortDataFilter,
   );
 
-  return (
+  return loading ? (
+    <FetchData />
+  ) : (
     <div>
       <div>
         <FilterContainer onChange={(event) => planetName(event.target.value)} />
       </div>
-      {filterDataByNumericValue.length === 0 ? <h1>Nenhum Planeta Encontrado</h1>
-        : <Table data={filterDataByNumericValue} />}
+      {filterDataByNumericValue.length === 0 ? (
+        <h1>Nenhum Planeta Encontrado</h1>
+      ) : (
+        <Table data={filterDataByNumericValue} />
+      )}
     </div>
   );
 };
@@ -84,9 +91,9 @@ const mapStateToProps = (state) => ({
   data: state.planetsInfoReducer.data,
   loading: state.planetsInfoReducer.loading,
   nameFilter: state.filters.filterByName.name,
-  valueFilters: state.filters.filterByNumericValues,
   sortColumnFilter: state.filters.order.column,
   sortOrderFilter: state.filters.order.sort,
+  valueFilters: state.filters.filterByNumericValues,
 });
 
 Home.defaultProps = {
@@ -102,11 +109,12 @@ Home.defaultProps = {
 
 Home.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  loading: PropTypes.bool.isRequired,
   nameFilter: PropTypes.string,
   planetName: PropTypes.func.isRequired,
-  valueFilters: PropTypes.arrayOf(PropTypes.object),
   sortColumnFilter: PropTypes.string.isRequired,
   sortOrderFilter: PropTypes.string.isRequired,
+  valueFilters: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
