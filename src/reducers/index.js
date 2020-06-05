@@ -36,7 +36,6 @@ function filtraByName(action, state) {
     const lowerName = element.name.toLowerCase();
     return lowerName.includes(filterName);
   });
-
 }
 
 function filtraNumericData(comparisonSignal, state, column, value) {
@@ -66,8 +65,7 @@ function requestReducer(state = INITIAL_STATE, action) {
     }
     case 'FILTER_PLANET_NUMERIC': {
       const { column, comparison, value } = action.filters.filterByNumericValues[0];
-      let comparisonSignal = null;
-      comparisonSignal = retornaSign(comparison);
+      const comparisonSignal = retornaSign(comparison);
       let filteredPlanets = [];
       if (state.filters.filterByName.name === ' ') {
         filteredPlanets = filtraNumericData(comparisonSignal, state, column, value);
@@ -76,7 +74,7 @@ function requestReducer(state = INITIAL_STATE, action) {
         ...state,
         filters: {
           filterByName: { filteredPlanets: [filteredPlanets] },
-          filterByNumericValues: {column, comparison, value },
+          filterByNumericValues: { column, comparison, value },
         },
       }; }
     default:
