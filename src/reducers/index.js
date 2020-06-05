@@ -5,13 +5,14 @@ const INITIAL_STATE = {
     filterByName: {
       name: '',
     },
-  },
+  
   filterByNumericValues: [
     {
       column: '',
       comparison: '',
       value: 0,
     }],
+  },
 };
 
 // function retornaSign(comparison) {
@@ -69,13 +70,14 @@ function requestReducer(state = INITIAL_STATE, action) {
       // // let filteredPlanets = [];
       // if (state.filters.filterByName.name === ' ') {
       //   filteredPlanets = filtraNumericData(comparisonSignal, state, column, value);
+
       // }
-      console.log(action);
+   
       return {
         ...state,
         filters: {
           filterByName: { name },
-          filterByNumericValues: [{ column, comparison, value }],
+          filterByNumericValues: [...state.filters.filterByNumericValues, action.filters.filterByNumericValues[0]],
         },
       }; }
     default:
