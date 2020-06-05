@@ -285,21 +285,16 @@ describe('4 -  Sua página deverá ser carregada com somente um filtro de valore
   })
 })
 
-/* describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao ser clicado, o apaga e desfaz suas filtragens dos dados da tabela', () => {
+describe('5 - Cada filtro de valores numéricos deve ter um ícone de X que, ao ser clicado, o apaga e desfaz suas filtragens dos dados da tabela', () => {
   test('should show the previously selected filters', async () => {
     const { findAllByTestId, findByText } = renderApp();
     const selectedFilters = await findAllByTestId('filter');
     expect(store.getState().filters.filterByNumericValues).toHaveLength(3);
   });
+
   test('each filter should have a X button that removes the filter', async () => {
     const { findAllByTestId, queryAllByTestId } = renderApp();
     let selectedFilters = await findAllByTestId('filter');
-<<<<<<< HEAD
-    for(let filter of selectedFilters) {
-      const removeButton = filter.querySelector('button');
-      fireEvent.click(removeButton);
-    }
-=======
     let removeButton = selectedFilters[0].querySelector('button');
 
     fireEvent.click(removeButton);
@@ -312,13 +307,14 @@ describe('4 -  Sua página deverá ser carregada com somente um filtro de valore
     removeButton = selectedFilters[0].querySelector('button');
     fireEvent.click(removeButton);
 
->>>>>>> a1f9e85ad9642edd378c3518d79470cde4c312b8
     selectedFilters = await queryAllByTestId('filter');
+
     expect(selectedFilters).toHaveLength(0);
     expect(store.getState().filters.filterByNumericValues).toHaveLength(0);
   });
 })
-describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou descendente', () => {
+
+/* describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou descendente', () => {
   test('check planet table starting order', async () => {
     let sortedPlanets = [];
     for(let planet of testData.results) {
