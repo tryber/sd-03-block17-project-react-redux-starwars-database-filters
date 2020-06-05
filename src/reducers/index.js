@@ -63,7 +63,8 @@ function requestReducer(state = INITIAL_STATE, action) {
       };
     }
     case 'FILTER_PLANET_NUMERIC': {
-      const { column, comparison, value } = action.filters.filterByNumericValues[0];
+      const { column, comparison, value } = action.filters.filterByNumericValues;
+      const { name } = action.filters.filterByName;
       // const comparisonSignal = retornaSign(comparison);
       // // let filteredPlanets = [];
       // if (state.filters.filterByName.name === ' ') {
@@ -72,8 +73,8 @@ function requestReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         filters: {
-          // filterByName: { filteredPlanets: [filteredPlanets] },
-          filterByNumericValues: [...{ column, comparison, value }],
+          filterByName: { name },
+          filterByNumericValues: [{ column, comparison, value }],
         },
       }; }
     default:

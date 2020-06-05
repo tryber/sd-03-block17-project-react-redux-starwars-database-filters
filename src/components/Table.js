@@ -6,34 +6,37 @@ export class Table extends Component {
   renderTableBody(filtername) {
     const { value: { data } } = this.props;
     const { results } = data;
-   if(document.getElementsByName('filter_name').value !== '') {
-    return results.filter((element) => {
-      const lowerName = element.name.toLowerCase();
-      return lowerName.includes(filtername);
-    })
-      .map((element) => (
-        <tr key={element.name}>
-          <td>{element.name}</td>
-          <td>{element.rotation_period}</td>
-          <td>{element.orbital_period}</td>
-          <td>{element.diameter}</td>
-          <td>{element.climate}</td>
-          <td>{element.gravity}</td>
-          <td>{element.terrain}</td>
-          <td>{element.surface_water}</td>
-          <td>{element.population}</td>
-          <td>{element.films}</td>
-          <td>{element.created}</td>
-          <td>{element.edited}</td>
-          <td>{element.url}</td>
-        </tr>
-      ));}
+    if (document.getElementsByName('filter_name').value !== '') {
+      return results.filter((element) => {
+        const lowerName = element.name.toLowerCase();
+        return lowerName.includes(filtername);
+      })
+        .map((element) => (
+          <tr key={element.name}>
+            <td>{element.name}</td>
+            <td>{element.rotation_period}</td>
+            <td>{element.orbital_period}</td>
+            <td>{element.diameter}</td>
+            <td>{element.climate}</td>
+            <td>{element.gravity}</td>
+            <td>{element.terrain}</td>
+            <td>{element.surface_water}</td>
+            <td>{element.population}</td>
+            <td>{element.films}</td>
+            <td>{element.created}</td>
+            <td>{element.edited}</td>
+            <td>{element.url}</td>
+          </tr>
+        ));
+    }
+    return null;
   }
 
   render() {
     const { value: { data } } = this.props;
-    const { value: { filters: { filterByName: { name } } } } = this.props;
+    const { value: { filters: { filterByName } } } = this.props;
     const { results } = data;
+    console.log(this.props);
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
       <div>
@@ -52,8 +55,7 @@ export class Table extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.renderTableBody(name)}
-                  {console.log(this.props)}
+                  {this.renderTableBody(filterByName.name)}
                 </tbody>
               </table>
             </div>

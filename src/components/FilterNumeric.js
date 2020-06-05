@@ -11,7 +11,7 @@ export class FilterNumeric extends Component {
 
   filterNumbers() {
     const { filterNumber } = this.props;
-
+    const text_input = document.getElementsByName('filter_name');
     const column = document.getElementById('filter');
     const comparation = document.getElementById('comparation');
     const value = document.getElementById('input-value');
@@ -21,8 +21,9 @@ export class FilterNumeric extends Component {
       const selectioncomparation = comparation.options[comparation.selectedIndex].value;
 
       const selectionValue = value.value;
+      const input_Text_value = text_input.value;
 
-      filterNumber(SelectionColumn, selectioncomparation, selectionValue);
+      filterNumber(SelectionColumn, selectioncomparation, selectionValue, input_Text_value);
     } else {
       alert('Preencha Todos os campos para filtrar !');
     }
@@ -60,7 +61,7 @@ export class FilterNumeric extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  filterNumber: (e, v, h) => dispatch(filterNumeric(e, v, h)),
+  filterNumber: (e, v, h, g) => dispatch(filterNumeric(e, v, h, g)),
 });
 
 FilterNumeric.propTypes = {
