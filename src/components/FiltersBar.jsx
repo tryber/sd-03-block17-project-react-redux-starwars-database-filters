@@ -58,6 +58,7 @@ FilterBar.propTypes = {
     PropTypes.objectOf(PropTypes.string.isRequired),
   ).isRequired,
   isClassicFormatTable: PropTypes.bool,
+  changeTableFormat: PropTypes.func.isRequired,
 };
 
 FilterBar.defaultProps = { isClassicFormatTable: false };

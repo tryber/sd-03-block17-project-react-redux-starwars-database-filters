@@ -28,26 +28,30 @@ const orderByStringProperties = (list, col, direction) => {
 };
 
 const renderBody = (planets, properties, isClassic) => (
-  <tbody style={isClassic ? { border: '1px solid #ccc'} : { display: 'block', flexBasis: '60%' }}>
+  <tbody
+    style={isClassic ? { border: '1px solid #ccc' } : { display: 'block', flexBasis: '60%' }}
+  >
     {planets
-      .map((planet) =>
+      .map((planet) => (
         <TableRow
           key={planet.name}
           planet={planet}
           properties={properties}
           isClassic={isClassic}
         />
-      )
+      ))
     }
   </tbody>
 );
 
-const generateStyle = (isClassic) => isClassic ? { display: 'inline-block', overFlow: 'auto' } : ({
-  border: '1px solid #ccc',
-  display: 'flex',
-  flexDirection: 'column',
-  flexBasis: '60%',
-});
+const generateStyle = (isClassic) => (
+  isClassic ? { display: 'inline-block' } : ({
+    border: '1px solid #ccc',
+    display: 'flex',
+    flexDirection: 'column',
+    flexBasis: '60%',
+  })
+);
 
 const makeHeadersInMultiHeadersTable = (headers, ...stringStyles) => {
   const nthOfTypeBefore = (order, title) => (`
@@ -66,7 +70,7 @@ const makeHeadersInMultiHeadersTable = (headers, ...stringStyles) => {
 };
 
 const Table = (
-  { planets, searchText, numFilters, column, sort, headers, isClassic }
+  { planets, searchText, numFilters, column, sort, headers, isClassic },
 ) => {
   if (planets.length === 0) return <div>None Planet Found</div>;
 
@@ -97,7 +101,7 @@ const mapStateToProps = ({
   data,
   headers,
   filters: { filterByName, filterByNumericValues, order },
-  format
+  format,
 }) => ({
   planets: data,
   searchText: filterByName.name,

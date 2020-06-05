@@ -37,13 +37,12 @@ const Reducer = (state = INITIAL_STATE, action) => {
       };
 
     case CHANGE_TABLE:
-      return { 
+      return {
         ...state,
-        format: aplicationFormatReducer(state.format, action)
+        format: aplicationFormatReducer(state.format, action),
       };
 
-    default:
-      return state;
+    default: return state;
   }
 };
 
