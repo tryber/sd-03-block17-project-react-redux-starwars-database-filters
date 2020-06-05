@@ -24,7 +24,7 @@ class SortColumnsFilter extends Component {
     super(props);
 
     this.state = {
-      column: '',
+      column: 'name',
       order: '',
     };
   }
@@ -35,9 +35,8 @@ class SortColumnsFilter extends Component {
         data-testid="column-sort"
         onChange={(event) => this.setState({ column: event.target.value })}
       >
-        <option value="" />
         {columns.map((column) => (
-          <option value={column} key={column}>
+          <option value={column.toLowerCase()} key={column}>
             {column}
           </option>
         ))}

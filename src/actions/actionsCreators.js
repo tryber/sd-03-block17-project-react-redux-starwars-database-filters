@@ -7,7 +7,7 @@ import {
   REMOVE_FILTERS,
   SORT_COLUMN,
 } from './actions';
-import { getAllPlanetsFromAPI } from '../services/starWarsAPI';
+import getAllPlanetsFromAPI from '../services/starWarsAPI';
 
 const requestPlanetsInfo = () => ({
   type: REQUEST_PLANETS_INFORMATION,

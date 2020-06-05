@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { filterByText } from '../../actions/actionsCreators';
 
 
-const FilterByNameBar = ({ onChange }) => (
+const FilterByNameBar = ({ planetName }) => (
   <div>
     <h2>Selecione um planeta</h2>
     <input
@@ -11,13 +13,17 @@ const FilterByNameBar = ({ onChange }) => (
       id="filter-by-name"
       data-testid="name-filter"
       placeholder="Digite o nome do planeta"
-      onChange={onChange}
+      onChange={(event) => planetName(event.target.value)}
     />
   </div>
 );
 
 FilterByNameBar.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  planetName: PropTypes.func.isRequired,
 };
 
-export default FilterByNameBar;
+const mapDispatchToProps = (dispatch) => ({
+  planetName: (planetName) => dispatch(filterByText(planetName)),
+});
+
+export default connect(null, mapDispatchToProps)(FilterByNameBar);

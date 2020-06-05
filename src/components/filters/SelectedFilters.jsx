@@ -4,12 +4,6 @@ import PropTypes from 'prop-types';
 import { removeFilters } from '../../actions/actionsCreators';
 
 class SelectedFilters extends Component {
-  constructor(props) {
-    super(props);
-
-    this.displayFilter = this.displayFilter.bind(this);
-  }
-
   displayFilter(value) {
     const { removeFilter } = this.props;
     return (

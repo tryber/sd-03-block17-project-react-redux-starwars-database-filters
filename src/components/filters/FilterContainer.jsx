@@ -1,14 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import FilterByNameBar from './FilterByNameBar';
 import FilterByValuesBar from './FilterByValuesBar';
 import SelectedFilters from './SelectedFilters';
 import SortColumnsFilter from './SortColumnsFilter';
 
-function FilterContainer({ onChange }) {
+function FilterContainer() {
   return (
     <div>
-      <FilterByNameBar onChange={onChange} />
+      <FilterByNameBar />
       <div>
         <FilterByValuesBar />
       </div>
@@ -21,9 +20,5 @@ function FilterContainer({ onChange }) {
     </div>
   );
 }
-
-FilterContainer.propTypes = {
-  onChange: PropTypes.func.isRequired,
-};
 
 export default FilterContainer;
