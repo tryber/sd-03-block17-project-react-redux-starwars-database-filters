@@ -26,15 +26,16 @@ const makeComparison = (column, comparison, value, element) => {
   }
 };
 
+const orderInteger = (data, column) => data.sort((a, b) => a[column] - b[column]);
+const orderString = (data, column) => data.sort((a, b) => {
+  if (a[column] < b[column]) return -1;
+  if (a[column] > b[column]) return 1;
+  return 0;
+});
+
 const orderColumns = (data, column, order) => {
   const sortedData = integersColumns.includes(column)
-    ? data.sort((a, b) => a[column] - b[column])
-    : data.sort((a, b) => {
-      if (a[column] < b[column]) return -1;
-      if (a[column] > b[column]) return 1;
-      return 0;
-    });
-
+    ? orderInteger(data, column) : orderString(data, column);
   if (order === 'DESC') return sortedData.reverse();
   return sortedData;
 };
