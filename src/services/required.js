@@ -4,9 +4,9 @@ const apiPlanets = () =>
   fetch(api).then((response) =>
     response
       .json()
-      .then((json) => {
-        return response.ok ? Promise.resolve(json) : Promise.reject(json);
-      }),
+      .then((json) => 
+        response.ok ? Promise.resolve(json) : Promise.reject(json),
+      ),
   );
 
 export default apiPlanets;
