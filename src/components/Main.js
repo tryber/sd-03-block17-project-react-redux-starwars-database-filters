@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
+
 import Table from './Table';
 import Filters from './Filters';
-
-import { connect } from 'react-redux';
 import { callServiceAPI } from '../actions';
 
 class Main extends Component {
@@ -36,3 +37,8 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
+
+Main.propTypes = {
+  getAPIService: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+};

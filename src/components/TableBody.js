@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class TableBody extends React.Component {
   render() {
@@ -33,4 +34,6 @@ class TableBody extends React.Component {
 
 export default TableBody;
 
-
+TableBody.propTypes = {
+  arrPlanets: PropTypes.arrayOf(PropTypes.object).isRequired,
+};

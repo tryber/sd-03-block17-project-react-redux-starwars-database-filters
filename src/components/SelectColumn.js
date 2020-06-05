@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class SelectColumn extends Component {
   verifyAvaliableFilters() {
@@ -19,14 +20,14 @@ class SelectColumn extends Component {
     const { changeFilter } = this.props;
 
     return (
-      <div className='control'>
-        <div className='select is-info'>
+      <div className="control">
+        <div className="select is-info">
           <select
-            id='column'
-            data-testid='column-filter'
+            id="column"
+            data-testid="column-filter"
             onChange={(e) => changeFilter(e)}
           >
-            <option value=''></option>
+            <option value="" />
             {this.verifyAvaliableFilters().map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -45,3 +46,9 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(SelectColumn);
+
+SelectColumn.propTypes = {
+  numericValues: PropTypes.arrayOf(PropTypes.object).isRequired,
+  optionState: PropTypes.arrayOf(PropTypes.string).isRequired,
+  changeFilter: PropTypes.func.isRequired,
+};

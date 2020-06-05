@@ -1,39 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import TableHeaders from './TableHeaders';
 import TableBody from './TableBody';
 
 class Table extends React.Component {
-  constructor(props) {
-    super(props);
-    this.filterByParams = this.filterByParams.bind(this);
-    this.filterByName = this.filterByName.bind(this);
-    this.filterByNumericValues = this.filterByNumericValues.bind(this);
-  }
-
-  filterByName = (planets) => {
-    const { searched } = this.props;
-    return planets.filter(({ name }) => name.includes(searched));
-  };
-
-  filterByNumericValues = (planets, { column, comparison, value }) => {
+  static filterByNumericValues(planets, { column, comparison, value }) {
     switch (comparison) {
       case 'maior que':
         return planets.filter(
-          (planet) => Number(planet[column]) > Number(value)
+          (planet) => Number(planet[column]) > Number(value),
         );
       case 'menor que':
         return planets.filter(
-          (planet) => Number(planet[column]) < Number(value)
+          (planet) => Number(planet[column]) < Number(value),
         );
       case 'igual a':
         return planets.filter(
-          (planet) => Number(planet[column]) === Number(value)
+          (planet) => Number(planet[column]) === Number(value),
         );
       default:
         return planets;
     }
-  };
+  }
+
+  filterByName(planets) {
+    const { searched } = this.props;
+    return planets.filter(({ name }) => name.includes(searched));
+  }
 
   filterByParams() {
     const { planets, numericValues } = this.props;
@@ -41,7 +36,7 @@ class Table extends React.Component {
 
     numericValues.forEach(
       (filtro) =>
-        (arrFiltered = this.filterByNumericValues(arrFiltered, filtro))
+        (arrFiltered = Table.filterByNumericValues(arrFiltered, filtro)),
     );
 
     return arrFiltered;
@@ -49,8 +44,8 @@ class Table extends React.Component {
 
   render() {
     return (
-      <div className='table-container'>
-        <table className='table is-hoverable is-striped'>
+      <div className="table-container">
+        <table className="table is-hoverable is-striped">
           <TableHeaders />
           <TableBody arrPlanets={this.filterByParams()} />
         </table>
@@ -66,3 +61,17 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(Table);
+
+Table.propTypes = {
+  planets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  searched: PropTypes.string.isRequired,
+  numericValues: PropTypes.arrayOf(PropTypes.object),
+};
+
+Table.defaultProps = {
+  numericValues: [{
+    column: 'population',
+    comparison: 'maior que',
+    value: '150000',
+  }],
+};

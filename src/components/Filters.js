@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import InputByName from './InputByName';
@@ -39,9 +40,9 @@ class Filters extends Component {
     return (
       <div>
         <InputByName />
-        <div className='field is-horizontal'>
-          <div className='field-body'>
-            <div className='field is-grouped'>
+        <div className="field is-horizontal">
+          <div className="field-body">
+            <div className="field is-grouped">
               <SelectColumn changeFilter={this.handleChange} />
               <SelectComparison changeFilter={this.handleChange} />
               <InputByNumber changeFilter={this.handleChange} />
@@ -60,3 +61,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(Filters);
+
+Filters.propTypes = {
+  numericValues: PropTypes.arrayOf(PropTypes.object).isRequired,
+};

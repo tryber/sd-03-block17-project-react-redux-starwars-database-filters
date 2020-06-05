@@ -17,7 +17,7 @@ const initialState = {
   ],
 };
 
-export const filters = (state = initialState, action) => {
+const filters = (state = initialState, action) => {
   switch (action.type) {
     case FILTER_BY_NAME: {
       return {
@@ -41,7 +41,6 @@ export const filters = (state = initialState, action) => {
     }
 
     case DELETE_FILTER: {
-      console.log(action);
       return {
         ...state,
         filterByNumericValues:
@@ -53,3 +52,5 @@ export const filters = (state = initialState, action) => {
       return state;
   }
 };
+
+export default filters;

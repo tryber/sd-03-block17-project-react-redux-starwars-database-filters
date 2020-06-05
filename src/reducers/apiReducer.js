@@ -6,7 +6,7 @@ const initialState = {
   isRequesting: false,
   error: '',
   data: [],
-  optionData: ['population','orbital_period','diameter','rotation_period','surface_water'],
+  optionData: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
 };
 
 const apiReducer = (state = initialState, action) => {

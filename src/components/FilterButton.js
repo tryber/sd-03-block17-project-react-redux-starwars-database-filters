@@ -29,11 +29,12 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(null, mapDispatchToProps)(FilterButton);
 
-FilterButton.PropTypes = {
-  clickParam: PropTypes.object.isRequired,
+FilterButton.propTypes = {
+  clickParam: PropTypes.shape({
+    column: '',
+    comparison: '',
+    value: '',
+  }).isRequired,
   filterTable: PropTypes.func.isRequired,
 };
 
-FilterButton.defaultProps = {
-  clickParam: { column: '', comparison: '', value: '' },
-};

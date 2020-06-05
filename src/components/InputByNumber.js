@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 class InputByNumber extends Component {
@@ -5,13 +6,13 @@ class InputByNumber extends Component {
     const { changeFilter } = this.props;
     return (
       <div>
-        <p className='control'>
+        <p className="control">
           <input
-            id='value'
-            className='input is-info'
-            type='number'
-            placeholder='Informe um número'
-            data-testid='value-filter'
+            id="value"
+            className="input is-info"
+            type="number"
+            placeholder="Informe um número"
+            data-testid="value-filter"
             onChange={(e) => changeFilter(e)}
           />
         </p>
@@ -21,3 +22,7 @@ class InputByNumber extends Component {
 }
 
 export default InputByNumber;
+
+InputByNumber.propTypes = {
+  changeFilter: PropTypes.func.isRequired,
+};
