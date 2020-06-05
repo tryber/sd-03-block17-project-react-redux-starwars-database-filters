@@ -13,18 +13,32 @@ class FilterBar extends React.Component {
     this.activateFilter = this.activateFilter.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.filters !== this.props.filters) {
+      const { filterByNumberValuesTo } = this.props;
+      const newDataFiltered = this.concatFilters();
+      filterByNumberValuesTo({ data: [...newDataFiltered] });
+    }
+  }
+
   concatFilters() {
     const { filters, data } = this.props;
-    return filters.filterByNumericValues.reduce((acumulator, { column, comparison, value }) => {
+    return filters.filterByNumericValues.reduce((acumulator, {column, comparison, value }) => {
       return acumulator.reduce((dataFiltered, planet) => {
         if (comparison === 'maior que') {
-          if ((parseInt(planet[column])) > parseInt(value)) { dataFiltered.push(planet) };
+          if ((parseInt(planet[column])) > parseInt(value)) {
+            dataFiltered.push(planet);
+          }
         }
         else if (comparison === 'menor que') {
-          if (parseInt(planet[column]) < parseInt(value)) { dataFiltered.push(planet) };
+          if (parseInt(planet[column]) < parseInt(value)) {
+            dataFiltered.push(planet);
+          }
         }
         else {
-          if (parseInt(planet[column]) === parseInt(value)) { dataFiltered.push(planet) };
+          if (parseInt(planet[column]) === parseInt(value)) {
+            dataFiltered.push(planet);
+          }
         }
         return dataFiltered;
       }, []);
@@ -34,14 +48,6 @@ class FilterBar extends React.Component {
   activateFilter() {
     const { activateFiltersTo } = this.props;
     activateFiltersTo({ actualFilters: { ...this.state.actualFilters } });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.filters !== this.props.filters) {
-      const { filterByNumberValuesTo } = this.props;
-      const newDataFiltered = this.concatFilters();
-      filterByNumberValuesTo({ data: [...newDataFiltered] });
-    }
   }
 
   handleSelectColumn(event) {
@@ -67,7 +73,7 @@ class FilterBar extends React.Component {
           data-testid="value-filter"type="number" placeholder="Digite um Número"
         />
         <button data-testid="button-filter" onClick={this.activateFilter}>Filtrar</button>
-     </div>
+      </div>
     );
   }
 
@@ -117,8 +123,8 @@ const mapStateToProps = (state) => ({
 
 FilterBar.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
     population: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     climate: PropTypes.string.isRequired,
     created: PropTypes.string.isRequired,
     diameter: PropTypes.string.isRequired,

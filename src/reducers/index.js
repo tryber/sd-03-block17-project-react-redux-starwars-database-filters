@@ -19,9 +19,9 @@ function activeFiltersReturn(state, action) {
       ...state.filters,
       filterByNumericValues: [
         ...filterByNumericValues,
-        action.payload.actualFilters
-      ]},
-  }
+        action.payload.actualFilters,
+      ] },
+  };
 }
 
 function filters(state = INITIAL_STATE, action) {
@@ -37,7 +37,7 @@ function filters(state = INITIAL_STATE, action) {
     case FILTER_BY_NAME:
       return {
         ...state,
-        filters: {...filters, filterByName: { name: action.name } },
+        filters: { ...filters, filterByName: { name: action.name } },
         data: data.filter((planet) => planet.name.includes(action.name)),
       };
     case ACTIVATE_FILTERS:
@@ -46,7 +46,7 @@ function filters(state = INITIAL_STATE, action) {
       return {
         ...state,
         data: action.payload.data,
-      }
+      };
     default:
       return state;
   }
