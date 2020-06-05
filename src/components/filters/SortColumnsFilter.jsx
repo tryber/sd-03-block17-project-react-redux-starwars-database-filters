@@ -33,7 +33,7 @@ class SortColumnsFilter extends Component {
     return (
       <select
         data-testid="column-sort"
-        onChange={(event) => this.setState({ column: event.target.value })}
+        onChange={(event) => this.setState({ column: event.target.value || 'diameter' })}
       >
         <option value="" />
         {columns.map((column) => (
