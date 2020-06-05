@@ -27,7 +27,7 @@ function FilterReducer(state = initialState, action) {
         usedFilters: [
           ...state.usedFilters,
           action.column,
-        ]
+        ],
       };
     default:
       return state;

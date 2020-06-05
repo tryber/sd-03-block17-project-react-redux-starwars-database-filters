@@ -6,7 +6,9 @@ import { queryByName, saveFilters } from '../actions';
 class Filters extends Component {
   static renderOptions(array, state) {
     return (
-      array.map((e) => (state.includes(e))? false : <option>{e}</option>)
+      array.map(function (e) {
+        return (state.includes(e)) ? false : <option>{e}</option>
+      })
     );
   }
 
@@ -63,6 +65,7 @@ class Filters extends Component {
 Filters.propTypes = {
   hdlQry: PropTypes.func.isRequired,
   handleFilterBtn: PropTypes.func.isRequired,
+  okFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -71,7 +74,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  okFilters: state.filters.usedFilters
+  okFilters: state.filters.usedFilters,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);
