@@ -1,0 +1,24 @@
+.TabelaProdutos th {
+  background-color: darkcyan;
+}
+
+.TabelaProdutos table {
+  border: black solid 1px;
+  margin: auto;
+  width: 90%;
+}
+
+.TabelaProdutos .Par {
+  background-color: #ddd;
+}
+
+.TabelaProdutos .Impar {
+  background-color: #fff;
+}
+
+.input-filter {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  max-width: 90%;
+}

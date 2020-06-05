@@ -1,5 +1,11 @@
-function emptyReducer() {
-  return {};
-}
+import { combineReducers } from 'redux';
 
-export default emptyReducer;
+import requestAPIReducer from './r_requestAPI';
+import filters from './r_FiltersInput';
+
+const rootReducers = combineReducers({
+  requestAPIReducer,
+  filters,
+});
+
+export default rootReducers;
