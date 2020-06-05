@@ -83,7 +83,7 @@ class NumericFilter extends React.Component {
     const { filterByNumericValues } = this.props;
     const columnPos = filterByNumericValues.map(({ column }) => column);
     columnPos.forEach((column) => {
-      let position = columnOptions.indexOf(column);
+      const position = columnOptions.indexOf(column);
       if (position > 0) {
         columnOptions.splice(position, 1);
       }
