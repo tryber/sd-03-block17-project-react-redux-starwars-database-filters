@@ -28,9 +28,14 @@ class Table extends Component {
 
   renderTable() {
     const { data } = this.props;
+    // console.log(
+    //   data
+    //     .sort((a, b) => a.rotation_period - b.rotation_period)
+    //     .filter((planet) => planet.name.length > 7),
+    // );
 
     return data.map((planet) => (
-      <tr key={planet.name}>
+      <tr key={planet.url}>
         <td>{planet.name}</td>
         <td>{planet.rotation_period}</td>
         <td>{planet.orbital_period}</td>
