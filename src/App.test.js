@@ -321,7 +321,6 @@ describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou 
       sortedPlanets.push(planet.name);
     };
     sortedPlanets = sortedPlanets.sort();
-    console.log(sortedPlanets);
 
     const { findAllByRole } = renderApp();
     const rows = await findAllByRole('row');
@@ -330,7 +329,6 @@ describe('6 - As colunas da tabela devem ser ordenáveis de forma ascendente ou 
       appPlanetList.push(row.children[0].innerHTML);
     }
     appPlanetList.shift();
-    // console.log(sortedPlanets);
     expect(sortedPlanets).toEqual(appPlanetList);
     expect(store.getState().filters.order.column).toEqual('Name');
     expect(store.getState().filters.order.sort).toEqual('ASC');
