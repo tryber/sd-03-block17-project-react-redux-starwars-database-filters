@@ -110,6 +110,21 @@ class InputsNumerics extends React.Component {
     );
   }
 
+  filteredList() {
+    const { filteredSelect } = this.props;
+    return (
+      <div>
+        {
+          filteredSelect.map((item) =>
+            <p
+              key={item.column}
+            >
+              {item.column}
+            </p>)}
+      </div>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -117,6 +132,7 @@ class InputsNumerics extends React.Component {
         {this.selectComparison()}
         {this.valueFilterInput()}
         {this.buttonFilter()}
+        {this.filteredList()}
       </div>
     );
   }
@@ -128,8 +144,12 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(filterSelectors(filterSelect, comparison, valueFilter)),
 });
 
+const mapStateToProps = (state) => ({
+  filteredSelect: state.filters.filterByNumericValues,
+});
+
 InputsNumerics.propTypes = {
   selectors: PropTypes.func.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(InputsNumerics);
+export default connect(mapStateToProps, mapDispatchToProps)(InputsNumerics);
