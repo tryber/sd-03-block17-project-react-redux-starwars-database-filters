@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { filterByText } from '../actions/actionsCreators';
 import Table from '../components/table/Table';
 import FilterContainer from '../components/filters/FilterContainer';
-import testData from '../testData';
 
 function makeComparison(column, comparison, value, element) {
   switch (comparison) {
@@ -47,7 +46,7 @@ const Home = ({
   data,
   planetName,
 }) => {
-  const filterDataByText = testData.results.filter(({ name }) => name.toLowerCase()
+  const filterDataByText = data.filter(({ name }) => name.toLowerCase()
     .includes(nameFilter.toLowerCase()));
   const sortDataFilter = orderColumns(
     filterDataByText,
