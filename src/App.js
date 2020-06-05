@@ -5,6 +5,7 @@ import { fetchPlanets } from './actions/index';
 import Table from './components/Table';
 import Filter from './components/Filter';
 import NumericFilter from './components/NumericFilter';
+import ListFilters from './components/ListFilters';
 import './App.css';
 
 class App extends React.Component {
@@ -19,6 +20,7 @@ class App extends React.Component {
         <span>StarWars Datatable with Filters</span>
         <Filter />
         <NumericFilter />
+        <ListFilters />
         <Table />
       </div>
     );

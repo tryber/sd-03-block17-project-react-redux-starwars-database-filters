@@ -2,9 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../actions/index';
-import store from '../store/index';
 
-const columnOptions = [
+let columnOptions = [
   'select column',
   'population',
   'orbital_period',
@@ -13,7 +12,7 @@ const columnOptions = [
   'surface_water',
 ];
 
-const comparisonOptions = [
+let comparisonOptions = [
   'select',
   'maior que',
   'igual a',
@@ -23,7 +22,7 @@ const comparisonOptions = [
 let showFilter = true;
 
 const verifyColumns = (obj) => {
-  if (obj.length > 0) {
+  if (obj.length > 1) {
     showFilter = true;
   } else {
     showFilter = false;
@@ -41,6 +40,7 @@ class NumericFilter extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.filterMenu = this.filterMenu.bind(this);
     this.filterForms = this.filterForms.bind(this);
+    this.listFilters = this.listFilters.bind(this);
   }
 
   handleChange(type, value) {
@@ -79,12 +79,23 @@ class NumericFilter extends React.Component {
     );
   }
 
+  listFilters() {
+    const { filterByNumericValues } = this.props;
+    filterByNumericValues.map(({ column, comparison, value }) => {
+      if (column && comparison && value) {
+        return <div key={`${column} Filter`}><span>{`Filter: ${column} ${comparison} ${value}`}</span></div>;
+      }
+      return undefined;
+    })
+  }
+
   filterMenu() {
-    store.subscribe(() => {
-      const { column } = this.state;
-      const columnPos = columnOptions.indexOf(column);
-      if (columnPos > 0) {
-        columnOptions.splice(columnPos, 1);
+    const { filterByNumericValues } = this.props;
+    const columnPos = filterByNumericValues.map(({ column }) => column);
+    columnPos.forEach((column) => {
+      let position = columnOptions.indexOf(column);
+      if (position > 0) {
+        columnOptions.splice(position, 1);
       }
     });
   }
@@ -92,18 +103,9 @@ class NumericFilter extends React.Component {
   render() {
     this.filterMenu();
     verifyColumns(columnOptions);
-    const { filterByNumericValues } = this.props;
     return (
       <div>
         {showFilter && this.filterForms()}
-        {
-        filterByNumericValues.map(({ column, comparison, value }) => {
-          if (column !== '' && comparison !== '' && value !== '') {
-            return <div key={`${column} Filter`}><span>{`Filter: ${column} ${comparison} ${value}`}</span></div>;
-          }
-          return undefined;
-        })
-        }
       </div>
     );
   }
