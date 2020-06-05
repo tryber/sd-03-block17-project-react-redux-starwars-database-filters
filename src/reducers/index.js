@@ -5,13 +5,13 @@ const INITIAL_STATE = {
     filterByName: {
       name: '',
     },
-  
-  filterByNumericValues: [
-    {
-      column: '',
-      comparison: '',
-      value: 0,
-    }],
+
+    filterByNumericValues: [
+      {
+        column: '',
+        comparison: '',
+        value: 0,
+      }],
   },
 };
 
@@ -64,7 +64,6 @@ function requestReducer(state = INITIAL_STATE, action) {
       };
     }
     case 'FILTER_PLANET_NUMERIC': {
-      const { column, comparison, value } = action.filters.filterByNumericValues[0];
       const { name } = action.filters.filterByName;
       // const comparisonSignal = retornaSign(comparison);
       // // let filteredPlanets = [];
@@ -72,7 +71,6 @@ function requestReducer(state = INITIAL_STATE, action) {
       //   filteredPlanets = filtraNumericData(comparisonSignal, state, column, value);
 
       // }
-   
       return {
         ...state,
         filters: {

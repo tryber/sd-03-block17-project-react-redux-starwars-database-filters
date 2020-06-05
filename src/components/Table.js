@@ -6,7 +6,6 @@ export class Table extends Component {
   renderTableBody(filtername, filterByNumericValues) {
     const { value: { data } } = this.props;
     const { results } = data;
-    console.log([filterByNumericValues]);
     if (document.getElementsByName('filter_name').value !== '') {
       return results.filter((element) => {
         const lowerName = element.name.toLowerCase();
@@ -57,7 +56,6 @@ export class Table extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {console.log(filters)}
                   {this.renderTableBody(name, filters)}
                 </tbody>
               </table>
