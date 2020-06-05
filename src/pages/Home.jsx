@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { filterByText } from '../actions/actionsCreators';
 import Table from '../components/table/Table';
 import FilterContainer from '../components/filters/FilterContainer';
+import testData from '../testData';
 
 function makeComparison(column, comparison, value, element) {
   switch (comparison) {
@@ -27,10 +28,14 @@ function orderColumns(data, column, order) {
     'surface_water',
   ];
   const sortedData = integersColumns.includes(column)
-    ? data.sort((elemA, elemB) => elemA[column] - elemB[column])
-    : data.sort((elemA, elemB) => elemA[column].localeCompare(elemB[column]));
+    ? data.sort((a, b) => a[column] - b[column])
+    : data.sort((a, b) => {
+      if (a[column] < b[column]) return -1;
+      if (a[column] > b[column]) return 1;
+      return 0;
+    });
 
-  if (order === 'DESC') sortedData.reverse();
+  if (order === 'DESC') return sortedData.reverse();
   return sortedData;
 }
 
@@ -42,23 +47,19 @@ const Home = ({
   data,
   planetName,
 }) => {
-  const filterDataByText = (nameFilter !== ''
-    ? data.filter(({ name }) => name.toLowerCase().includes(nameFilter.toLowerCase()))
-    : data);
-
+  const filterDataByText = testData.results.filter(({ name }) => name.toLowerCase()
+    .includes(nameFilter.toLowerCase()));
   const sortDataFilter = orderColumns(
     filterDataByText,
     sortColumnFilter.toLowerCase(),
     sortOrderFilter,
   );
+  const filterDataByNumericValue = valueFilters.reduce(
+    (acc, { column, comparison, value }) => acc
+      .filter((element) => makeComparison(column, comparison, value, element)),
+    sortDataFilter,
+  );
 
-  const filterDataByNumericValue = (valueFilters
-    ? valueFilters.reduce(
-      (acc, { column, comparison, value }) => acc
-        .filter((element) => makeComparison(column, comparison, value, element)),
-      sortDataFilter,
-    )
-    : sortDataFilter);
 
   return (
     <div>
