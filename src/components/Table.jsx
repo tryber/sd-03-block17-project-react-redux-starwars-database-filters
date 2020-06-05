@@ -1,7 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  fetchData, getByName, getByNumericValue, doMoreFilter, removeFilter, returnColumn, sortColumns, changedataASC, changedataDESC,
+  fetchData,
+  getByName,
+  getByNumericValue,
+  doMoreFilter,
+  removeFilter,
+  returnColumn,
+  sortColumns,
+  changedataASC,
+  changedataDESC,
 } from '../actions/action';
 
 const header = {
@@ -23,9 +32,9 @@ const comparisonOptions = ['maior que', 'igual a', 'menor que', ''];
 
 function doCompare(e, el) {
   switch (el.comparison) {
-    case 'maior que': return parseInt(e[el.column]) > parseInt(el.value, 10);
-    case 'menor que': return parseInt(e[el.column]) < parseInt(el.value, 10);
-    case 'igual a': return parseInt(e[el.column]) === parseInt(el.value, 10);
+    case 'maior que': return parseInt(e[el.column], 10) > parseInt(el.value, 10);
+    case 'menor que': return parseInt(e[el.column], 10) < parseInt(el.value, 10);
+    case 'igual a': return parseInt(e[el.column], 10) === parseInt(el.value, 10);
     default: return [];
   }
 }
@@ -51,12 +60,12 @@ class Table extends React.Component {
   }
 
   changeFilterName(e) {
-    const { getByName } = this.props;
+    const { getByNameprop } = this.props;
     this.setState({ nameFilter: e.target.value });
-    getByName(e.target.value);
+    getByNameprop(e.target.value);
   }
 
-  changeColumn(e) {
+  changeColum(e) {
     this.setState({ column: e.target.value });
   }
 
@@ -71,11 +80,11 @@ class Table extends React.Component {
   }
 
   doFilter() {
-    const { getByNumericValue, doMoreFilter } = this.props;
+    const { getByNumericValueprop, doMoreFilterprop } = this.props;
     const { column, comparison, value } = this.state;
-    getByNumericValue(column, comparison, value);
+    getByNumericValueprop(column, comparison, value);
     this.setState({ filterValues: true });
-    doMoreFilter(column);
+    doMoreFilterprop(column);
   }
 
   filterData() {
@@ -90,29 +99,9 @@ class Table extends React.Component {
   }
 
   doRemoveFilter(e) {
-    const { removeFilter, returnColumn } = this.props;
-    removeFilter(e);
-    returnColumn(e);
-  }
-
-  renderNumericFilter() {
-    const { columnOptions } = this.props;
-    const { column, comparison, value } = this.state;
-    return (
-      <div>
-        Selecionar por Valores
-        <div>
-          <select value={column} data-testid="column-filter" onChange={(e) => this.changeColumn(e)}>
-            {columnOptions.map((e) => <option value={e}>{e}</option>)}
-          </select>
-          <select value={comparison} data-testid="comparison-filter" onChange={(e) => this.changeComparison(e)}>
-            {comparisonOptions.map((e) => <option value={e}>{e}</option>)}
-          </select>
-          <input value={value} data-testid="value-filter" onChange={(e) => this.changeValue(e)} />
-          <button type="button" data-testid="button-filter" onClick={() => this.doFilter()}>Filtrar</button>
-        </div>
-      </div>
-    );
+    const { removeFilterprop, returnColumnprop } = this.props;
+    removeFilterprop(e);
+    returnColumnprop(e);
   }
 
   changeSortColumn(e) {
@@ -128,61 +117,185 @@ class Table extends React.Component {
   }
 
   doSortColumns(ordercolumn, asc, desc) {
-    const { sortColumns, changedataASC, changedataDESC } = this.props;
-    if (asc) { sortColumns(ordercolumn, asc); changedataASC(ordercolumn); }
-    if (desc) { sortColumns(ordercolumn, desc); changedataDESC(ordercolumn); }
+    const { sortColumnsprop, changedataASCprop, changedataDESCprop } = this.props;
+    if (asc) { sortColumnsprop(ordercolumn, asc); changedataASCprop(ordercolumn); }
+    if (desc) { sortColumnsprop(ordercolumn, desc); changedataDESCprop(ordercolumn); }
+  }
+
+  renderNameFilter() {
+    const { nameFilter } = this.state;
+    return (
+      <label htmlFor="name-filter">
+        Buscar por Nome:
+        <input
+          onChange={(e) => this.changeFilterName(e)}
+          id="name-filter"
+          data-testid="name-filter"
+          value={nameFilter}
+        />
+      </label>
+    );
+  }
+
+  renderSelectedFilters() {
+    const { numericFilter } = this.props;
+    return (numericFilter.map((e) => (
+      <div data-testid="filter">
+        <span>{`Coluna: ${e.column}   `}</span>
+        <span>{`Coluna: ${e.comparison}   `}</span>
+        <span>{`Coluna: ${e.value}`}</span>
+        <button type="button" onClick={() => this.doRemoveFilter(e)}>X</button>
+      </div>
+    )));
+  }
+
+  renderASCButton() {
+    const { asc } = this.state;
+    return (
+      <label>
+        <input
+          type="radio"
+          data-testid="column-sort-input"
+          value="ASC"
+          id="asc"
+          checked={asc}
+          onClick={() => this.changeASC()}
+        />
+    ASC
+      </label>
+    );
+  }
+
+  renderDESCButton() {
+    const { desc } = this.state;
+    return (
+      <label>
+        <input
+          type="radio"
+          data-testid="column-sort-input"
+          id="desc"
+          value="DESC"
+          checked={desc}
+          onClick={() => this.changeDESC()}
+        />
+    DESC
+      </label>
+    );
+  }
+
+  renderSorter() {
+    const { ordercolumn, asc, desc } = this.state;
+    return (
+      <div>
+        <div>
+          Ordenar por:
+          <select
+            value={ordercolumn}
+            data-testid="column-sort"
+            onChange={(e) => this.changeSortColumn(e)}
+          >
+            {Object.keys(header).map((e) => <option value={e}>{e}</option>)}
+          </select>
+          {this.renderASCButton()}
+          {this.renderDESCButton()}
+          <button
+            type="button"
+            data-testid="column-sort-button"
+            onClick={() => this.doSortColumns(ordercolumn, asc, desc)}
+          >
+            ordenar
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  renderNumericFilter() {
+    const { columnOptions } = this.props;
+    const { column, comparison, value } = this.state;
+    return (
+      <div>
+        Selecionar por Valores
+        <select value={column} data-testid="column-filter" onChange={(e) => this.changeColum(e)}>
+          {columnOptions.map((e) => <option value={e}>{e}</option>)}
+        </select>
+        <select
+          value={comparison}
+          data-testid="comparison-filter"
+          onChange={(e) => this.changeComparison(e)}
+        >
+          {comparisonOptions.map((e) => <option value={e}>{e}</option>)}
+        </select>
+        <input value={value} data-testid="value-filter" onChange={(e) => this.changeValue(e)} />
+        <button
+          type="button"
+          data-testid="button-filter"
+          onClick={() => this.doFilter()}
+        >
+            Filtrar
+        </button>
+      </div>
+    );
+  }
+
+  static renderTableheaders() {
+    return (
+      <thead>
+        <tr>
+          {Object.keys(header).map((e) => <th>{e}</th>)}
+        </tr>
+      </thead>
+    );
+  }
+
+  renderTableData() {
+    const { filter, data } = this.props;
+    const { filterValues } = this.state;
+    return (
+      !filter && !filterValues && data.map((e) => (
+        <tr key={e.name}>
+          {Object.keys(header).map((el) => <td key={e.name + el}>{e[el]}</td>)}
+        </tr>
+      ))
+    );
+  }
+
+  renderFilteredDataByName() {
+    const { data, filter } = this.props;
+    const { filterValues } = this.state;
+    return (
+      !filterValues && filter && data.filter((e) => e.name.includes(filter.value)).map((e) => (
+        <tr key={e.name}>
+          {Object.keys(header).map((el) => <td key={e.name + el}>{e[el]}</td>)}
+        </tr>
+      ))
+    );
+  }
+
+  renderFilteredDataByNumeric() {
+    const { filterValues } = this.state;
+    return (
+      filterValues && this.filterData().map((e) => (
+        <tr key={e.name}>
+          {Object.keys(header).map((el) => <td key={e.name + el}>{e[el]}</td>)}
+        </tr>
+      ))
+    );
   }
 
   render() {
-    const { data, filter, numericFilter, order, columnOptions } = this.props;
-    const { nameFilter, filterValues, asc, desc, ordercolumn } = this.state;
     return (
       <div>
-        <label htmlFor="name-filter">
-          Buscar por Nome:
-          <input onChange={(e) => this.changeFilterName(e)} id="name-filter" data-testid="name-filter" value={nameFilter} />
-        </label>
+        {this.renderNameFilter()}
         {this.renderNumericFilter()}
-        {numericFilter.map((e) => (
-          <div data-testid="filter">
-            <span>{`Coluna: ${e.column}   `}</span>
-            <span>{`Coluna: ${e.comparison}   `}</span>
-            <span>{`Coluna: ${e.value}`}</span>
-            <button type="button" onClick={() => this.doRemoveFilter(e)}>X</button>
-          </div>
-        ))}
-        <div>
-          <div>Ordenar por:
-          <select value={ordercolumn} data-testid="column-sort" onChange={(e) => this.changeSortColumn(e)}>
-            {Object.keys(header).map((e) => <option value={e}>{e}</option>)}
-          </select>
-            <label><input type="radio" data-testid="column-sort-input" value="ASC" id="asc" checked={asc} onClick={() => this.changeASC()} />ASC</label>
-            <label><input type="radio" data-testid="column-sort-input" id="desc" value="DESC" checked={desc} onClick={() => this.changeDESC()} />DESC</label>
-            <button type="button" data-testid="column-sort-button" onClick={() => this.doSortColumns(ordercolumn, asc, desc)}>ordenar</button>
-          </div>
-        </div>
+        {this.renderSelectedFilters()}
+        {this.renderSorter()}
         <table>
-          <thead>
-            <tr>
-              {Object.keys(header).map((e) => <th>{e}</th>)}
-            </tr>
-          </thead>
+          {Table.renderTableheaders()}
           <tbody>
-            {!filter && !filterValues && data.map((e) => (
-              <tr key={e.name}>
-                {Object.keys(header).map((el) => <td key={e.name + el}>{e[el]}</td>)}
-              </tr>
-            ))}
-            {!filterValues && filter && data.filter((e) => e.name.includes(filter.value)).map((e) => (
-              <tr key={e.name}>
-                {Object.keys(header).map((el) => <td key={e.name + el}>{e[el]}</td>)}
-              </tr>
-            ))}
-            {filterValues && this.filterData().map((e) => (
-              <tr key={e.name}>
-                {Object.keys(header).map((el) => <td key={e.name + el}>{e[el]}</td>)}
-              </tr>
-            ))}
+            {this.renderTableData()}
+            {this.renderFilteredDataByName()}
+            {this.renderFilteredDataByNumeric()}
           </tbody>
         </table>
       </div>
@@ -196,19 +309,42 @@ const mapStateToProps = (state) => ({
   numericFilter: state.filters.filterByNumericValues,
   order: state.filters.order,
   columnOptions: state.columnsReducer,
-  state,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getInfo: () => dispatch(fetchData()),
-  getByName: (e) => dispatch(getByName(e)),
-  getByNumericValue: (column, comparison, value) => dispatch(getByNumericValue(column, comparison, value)),
-  doMoreFilter: (column) => dispatch(doMoreFilter(column)),
-  removeFilter: (filter) => dispatch(removeFilter(filter)),
-  returnColumn: (column) => dispatch(returnColumn(column)),
-  sortColumns: (column, sort) => dispatch(sortColumns(column, sort)),
-  changedataASC: (column) => dispatch(changedataASC(column)),
-  changedataDESC: (column) => dispatch(changedataDESC(column)),
+  getByNameprop: (e) => dispatch(getByName(e)),
+  getByNumericValueprop:
+    (column, comparison, value) => dispatch(getByNumericValue(column, comparison, value)),
+  doMoreFilterprop: (column) => dispatch(doMoreFilter(column)),
+  removeFilterprop: (filter) => dispatch(removeFilter(filter)),
+  returnColumnprop: (column) => dispatch(returnColumn(column)),
+  sortColumnsprop: (column, sort) => dispatch(sortColumns(column, sort)),
+  changedataASCprop: (column) => dispatch(changedataASC(column)),
+  changedataDESCprop: (column) => dispatch(changedataDESC(column)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
+
+Table.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.string).isRequired,
+  filter: PropTypes.shape({
+    value: PropTypes.string,
+  }).isRequired,
+  numericFilter: PropTypes.arrayOf(PropTypes.object).isRequired,
+  order: PropTypes.shape({
+    colum: PropTypes.string,
+    sort: PropTypes.string,
+  }).isRequired,
+  columnOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  getInfo: PropTypes.func.isRequired,
+  getByNameprop: PropTypes.func.isRequired,
+  getByNumericValueprop: PropTypes.func.isRequired,
+  doMoreFilterprop: PropTypes.func.isRequired,
+  removeFilterprop: PropTypes.func.isRequired,
+  returnColumnprop: PropTypes.func.isRequired,
+  sortColumnsprop: PropTypes.func.isRequired,
+  changedataASCprop: PropTypes.func.isRequired,
+  changedataDESCprop: PropTypes.func.isRequired,
+
+};
