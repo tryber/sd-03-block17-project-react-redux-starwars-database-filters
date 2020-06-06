@@ -44,8 +44,8 @@ filtraData(comparisonSignal, results, column, value) {
     console.log(results, "COMPARISONSIGNAL");
     filterNumb.filterByNumericValues.map((element) => {
       const signal = this.retornaSign(element.comparison);
-      console.log(signal);
-      console.log(this.filtraData(signal, results, filterNumb.column, filterNumb.value), "return ");
+      console.log(signal,'signal');
+      console.log(this.filtraData(signal, results, element.column, element.value), "return ");
     });
     /* if (document.getElementsByName('filter_name').value !== '') {
       return results.filter((element) => {
