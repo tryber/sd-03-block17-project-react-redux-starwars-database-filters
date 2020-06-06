@@ -55,22 +55,6 @@ class InputsNumerics extends React.Component {
     }
   }
 
-  
-
-  valueFilterInput() {
-    return (
-      <label htmlFor="valueFilter">
-        Valor:
-        <input
-          data-testid="value-filter"
-          name="valueFilter"
-          type="number"
-          onChange={this.onChangeValueFilter}
-        />
-      </label>
-    );
-  }
-
   buttonFilter() {
     return (
       <div>
@@ -105,6 +89,20 @@ class InputsNumerics extends React.Component {
         <option value="menor que">menor que</option>
         <option value="igual a">igual a</option>
       </select>
+    );
+  }
+
+  valueFilterInput() {
+    return (
+      <label htmlFor="valueFilter">
+        Valor:
+        <input
+          data-testid="value-filter"
+          name="valueFilter"
+          type="number"
+          onChange={this.onChangeValueFilter}
+        />
+      </label>
     );
   }
 
@@ -174,7 +172,7 @@ const mapStateToProps = (state) => ({
 InputsNumerics.propTypes = {
   selectors: PropTypes.func.isRequired,
   filteredSelect: PropTypes.arrayOf(PropTypes.object).isRequired,
-  newFilterSelect: PropTypes.arrayOf(PropTypes.object).isRequired,
+  newFilterSelect: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputsNumerics);
