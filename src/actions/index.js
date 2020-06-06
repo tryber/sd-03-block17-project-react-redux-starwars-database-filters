@@ -31,3 +31,7 @@ export const requestAction = () => (dispatch) => {
 export const TEXT_CHANGED = 'TEXT_CHANGED';
 
 export const textChanged = (text) => ({ type: TEXT_CHANGED, text });
+
+export const SELECT_CHANGED = 'SELECT_CHANGED';
+
+export const selectChanged = (...select) => ({ type: SELECT_CHANGED, payload: select });
