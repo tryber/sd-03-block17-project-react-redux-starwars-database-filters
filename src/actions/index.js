@@ -5,6 +5,7 @@ const RECEIVE_DATA = 'RECEIVE_DATA';
 const RECEIVE_FAIL = 'RECEIVE_FAIL';
 const NAME_FILTER = 'NAME_FILTER';
 const FILTER_SELECTORS = 'FILTER_SELECTORS';
+const REMOVE_FILTER = 'REMOVE_FILTER';
 
 const requestData = () => ({
   type: REQUEST_DATA,
@@ -31,6 +32,11 @@ export const filterSelectors = (filterSelect, comparison, valueFilter) => ({
   comparison,
   valueFilter,
 });
+
+export const removeFilter = (arrayOfObject) => ({
+  type: REMOVE_FILTER,
+  arrayOfObject,
+}) 
 
 export function fetchStarWarsApi(search) {
   return (dispatch) => {

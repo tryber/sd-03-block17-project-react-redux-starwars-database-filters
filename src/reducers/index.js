@@ -5,6 +5,7 @@ const RECEIVE_DATA = 'RECEIVE_DATA';
 const RECEIVE_FAIL = 'RECEIVE_FAIL';
 const NAME_FILTER = 'NAME_FILTER';
 const FILTER_SELECTORS = 'FILTER_SELECTORS';
+const REMOVE_FILTER = 'REMOVE_FILTER';
 
 const stateDefault = {
   isFetching: false,
@@ -39,7 +40,6 @@ const stateFiltersDefault = {
     name: '',
   },
   filterByNumericValues: [],
-  isFiltered: false,
 };
 
 const filters = (state = stateFiltersDefault, action) => {
@@ -60,8 +60,12 @@ const filters = (state = stateFiltersDefault, action) => {
             value: action.valueFilter,
           },
         ],
-        isFiltered: true,
       };
+    case REMOVE_FILTER:
+      return {
+        ...state,
+        filterByNumericValues: action.arrayOfObject,
+      }
     default:
       return state;
   }

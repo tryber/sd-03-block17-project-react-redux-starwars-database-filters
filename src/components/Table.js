@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import '../App.css';
 
-
 function filterPlanetsFunc(data, filters) {
   let dataParam = [...data];
   let filterPlanets;
@@ -68,12 +67,11 @@ class Table extends React.Component {
     };
   }
 
-
   table() {
     const { titles } = this.state;
-    const { name, isFiltered, filters } = this.props;
+    const { name, filters } = this.props;
     let { data } = this.props;
-    if (isFiltered) {
+    if (filters.length > 0) {
       data = filterPlanetsFunc(data, filters);
     }
     return (
@@ -99,14 +97,12 @@ class Table extends React.Component {
 
 const mapStateToProps = (state) => ({
   filters: state.filters.filterByNumericValues,
-  isFiltered: state.filters.isFiltered,
 });
 
 Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   name: PropTypes.string.isRequired,
   filters: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isFiltered: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps)(Table);

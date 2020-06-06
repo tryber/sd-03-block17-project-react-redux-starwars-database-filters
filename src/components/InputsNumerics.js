@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filterSelectors } from '../actions/index';
+import { filterSelectors, removeFilter } from '../actions/index';
 
 
 class InputsNumerics extends React.Component {
@@ -24,6 +24,7 @@ class InputsNumerics extends React.Component {
     this.onChangeComparison = this.onChangeComparison.bind(this);
     this.onChangeValueFilter = this.onChangeValueFilter.bind(this);
     this.onClickDispatchSelectors = this.onClickDispatchSelectors.bind(this);
+    this.onClickRemoveFilter = this.onClickRemoveFilter.bind(this);
   }
 
   onChangeFilterSelect(event) {
@@ -42,10 +43,16 @@ class InputsNumerics extends React.Component {
   onClickDispatchSelectors() {
     const { filterSelect, comparison, valueFilter, options } = this.state;
     const { selectors } = this.props;
-    selectors(filterSelect, comparison, valueFilter);
-    const newOptions = options.filter((item) =>
-      item.value !== filterSelect || item.value === '');
-    this.setState({ options: newOptions });
+    let newOptions;
+    if (filterSelect !== '' && comparison !== '') {
+      selectors(filterSelect, comparison, valueFilter);
+      newOptions = options.filter((item) =>
+        item.value !== filterSelect || item.value === '');
+      this.setState({
+        options: newOptions,
+        filterSelect: '',
+      });
+    }
   }
 
   selectFilter() {
@@ -103,17 +110,37 @@ class InputsNumerics extends React.Component {
     );
   }
 
+  onClickRemoveFilter(event) {
+    const { options } = this.state;
+    const { value } = event.target;
+    const { filteredSelect, newFilterSelect } = this.props;
+    const newFilteredSelect = filteredSelect.filter((item) => item.column !== value);
+    const optionSelect = {
+      value,
+      text: value,
+    };
+    newFilterSelect(newFilteredSelect);
+    this.setState({ options: [...options, optionSelect]});
+  }
+
   filteredList() {
     const { filteredSelect } = this.props;
     return (
       <div>
         {
           filteredSelect.map((item) =>
-            <p
+            <div
               key={item.column}
             >
               {item.column}
-            </p>)}
+              <button
+                data-testid="filter"
+                value={item.column}
+                onClick={this.onClickRemoveFilter}
+              >
+                X
+              </button>
+            </div>)}
       </div>
     );
   }
@@ -135,6 +162,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectors:
     (filterSelect, comparison, valueFilter) =>
       dispatch(filterSelectors(filterSelect, comparison, valueFilter)),
+  newFilterSelect: (value) => (dispatch(removeFilter(value))),
 });
 
 const mapStateToProps = (state) => ({
