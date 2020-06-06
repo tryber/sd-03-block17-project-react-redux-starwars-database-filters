@@ -26,8 +26,6 @@ class Table extends Component {
   //     .sort((a, b) => b.rotation_period - a.rotation_period)
   //     .filter((planet) => planet.name.length > 7),
   // );
-  // console.log(
-  //   data.filter((planet) => planet.name[1].toLowerCase().includes('a')),
   // );
 
   static renderTable(data) {
@@ -50,20 +48,26 @@ class Table extends Component {
     ));
   }
 
+  static renderLoading() {
+    return <p>LOADING...</p>;
+  }
+
   componentDidMount() {
     const { getPlanets } = this.props;
     getPlanets();
   }
 
   handleNameFilter(text) {
-    const { filterByName } = this.props;
-    filterByName(text);
+    const { filterName } = this.props;
+    filterName(text);
   }
 
   render() {
-    const { name, data } = this.props;
+    const { name, data, isFetching } = this.props;
     const filteredName = data.filter((planet) => planet.name.toLowerCase().includes(name));
-    return (
+    return isFetching ? (
+      Table.renderLoading()
+    ) : (
       <div>
         <input
           data-testid="name-filter"
@@ -86,19 +90,19 @@ class Table extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   getPlanets: () => dispatch(fetchPlanets()),
-  filterByName: (name) => dispatch(filterByName(name)),
+  filterName: (name) => dispatch(filterByName(name)),
 });
 
 const mapStateToProps = ({
-  getPlanetsReducer: {
-    data,
-    filters: {
-      filterByName: { name },
-    },
+  data,
+  isFetching,
+  filters: {
+    filterByName: { name },
   },
 }) => ({
   data,
   name,
+  isFetching,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
