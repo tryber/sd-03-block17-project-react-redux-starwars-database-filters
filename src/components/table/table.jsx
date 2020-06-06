@@ -87,7 +87,7 @@ class Table extends React.Component {
           id="column-filter"
           onChange={({ target: { value } }) => this.setState({ column: value })}
         >
-          <option value=""/>
+          <option value="" />
           {columnFilter.map((item) => <option key={item} value={item}>{item}</option>)}
         </select>
       </label>
@@ -103,7 +103,7 @@ class Table extends React.Component {
           data-testid="comparison-filter"
           onChange={({ target: { value } }) => this.setState({ comparison: value })}
         >
-          <option value=""/>
+          <option value="" />
           {comparisonFilter.map((item) => <option key={item} value={item}>{item}</option>)}
         </select>
       </label>
