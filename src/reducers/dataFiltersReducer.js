@@ -22,7 +22,7 @@ const INITIAL_STATE = {
   },
 };
 
-const filters = (state = INITIAL_STATE, action) => {
+const dataFiltersReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FILTER_BY_TEXT:
       return { ...state, filterByName: { name: action.name } };
@@ -32,7 +32,7 @@ const filters = (state = INITIAL_STATE, action) => {
         filterByNumericValues:
           state.filterByNumericValues[0].column === ''
             ? action.params
-            : [...state.filterByNumericValues.concat(action.params)],
+            : [...state.filterByNumericValues, ...action.params],
       };
     case REMOVE_FILTERS:
       return {
@@ -44,10 +44,13 @@ const filters = (state = INITIAL_STATE, action) => {
         ],
       };
     case SORT_COLUMN:
-      return { ...state, order: { column: action.value.column, sort: action.value.order } };
+      return {
+        ...state,
+        order: { column: action.value.column, sort: action.value.order },
+      };
     default:
       return state;
   }
 };
 
-export default filters;
+export default dataFiltersReducer;
