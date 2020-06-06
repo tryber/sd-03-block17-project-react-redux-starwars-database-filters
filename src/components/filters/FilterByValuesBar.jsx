@@ -28,10 +28,12 @@ class FilterByValuesBar extends Component {
 
   renderColumnFilter() {
     const { valueFilters } = this.props;
+    const { column: columnValue } = this.state;
     return (
       <select
         id="column-filter"
         data-testid="column-filter"
+        value={columnValue}
         onChange={(event) => this.setState({ column: event.target.value })}
       >
         <option value="" />
@@ -47,10 +49,12 @@ class FilterByValuesBar extends Component {
   }
 
   renderComparisonFilter() {
+    const { comparison: comparisonValue } = this.state;
     return (
       <select
         name="comparison-filter"
         id="comparison-filter"
+        value={comparisonValue}
         data-testid="comparison-filter"
         onChange={(event) => this.setState({ comparison: event.target.value })}
       >
@@ -65,11 +69,13 @@ class FilterByValuesBar extends Component {
   }
 
   renderValueFilter() {
+    const { value: valueState } = this.state;
     return (
       <input
         type="number"
         name="value-filter"
         id="value-filter"
+        value={valueState}
         data-testid="value-filter"
         placeholder="digite um valor"
         onChange={(event) => this.setState({ value: event.target.value })}
@@ -84,7 +90,8 @@ class FilterByValuesBar extends Component {
       <button
         type="button"
         data-testid="button-filter"
-        onClick={() => filtersParams({ column, comparison, value })}
+        onClick={() => (filtersParams({ column, comparison, value }, this.setState({ column: '', comparison: '', value: '' })))}
+        disabled={column === '' || comparison === '' || value === ''}
       >
         Filtrar
       </button>

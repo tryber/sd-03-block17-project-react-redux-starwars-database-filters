@@ -3,8 +3,7 @@ import React from 'react';
 function Header() {
   return (
     <div>
-      <h1>Star Wars</h1>
-      <h2>Planets</h2>
+      <h1>Star WarsPlanets</h1>
     </div>
   );
 }
