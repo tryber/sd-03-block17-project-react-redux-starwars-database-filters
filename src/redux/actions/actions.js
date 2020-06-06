@@ -1,5 +1,11 @@
 import getPlanets from '../../services/starwarsAPI';
 
+export const filterByName = (name) => ({
+  type: 'FILTER_BY_NAME',
+  name,
+
+});
+
 export const requestPlanets = () => ({
   type: 'REQUEST_PLANETS',
 });

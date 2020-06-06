@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import fetchPlanets from '../redux/actions/actions';
+import fetchPlanets, { filterByName } from '../redux/actions/actions';
 
 const tableHead = [
   'name',
@@ -22,18 +22,25 @@ const tableHead = [
 
 class Table extends Component {
   componentDidMount() {
-    const { data, dispatch } = this.props;
-    dispatch(fetchPlanets(data));
+    const { getPlanets } = this.props;
+    getPlanets();
   }
 
-  renderTable() {
-    const { data } = this.props;
-    // console.log(
-    //   data
-    //     .sort((a, b) => a.rotation_period - b.rotation_period)
-    //     .filter((planet) => planet.name.length > 7),
-    // );
+  handleNameFilter(text) {
+    const { filterByName } = this.props;
+    filterByName(text);
+  }
 
+  // console.log(
+  //   data
+  //     .sort((a, b) => b.rotation_period - a.rotation_period)
+  //     .filter((planet) => planet.name.length > 7),
+  // );
+  // console.log(
+  //   data.filter((planet) => planet.name[1].toLowerCase().includes('a')),
+  // );
+
+  static renderTable(data) {
     return data.map((planet) => (
       <tr key={planet.url}>
         <td>{planet.name}</td>
@@ -54,8 +61,14 @@ class Table extends Component {
   }
 
   render() {
+    const { name, data } = this.props;
+    const filteredName = data.filter((planet) => planet.name.toLowerCase().includes(name));
     return (
       <div>
+        <input
+          data-testid="name-filter"
+          onChange={(event) => this.handleNameFilter(event.target.value)}
+        />
         <table>
           <thead>
             <tr>
@@ -64,15 +77,28 @@ class Table extends Component {
               ))}
             </tr>
           </thead>
-          <tbody>{this.renderTable()}</tbody>
+          <tbody>{Table.renderTable(filteredName)}</tbody>
         </table>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ getPlanetsReducer: { data } }) => ({
-  data,
+const mapDispatchToProps = (dispatch) => ({
+  getPlanets: () => dispatch(fetchPlanets()),
+  filterByName: (name) => dispatch(filterByName(name)),
 });
 
-export default connect(mapStateToProps)(Table);
+const mapStateToProps = ({
+  getPlanetsReducer: {
+    data,
+    filters: {
+      filterByName: { name },
+    },
+  },
+}) => ({
+  data,
+  name,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

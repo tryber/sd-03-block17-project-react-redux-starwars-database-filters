@@ -2,7 +2,20 @@ const INITIAL_STATE = {
   data: [],
   error: '',
   isFetching: false,
+  filters: {
+    filterByName: {
+      name: '',
+    },
+  },
+  filterByNumericValues: [
+    {
+      column: 'population',
+      comparison: 'maior que',
+      value: '100000',
+    },
+  ],
 };
+
 
 const getPlanetsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -20,6 +33,16 @@ const getPlanetsReducer = (state = INITIAL_STATE, action) => {
     case 'RECEIVE_PLANETS_FAILURE':
       return {
         error: action.error,
+      };
+    case 'FILTER_BY_NAME':
+      return {
+        ...state,
+        filters: {
+          filterByName: {
+            name: action.name,
+            isFiltered: true,
+          },
+        },
       };
     default:
       return state;
