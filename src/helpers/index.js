@@ -38,4 +38,18 @@ const orderColumns = (data, column, order) => {
   return sortedData;
 };
 
-export { makeComparison, orderColumns };
+const filterDataByText = (data, filter) => data
+  .filter(({ name }) => name.toLowerCase().includes(filter.toLowerCase()));
+
+const sortDataFilter = (data, filter1, filter2, filter3) => orderColumns(
+  filterDataByText(data, filter1),
+  filter2.toLowerCase(),
+  filter3,
+);
+const filterDataByNumericValue = (data, filter1, filter2, filter3, filter4) => filter4.reduce(
+  (acc, { column, comparison, value }) => acc
+    .filter((element) => makeComparison(column, comparison, value, element)),
+  sortDataFilter(data, filter1, filter2, filter3),
+);
+
+export default filterDataByNumericValue;
