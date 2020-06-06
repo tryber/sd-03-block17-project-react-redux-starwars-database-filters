@@ -15,15 +15,6 @@ const INITIAL_STATE = {
   },
 };
 
-
-// function filtraByName(action, state) {
-//   const filterName = action.filters.filterByName.name.toLowerCase();
-//   return state.data.results.filter((element) => {
-//     const lowerName = element.name.toLowerCase();
-//     return lowerName.includes(filterName);
-//   });
-// }
-
 function requestReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'REQUEST_DATA':
@@ -35,7 +26,8 @@ function requestReducer(state = INITIAL_STATE, action) {
       // const filteredPlanets = filtraByName(action, state);
       return {
         ...state,
-        filters: { filterByName: { name: filterName } },
+        filters: { filterByName: { name: filterName } ,
+        filterByNumericValues: [state.filters.filterByNumericValues] },
       };
     }
     case 'FILTER_PLANET_NUMERIC': {

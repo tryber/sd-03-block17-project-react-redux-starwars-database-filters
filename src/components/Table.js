@@ -47,13 +47,11 @@ filtraData(comparisonSignal, results, column, value) {
       console.log(signal,'signal');
       console.log(this.filtraData(signal, results, element.column, element.value), "return ");
     });
-    /* if (document.getElementsByName('filter_name').value !== '') {
+     if (document.getElementsByName('filter_name').value !== '') {
       return results.filter((element) => {
         const lowerName = element.name.toLowerCase();
         return lowerName.includes(filtername);
-      }) */
-
-       /*  .map((element) => (
+      }).map((element) => (
           <tr key={element.name}>
             <td>{element.name}</td>
             <td>{element.rotation_period}</td>
@@ -69,10 +67,10 @@ filtraData(comparisonSignal, results, column, value) {
             <td>{element.edited}</td>
             <td>{element.url}</td>
           </tr>
-        )); */
+        ))
     
     return null;
-  }
+  }}
 
   render() {
     const { value: { data } } = this.props;
