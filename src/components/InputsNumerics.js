@@ -55,19 +55,6 @@ class InputsNumerics extends React.Component {
     }
   }
 
-  buttonFilter() {
-    return (
-      <div>
-        <button
-          data-testid="button-filter"
-          onClick={this.onClickDispatchSelectors}
-        >
-          Filtrar
-        </button>
-      </div>
-    );
-  }
-
   onClickRemoveFilter(event) {
     const { options } = this.state;
     const { value } = event.target;
@@ -79,6 +66,19 @@ class InputsNumerics extends React.Component {
     };
     newFilterSelect(newFilteredSelect);
     this.setState({ options: [...options, optionSelect] });
+  }
+
+  buttonFilter() {
+    return (
+      <div>
+        <button
+          data-testid="button-filter"
+          onClick={this.onClickDispatchSelectors}
+        >
+          Filtrar
+        </button>
+      </div>
+    );
   }
 
   selectComparison() {
