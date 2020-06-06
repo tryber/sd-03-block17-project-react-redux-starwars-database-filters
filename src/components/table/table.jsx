@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import RenderThead from './renderThead';
 import { requestAction, textChanged, selectChanged } from '../../actions';
 
-const columnFilter = [
+let columnFilter = [
   'population',
   'orbital_period',
   'diameter',
@@ -69,6 +69,8 @@ class Table extends React.Component {
         (element) => comparator(column, comparison, value, element),
       ), this.filterByText(),
     );
+    const columns = filters.map((filter) => filter.column);
+    columnFilter = columnFilter.filter((item) => !columns.includes(item));
     return filteredList;
   }
 
