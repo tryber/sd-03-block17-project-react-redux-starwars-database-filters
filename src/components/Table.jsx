@@ -21,16 +21,6 @@ const tableHead = [
 ];
 
 class Table extends Component {
-  componentDidMount() {
-    const { getPlanets } = this.props;
-    getPlanets();
-  }
-
-  handleNameFilter(text) {
-    const { filterByName } = this.props;
-    filterByName(text);
-  }
-
   // console.log(
   //   data
   //     .sort((a, b) => b.rotation_period - a.rotation_period)
@@ -58,6 +48,16 @@ class Table extends Component {
         <td>{planet.url}</td>
       </tr>
     ));
+  }
+
+  componentDidMount() {
+    const { getPlanets } = this.props;
+    getPlanets();
+  }
+
+  handleNameFilter(text) {
+    const { filterByName } = this.props;
+    filterByName(text);
   }
 
   render() {
