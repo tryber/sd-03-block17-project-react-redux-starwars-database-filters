@@ -65,7 +65,7 @@ const filters = (state = stateFiltersDefault, action) => {
       return {
         ...state,
         filterByNumericValues: action.arrayOfObject,
-      }
+      };
     default:
       return state;
   }

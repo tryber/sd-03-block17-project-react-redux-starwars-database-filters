@@ -36,7 +36,7 @@ export const filterSelectors = (filterSelect, comparison, valueFilter) => ({
 export const removeFilter = (arrayOfObject) => ({
   type: REMOVE_FILTER,
   arrayOfObject,
-}) 
+});
 
 export function fetchStarWarsApi(search) {
   return (dispatch) => {

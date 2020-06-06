@@ -55,23 +55,6 @@ class InputsNumerics extends React.Component {
     }
   }
 
-  selectFilter() {
-    const { options } = this.state;
-    return (
-      <select data-testid="column-filter" onChange={this.onChangeFilterSelect}>
-        {
-          options.map((item) =>
-            <option
-              key={item.value}
-              value={item.value}
-            >
-              {item.text}
-            </option>)
-        }
-      </select>
-    );
-  }
-
   selectComparison() {
     return (
       <select data-testid="comparison-filter" onChange={this.onChangeComparison}>
@@ -120,7 +103,24 @@ class InputsNumerics extends React.Component {
       text: value,
     };
     newFilterSelect(newFilteredSelect);
-    this.setState({ options: [...options, optionSelect]});
+    this.setState({ options: [...options, optionSelect] });
+  }
+
+  selectFilter() {
+    const { options } = this.state;
+    return (
+      <select data-testid="column-filter" onChange={this.onChangeFilterSelect}>
+        {
+          options.map((item) =>
+            <option
+              key={item.value}
+              value={item.value}
+            >
+              {item.text}
+            </option>)
+        }
+      </select>
+    );
   }
 
   filteredList() {
@@ -172,6 +172,7 @@ const mapStateToProps = (state) => ({
 InputsNumerics.propTypes = {
   selectors: PropTypes.func.isRequired,
   filteredSelect: PropTypes.arrayOf(PropTypes.object).isRequired,
+  newFilterSelect
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputsNumerics);
