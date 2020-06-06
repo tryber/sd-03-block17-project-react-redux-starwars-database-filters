@@ -15,20 +15,6 @@ const INITIAL_STATE = {
   },
 };
 
-// function retornaSign(comparison) {
-//   let comparisonSignal;
-//   if (comparison === 'maior que') {
-//     comparisonSignal = 0;
-//     return comparisonSignal;
-//   } if (comparison === 'menor que') {
-//     comparisonSignal = 1;
-//     return comparisonSignal;
-//   } if (comparison === 'igual a') {
-//     comparisonSignal = 2;
-//     return comparisonSignal;
-//   }
-//   return null;
-// }
 
 // function filtraByName(action, state) {
 //   const filterName = action.filters.filterByName.name.toLowerCase();
@@ -36,17 +22,6 @@ const INITIAL_STATE = {
 //     const lowerName = element.name.toLowerCase();
 //     return lowerName.includes(filterName);
 //   });
-// }
-
-// function filtraNumericData(comparisonSignal, state, column, value) {
-//   if (comparisonSignal === 0) {
-//     return state.data.results.filter((element) => element[column] > value);
-//   } if (comparisonSignal === 1) {
-//     return state.data.results.filter((element) => element[column] < value);
-//   } if (comparisonSignal === 2) {
-//     return state.data.results.filter((element) => element[column] === value);
-//   }
-//   return null;
 // }
 
 function requestReducer(state = INITIAL_STATE, action) {
