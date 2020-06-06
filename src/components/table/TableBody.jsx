@@ -9,16 +9,27 @@ const TableBody = ({
   sortColumnFilter,
   sortOrderFilter,
   valueFilters,
-}) => (filterDataByNumericValue.length === 0 ? (
+}) => (filterDataByNumericValue(
+  data,
+  nameFilter,
+  sortColumnFilter,
+  sortOrderFilter,
+  valueFilters,
+).length === 0 ? (
   <tbody>
     <tr>
       <td>Nenhum Planeta Encontrado</td>
     </tr>
   </tbody>
-) : (
-  <tbody>
-    {filterDataByNumericValue(data, nameFilter, sortColumnFilter, sortOrderFilter, valueFilters)
-      .map((planet) => (
+  ) : (
+    <tbody>
+      {filterDataByNumericValue(
+        data,
+        nameFilter,
+        sortColumnFilter,
+        sortOrderFilter,
+        valueFilters,
+      ).map((planet) => (
         <tr key={planet.name}>
           <td>{planet.name}</td>
           <td>{planet.rotation_period}</td>
@@ -31,7 +42,12 @@ const TableBody = ({
           <td>{planet.population}</td>
           <td>
             {planet.films.map((film) => (
-              <a href={film} target="_blank" rel="noopener noreferrer" key={film}>
+              <a
+                href={film}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={film}
+              >
                 {film}
               </a>
             ))}
@@ -45,8 +61,8 @@ const TableBody = ({
           </td>
         </tr>
       ))}
-  </tbody>
-));
+    </tbody>
+  ));
 
 const mapStateToProps = (state) => ({
   data: state.planetsInfoReducer.data,
