@@ -138,6 +138,22 @@ class Table extends React.Component {
     );
   }
 
+  renderFiltersActive() {
+    const { filters } = this.props;
+    const renderedFilters = filters.map(
+      (item) => <p key={item.column}>{`${item.column} ${item.comparison} ${item.value}`}</p>,
+    );
+    columnFilter.filter((elem) => elem !== filters.column);
+    if (renderedFilters) {
+      return (
+        <div>
+          {renderedFilters}
+        </div>
+      );
+    }
+    return 0;
+  }
+
   renderTbody() {
     const filteredTable = this.filterByNumeric();
     return (
@@ -179,6 +195,7 @@ class Table extends React.Component {
             onChange={({ target: { value } }) => this.handleChange(value)}
           />
         </label>
+        {this.renderFiltersActive()}
         <br />
         <table>
           <RenderThead />
