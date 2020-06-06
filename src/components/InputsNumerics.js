@@ -55,16 +55,7 @@ class InputsNumerics extends React.Component {
     }
   }
 
-  selectComparison() {
-    return (
-      <select data-testid="comparison-filter" onChange={this.onChangeComparison}>
-        <option value="" />
-        <option value="maior que">maior que</option>
-        <option value="menor que">menor que</option>
-        <option value="igual a">igual a</option>
-      </select>
-    );
-  }
+  
 
   valueFilterInput() {
     return (
@@ -104,6 +95,17 @@ class InputsNumerics extends React.Component {
     };
     newFilterSelect(newFilteredSelect);
     this.setState({ options: [...options, optionSelect] });
+  }
+
+  selectComparison() {
+    return (
+      <select data-testid="comparison-filter" onChange={this.onChangeComparison}>
+        <option value="" />
+        <option value="maior que">maior que</option>
+        <option value="menor que">menor que</option>
+        <option value="igual a">igual a</option>
+      </select>
+    );
   }
 
   selectFilter() {
@@ -172,7 +174,7 @@ const mapStateToProps = (state) => ({
 InputsNumerics.propTypes = {
   selectors: PropTypes.func.isRequired,
   filteredSelect: PropTypes.arrayOf(PropTypes.object).isRequired,
-  newFilterSelect
+  newFilterSelect: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputsNumerics);
