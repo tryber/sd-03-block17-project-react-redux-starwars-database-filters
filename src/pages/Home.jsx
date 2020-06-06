@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Table from '../components/table/Table';
 import FilterContainer from '../components/filters/FilterContainer';
 import FetchData from '../components/FetchData';
-import { makeComparison, orderColumns } from '../helpers/index';
+import filterDataByNumericValue from '../helpers/index';
 
 const Home = ({
   data,
@@ -13,35 +13,23 @@ const Home = ({
   sortColumnFilter,
   sortOrderFilter,
   valueFilters,
-}) => {
-  const filterDataByText = data.filter(({ name }) => name.toLowerCase()
-    .includes(nameFilter.toLowerCase()));
-  const sortDataFilter = orderColumns(
-    filterDataByText,
-    sortColumnFilter.toLowerCase(),
-    sortOrderFilter,
-  );
-  const filterDataByNumericValue = valueFilters.reduce(
-    (acc, { column, comparison, value }) => acc
-      .filter((element) => makeComparison(column, comparison, value, element)),
-    sortDataFilter,
-  );
-
-  return loading ? (
-    <FetchData />
-  ) : (
+}) => (loading ? (
+  <FetchData />
+) : (
+  <div>
     <div>
-      <div>
-        <FilterContainer />
-      </div>
-      {filterDataByNumericValue.length === 0 ? (
-        <h1>Nenhum Planeta Encontrado</h1>
-      ) : (
-        <Table data={filterDataByNumericValue} />
-      )}
+      <FilterContainer />
     </div>
-  );
-};
+    {filterDataByNumericValue.length === 0 ? (
+      <h1>Nenhum Planeta Encontrado</h1>
+    ) : (
+      <Table data={
+        filterDataByNumericValue(data, nameFilter, sortColumnFilter, sortOrderFilter, valueFilters)
+        }
+      />
+    )}
+  </div>
+));
 
 const mapStateToProps = (state) => ({
   data: state.planetsInfoReducer.data,
