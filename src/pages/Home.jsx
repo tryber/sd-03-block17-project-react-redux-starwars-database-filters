@@ -23,7 +23,8 @@ const Home = ({
     {filterDataByNumericValue.length === 0 ? (
       <h1>Nenhum Planeta Encontrado</h1>
     ) : (
-      <Table data={
+      <Table
+        data={
         filterDataByNumericValue(data, nameFilter, sortColumnFilter, sortOrderFilter, valueFilters)
         }
       />
