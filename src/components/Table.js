@@ -6,6 +6,9 @@ export class Table extends Component {
 constructor(props){
   super(props);
   this.retornaSign = this.retornaSign.bind(this);
+  this.filtraData = this.filtraData.bind(this);
+  this.filterDataByName = this.filterDataByName.bind(this);
+  this.renderTableBody = this.renderTableBody.bind(this);
 }
 
 retornaSign(comparison) {
@@ -24,34 +27,38 @@ retornaSign(comparison) {
 }
 
 
-filtraData(comparisonSignal, results, column, value) {
-  console.log(comparisonSignal, results, column, value, "METODO_FILTRADATA")
+filtraData(comparisonSignal, results, column, value, name) {
   if (comparisonSignal === 0) {
     return results.filter((element) => element[column] > value);
+
   } if (comparisonSignal === 1) {
     return results.filter((element) => element[column] < value);
   } if (comparisonSignal === 2) {
     return results.filter((element) => element[column] === value);
+  } if (name !== ' ') {
+    console.log("filtername")
+   return this.filterDataByName(name, results)
+  } if (comparisonSignal = null && name === ' ') {
+    return results;
   }
-  return null;
+  return results;
 }
 
-
+filterDataByName(filtername, results) {
+      return results.filter((element) => {
+      const lowerName = element.name.toLowerCase();
+      return lowerName.includes(filtername);
+    })
+}
 
   renderTableBody(filtername, filterNumb) {
     const { value: { data } } = this.props;
     const { results } = data;
-    console.log(results, "COMPARISONSIGNAL");
-    filterNumb.filterByNumericValues.map((element) => {
+     filterNumb.filterByNumericValues.map((element) => {
       const signal = this.retornaSign(element.comparison);
-      console.log(signal,'signal');
-      console.log(this.filtraData(signal, results, element.column, element.value), "return ");
-    });
-     if (document.getElementsByName('filter_name').value !== '') {
-      return results.filter((element) => {
-        const lowerName = element.name.toLowerCase();
-        return lowerName.includes(filtername);
-      }).map((element) => (
+      this.filteredPlanets =  this.filtraData(signal, results, element.column, element.value, filtername);
+    });  
+    this.filteredPlanets.map((element) => (
           <tr key={element.name}>
             <td>{element.name}</td>
             <td>{element.rotation_period}</td>
@@ -67,16 +74,18 @@ filtraData(comparisonSignal, results, column, value) {
             <td>{element.edited}</td>
             <td>{element.url}</td>
           </tr>
-        ))
-    
-    return null;
-  }}
+        )) 
+        console.log(this.filteredPlanets)    
+  }
 
   render() {
     const { value: { data } } = this.props;
     const { value: { filters: { filterByName: { name } } } } = this.props;
     const { value: { filters } } = this.props;
     const { results } = data;
+    if(this.filteredPlanets === undefined ) {
+    this.filteredPlanets = results;
+    console.log(this.filteredPlanets)}
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
       <div>
