@@ -6,25 +6,22 @@ import Table from './components/Table';
 import './App.css';
 
 class Body extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     filters: {
-  //       filterByName: {
-  //         name: '',
-  //       },
-  //     },
-  //   };
-  //
-// }
-
   componentDidMount() {
     const { fetchPlanets } = this.props;
     fetchPlanets('https://swapi-trybe.herokuapp.com/api/planets/');
   }
 
   render() {
-    const { planets, numResults, loading, nextPageURL, fetchPlanets, nameFilter, numericFilter } = this.props;
+    const { 
+      planets, 
+      numResults,
+      loading,
+      nextPageURL,
+      fetchPlanets,
+      nameFilter,
+      numericFilter
+    } = this.props;
+
     if (loading) return (<p>Carregamento...</p>);
     return (
       <div className="Body">
@@ -37,7 +34,8 @@ class Body extends React.Component {
         {nextPageURL ? (
           <button onClick={() => (fetchPlanets(nextPageURL))}>Próxima página</button>) :
           <button
-            onClick={() => (fetchPlanets('https://swapi-trybe.herokuapp.com/api/planets/'))}>
+            onClick={() => (fetchPlanets('https://swapi-trybe.herokuapp.com/api/planets/'))}
+          >
           Voltar p/ primeira</button>}
       </div>
     );
@@ -60,6 +58,11 @@ const mapDispatchToProps = (dispatch) => (
     fetchPlanets: (u) => dispatch(fetchPlanet(u)),
   }
 );
+
+Body.defaultProps = {
+  nextPageURL: '',
+  numericFilter: {},
+}
 
 Body.propTypes = {
   planets: PropTypes.arrayOf(PropTypes.object.isRequired),

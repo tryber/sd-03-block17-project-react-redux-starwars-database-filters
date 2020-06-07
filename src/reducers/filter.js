@@ -1,20 +1,14 @@
-import { FILTER_NAME, FILTER_NUMBER } from '../actions';
+import { FILTER_NAME, FILTER_NUMBER, REM_FILTER } from '../actions';
 
 const initState = {
   filterByName: {
     name: '',
   },
-  filterByNumericValues: [
-    {
-      column: 'population',
-      comparison: 'maior que',
-      value: 100000,
-    }
-  ]
+  filterByNumericValues: [],
 };
 
 function filterReducer(state = initState, action) {
-  console.log('Estado: ', state, 'Action: ', action)
+  // console.log(state);
   switch (action.type) {
     case FILTER_NAME:
       return {
@@ -24,8 +18,16 @@ function filterReducer(state = initState, action) {
     case FILTER_NUMBER:
       return {
         ...state,
-        filterByNumericValues: [...state.filterByNumericValues.concat(action.params)],
+        filterByNumericValues: state.filterByNumericValues.length
+        ? [...state.filterByNumericValues.concat(action.params)]
+        : [...action.params]
       };
+    case REM_FILTER:
+      console.log('Algo');
+      return {
+        ...state,
+        filterByNumericValues: state.filterByNumericValues.filter((filter) => filter !== action.toBeRemoved)
+      }
     default:
       return state;
   }

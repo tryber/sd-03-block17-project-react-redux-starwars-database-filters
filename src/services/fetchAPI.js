@@ -1,6 +1,6 @@
 import { receiveData, requestData } from '../actions';
 
-const fetchPlanet = url => {
+const fetchPlanet = (url) => {
   return function (dispatch) {
     dispatch(requestData());
     return fetch(url)
