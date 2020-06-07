@@ -7,11 +7,11 @@ const returnComparator = (elem, col, comp, val) => {
   switch (comp) {
     case 'menor que':
       return (Number(elem[col]) < +val);
-      case 'igual a':
+    case 'igual a':
       return (Number(elem[col]) === +val);
-      case 'maior que':
+    case 'maior que':
       return (Number(elem[col]) > +val);
-      default:
+    default:
       return false;
   }
 };
@@ -25,13 +25,14 @@ class Table extends React.Component {
   }
 
   // validateAllNumericFilters = (planet, filter) => {
-  //   filter.forEach(({column, comparison, value}) => returnComparator(planet, column, comparison, value))
+  //   filter.forEach(({column, comparison, value}) => 
+  //    returnComparator(planet, column, comparison, value))
   // }
 
   render() {
     const { planets, nameFilter } = this.props;
-    let filteredByName = planets.filter((pl) => (pl.name.toLowerCase()).includes(nameFilter.name))
-    let filteredByBoth = this.numericFilter(filteredByName)
+    const filteredByName = planets.filter((pl) => (pl.name.toLowerCase()).includes(nameFilter.name));
+    const filteredByBoth = this.numericFilter(filteredByName);
     return (
       <div>
         <h2>StarWars Datatable with Filters</h2>
@@ -47,6 +48,9 @@ class Table extends React.Component {
               <th>Terrain</th>
               <th>Surface Water</th>
               <th>Gravity</th>
+              <th>Films</th>
+              <th>Created</th>
+              <th>Edited</th>
               <th>URL</th>
             </tr>
           </thead>
@@ -60,13 +64,13 @@ class Table extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  numFilter: state.filterReducer.filterByNumericValues,
+  numFilter: state.filters.filterByNumericValues,
 });
 
 Table.defaultProps = {
-  nameFilter: '',
-  numFilter: '',
-}
+  nameFilter: [],
+  numFilter: [],
+};
 
 Table.propTypes = {
   planets: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -84,8 +88,8 @@ Table.propTypes = {
     // edited: PropTypes.string.isRequired,
     // url: PropTypes.string.isRequired,
     // }).isRequired,
-  nameFilter: PropTypes.object,
-  numFilter: PropTypes.array,
+  nameFilter: PropTypes.arrayOf((PropTypes.string.isRequired)),
+  numFilter: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string.isRequired)),
 };
 
 export default connect(mapStateToProps)(Table);

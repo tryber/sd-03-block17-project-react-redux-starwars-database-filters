@@ -7,7 +7,7 @@ const initState = {
   filterByNumericValues: [],
 };
 
-function filterReducer(state = initState, action) {
+function filters(state = initState, action) {
   // console.log(state);
   switch (action.type) {
     case FILTER_NAME:
@@ -20,17 +20,18 @@ function filterReducer(state = initState, action) {
         ...state,
         filterByNumericValues: state.filterByNumericValues.length
         ? [...state.filterByNumericValues.concat(action.params)]
-        : [...action.params]
+        : [...action.params],
       };
     case REM_FILTER:
-      console.log('Algo');
+      // console.log(state.filterByNumericValues);
       return {
         ...state,
-        filterByNumericValues: state.filterByNumericValues.filter((filter) => filter !== action.toBeRemoved)
-      }
+        filterByNumericValues: [ ...state.filterByNumericValues
+          .filter((filter) => filter !== action.toBeRemoved)],
+      };
     default:
       return state;
   }
 }
 
-export default (filterReducer);
+export default (filters);

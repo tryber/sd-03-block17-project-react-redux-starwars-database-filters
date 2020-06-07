@@ -11,11 +11,12 @@ class SearchBar extends React.Component {
       comparison: 'maior que',
       value: 100000,
       columns: [
-        { name: 'diameter', value: 'Diameter', display: true },
-        { name: 'population', value: 'Population', display: true },
-        { name: 'surface_water', value: 'Surface Water', display: true },
-        { name: 'orbital_period', value: 'Orbital Period', display: true },
-        { name: 'rotation_period', value: 'Rotation Period', display: true },
+        { name: '', value: 'Coluna', display: true },
+        { name: 'diameter', value: 'diameter', display: true },
+        { name: 'population', value: 'population', display: true },
+        { name: 'surface_water', value: 'surface_water', display: true },
+        { name: 'orbital_period', value: 'orbital_period', display: true },
+        { name: 'rotation_period', value: 'rotation_period', display: true },
       ],
     };
   }
@@ -38,11 +39,13 @@ class SearchBar extends React.Component {
           onChange={(e) => this.setState({ comparison: e.target.value })}
           value={this.state.comparison}
         >
-          <option key='<' value="menor que">Menor que</option>
-          <option key='=' value="igual a">Igual a</option>
-          <option key='>' value="maior que">Maior que</option>
+          <option />
+          <option key='>' value="maior que">maior que</option>
+          <option key='=' value="igual a">igual a</option>
+          <option key='<' value="menor que">menor que</option>
         </select>
         <input
+          data-testid='value-filter'
           type="number"
           maxLength="15"
           onChange={(e) => this.setState({ value: e.target.value })}
@@ -64,19 +67,23 @@ class SearchBar extends React.Component {
     });
   }
 
-  filtersList = (numFilter) => {
-    return numFilter.map(({ column, comparison, value }) => (
-    <li key={column}>{column} {comparison} {value}
+  filtersList = (numericFilter) => {
+    return numericFilter.map((filter) => (
+    <div
+      key={filter.column}
+      data-testid='filter'
+      >
+      {filter.column} {filter.comparison} {filter.value}
     <button
       onClick={
-        () => { this.props.rmFilter(column);
-        this.manageFilterList(column, true);
+        () => { this.props.rmFilter(filter);
+        this.manageFilterList(filter.column, true);
       }}>
-      X</button></li>))
+      X</button></div>))
   }
 
   render() {
-    const { filterByName, addNumFilter, numFilter } = this.props;
+    const { filterByName, addNumFilter, numericFilter } = this.props;
     const { column, comparison, value } = this.state;
 
     return (
@@ -90,6 +97,7 @@ class SearchBar extends React.Component {
           />
           {this.numericFilterPanel()}
           <button
+            data-testid='button-filter'
             onClick={() => {
               addNumFilter({ column, comparison, value })
               this.manageFilterList(column, false)
@@ -98,7 +106,7 @@ class SearchBar extends React.Component {
           </button>
         </div>
         <div className='filterList'>
-          {this.filtersList(numFilter)}
+          {this.filtersList(numericFilter)}
         </div>
       </div>
     );
@@ -107,7 +115,7 @@ class SearchBar extends React.Component {
 
 const mapStateToProps = (state) => ({
   planets: state.planetReducer.data,
-  numFilter: state.filterReducer.filterByNumericValues,
+  numericFilter: state.filters.filterByNumericValues,
 })
 
 const mapDispatchToProps = (dispatch) => (

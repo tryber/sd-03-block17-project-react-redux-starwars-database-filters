@@ -39,3 +39,7 @@ td {
   padding: 15px 0;
   width: 80%;
 }
+
+.filterList {
+  text-align: right;
+}

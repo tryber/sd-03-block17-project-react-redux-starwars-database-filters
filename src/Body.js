@@ -12,14 +12,14 @@ class Body extends React.Component {
   }
 
   render() {
-    const { 
-      planets, 
+    const {
+      planets,
       numResults,
       loading,
       nextPageURL,
       fetchPlanets,
       nameFilter,
-      numericFilter
+      numericFilter,
     } = this.props;
 
     if (loading) return (<p>Carregamento...</p>);
@@ -47,8 +47,8 @@ const mapStateToProps = (state) => ({
   planets: state.planetReducer.data,
   numResults: state.planetReducer.count,
   nextPageURL: state.planetReducer.next,
-  nameFilter: state.filterReducer.filterByName,
-  numericFilter: state.filterReducer.filterByNumericValues,
+  nameFilter: state.filters.filterByName,
+  numericFilter: state.filters.filterByNumericValues,
 });
 
 // Observe que os nomes são diferentes, já que uma se refere à função original
@@ -62,7 +62,8 @@ const mapDispatchToProps = (dispatch) => (
 Body.defaultProps = {
   nextPageURL: '',
   numericFilter: {},
-}
+  planets: [],
+};
 
 Body.propTypes = {
   planets: PropTypes.arrayOf(PropTypes.object.isRequired),
@@ -70,7 +71,8 @@ Body.propTypes = {
   numResults: PropTypes.number.isRequired,
   fetchPlanets: PropTypes.func.isRequired,
   nextPageURL: PropTypes.string,
-  nameFilter: PropTypes.object.isRequired,
+  nameFilter: PropTypes.arrayOf((PropTypes.string.isRequired)),
+  numericFilter: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string.isRequired)),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Body);
