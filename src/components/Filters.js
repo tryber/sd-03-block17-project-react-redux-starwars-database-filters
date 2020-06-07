@@ -14,6 +14,32 @@ const columns = [
 const dropdownFilter = (filters, value) => !filters.find(({ column }) => column === value);
 
 class Filters extends React.Component {
+  static renderComparisonFilter() {
+    return (
+      <select
+        id="comparison-filter"
+        className="dropdown"
+        data-testid="comparison-filter"
+      >
+        <option />
+        <option>maior que</option>
+        <option>menor que</option>
+        <option>igual a</option>
+      </select>
+    );
+  }
+
+  static renderValueFilter() {
+    return (
+      <input
+        id="value-filter"
+        className="value-filter"
+        data-testid="value-filter"
+        type="number"
+      />
+    );
+  }
+
   constructor(props) {
     super(props);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -63,32 +89,6 @@ class Filters extends React.Component {
           )
         ))}
       </select>
-    );
-  }
-
-  static renderComparisonFilter() {
-    return (
-      <select
-        id="comparison-filter"
-        className="dropdown"
-        data-testid="comparison-filter"
-      >
-        <option />
-        <option>maior que</option>
-        <option>menor que</option>
-        <option>igual a</option>
-      </select>
-    );
-  }
-
-  static renderValueFilter() {
-    return (
-      <input
-        id="value-filter"
-        className="value-filter"
-        data-testid="value-filter"
-        type="number"
-      />
     );
   }
 
