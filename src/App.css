@@ -10,3 +10,20 @@ body {
 .jumbotron {
   text-align: center;
 }
+
+.name-filter {
+  width: 240px;
+}
+
+.dropdown {
+  height: 30px;
+  width: 120px;
+}
+
+.value-filter {
+  width: 180px;
+}
+
+.filter-button {
+  width: 60px;
+}

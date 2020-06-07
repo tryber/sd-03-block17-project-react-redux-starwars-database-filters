@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { fetchData } from '../actions';
+import { fetchData } from '../actions/FetchActions';
+import { nameFilter, filterDataByNumericValue } from '../filterFunctions/index';
 
 class Table extends React.Component {
   constructor(props) {
@@ -43,10 +44,14 @@ class Table extends React.Component {
   }
 
   renderTableBody() {
-    const { data, nameInput } = this.props;
+    const { data, nameInput, filters } = this.props;
+    const filteredData = filterDataByNumericValue(filters, nameFilter(data, nameInput));
+    if (data.length === 0) {
+      return null;
+    }
     return (
       <tbody>
-        {data.filter((planet) => planet.name.toLowerCase().includes(nameInput.toLowerCase())).map(
+        {filteredData.map(
           (planet) => (
             <tr key={planet.name}>
               <td>{planet.name}</td>
@@ -87,13 +92,15 @@ Table.propTypes = {
   fetchPlanets: propTypes.func.isRequired,
   data: propTypes.arrayOf(propTypes.object).isRequired,
   nameInput: propTypes.string.isRequired,
+  filters: propTypes.arrayOf(propTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  loading: state.loading,
-  data: state.data,
-  error: state.error,
+  loading: state.fetch.loading,
+  data: state.fetch.data,
+  error: state.fetch.error,
   nameInput: state.filters.filterByName.name,
+  filters: state.filters.filterByNumericValues,
 });
 
 const mapDispatchToProps = (dispatch) => ({
