@@ -9,27 +9,24 @@ const TableBody = ({
   sortColumnFilter,
   sortOrderFilter,
   valueFilters,
-}) => (filterDataByNumericValue(
-  data,
-  nameFilter,
-  sortColumnFilter,
-  sortOrderFilter,
-  valueFilters,
-).length === 0 ? (
-  <tbody>
-    <tr>
-      <td>Nenhum Planeta Encontrado</td>
-    </tr>
-  </tbody>
+}) => {
+  const filteredData = filterDataByNumericValue(
+    data,
+    nameFilter,
+    sortColumnFilter,
+    sortOrderFilter,
+    valueFilters,
+  );
+
+  return filteredData.length === 0 ? (
+    <tbody>
+      <tr>
+        <td>Nenhum Planeta Encontrado</td>
+      </tr>
+    </tbody>
   ) : (
     <tbody>
-      {filterDataByNumericValue(
-        data,
-        nameFilter,
-        sortColumnFilter,
-        sortOrderFilter,
-        valueFilters,
-      ).map((planet) => (
+      {filteredData.map((planet) => (
         <tr key={planet.name}>
           <td>{planet.name}</td>
           <td>{planet.rotation_period}</td>
@@ -62,7 +59,8 @@ const TableBody = ({
         </tr>
       ))}
     </tbody>
-  ));
+  );
+};
 
 const mapStateToProps = (state) => ({
   data: state.planetsInfoReducer.data,
