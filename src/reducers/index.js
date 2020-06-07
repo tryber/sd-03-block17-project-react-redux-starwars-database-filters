@@ -27,7 +27,7 @@ function requestReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         filters: { filterByName: { name: filterName } ,
-        filterByNumericValues: [state.filters.filterByNumericValues] },
+        filterByNumericValues: [...state.filters.filterByNumericValues] },
       };
     }
     case 'FILTER_PLANET_NUMERIC': {

@@ -9,15 +9,6 @@ import './App.css';
 
 class App extends Component {
 
-  componentDidMount() {
-    this.fetchUrl();
-  }
-
-  fetchUrl() {
-    const { request } = this.props;
-    request();
-  }
-
   render() {
     return (
       <div>
@@ -30,16 +21,5 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  request: (e) => dispatch(fetchData(e)),
-});
 
-
-App.propTypes = {
-  request: PropTypes.func,
-};
-
-App.defaultProps = {
-  request: PropTypes.func,
-};
-export default connect(null, mapDispatchToProps)(App);
+export default connect(null, null)(App);
