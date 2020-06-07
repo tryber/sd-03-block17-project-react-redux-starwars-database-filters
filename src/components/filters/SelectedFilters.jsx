@@ -1,35 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { removeFilters } from '../../actions/actionsCreators';
 
-class SelectedFilters extends Component {
-  displayFilter(value) {
-    const { removeFilter } = this.props;
-    return (
-      <p key={value.column} data-testid="filter">
-        <span>{value.column}</span>
-        <span>{value.comparison}</span>
-        <span>{value.value}</span>
-        <button type="button" onClick={() => removeFilter(value)}>
-          X
-        </button>
-      </p>
-    );
-  }
-
-  render() {
-    const { filters } = this.props;
-    const initialFilters = filters.filter((filter) => filter.column !== '');
-    return (
-      <div>
-        <h3>Filtros Ativos</h3>
-        {initialFilters
-          && initialFilters.map((filter) => this.displayFilter(filter))}
-      </div>
-    );
-  }
-}
+const SelectedFilters = ({ removeFilter, filters }) => {
+  const initialFilters = filters.filter((filter) => filter.column !== '');
+  return (
+    <div>
+      <h3>Filtros Ativos</h3>
+      {initialFilters
+        && initialFilters.map((filter) => (
+          <p key={filter.column} data-testid="filter">
+            <span>{filter.column}</span>
+            <span>{filter.comparison}</span>
+            <span>{filter.value}</span>
+            <button type="button" onClick={() => removeFilter(filter)}>
+              X
+            </button>
+          </p>
+        ))}
+    </div>
+  );
+};
 
 SelectedFilters.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.object),
@@ -43,7 +35,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeFilter: (value) => dispatch(removeFilters(value)),
+  removeFilter: (filter) => dispatch(removeFilters(filter)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectedFilters);
