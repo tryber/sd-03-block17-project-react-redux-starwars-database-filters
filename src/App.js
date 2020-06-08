@@ -1,14 +1,15 @@
 import React from 'react';
-import Table from './components/Table';
-import FilterBar from './components/FilterBar';
+import Home from './components/Home';
+import './App.css';
 
-function App() {
-  return (
-    <div className="container">
-      <FilterBar />
-      <Table />
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Home />
+      </div>
+    );
+  }
 }
 
 export default App;
