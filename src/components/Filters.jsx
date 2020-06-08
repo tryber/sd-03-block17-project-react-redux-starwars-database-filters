@@ -6,11 +6,12 @@ import {
   getByNumericValue,
   doMoreFilter,
   removeFilter,
-  returnColumn,
   sortColumns,
   changedataASC,
   changedataDESC,
 } from '../actions/action';
+
+const columns = ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
 
 const header = ['name', 'population', 'climate', 'diameter', 'created', 'gravity', 'orbital_period', 'rotation_period',
   'surface_water', 'terrain', 'films', 'edited', 'url'];
@@ -28,6 +29,12 @@ class Table extends React.Component {
       desc: false,
       ordercolumn: 'name',
     };
+  }
+
+  getColumns() {
+    const { numericFilter } = this.props;
+    const columnsToBeRemoved = numericFilter.map((e) => e.column);
+    return ['', ...columns.filter((e) => !columnsToBeRemoved.includes(e))];
   }
 
   doFilter() {
@@ -56,9 +63,8 @@ class Table extends React.Component {
   }
 
   doRemoveFilter(e) {
-    const { removeFilterprop, returnColumnprop } = this.props;
+    const { removeFilterprop } = this.props;
     removeFilterprop(e);
-    returnColumnprop(e);
   }
 
   changeSortColumn(e) {
@@ -168,13 +174,12 @@ class Table extends React.Component {
   }
 
   renderNumericFilter() {
-    const { columnOptions } = this.props;
     const { column, comparison, value } = this.state;
     return (
       <div>
         Selecionar por Valores
         <select value={column} data-testid="column-filter" onChange={(e) => this.changeColum(e)}>
-          {columnOptions.map((e) => <option value={e}>{e}</option>)}
+          {this.getColumns().map((e) => <option value={e}>{e}</option>)}
         </select>
         <select
           value={comparison}
@@ -197,7 +202,7 @@ class Table extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="filters">
         {this.renderNameFilter()}
         {this.renderNumericFilter()}
         {this.renderSelectedFilters()}
@@ -220,7 +225,6 @@ const mapDispatchToProps = (dispatch) => ({
     (column, comparison, value) => dispatch(getByNumericValue(column, comparison, value)),
   doMoreFilterprop: (column) => dispatch(doMoreFilter(column)),
   removeFilterprop: (filter) => dispatch(removeFilter(filter)),
-  returnColumnprop: (column) => dispatch(returnColumn(column)),
   sortColumnsprop: (column, sort) => dispatch(sortColumns(column, sort)),
   changedataASCprop: (column) => dispatch(changedataASC(column)),
   changedataDESCprop: (column) => dispatch(changedataDESC(column)),
@@ -230,10 +234,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(Table);
 
 Table.propTypes = {
   numericFilter: PropTypes.arrayOf(PropTypes.object).isRequired,
-  columnOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
   getByNameprop: PropTypes.func.isRequired,
   removeFilterprop: PropTypes.func.isRequired,
-  returnColumnprop: PropTypes.func.isRequired,
   sortColumnsprop: PropTypes.func.isRequired,
   changedataASCprop: PropTypes.func.isRequired,
   changedataDESCprop: PropTypes.func.isRequired,
