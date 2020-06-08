@@ -1,4 +1,4 @@
-const INITIAL_STATE = ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water', ''];
+const INITIAL_STATE = ['', 'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
 
 function columnsReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
