@@ -15,6 +15,42 @@ const INITIAL_STATE = {
   },
 };
 
+
+function retornaSign(comparison) {
+  let comparisonSignal;
+  if (comparison === 'maior que') {
+    comparisonSignal = 0;
+    return comparisonSignal;
+  } if (comparison === 'menor que') {
+    comparisonSignal = 1;
+    return comparisonSignal;
+  } if (comparison === 'igual a') {
+    comparisonSignal = 2;
+    return comparisonSignal;
+  }
+  return null;
+}
+
+function filtraByName(action, state) {
+  const filterName = action.filters.filterByName.name.toLowerCase();
+  return state.data.results.filter((element) => {
+    const lowerName = element.name.toLowerCase();
+    return lowerName.includes(filterName);
+  });
+
+}
+
+function filtraNumericData(comparisonSignal, state, column, value) {
+  if (comparisonSignal === 0) {
+    return state.data.results.filter((element) => element[column] > value);
+  } if (comparisonSignal === 1) {
+    return state.data.results.filter((element) => element[column] < value);
+  } if (comparisonSignal === 2) {
+    return state.data.results.filter((element) => element[column] === value);
+  }
+  return null;
+}
+
 function requestReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'REQUEST_DATA':
@@ -31,13 +67,18 @@ function requestReducer(state = INITIAL_STATE, action) {
       };
     }
     case 'FILTER_PLANET_NUMERIC': {
-      const { name } = action.filters.filterByName;
+      const { column, comparison, value } = action.filters.filterByNumericValues[0];
+      let comparisonSignal = null;
+      comparisonSignal = retornaSign(comparison);
+      let filteredPlanets = [];
+      if (state.filters.filterByName.name === ' ') {
+        filteredPlanets = filtraNumericData(comparisonSignal, state, column, value);
+      }
       return {
         ...state,
         filters: {
-          filterByName: { name },
-          filterByNumericValues: [...state.filters.filterByNumericValues,
-            action.filters.filterByNumericValues[0]],
+          filterByName: { filteredPlanets: [filteredPlanets] },
+          filterByNumericValues: {column, comparison, value },
         },
       }; }
     default:
