@@ -19,8 +19,8 @@ export class InputFilter extends Component {
     return (
       <div>
         <input
-          id="filter_name"
-          placeholder="Filtro por nome de Planeta"
+          name="filter"
+          placeholder="Filter by Planet"
           onChange={(e) => this.filterByName(e)}
           data-testid="name-filter"
           size="50"
@@ -30,6 +30,21 @@ export class InputFilter extends Component {
   }
 }
 
+
+const mapDispatchToProps = (dispatch) => ({
+  filter: (e) => dispatch(filterPlanet(e)),
+});
+
+
+InputFilter.propTypes = {
+  filter: PropTypes.instanceOf(Function),
+};
+
+InputFilter.defaultProps = {
+  filter: '',
+};
+
+export default connect(null, mapDispatchToProps)(InputFilter);
 
 const mapDispatchToProps = (dispatch) => ({
   filter: (e) => dispatch(filterPlanet(e)),
