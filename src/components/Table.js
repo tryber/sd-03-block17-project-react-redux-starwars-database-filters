@@ -6,41 +6,41 @@ import dataApiStarWars, { nameSeached } from '../actions/apiTbela';
 import ValueFilters from './ValueFilters';
 import MultipleFiltersValue from './MultipleFiltersValue';
 
-const tableCell = () => ({
-  props: [
-    'Name',
-    'Rotation Period',
-    'Orbital Period',
-    'Diameter',
-    'Climate',
-    'Gravity',
-    'terrain',
-    'Surface Water',
-    'Population',
-    'films',
-    'created',
-    'edited',
-    'url',
-  ],
-});
-
 const apiResults = (value) => value.map((row) => (
   <tr key={row.name}>
     <td key={value.name}>{row.name}</td>
-    <td key={value.rotation_period}>{row.rotation_period}</td>
-    <td key={value.orbital_period}>{row.orbital_period}</td>
-    <td key={value.diameter}>{row.diameter}</td>
-    <td key={value.climate}>{row.climate}</td>
-    <td key={value.gravity}>{row.gravity}</td>
-    <td key={value.terrain}>{row.terrain}</td>
-    <td key={value.surface_Water}>{row.surface_water}</td>
-    <td key={value.population}>{row.population}</td>
-    <td key={value.films}>{row.films}</td>
-    <td key={value.created}>{row.created}</td>
-    <td key={value.edited}>{row.edited}</td>
+    <td key={value.rotation_period}>{row.climate}</td>
+    <td key={value.orbital_period}>{row.diameter}</td>
+    <td key={value.diameter}>{row.edited}</td>
+    <td key={value.climate}>{row.gravity}</td>
+    <td key={value.gravity}>{row.orbital_period}</td>
+    <td key={value.terrain}>{row.population}</td>
+    <td key={value.surface_Water}>{row.rotation_period}</td>
+    <td key={value.population}>{row.surface_water}</td>
+    <td key={value.films}>{row.terrain}</td>
     <td key={value.url}>{row.url}</td>
   </tr>
 ));
+
+const tHead = () => (
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>climate</th>
+      <th>created</th>
+      <th>diameter</th>
+      <th>edited</th>
+      <th>films</th>
+      <th>gravity</th>
+      <th>orbital_period</th>
+      <th>population</th>
+      <th>rotation_period</th>
+      <th>surface_water</th>
+      <th>terrain</th>
+      <th>url</th>
+    </tr>
+  </thead>
+);
 
 class Table extends Component {
   componentDidMount() {
@@ -53,7 +53,8 @@ class Table extends Component {
       const { namesSearch } = this.props;
       namesSearch(value.target.value);
     };
-    const { all: { showResults, data: { results } },
+    const {
+      all: { showResults, data: { results } },
       filterBynameProp, filterByOption,
     } = this.props;
     return (
@@ -62,15 +63,11 @@ class Table extends Component {
         <input data-testid="name-filter" placeholder="Digite..." onChange={nameSearch} />
         <ValueFilters />
         <table>
-          <thead>
-            <tr>
-              {tableCell().props.map((cell) => <th key={cell}>{cell}</th>)}
-            </tr>
-          </thead>
+          {tHead()}
           <tbody>
             {showResults && filterByOption && <MultipleFiltersValue />}
-            {showResults && !filterByOption &&
-            apiResults(results.filter(
+            {showResults && !filterByOption
+            && apiResults(results.filter(
               (planet) => planet.name.toLowerCase().indexOf(filterBynameProp.toLowerCase()) !== -1,
             ))}
           </tbody>

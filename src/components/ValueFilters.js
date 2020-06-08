@@ -1,7 +1,32 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { optionPopulation } from '../actions/apiTbela';
+import { optionPopulation, erase } from '../actions/apiTbela';
+
+const options = (value) => value.columnFilters.map((row) => {
+  if (row.avaliable) return <option value={`${row.name}`}>{row.name}</option>;
+  return false;
+});
+
+const returnThisValue = (all, eraseThisElement, population) => {
+  const EraseName = all.columnFilters;
+  const eraseDisplay = all.filterByNumericValues.filter((filter) => filter.column !== population);
+  EraseName[EraseName.findIndex((filter) => filter.name === population)].avaliable = true;
+  eraseThisElement(EraseName, eraseDisplay);
+};
+
+const selected = (valueRow, value, numbOfPop, eraseThisElement) => valueRow.columnFilters
+  .map((row) => {
+    if (row.avaliable === false) {
+      return (
+        <div data-testid="filter">
+          <h4>{`${row.name} ${value} ${numbOfPop}`}</h4>
+          <button type="button" onClick={() => returnThisValue(valueRow, eraseThisElement, row.name)}>x</button>
+        </div>
+      );
+    }
+    return false;
+  });
 
 class ValueFilters extends Component {
   constructor(props) {
@@ -17,69 +42,64 @@ class ValueFilters extends Component {
     this.numb = this.numb.bind(this);
   }
 
-  columnChange(value) {
-    this.setState({
-      population: value.target.value,
-    });
-  }
+  columnChange(value) { this.setState({ population: value.target.value }); }
 
-  biggerChange(value) {
-    this.setState({
-      value: value.target.value,
-    });
-  }
+  biggerChange(value) { this.setState({ value: value.target.value }); }
 
-  numb(event) {
-    this.setState({
-      numbOfPop: event.target.value,
-    });
-  }
-
+  numb(event) { this.setState({ numbOfPop: event.target.value }); }
 
   render() {
     const submitChange = () => {
-      const { submitToState } = this.props;
+      const { submitToState, all } = this.props;
       const { population, value, numbOfPop } = this.state;
-      submitToState(population, value, numbOfPop);
+      const newAvaliableFilters = all.columnFilters;
+      if (population !== 'all') {
+        newAvaliableFilters[
+          newAvaliableFilters.findIndex((filter) => filter.name === population)
+        ].avaliable = false;
+        this.setState({ population: 'all' });
+        submitToState(population, value, numbOfPop, newAvaliableFilters);
+      }
     };
     const { population, value, numbOfPop } = this.state;
+    const { eraseThisElement, all } = this.props;
     return (
       <div>
         <select data-testid="column-filter" value={population} onChange={this.columnChange}>
-          <option>-</option>
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          {options(all)}
         </select>
         <select data-testid="comparison-filter" value={value} onChange={this.biggerChange}>
-          <option>-</option>
+          <option value="">-</option>
           <option value="maior que">maior que</option>
           <option value="menor que">menor que</option>
           <option value="igual a">igual a</option>
         </select>
         <input data-testid="value-filter" type="number" value={numbOfPop} onChange={this.numb} />
-        <button type="submit" data-testid="button-filter" onClick={() => submitChange()}>
+        <button type="button" data-testid="button-filter" onClick={() => submitChange()}>
           filtrar
         </button>
+        {selected(all, value, numbOfPop, eraseThisElement)}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  all: state,
+  all: state.filters,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   submitToState: (population, value, numbOfPop) => dispatch(
     optionPopulation(population, value, numbOfPop),
   ),
+  eraseThisElement: (population, newObject) => dispatch(erase(population, newObject)),
 });
 
 ValueFilters.propTypes = {
   submitToState: PropTypes.func.isRequired,
+  all: PropTypes.func.isRequired,
+  eraseThisElement: PropTypes.func.isRequired,
+  columnFilters: PropTypes.objectOf(PropTypes.array).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ValueFilters);

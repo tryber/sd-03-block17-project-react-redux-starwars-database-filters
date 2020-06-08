@@ -1,5 +1,5 @@
 import {
-  DATA_API, RECEIVE_ISS_LOCATION_FAILURE, NAME_SEARCHED, SUBMIT_OPTION_POPULATION,
+  DATA_API, RECEIVE_ISS_LOCATION_FAILURE, NAME_SEARCHED, SUBMIT_OPTION_POPULATION, ERASE,
 } from '../reducers/data';
 import fetchDataApiStarWars from '../services/starWarsApi';
 
@@ -18,6 +18,12 @@ export const optionPopulation = (population, value, numberOfPopulation) => ({
   column: population,
   comparison: value,
   value: numberOfPopulation,
+});
+
+export const erase = (eraseElement, newOboj) => ({
+  type: ERASE,
+  column: eraseElement,
+  obj: newOboj,
 });
 
 const apiTableError = (error) => ({
