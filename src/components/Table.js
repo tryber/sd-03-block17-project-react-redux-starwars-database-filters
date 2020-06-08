@@ -3,11 +3,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 export class Table extends Component {
+  constructor(props) {
+  super(props);  
   this.filtraData = this.filtraData.bind(this);
   this.filterDataByName = this.filterDataByName.bind(this);
   this.renderTableBody = this.renderTableBody.bind(this);
   this.fetchUrl = this.fetchUrl.bind(this);
-}
+  }
+  
+
 
 componentDidMount() {
   this.fetchUrl();
@@ -62,6 +66,7 @@ filterDataByName(filtername, results) {
     const { value: { data } } = this.props;
     const { results } = data;
     return results.map((element) => (
+        <tr>
         <td>{element.name}</td>
         <td>{element.rotation_period}</td>
         <td>{element.orbital_period}</td>
@@ -78,6 +83,17 @@ filterDataByName(filtername, results) {
       </tr>
     ));
   }
+    console.log(results, "COMPARISONSIGNAL");
+    filterNumb.filterByNumericValues.map((element) => {
+      const signal = this.retornaSign(element.comparison);
+      console.log(signal);
+      console.log(this.filtraData(signal, results, filterNumb.column, filterNumb.value), "return ");
+    });
+    /* if (document.getElementsByName('filter_name').value !== '') {
+      return results.filter((element) => {
+        const lowerName = element.name.toLowerCase();
+        return lowerName.includes(filtername);
+      }) */
 
   renderTableBodyFiltered() {
     const { value: { filters: { filterByName: { filteredPlanets } } } } = this.props;
@@ -106,7 +122,6 @@ filterDataByName(filtername, results) {
     const { value: { filters: { filterByName: { filteredPlanets } } } } = this.props;
     const { results } = data;
     if(this.filteredPlanets === undefined ) {
-    this.filteredPlanets = results;
     console.log(this.filteredPlanets)}
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
