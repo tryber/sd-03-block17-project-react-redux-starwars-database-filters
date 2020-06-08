@@ -11,10 +11,16 @@ constructor(props){
   this.filterDataByName = this.filterDataByName.bind(this);
   this.renderTableBody = this.renderTableBody.bind(this);
   this.fetchUrl = this.fetchUrl.bind(this);
+  this.atualiza_estado = this.atualiza_estado.bind(this);
+  this.state = {PlanetasFiltrados : []};
 }
 
 componentDidMount() {
   this.fetchUrl();
+}
+
+atualiza_estado(state) {
+ this.setState({PlanetasFiltrados: state})
 }
 
 fetchUrl() {
@@ -48,7 +54,9 @@ filtraData(comparisonSignal, results, column, value, name) {
     return results.filter((element) => element[column] === value);
   } if (name !== ' ') {
     console.log("filtername")
-   return this.filterDataByName(name, results)
+   const resultado = this.filterDataByName(name, results);
+   console.log(resultado);
+   this.atualiza_estado(resultado);
   } if (comparisonSignal = null && name === ' ') {
     return results;
   }
@@ -56,10 +64,14 @@ filtraData(comparisonSignal, results, column, value, name) {
 }
 
 filterDataByName(filtername, results) {
+    if(results.length === 1 ) {
+      console.log('Sem parametros para filtrar')
+    } else {
       return results.filter((element) => {
-      const lowerName = element.name.toLowerCase();
-      return lowerName.includes(filtername);
-    })
+        const lowerName = element.name.toLowerCase();
+        return lowerName.includes(filtername);
+      })
+    }      
 }
 
   renderTableBody(filtername, filterNumb) {
@@ -76,9 +88,7 @@ filterDataByName(filtername, results) {
     const { value: { filters: { filterByName: { name } } } } = this.props;
     const { value: { filters } } = this.props;
     const { results } = data;
-    if(this.filteredPlanets === undefined ) {
-    this.filteredPlanets = results;
-    console.log(this.filteredPlanets)}
+    this.renderTableBody(name, filters) ;
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
       <div>
