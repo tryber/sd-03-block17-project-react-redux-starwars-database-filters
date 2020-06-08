@@ -59,8 +59,8 @@ class Table extends React.Component {
     const { data, filter, numericFilter } = this.props;
 
     return (
-      (numericFilter.length === 0) && filter && data.filter((e) => e.name
-        .includes(filter.name)).map((e) => (
+      (numericFilter.length === 0) && filter && data.filter((e) => e.name.toLowerCase()
+        .includes(filter.name.toLowerCase())).map((e) => (
           <tr key={e.name}>
             {header.map((el) => <td key={e.name + el}>{e[el]}</td>)}
           </tr>

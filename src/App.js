@@ -1,10 +1,10 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from './components/Table';
 import Filters from './components/Filters';
 import './App.css';
 import deathstar from './deathstar.png';
 import swlogo from './swlogo.png';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 class App extends React.Component {
