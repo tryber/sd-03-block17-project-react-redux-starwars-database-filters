@@ -84,6 +84,7 @@ filterDataByName(filtername, results) {
   }
 
   render() {
+    console.log(this.props.value.filters);
     const { value: { data } } = this.props;
     const { value: { filters: { filterByName: { name } } } } = this.props;
     const { value: { filters } } = this.props;
