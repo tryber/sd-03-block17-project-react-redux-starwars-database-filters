@@ -8,7 +8,6 @@ const initState = {
 };
 
 function filters(state = initState, action) {
-  // console.log(state);
   switch (action.type) {
     case FILTER_NAME:
       return {
@@ -23,10 +22,9 @@ function filters(state = initState, action) {
         : [...action.params],
       };
     case REM_FILTER:
-      // console.log(state.filterByNumericValues);
       return {
         ...state,
-        filterByNumericValues: [ ...state.filterByNumericValues
+        filterByNumericValues: [...state.filterByNumericValues
           .filter((filter) => filter !== action.toBeRemoved)],
       };
     default:

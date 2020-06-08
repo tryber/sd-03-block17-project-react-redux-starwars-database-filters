@@ -71,7 +71,7 @@ Body.propTypes = {
   numResults: PropTypes.number.isRequired,
   fetchPlanets: PropTypes.func.isRequired,
   nextPageURL: PropTypes.string,
-  nameFilter: PropTypes.arrayOf((PropTypes.string.isRequired)),
+  nameFilter: PropTypes.objectOf((PropTypes.string.isRequired)),
   numericFilter: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string.isRequired)),
 };
 
