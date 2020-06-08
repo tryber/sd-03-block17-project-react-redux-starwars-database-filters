@@ -21,7 +21,7 @@ class SearchBar extends React.Component {
     };
   }
 
-  numericFilterPanel = () => {
+  numericFilterPanel() {
     const { columns } = this.state;
     return (
       <div>

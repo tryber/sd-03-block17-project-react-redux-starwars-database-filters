@@ -35,31 +35,28 @@ class Table extends React.Component {
       pl.name.toLowerCase()).includes(nameFilter.name));
     const filteredByBoth = this.numericFilter(filteredByName);
     return (
-      <div>
-        <h2>StarWars Datatable with Filters</h2>
-        <table>
-          <thead>
-            <tr>
-              <th key='name'>Name</th>
-              <th key='diameter'>Diameter</th>
-              <th key='population'>Population</th>
-              <th key='climate'>Climate</th>
-              <th key='orbital'>Orbital period</th>
-              <th key='rotation'>Rotation period</th>
-              <th key='terrain'>Terrain</th>
-              <th key='water'>Surface Water</th>
-              <th key='gravity'>Gravity</th>
-              <th key='films'>Films</th>
-              <th key='created'>Created</th>
-              <th key='edited'>Edited</th>
-              <th key='url'>URL</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredByBoth.map((ftplanet) => TableRow(ftplanet))}
-          </tbody>
-        </table>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th key="name">Name</th>
+            <th key="diameter">Diameter</th>
+            <th key="population">Population</th>
+            <th key="climate">Climate</th>
+            <th key="orbital">Orbital period</th>
+            <th key="rotation">Rotation period</th>
+            <th key="terrain">Terrain</th>
+            <th key="water">Surface Water</th>
+            <th key="gravity">Gravity</th>
+            <th key="films">Films</th>
+            <th key="created">Created</th>
+            <th key="edited">Edited</th>
+            <th key="url">URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredByBoth.map((ftplanet) => TableRow(ftplanet))}
+        </tbody>
+      </table>
     );
   }
 }
@@ -69,7 +66,7 @@ const mapStateToProps = (state) => ({
 });
 
 Table.defaultProps = {
-  nameFilter: [],
+  nameFilter: {},
   numFilter: [],
 };
 

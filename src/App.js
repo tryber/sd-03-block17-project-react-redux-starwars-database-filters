@@ -9,6 +9,7 @@ function App() {
       <header>
         <h2>Projeto Bloco 17</h2>
         <SearchBar />
+        <h2>StarWars Datatable with Filters</h2>
       </header>
       <Body />
     </div>
