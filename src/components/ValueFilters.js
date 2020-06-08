@@ -15,13 +15,28 @@ const returnThisValue = (all, eraseThisElement, population) => {
   eraseThisElement(EraseName, eraseDisplay);
 };
 
+const submitChange = (submitToState, all, population, value, numbOfPop) => {
+  const newAvaliableFilters = all.columnFilters;
+  if (population !== 'all') {
+    newAvaliableFilters[
+      newAvaliableFilters.findIndex((filter) => filter.name === population)
+    ].avaliable = false;
+    submitToState(population, value, numbOfPop, newAvaliableFilters);
+  }
+};
+
 const selected = (valueRow, value, numbOfPop, eraseThisElement) => valueRow.columnFilters
   .map((row) => {
     if (row.avaliable === false) {
       return (
         <div data-testid="filter">
           <h4>{`${row.name} ${value} ${numbOfPop}`}</h4>
-          <button type="button" onClick={() => returnThisValue(valueRow, eraseThisElement, row.name)}>x</button>
+          <button
+            type="button"
+            onClick={() => returnThisValue(valueRow, eraseThisElement, row.name)}
+          >
+            x
+          </button>
         </div>
       );
     }
@@ -49,20 +64,8 @@ class ValueFilters extends Component {
   numb(event) { this.setState({ numbOfPop: event.target.value }); }
 
   render() {
-    const submitChange = () => {
-      const { submitToState, all } = this.props;
-      const { population, value, numbOfPop } = this.state;
-      const newAvaliableFilters = all.columnFilters;
-      if (population !== 'all') {
-        newAvaliableFilters[
-          newAvaliableFilters.findIndex((filter) => filter.name === population)
-        ].avaliable = false;
-        this.setState({ population: 'all' });
-        submitToState(population, value, numbOfPop, newAvaliableFilters);
-      }
-    };
     const { population, value, numbOfPop } = this.state;
-    const { eraseThisElement, all } = this.props;
+    const { eraseThisElement, all, submitToState } = this.props;
     return (
       <div>
         <select data-testid="column-filter" value={population} onChange={this.columnChange}>
@@ -75,7 +78,12 @@ class ValueFilters extends Component {
           <option value="igual a">igual a</option>
         </select>
         <input data-testid="value-filter" type="number" value={numbOfPop} onChange={this.numb} />
-        <button type="button" data-testid="button-filter" onClick={() => submitChange()}>
+        <button
+          type="button"
+          data-testid="button-filter"
+          onClick={() => (submitChange(submitToState, all, population, value, numbOfPop),
+          this.setState({ population: 'all' }))}
+        >
           filtrar
         </button>
         {selected(all, value, numbOfPop, eraseThisElement)}
@@ -99,7 +107,6 @@ ValueFilters.propTypes = {
   submitToState: PropTypes.func.isRequired,
   all: PropTypes.func.isRequired,
   eraseThisElement: PropTypes.func.isRequired,
-  columnFilters: PropTypes.objectOf(PropTypes.array).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ValueFilters);

@@ -26,36 +26,32 @@ export const inicialState = {
 
 export function apiData(state = inicialState, action) {
   switch (action.type) {
-    case DATA_API:
-      return { ...state, data: action.data, showResults: true };
-    case RECEIVE_ISS_LOCATION_FAILURE:
-      return { ...state, data: action.error };
+    case DATA_API: return { ...state, data: action.data, showResults: true };
+    case RECEIVE_ISS_LOCATION_FAILURE: return { ...state, data: action.error };
     case NAME_SEARCHED:
       return {
         ...state,
         filters: { ...state.filters, filtered: false, filterByName: { name: action.planetName } },
       };
-    case ERASE:
-      return {
-        ...state,
-        filters: {
-          filtered: true,
-          columnFilters: [...state.filters.columnFilters],
-          filterByName: { name: '' },
-          filterByNumericValues: action.obj,
-        },
-      };
-    case SUBMIT_OPTION_POPULATION:
-      return {
-        ...state,
-        filters: {
-          filtered: true,
-          columnFilters: [...state.filters.columnFilters],
-          filterByName: { name: '' },
-          filterByNumericValues: [...state.filters.filterByNumericValues,
-            { column: action.column, comparison: action.comparison, value: action.value }],
-        },
-      };
+    case ERASE: return {
+      ...state,
+      filters: {
+        filtered: true,
+        columnFilters: [...state.filters.columnFilters],
+        filterByName: { name: '' },
+        filterByNumericValues: action.obj,
+      },
+    };
+    case SUBMIT_OPTION_POPULATION: return {
+      ...state,
+      filters: {
+        filtered: true,
+        columnFilters: [...state.filters.columnFilters],
+        filterByName: { name: '' },
+        filterByNumericValues: [...state.filters.filterByNumericValues,
+          { column: action.column, comparison: action.comparison, value: action.value }],
+      },
+    };
     default:
       return state;
   }
