@@ -81,8 +81,7 @@ class ValueFilters extends Component {
         <button
           type="button"
           data-testid="button-filter"
-          onClick={() => (submitChange(submitToState, all, population, value, numbOfPop),
-          this.setState({ population: 'all' }))}
+          onClick={() => (submitChange(submitToState, all, population, value, numbOfPop))}
         >
           filtrar
         </button>
