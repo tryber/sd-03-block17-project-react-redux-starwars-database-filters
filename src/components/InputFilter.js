@@ -45,18 +45,3 @@ InputFilter.defaultProps = {
 };
 
 export default connect(null, mapDispatchToProps)(InputFilter);
-
-const mapDispatchToProps = (dispatch) => ({
-  filter: (e) => dispatch(filterPlanet(e)),
-});
-
-
-InputFilter.propTypes = {
-  filter: PropTypes.instanceOf(Function),
-};
-
-InputFilter.defaultProps = {
-  filter: '',
-};
-
-export default connect(null, mapDispatchToProps)(InputFilter);
