@@ -1,18 +1,7 @@
 
 const INITIAL_STATE = {
-  data: { results: ['Loading ....'] },
-  filters: {
-    filterByName: {
-      name: '',
-    },
-
-    filterByNumericValues: [
-      {
-        column: '',
-        comparison: '',
-        value: 0,
-      }],
-  },
+  filterByName: { name: '' },
+  filterByNumericValues: [],
 };
 
 function requestReducer(state = INITIAL_STATE, action) {
@@ -21,12 +10,16 @@ function requestReducer(state = INITIAL_STATE, action) {
       return { ...state, data: action.data };
     case 'RECEIVE_DATA':
       return { ...state, data: action.data };
+    case 'ERROR_DATA' :
+      return {
+        ...state,
+        error: action.error,
+      };
     case 'FILTER_PLANET_DATA':
       // const filteredPlanets = filtraByName(action, state);
       return {
         ...state,
-        filters: { filterByName: { name: action.filters.filterByName.name.toLowerCase() } ,
-        filterByNumericValues: [...state.filters.filterByNumericValues] },
+        filterByName: { name: action.name },
       };
     
    /*  case 'FILTER_PLANET_NUMERIC': {

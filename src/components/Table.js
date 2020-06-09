@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchData, filterPlanet } from '../action/index';
-import store from '../store/index';
 
 export class Table extends Component {
 constructor(props){
@@ -16,9 +15,7 @@ constructor(props){
 
 componentDidMount() {
   this.fetchUrl();
-  store.subscribe(() => {
-    console.log(store.getState());
-  });
+
 }
 
 fetchUrl() {
@@ -69,22 +66,21 @@ filterDataByName(filtername, results) {
 }
 
   renderTableBody(filtername, filterNumb) {
-    const { value: { data } } = this.props;
+   /*  const { value: { data } } = this.props;
     const { results } = data;
      return filterNumb.filterByNumericValues.map((element) => {
       const signal = this.retornaSign(element.comparison);
       return  this.filtraData(signal, results, element.column, element.value, filtername);
-    });
+    }); */
   }  
 
   render() {
-    const { value: { data } } = this.props;
-    const { value: { filters: { filterByName: { name } } } } = this.props;
-    const { value: { filters } } = this.props;
-    const { results } = data;
-    
+  /*   const { value: { data } } = this.props;
+    const { value: { filterByName: { name } } } = this.props;
+    const { value: { filters } } = this.props; */
+/* 
      const filteredPlanets = this.renderTableBody(name,filters);
-     console.log(filteredPlanets)
+    */ console.log(this.props); 
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
       <div>
@@ -95,7 +91,7 @@ filterDataByName(filtername, results) {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredPlanets.map((element) => (
+                  {/* {filteredPlanets.map((element) => (
           <tr key={element.name}>
             <td>{element.name}</td>
             <td>{element.rotation_period}</td>
@@ -110,7 +106,7 @@ filterDataByName(filtername, results) {
             <td>{element.created}</td>
             <td>{element.edited}</td>
             <td>{element.url}</td>
-         </tr>))}
+         </tr>))} */}
              </tbody>
               </table>
             </div>
@@ -121,7 +117,7 @@ const mapStateToProps = (state) => ({ value: state });
 const mapDispatchToProps = (dispatch) => ({
   request: (e) => dispatch(fetchData(e)),
   filter: (e) => dispatch(filterPlanet(e)),
-});
+}); 
 
 Table.propTypes = {
   value: PropTypes.instanceOf(Object),
@@ -133,4 +129,4 @@ Table.defaultProps = {
   request: PropTypes.func,
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
