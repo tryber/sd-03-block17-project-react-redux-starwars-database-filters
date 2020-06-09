@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { fetchData, filterPlanet } from '../action/index';
 
 export class Table extends Component {
-  constructor(props) {
-  super(props);  
+constructor(props){
+  super(props);
+  this.retornaSign = this.retornaSign.bind(this);
   this.filtraData = this.filtraData.bind(this);
   this.filterDataByName = this.filterDataByName.bind(this);
   this.renderTableBody = this.renderTableBody.bind(this);
   this.fetchUrl = this.fetchUrl.bind(this);
-  }
-  
-
+}
 
 componentDidMount() {
   this.fetchUrl();
@@ -65,103 +65,66 @@ filterDataByName(filtername, results) {
   renderTableBody(filtername, filterNumb) {
     const { value: { data } } = this.props;
     const { results } = data;
-    return results.map((element) => (
-        <tr>
-        <td>{element.name}</td>
-        <td>{element.rotation_period}</td>
-        <td>{element.orbital_period}</td>
-        <td>{element.diameter}</td>
-        <td>{element.climate}</td>
-        <td>{element.gravity}</td>
-        <td >{element.terrain}</td>
-        <td >{element.surface_water}</td>
-        <td >{element.population}</td>
-        <td >{element.films}</td>
-        <td >{element.created}</td>
-        <td >{element.edited}</td>
-        <td>{element.url}</td>
-      </tr>
-    ));
-  }
-    console.log(results, "COMPARISONSIGNAL");
-    filterNumb.filterByNumericValues.map((element) => {
+     return filterNumb.filterByNumericValues.map((element) => {
       const signal = this.retornaSign(element.comparison);
-      console.log(signal);
-      console.log(this.filtraData(signal, results, filterNumb.column, filterNumb.value), "return ");
+      return  this.filtraData(signal, results, element.column, element.value, filtername);
     });
-    /* if (document.getElementsByName('filter_name').value !== '') {
-      return results.filter((element) => {
-        const lowerName = element.name.toLowerCase();
-        return lowerName.includes(filtername);
-      }) */
-
-  renderTableBodyFiltered() {
-    const { value: { filters: { filterByName: { filteredPlanets } } } } = this.props;
-    return filteredPlanets[0].map((element) => (
-      <tr key={element.name}>
-        <td>{element.name}</td>
-        <td>{element.rotation_period}</td>
-        <td>{element.orbital_period}</td>
-        <td>{element.diameter}</td>
-        <td>{element.climate}</td>
-        <td>{element.gravity}</td>
-        <td >{element.terrain}</td>
-        <td >{element.surface_water}</td>
-        <td >{element.population}</td>
-        <td >{element.films}</td>
-        <td >{element.created}</td>
-        <td >{element.edited}</td>
-        <td>{element.url}</td>
-      </tr>
-    ));
   }
 
   render() {
-    console.log(this.props.value.filters);
     const { value: { data } } = this.props;
-    const { value: { filters: { filterByName: { filteredPlanets } } } } = this.props;
+    const { value: { filters: { filterByName: { name } } } } = this.props;
+    const { value: { filters } } = this.props;
     const { results } = data;
     if(this.filteredPlanets === undefined ) {
+    this.filteredPlanets = results;
     console.log(this.filteredPlanets)}
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
       <div>
-        {results.length === 1
-          ? (
-            <h1>
-              {results[0]}
-            </h1>
-          ) : (
-            <div>
-              <p> Table </p>
-              <table>
+         <table>
                 <thead>
                   <tr>
                     {headers.map((element) => <th key={element}>{element}</th>)}
-
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredPlanets.length === 0
-                    ? this.renderTableBody()
-                    : this.renderTableBodyFiltered()}
-                </tbody>
+                  {results.map((element) => (
+          <tr key={element.name}>
+            <td>{element.name}</td>
+            <td>{element.rotation_period}</td>
+            <td>{element.orbital_period}</td>
+            <td>{element.diameter}</td>
+            <td>{element.climate}</td>
+            <td>{element.gravity}</td>
+            <td>{element.terrain}</td>
+            <td>{element.surface_water}</td>
+            <td>{element.population}</td>
+            <td>{element.films}</td>
+            <td>{element.created}</td>
+            <td>{element.edited}</td>
+            <td>{element.url}</td>
+         </tr>))}
+             </tbody>
               </table>
             </div>
-          )}
-      </div>
-    );
-  }
-}
+ )}}
 
 const mapStateToProps = (state) => ({ value: state });
 
+const mapDispatchToProps = (dispatch) => ({
+  request: (e) => dispatch(fetchData(e)),
+  filter: (e) => dispatch(filterPlanet(e)),
+});
+
 Table.propTypes = {
   value: PropTypes.instanceOf(Object),
+  request: PropTypes.func,
 };
 
 Table.defaultProps = {
   value: {},
+  request: PropTypes.func,
 };
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps,mapDispatchToProps)(Table);
