@@ -18,9 +18,9 @@ componentDidMount() {
 
 }
 
-fetchUrl() {
+async fetchUrl() {
   const { request } = this.props;
-  request();
+  await request();
 }
 
 retornaSign(comparison) {
@@ -80,13 +80,14 @@ filterDataByName(filtername, results) {
     const { value: { filters } } = this.props; */
 /* 
      const filteredPlanets = this.renderTableBody(name,filters);
-    */ console.log(this.props); 
+    */  
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
       <div>
          <table>
                 <thead>
                   <tr>
+                  {console.log(this.props.value.data)};
                     {headers.map((element) => <th key={element}>{element}</th>)}
                   </tr>
                 </thead>
