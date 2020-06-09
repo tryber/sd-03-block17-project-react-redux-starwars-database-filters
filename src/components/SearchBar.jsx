@@ -70,7 +70,7 @@ class SearchBar extends React.Component {
     )
   }
 
-  filtersList = (numericFilter) => {
+  filtersList(numericFilter) {
     return numericFilter.map((filter) => (
     <div
       key={filter.column}
