@@ -4,46 +4,47 @@ import { connect } from 'react-redux';
 import { fetchData, filterPlanet } from '../action/index';
 
 export class Table extends Component {
-constructor(props){
-  super(props);
-/*   this.retornaSign = this.retornaSign.bind(this);
+  constructor(props) {
+    super(props);
+    /*   this.retornaSign = this.retornaSign.bind(this);
   this.filtraData = this.filtraData.bind(this);
   this.filterDataByName = this.filterDataByName.bind(this);
   this.renderTableBody = this.renderTableBody.bind(this); */
-  this.fetchUrl = this.fetchUrl.bind(this);
-  this.renderizaTableBody = this.renderizaTableBody.bind(this);
-}
+    this.fetchUrl = this.fetchUrl.bind(this);
+    this.renderizaTableBody = this.renderizaTableBody.bind(this);
+  }
 
-componentDidMount() {
-  this.fetchUrl();
+  componentDidMount() {
+    this.fetchUrl();
+  }
 
-}
-
-async fetchUrl() {
-  const { request } = this.props;
-  await request();
-}
-
-renderizaTableBody (element ) {
-    return <tr key={element.name}>
-    <td>{element.name}</td>
-    <td>{element.rotation_period}</td>
-    <td>{element.orbital_period}</td>
-    <td>{element.diameter}</td>
-    <td>{element.climate}</td>
-    <td>{element.gravity}</td>
-    <td>{element.terrain}</td>
-    <td>{element.surface_water}</td>
-    <td>{element.population}</td>
-    <td>{element.films}</td>
-    <td>{element.created}</td>
-    <td>{element.edited}</td>
-    <td>{element.url}</td>
- </tr>
+  async fetchUrl() {
+    const { request } = this.props;
+    await request();
+  }
 
 
-}
-/* retornaSign(comparison) {
+  static renderizaTableBody(element) {
+    return (
+      <tr key={element.name}>
+        <td>{element.name}</td>
+        <td>{element.rotation_period}</td>
+        <td>{element.orbital_period}</td>
+        <td>{element.diameter}</td>
+        <td>{element.climate}</td>
+        <td>{element.gravity}</td>
+        <td>{element.terrain}</td>
+        <td>{element.surface_water}</td>
+        <td>{element.population}</td>
+        <td>{element.films}</td>
+        <td>{element.created}</td>
+        <td>{element.edited}</td>
+        <td>{element.url}</td>
+      </tr>
+    );
+  }
+
+  /* retornaSign(comparison) {
   let comparisonSignal;
   if (comparison === 'maior que') {
     comparisonSignal = 0;
@@ -91,37 +92,42 @@ filterDataByName(filtername, results) {
      return filterNumb.filterByNumericValues.map((element) => {
       const signal = this.retornaSign(element.comparison);
       return  this.filtraData(signal, results, element.column, element.value, filtername);
-    }); 
-  }  
+    });
+  }
  */
   render() {
-     const { value: { data } } = this.props;
-    const planets = this.props.value.filteredPlanets === undefined ? data : this.props.value.filteredPlanets;    
+    const { value } = this.props;
+    const { data } = value;
+    const planets = value.filteredPlanets === undefined
+      ? data
+      : value.filteredPlanets;
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
       <div>
-         <table>
-                <thead>
-                  <tr>
-                   {headers.map((element) => <th key={element}>{element}</th>)}
-                  </tr>
-                </thead>
-                <tbody>
-                  {planets
-                  ?  planets.results.map((element) => (
-                    this.renderizaTableBody(element)))
-            : null }
-                  </tbody>
-              </table>
-            </div>
- )}}
+        <table>
+          <thead>
+            <tr>
+              {headers.map((element) => <th key={element}>{element}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {planets
+              ? planets.results.map((element) => (
+                this.renderizaTableBody(element)))
+              : null }
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = (state) => ({ value: state });
 
 const mapDispatchToProps = (dispatch) => ({
   request: (e) => dispatch(fetchData(e)),
   filter: (e) => dispatch(filterPlanet(e)),
-}); 
+});
 
 Table.propTypes = {
   value: PropTypes.instanceOf(Object),

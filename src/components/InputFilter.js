@@ -29,11 +29,9 @@ export class InputFilter extends Component {
   }
 }
 
-
 const mapDispatchToProps = (dispatch) => ({
   filter: (e) => dispatch(filterPlanet(e)),
 });
-
 
 InputFilter.propTypes = {
   filter: PropTypes.instanceOf(Function),
