@@ -51,6 +51,13 @@ class InputsNumerics extends React.Component {
     }
   }
 
+  onClickRemoveFilter(event) {
+    const { value } = event.target;
+    const { filteredSelect, newFilterSelect } = this.props;
+    const newFilteredSelect = filteredSelect.filter((item) => item.column !== value);
+    newFilterSelect(newFilteredSelect);
+  }
+
   updateOptions() {
     const { filteredSelect } = this.props;
     let newOptions = options;
@@ -59,13 +66,6 @@ class InputsNumerics extends React.Component {
       options = newOptions;
     });
     return newOptions;
-  }
-
-  onClickRemoveFilter(event) {
-    const { value } = event.target;
-    const { filteredSelect, newFilterSelect } = this.props;
-    const newFilteredSelect = filteredSelect.filter((item) => item.column !== value);
-    newFilterSelect(newFilteredSelect);
   }
 
   buttonFilter() {
@@ -145,10 +145,9 @@ class InputsNumerics extends React.Component {
   }
 
   render() {
-    const options = this.updateOptions();
     return (
       <div>
-        {this.selectFilter(options)}
+        {this.selectFilter(this.updateOptions())}
         {this.selectComparison()}
         {this.valueFilterInput()}
         {this.buttonFilter()}
