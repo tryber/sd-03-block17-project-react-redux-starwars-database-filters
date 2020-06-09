@@ -11,7 +11,6 @@ export class InputFilter extends Component {
 
   filterByName(event) {
     const { filter } = this.props;
-
     filter(event.target.value);
   }
 
