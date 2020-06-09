@@ -145,9 +145,11 @@ class InputsNumerics extends React.Component {
   }
 
   render() {
+    const updateOptions = this.updateOptions();
+    console.log(updateOptions)
     return (
       <div>
-        {this.selectFilter(this.updateOptions())}
+        {this.selectFilter(updateOptions)}
         {this.selectComparison()}
         {this.valueFilterInput()}
         {this.buttonFilter()}
