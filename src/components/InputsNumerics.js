@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { filterSelectors, removeFilter } from '../actions/index';
 
-let options = [
+const options = [
   { value: '', text: '' },
   { value: 'population', text: 'population' },
   { value: 'orbital_period', text: 'orbital_period' },
