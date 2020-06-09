@@ -76,7 +76,7 @@ class SearchBar extends React.Component {
         data-testid="comparison-filter"
         onChange={(e) => this.setState({ comparison: e.target.value })}
         value={this.state.comparison}
-        >
+      >
         <option />
         <option key=">" value="maior que">maior que</option>
         <option key="=" value="igual a">igual a</option>
@@ -128,9 +128,10 @@ const mapDispatchToProps = (dispatch) => (
 );
 
 SearchBar.propTypes = {
-  filterByName: PropTypes.func,
+  filterByName: PropTypes.func.isRequired,
   numericFilter: PropTypes.arrayOf(PropTypes.object).isRequired,
-  addNumFilter: PropTypes.func,
+  addNumFilter: PropTypes.func.isRequired,
+  rmFilter: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
