@@ -1,4 +1,6 @@
 body {
+  background-color: black;
+  color: aliceblue;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +12,38 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+a {
+  color: white;
+}
+
+table {
+  border: 2px solid white;
+}
+
+tr {
+  border: 2px solid white;
+}
+
+th {
+  border: 2px solid white;
+}
+
+td {
+  border: 2px solid white;
+}
+
+.filterBar {
+  border: 3px solid white;
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 15px 0;
+  width: 80%;
+}
+
+.filterList {
+  text-align: right;
 }
