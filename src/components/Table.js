@@ -76,9 +76,9 @@ filterDataByName(filtername, results) {
 
   render() {
      const { value: { data } } = this.props;
-    const planets = this.props.value.filteredPlanets === undefined ? data : this.props.value.filteredPlanets.results;
+    const planets = this.props.value.filteredPlanets === undefined ? data : this.props.value.filteredPlanets;
     
-     
+     console.log(planets);
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
       <div>
