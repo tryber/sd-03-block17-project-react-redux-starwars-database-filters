@@ -106,11 +106,11 @@ class InputsNumerics extends React.Component {
     );
   }
 
-  selectFilter(options) {
+  selectFilter(optionsParam) {
     return (
       <select data-testid="column-filter" onChange={this.onChangeFilterSelect}>
         {
-          options.map((item) =>
+          optionsParam.map((item) =>
             <option
               key={item.value}
               value={item.value}
@@ -146,7 +146,6 @@ class InputsNumerics extends React.Component {
 
   render() {
     const updateOptions = this.updateOptions();
-    console.log(updateOptions)
     return (
       <div>
         {this.selectFilter(updateOptions)}
