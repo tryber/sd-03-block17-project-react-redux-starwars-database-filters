@@ -6,10 +6,10 @@ import { fetchData, filterPlanet } from '../action/index';
 export class Table extends Component {
 constructor(props){
   super(props);
-  this.retornaSign = this.retornaSign.bind(this);
+/*   this.retornaSign = this.retornaSign.bind(this);
   this.filtraData = this.filtraData.bind(this);
   this.filterDataByName = this.filterDataByName.bind(this);
-  this.renderTableBody = this.renderTableBody.bind(this);
+  this.renderTableBody = this.renderTableBody.bind(this); */
   this.fetchUrl = this.fetchUrl.bind(this);
 }
 
@@ -23,7 +23,7 @@ async fetchUrl() {
   await request();
 }
 
-retornaSign(comparison) {
+/* retornaSign(comparison) {
   let comparisonSignal;
   if (comparison === 'maior que') {
     comparisonSignal = 0;
@@ -73,7 +73,7 @@ filterDataByName(filtername, results) {
       return  this.filtraData(signal, results, element.column, element.value, filtername);
     }); 
   }  
-
+ */
   render() {
      const { value: { data } } = this.props;
     const planets = this.props.value.filteredPlanets === undefined ? data : this.props.value.filteredPlanets;
