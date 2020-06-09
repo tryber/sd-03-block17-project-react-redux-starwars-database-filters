@@ -3,6 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { filterSelectors, removeFilter } from '../actions/index';
 
+let options = [
+  { value: '', text: '' },
+  { value: 'population', text: 'population' },
+  { value: 'orbital_period', text: 'orbital_period' },
+  { value: 'diameter', text: 'diameter' },
+  { value: 'rotation_period', text: 'rotation_period' },
+  { value: 'surface_water', text: 'surface_water' },
+];
 
 class InputsNumerics extends React.Component {
   constructor(props) {
@@ -11,14 +19,6 @@ class InputsNumerics extends React.Component {
       filterSelect: '',
       comparison: '',
       valueFilter: '',
-      options: [
-        { value: '', text: '' },
-        { value: 'population', text: 'population' },
-        { value: 'orbital_period', text: 'orbital_period' },
-        { value: 'diameter', text: 'diameter' },
-        { value: 'rotation_period', text: 'rotation_period' },
-        { value: 'surface_water', text: 'surface_water' },
-      ],
     };
     this.onChangeFilterSelect = this.onChangeFilterSelect.bind(this);
     this.onChangeComparison = this.onChangeComparison.bind(this);
@@ -41,31 +41,31 @@ class InputsNumerics extends React.Component {
   }
 
   onClickDispatchSelectors() {
-    const { filterSelect, comparison, valueFilter, options } = this.state;
+    const { filterSelect, comparison, valueFilter } = this.state;
     const { selectors } = this.props;
-    let newOptions;
     if (filterSelect !== '' && comparison !== '') {
       selectors(filterSelect, comparison, valueFilter);
-      newOptions = options.filter((item) =>
-        item.value !== filterSelect || item.value === '');
       this.setState({
-        options: newOptions,
         filterSelect: '',
       });
     }
   }
 
+  updateOptions() {
+    const { filteredSelect } = this.props;
+    let newOptions = options;
+    filteredSelect.forEach((item) => {
+      newOptions = options.filter((el) => el.value !== item.column);
+      options = newOptions;
+    });
+    return newOptions;
+  }
+
   onClickRemoveFilter(event) {
-    const { options } = this.state;
     const { value } = event.target;
     const { filteredSelect, newFilterSelect } = this.props;
     const newFilteredSelect = filteredSelect.filter((item) => item.column !== value);
-    const optionSelect = {
-      value,
-      text: value,
-    };
     newFilterSelect(newFilteredSelect);
-    this.setState({ options: [...options, optionSelect] });
   }
 
   buttonFilter() {
@@ -106,8 +106,7 @@ class InputsNumerics extends React.Component {
     );
   }
 
-  selectFilter() {
-    const { options } = this.state;
+  selectFilter(options) {
     return (
       <select data-testid="column-filter" onChange={this.onChangeFilterSelect}>
         {
@@ -146,9 +145,10 @@ class InputsNumerics extends React.Component {
   }
 
   render() {
+    const options = this.updateOptions();
     return (
       <div>
-        {this.selectFilter()}
+        {this.selectFilter(options)}
         {this.selectComparison()}
         {this.valueFilterInput()}
         {this.buttonFilter()}
