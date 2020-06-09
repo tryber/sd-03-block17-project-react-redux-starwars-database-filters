@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 const TableRow = (planet) => (
   <tr key={planet.url}>
@@ -19,8 +19,8 @@ const TableRow = (planet) => (
   </tr>
 );
 
-TableRow.propTypes = {
-  planet: PropTypes.objectOf(PropTypes.any).isRequired,
-};
+// TableRow.propTypes = {
+//   planet: PropTypes.objectOf(PropTypes.any).isRequired,
+// };
 
 export default TableRow;

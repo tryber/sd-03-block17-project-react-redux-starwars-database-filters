@@ -60,6 +60,7 @@ const mapDispatchToProps = (dispatch) => (
 );
 
 Body.defaultProps = {
+  nameFilter: {},
   nextPageURL: '',
   numericFilter: {},
   planets: [],

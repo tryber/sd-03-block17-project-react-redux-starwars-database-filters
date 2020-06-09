@@ -3,6 +3,14 @@ import { connect } from 'react-redux';
 import { filterName, filterNumber, removeFilter } from '../actions';
 import PropTypes from 'prop-types';
 
+const columns = [
+  'population',
+  'orbital_period',
+  'diameter',
+  'rotation_period',
+  'surface_water',
+];
+
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
@@ -10,40 +18,15 @@ class SearchBar extends React.Component {
       column: 'population',
       comparison: 'maior que',
       value: 100000,
-      columns: [
-        { name: '', value: 'Coluna', display: true },
-        { name: 'diameter', value: 'diameter', display: true },
-        { name: 'population', value: 'population', display: true },
-        { name: 'surface_water', value: 'surface_water', display: true },
-        { name: 'orbital_period', value: 'orbital_period', display: true },
-        { name: 'rotation_period', value: 'rotation_period', display: true },
-      ],
     };
   }
 
   numericFilterPanel() {
-    const { columns } = this.state;
     return (
       <div>
         <label htmlFor="column-filter">Filtrar por outros:</label>
-        <select
-          data-testid="column-filter"
-          onChange={(e) => this.setState({ column: e.target.value })}
-          value={this.state.column}
-        >
-          {columns.filter((col) => col.display === true)
-          .map((col) => <option key={col.name} value={col.name}>{col.value}</option>)}
-        </select>
-        <select
-          data-testid="comparison-filter"
-          onChange={(e) => this.setState({ comparison: e.target.value })}
-          value={this.state.comparison}
-        >
-          <option />
-          <option key='>' value="maior que">maior que</option>
-          <option key='=' value="igual a">igual a</option>
-          <option key='<' value="menor que">menor que</option>
-        </select>
+        {this.renderSelectCol()}
+        {this.renderSelectComp()}
         <input
           data-testid='value-filter'
           type="number"
@@ -55,16 +38,36 @@ class SearchBar extends React.Component {
     )
   }
 
-  manageFilterList = (column, oper) => {
-    const { columns } = this.state;
-    const i = columns.findIndex((col) => col.name === column);
-    const j = columns.find((col) => col.display === true)
-    const newState = columns;
-    oper ? newState[i].display = true : newState[i].display = false;
-    this.setState({ 
-      columns: newState,
-      column: j.name
-    });
+  renderSelectCol() {
+    return (
+      <select
+        data-testid="column-filter"
+        onChange={(e) => this.setState({ column: e.target.value })}
+        value={this.state.column}
+        >
+      <option key="1" value="" />
+      { columns.map((column) => (!this.props.numericFilter.find(
+        (filter) => filter.column === column)) && (
+          <option key={column} value={column}>{column}</option>
+        )
+      )}
+      </select>
+    )
+  }
+
+  renderSelectComp() {
+    return (
+      <select
+      data-testid="comparison-filter"
+      onChange={(e) => this.setState({ comparison: e.target.value })}
+      value={this.state.comparison}
+      >
+      <option />
+      <option key='>' value="maior que">maior que</option>
+      <option key='=' value="igual a">igual a</option>
+      <option key='<' value="menor que">menor que</option>
+    </select>
+    )
   }
 
   filtersList = (numericFilter) => {
@@ -75,10 +78,8 @@ class SearchBar extends React.Component {
       >
       {filter.column} {filter.comparison} {filter.value}
     <button
-      onClick={
-        () => { this.props.rmFilter(filter);
-        this.manageFilterList(filter.column, true);
-      }}>
+      onClick={() => { this.props.rmFilter(filter) }}
+    >
       X</button></div>))
   }
 
@@ -98,11 +99,9 @@ class SearchBar extends React.Component {
           {this.numericFilterPanel()}
           <button
             data-testid='button-filter'
-            onClick={() => {
-              addNumFilter({ column, comparison, value })
-              this.manageFilterList(column, false)
-            }}
-          >Adicionar filtro
+            onClick={() => { addNumFilter({ column, comparison, value }) }}
+          >
+          Adicionar filtro
           </button>
         </div>
         <div className='filterList'>
