@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { filterName, filterNumber, removeFilter } from '../actions';
 import PropTypes from 'prop-types';
+import { filterName, filterNumber, removeFilter } from '../actions';
 
 const columns = [
   'population',
@@ -21,6 +21,21 @@ class SearchBar extends React.Component {
     };
   }
 
+  filtersList(numericFilter) {
+    return numericFilter.map((filter) => (
+      <div
+        key={filter.column}
+        data-testid="filter"
+      >
+        {filter.column} {filter.comparison} {filter.value}
+        <button
+          onClick={() => { this.props.rmFilter(filter); }}
+        >
+        X</button>
+      </div>
+    ));
+  }
+
   numericFilterPanel() {
     return (
       <div>
@@ -28,14 +43,14 @@ class SearchBar extends React.Component {
         {this.renderSelectCol()}
         {this.renderSelectComp()}
         <input
-          data-testid='value-filter'
+          data-testid="value-filter"
           type="number"
           maxLength="15"
           onChange={(e) => this.setState({ value: e.target.value })}
           value={this.state.value}
-          />
+        />
       </div>
-    )
+    );
   }
 
   renderSelectCol() {
@@ -44,43 +59,30 @@ class SearchBar extends React.Component {
         data-testid="column-filter"
         onChange={(e) => this.setState({ column: e.target.value })}
         value={this.state.column}
-        >
-      <option key="1" value="" />
-      { columns.map((column) => (!this.props.numericFilter.find(
-        (filter) => filter.column === column)) && (
-          <option key={column} value={column}>{column}</option>
-        )
-      )}
+      >
+        <option key="1" value="" />
+        { columns.map((column) => (!this.props.numericFilter.find(
+          (filter) => filter.column === column)) && (
+            <option key={column} value={column}>{column}</option>
+          ),
+        )}
       </select>
-    )
+    );
   }
 
   renderSelectComp() {
     return (
       <select
-      data-testid="comparison-filter"
-      onChange={(e) => this.setState({ comparison: e.target.value })}
-      value={this.state.comparison}
-      >
-      <option />
-      <option key='>' value="maior que">maior que</option>
-      <option key='=' value="igual a">igual a</option>
-      <option key='<' value="menor que">menor que</option>
-    </select>
-    )
-  }
-
-  filtersList(numericFilter) {
-    return numericFilter.map((filter) => (
-    <div
-      key={filter.column}
-      data-testid='filter'
-      >
-      {filter.column} {filter.comparison} {filter.value}
-    <button
-      onClick={() => { this.props.rmFilter(filter) }}
-    >
-      X</button></div>))
+        data-testid="comparison-filter"
+        onChange={(e) => this.setState({ comparison: e.target.value })}
+        value={this.state.comparison}
+        >
+        <option />
+        <option key=">" value="maior que">maior que</option>
+        <option key="=" value="igual a">igual a</option>
+        <option key="<" value="menor que">menor que</option>
+      </select>
+    );
   }
 
   render() {
@@ -88,8 +90,8 @@ class SearchBar extends React.Component {
     const { column, comparison, value } = this.state;
 
     return (
-      <div className='filterBar'>
-        <div className='filterPanel'>
+      <div className="filterBar">
+        <div className="filterPanel">
           <label htmlFor="name-filter">Filtrar por nome</label>
           <input
             data-testid="name-filter"
@@ -98,13 +100,13 @@ class SearchBar extends React.Component {
           />
           {this.numericFilterPanel()}
           <button
-            data-testid='button-filter'
-            onClick={() => { addNumFilter({ column, comparison, value }) }}
+            data-testid="button-filter"
+            onClick={() => { addNumFilter({ column, comparison, value }); }}
           >
           Adicionar filtro
           </button>
         </div>
-        <div className='filterList'>
+        <div className="filterList">
           {this.filtersList(numericFilter)}
         </div>
       </div>
@@ -115,7 +117,7 @@ class SearchBar extends React.Component {
 const mapStateToProps = (state) => ({
   planets: state.planetReducer.data,
   numericFilter: state.filters.filterByNumericValues,
-})
+});
 
 const mapDispatchToProps = (dispatch) => (
   {
@@ -127,7 +129,8 @@ const mapDispatchToProps = (dispatch) => (
 
 SearchBar.propTypes = {
   filterByName: PropTypes.func,
+  numericFilter: PropTypes.arrayOf(PropTypes.object).isRequired,
   addNumFilter: PropTypes.func,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
