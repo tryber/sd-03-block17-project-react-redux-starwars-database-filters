@@ -5,7 +5,7 @@ const INITIAL_STATE = {
 };
 
 function requestReducer(state = INITIAL_STATE, action) {
-  console.log(state);
+  
   switch (action.type) {
     case 'REQUEST_DATA':
       return { ...state, data: action.data };
@@ -15,14 +15,18 @@ function requestReducer(state = INITIAL_STATE, action) {
       console.log(state.data);
       // const filteredPlanets = filtraByName(action, state);
       if(state.data.results !== undefined ) {
-        const {name } = action.filters.filterByName
-        state.data.results.filter(m => {
-          console.log(m.name.includes(name))})
-    return Object.assign({},[
-        ...state.data.results.filter(m => m.name.includes(name))
-      ],)
-    };
-      
+       const name = action.filters.filterByName.name.toLowerCase();
+       //the value passed from our presentational component
+   let value = action;
+   let filteredValues = state.data.results.filter(element => {
+       //return any product whose name or designer contains the input box string
+       return element.name.toLowerCase().includes(name);
+   });
+   return {
+       ...state,
+       filteredPlanets: filteredValues,
+   };
+  }
    /*  case 'FILTER_PLANET_NUMERIC': {
       const { name } = action.filters.filterByName;
       return {

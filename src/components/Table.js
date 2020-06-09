@@ -66,12 +66,12 @@ filterDataByName(filtername, results) {
 }
 
   renderTableBody(filtername, filterNumb) {
-   /*  const { value: { data } } = this.props;
+    const { value: { data } } = this.props;
     const { results } = data;
      return filterNumb.filterByNumericValues.map((element) => {
       const signal = this.retornaSign(element.comparison);
       return  this.filtraData(signal, results, element.column, element.value, filtername);
-    }); */
+    }); 
   }  
 
   render() {
@@ -87,7 +87,7 @@ filterDataByName(filtername, results) {
          <table>
                 <thead>
                   <tr>
-                  {console.log(this.props.value.data)};
+                  {console.log(this.props.value)}
                     {headers.map((element) => <th key={element}>{element}</th>)}
                   </tr>
                 </thead>
