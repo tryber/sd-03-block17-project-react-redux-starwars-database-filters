@@ -75,12 +75,10 @@ filterDataByName(filtername, results) {
   }  
 
   render() {
-  /*   const { value: { data } } = this.props;
-    const { value: { filterByName: { name } } } = this.props;
-    const { value: { filters } } = this.props; */
-/* 
-     const filteredPlanets = this.renderTableBody(name,filters);
-    */  
+     const { value: { data } } = this.props;
+    const planets = this.props.value.filteredPlanets === undefined ? data : this.props.value.filteredPlanets.results;
+    
+     
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
       <div>
@@ -92,7 +90,8 @@ filterDataByName(filtername, results) {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {filteredPlanets.map((element) => (
+                  {planets
+                  ?  planets.results.map((element) => (
           <tr key={element.name}>
             <td>{element.name}</td>
             <td>{element.rotation_period}</td>
@@ -107,8 +106,10 @@ filterDataByName(filtername, results) {
             <td>{element.created}</td>
             <td>{element.edited}</td>
             <td>{element.url}</td>
-         </tr>))} */}
-             </tbody>
+         </tr>))  : null }
+                  
+                  
+                      </tbody>
               </table>
             </div>
  )}}

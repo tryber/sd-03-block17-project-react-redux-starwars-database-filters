@@ -24,7 +24,7 @@ function requestReducer(state = INITIAL_STATE, action) {
    });
    return {
        ...state,
-       filteredPlanets: filteredValues,
+       filteredPlanets:  filteredValues,
    };
   }
    /*  case 'FILTER_PLANET_NUMERIC': {
