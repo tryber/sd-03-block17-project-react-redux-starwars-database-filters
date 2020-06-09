@@ -1,35 +1,44 @@
+
 const INITIAL_STATE = {
   data: { results: ['Loading ....'] },
   filters: {
     filterByName: {
-      name: ' ',
-      filteredPlanets: [],
+      name: '',
     },
+
+    filterByNumericValues: [
+      {
+        column: '',
+        comparison: '',
+        value: 0,
+      }],
   },
 };
 
 function requestReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'REQUEST_DATA':
-      return {
-        ...state,
-        data: action.data,
-      };
+      return { ...state, data: action.data };
     case 'RECEIVE_DATA':
+      return { ...state, data: action.data };
+    case 'FILTER_PLANET_DATA':
+      // const filteredPlanets = filtraByName(action, state);
       return {
         ...state,
-        data: action.data,
+        filters: { filterByName: { name: action.filters.filterByName.name.toLowerCase() } ,
+        filterByNumericValues: [...state.filters.filterByNumericValues] },
       };
-    case 'FILTER_PLANET_DATA': {
-      const filterName = action.filters.filterByName.name.toLowerCase();
-      const filteredPlanets = state.data.results.filter((element) => {
-        const lowerName = element.name.toLowerCase();
-        return lowerName.includes(filterName);
-      });
+    
+   /*  case 'FILTER_PLANET_NUMERIC': {
+      const { name } = action.filters.filterByName;
       return {
         ...state,
-        filters: { filterByName: { name: filterName, filteredPlanets: [filteredPlanets] } },
-      }; }
+        filters: {
+          filterByName: { name },
+          filterByNumericValues: [...state.filters.filterByNumericValues,
+            action.filters.filterByNumericValues[0]],
+        },
+      }; } */
     default:
       return state;
   }
