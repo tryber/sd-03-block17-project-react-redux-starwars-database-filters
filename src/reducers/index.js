@@ -15,8 +15,11 @@ function requestReducer(state = INITIAL_STATE, action) {
       console.log(state.data);
       // const filteredPlanets = filtraByName(action, state);
       if(state.data.results !== undefined ) {
-    return Object.assign({...state},[
-        ...state.data.results.filter(m => m.name === action.filter)
+        const {name } = action.filters.filterByName
+        state.data.results.filter(m => {
+          console.log(m.name.includes(name))})
+    return Object.assign({},[
+        ...state.data.results.filter(m => m.name.includes(name))
       ],)
     };
       
