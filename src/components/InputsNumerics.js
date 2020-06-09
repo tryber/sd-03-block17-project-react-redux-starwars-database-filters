@@ -62,8 +62,7 @@ class InputsNumerics extends React.Component {
     const { filteredSelect } = this.props;
     let newOptions = options;
     filteredSelect.forEach((item) => {
-      newOptions = options.filter((el) => el.value !== item.column);
-      options = newOptions;
+      newOptions = newOptions.filter((el) => el.value !== item.column);
     });
     return newOptions;
   }
@@ -129,11 +128,11 @@ class InputsNumerics extends React.Component {
         {
           filteredSelect.map((item) =>
             <div
+              data-testid="filter"
               key={item.column}
             >
               {item.column}
               <button
-                data-testid="filter"
                 value={item.column}
                 onClick={this.onClickRemoveFilter}
               >
