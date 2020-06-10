@@ -11,7 +11,7 @@ export class Table extends Component {
   this.filterDataByName = this.filterDataByName.bind(this);
   this.renderTableBody = this.renderTableBody.bind(this); */
     this.fetchUrl = this.fetchUrl.bind(this);
-    this.renderizaTableBody = this.renderizaTableBody.bind(this);
+    // this.renderizaTableBody = this.renderizaTableBody.bind(this);
   }
 
   componentDidMount() {
@@ -113,7 +113,7 @@ filterDataByName(filtername, results) {
           <tbody>
             {planets
               ? planets.results.map((element) => (
-                this.renderizaTableBody(element)))
+                Table.renderizaTableBody(element)))
               : null }
           </tbody>
         </table>

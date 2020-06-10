@@ -14,10 +14,10 @@ export function fetchData() {
   return (dispatch) => {
     fetch('https://swapi-trybe.herokuapp.com/api/planets/')
       .then(
-        (response) => response.json())
+        (response) => response.json(),
+      )
       .then((data) => {
         dispatch(receiveData(data));
       });
   };
 }
-
