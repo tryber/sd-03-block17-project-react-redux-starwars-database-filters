@@ -30,8 +30,28 @@ export const requestAction = () => (dispatch) => {
 
 export const TEXT_CHANGED = 'TEXT_CHANGED';
 
-export const textChanged = (text) => ({ type: TEXT_CHANGED, text });
-
 export const SELECT_CHANGED = 'SELECT_CHANGED';
 
-export const selectChanged = (...select) => ({ type: SELECT_CHANGED, payload: select });
+export const textChanged = (text) => ({
+  type: TEXT_CHANGED,
+  text,
+});
+
+export const selectChanged = (...select) => ({
+  type: SELECT_CHANGED,
+  payload: select,
+});
+
+export const FILTER_COLUMN = 'FILTER_COLUMN';
+
+export const UNFILTER_COLUMN = 'UNFILTER_COLUMN';
+
+export const filterColumn = (column) => ({
+  type: FILTER_COLUMN,
+  payload: column,
+});
+
+export const unfilterColumn = (column) => ({
+  type: UNFILTER_COLUMN,
+  payload: column,
+});

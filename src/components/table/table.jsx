@@ -1,16 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import RenderThead from './renderThead';
-import { requestAction, textChanged, selectChanged } from '../../actions';
 
-let columnFilter = [
-  'population',
-  'orbital_period',
-  'diameter',
-  'rotation_period',
-  'surface_water',
-];
+import RenderThead from './renderThead';
+import RenderFilters from './RenderFilters';
+
+import {
+  filterColumn,
+  requestAction,
+  selectChanged,
+  textChanged,
+  unfilterColumn,
+} from '../../actions';
+
+// ALTERAR OS CÓDIGOS PRA PEGAR AS COLUNAS DIRETAMENTE DO ESTADO
 
 const comparisonFilter = [
   'maior que',
@@ -62,15 +65,16 @@ class Table extends React.Component {
     return table;
   }
 
+  // column filter
   filterByNumeric() {
-    const { filters } = this.props;
+    const { columnFilter, filters } = this.props;
     const filteredList = filters.reduce(
       (acc, { column, comparison, value }) => acc.filter(
         (element) => comparator(column, comparison, value, element),
       ), this.filterByText(),
     );
     const columns = filters.map((filter) => filter.column);
-    columnFilter = columnFilter.filter((item) => !columns.includes(item));
+    // columnFilter = columnFilter.filter((item) => !columns.includes(item));
     return filteredList;
   }
 
@@ -81,6 +85,7 @@ class Table extends React.Component {
   }
 
   renderColumnSelect() {
+    const { columnFilter } = this.props;
     return (
       <label htmlFor="column-filter">
         Coluna:&nbsp;
@@ -95,6 +100,7 @@ class Table extends React.Component {
       </label>
     );
   }
+  // column filter
 
   renderComparisonSelect() {
     return (
@@ -141,11 +147,10 @@ class Table extends React.Component {
   }
 
   renderFiltersActive() {
-    const { filters } = this.props;
+    const { filters, columnFilter } = this.props;
     const renderedFilters = filters.map(
-      (item) => <p key={item.column}>{`${item.column} ${item.comparison} ${item.value}`}</p>,
+      (item) => <RenderFilters key={item.column} filter={item} />,
     );
-    columnFilter.filter((elem) => elem !== filters.column);
     if (renderedFilters) {
       return (
         <div>
@@ -209,6 +214,7 @@ class Table extends React.Component {
 }
 
 Table.propTypes = {
+  columnFilter: PropTypes.arrayOf(PropTypes.string).isRequired,
   filters: PropTypes.arrayOf(PropTypes.object).isRequired,
   name: PropTypes.string.isRequired,
   requestTable: PropTypes.func.isRequired,
@@ -235,12 +241,15 @@ const mapStateTProps = (state) => ({
   table: state.requestReducer.data,
   name: state.filters.filterByName.name,
   filters: state.filters.filterByNumericValues,
+  columnFilter: state.filters.columnFilter,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   requestTable: () => dispatch(requestAction()),
   search: (e) => dispatch(textChanged(e)),
   selectDispatch: (value) => dispatch(selectChanged(value)),
+  filterColumn: (column) => dispatch(filterColumn(column)),
+  unfilterColumn: (column) => dispatch(unfilterColumn(column)),
 });
 
 export default connect(mapStateTProps, mapDispatchToProps)(Table);

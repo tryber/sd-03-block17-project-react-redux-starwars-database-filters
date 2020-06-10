@@ -1,10 +1,17 @@
-import { SELECT_CHANGED, TEXT_CHANGED } from '../actions';
+import { FILTER_COLUMN, SELECT_CHANGED, TEXT_CHANGED, UNFILTER_COLUMN } from '../actions';
 
 const initialState = {
   filterByName: {
     name: '',
   },
   filterByNumericValues: [],
+  columnFilter: [
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ],
 };
 
 const searchReducer = (state = initialState, action) => {
@@ -22,6 +29,20 @@ const searchReducer = (state = initialState, action) => {
       return {
         ...state,
         filterByNumericValues: [...state.filterByNumericValues.concat(payload)],
+      };
+
+    case UNFILTER_COLUMN:
+      return {
+        ...state,
+        columnFilter: state.columnFilter.filter(
+          (column) => column !== payload,
+        ),
+      };
+
+    case FILTER_COLUMN:
+      return {
+        ...state,
+        columnFilter: [...state.columnFilter, payload],
       };
 
     default:
