@@ -1,7 +1,9 @@
 
 const INITIAL_STATE = {
-  filterByName: { name: '' },
-  filterByNumericValues: [],
+  filters: {
+    filterByName: { name: '' },
+    filterByNumericValues: [],
+  },
 };
 
 function requestReducer(state = INITIAL_STATE, action) {
@@ -22,7 +24,10 @@ function requestReducer(state = INITIAL_STATE, action) {
         );
         return {
           ...state,
-          filteredPlanets: { results: filteredValues },
+          filters: {
+            filterByName: { name },
+            filteredPlanets: { results: filteredValues },
+          },
         };
       }
     // falls through
