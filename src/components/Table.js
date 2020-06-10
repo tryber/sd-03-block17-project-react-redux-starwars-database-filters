@@ -4,26 +4,6 @@ import { connect } from 'react-redux';
 import { fetchData, filterPlanet } from '../action/index';
 
 export class Table extends Component {
-  constructor(props) {
-    super(props);
-    /*   this.retornaSign = this.retornaSign.bind(this);
-  this.filtraData = this.filtraData.bind(this);
-  this.filterDataByName = this.filterDataByName.bind(this);
-  this.renderTableBody = this.renderTableBody.bind(this); */
-    this.fetchUrl = this.fetchUrl.bind(this);
-    // this.renderizaTableBody = this.renderizaTableBody.bind(this);
-  }
-
-  componentDidMount() {
-    this.fetchUrl();
-  }
-
-  async fetchUrl() {
-    const { request } = this.props;
-    await request();
-  }
-
-
   static renderizaTableBody(element) {
     return (
       <tr key={element.name}>
@@ -42,6 +22,25 @@ export class Table extends Component {
         <td>{element.url}</td>
       </tr>
     );
+  }
+
+  constructor(props) {
+    super(props);
+    /*   this.retornaSign = this.retornaSign.bind(this);
+  this.filtraData = this.filtraData.bind(this);
+  this.filterDataByName = this.filterDataByName.bind(this);
+  this.renderTableBody = this.renderTableBody.bind(this); */
+    this.fetchUrl = this.fetchUrl.bind(this);
+    // this.renderizaTableBody = this.renderizaTableBody.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchUrl();
+  }
+
+  async fetchUrl() {
+    const { request } = this.props;
+    await request();
   }
 
   /* retornaSign(comparison) {

@@ -27,6 +27,7 @@ function requestReducer(state = INITIAL_STATE, action) {
       }
     // falls through
     default:
+      return { state };
   }
 }
 export default requestReducer;
