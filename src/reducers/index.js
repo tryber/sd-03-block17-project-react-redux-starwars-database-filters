@@ -16,6 +16,7 @@ function requestReducer(state = INITIAL_STATE, action) {
       console.log(state.data);
       // const filteredPlanets = filtraByName(action, state);
       if (state.data.results !== undefined) {
+        console.log(action);
         const name = action.filters.filterByName.name.toLowerCase();
         // the value passed from our presentational component
         // let value = action;
@@ -24,10 +25,8 @@ function requestReducer(state = INITIAL_STATE, action) {
         );
         return {
           ...state,
-          filters: {
-            filterByName: { name },
-            filteredPlanets: { results: filteredValues },
-          },
+          filter: { ...state.filter, filterByName: { name } },
+          filteredPlanets: { results: filteredValues },
         };
       }
     // falls through

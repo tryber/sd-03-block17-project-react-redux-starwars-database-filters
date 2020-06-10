@@ -104,7 +104,7 @@ filterDataByName(filtername, results) {
     return (
       <div>
         <table>
-          <thead>
+          <thead data-testid="column-sort">
             <tr>
               {headers.map((element) => <th key={element}>{element}</th>)}
             </tr>
