@@ -1,4 +1,4 @@
-import { retornaSign , filtraDataNumeric, sendObject } from '../helpers/functions'
+import {filtraDataNumeric, sendObject } from '../helpers/functions'
 const INITIAL_STATE = {
   filterByName: { name: '' },
   filterByNumericValues: [],
@@ -27,10 +27,9 @@ function requestReducer(state = INITIAL_STATE, action) {
         };
       }
     case 'FILTER_PLANET_NUMERIC' : 
-    // falls through
- 
    const object = sendObject(state,action);
-   return object;    
+   return object;
+   // falls through   
      default:
       return { state };
   }

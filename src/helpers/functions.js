@@ -1,6 +1,6 @@
-const retornaSign = (comparison)=> {
-    let comparisonSignal;
-    if (comparison === 'maior que') {
+const retornaSign = (comparison) => {
+  let comparisonSignal;
+  if (comparison === 'maior que') {
       comparisonSignal = 0;
       return comparisonSignal;
     } if (comparison === 'menor que') {
@@ -10,9 +10,10 @@ const retornaSign = (comparison)=> {
       comparisonSignal = 2;
       return comparisonSignal;
     }
-  }
-  
-  const filtraDataNumeric = (comparisonSignal, results, column, value) =>  { 
+    return null;
+};
+
+const filtraDataNumeric = (comparisonSignal, results, column, value) =>  { 
           if (comparisonSignal === 0) {
           return results.filter((element) => element[column] > value);
         } if (comparisonSignal === 1) {
