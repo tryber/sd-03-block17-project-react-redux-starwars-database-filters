@@ -1,4 +1,4 @@
-import { retornaSign , filtraDataNumeric } from '../helpers/functions'
+import { retornaSign , filtraDataNumeric, sendObject } from '../helpers/functions'
 const INITIAL_STATE = {
   filterByName: { name: '' },
   filterByNumericValues: [],
@@ -28,24 +28,9 @@ function requestReducer(state = INITIAL_STATE, action) {
       }
     case 'FILTER_PLANET_NUMERIC' : 
     // falls through
-    const sign = retornaSign(action.comparison);
-    let filteredValues = null;
-    console.log(state.filteredPlanets)
-    if(state.filteredPlanets === undefined ) {
-      console.log("entrou no if")
-      filteredValues = filtraDataNumeric(sign,state.data.results,action.column,action.value);
-      return {
-        ...state,
-        filteredPlanets: { results: filteredValues },
-      };
-    } else {
-       filteredValues = filtraDataNumeric(sign,state.filteredPlanets.results,action.column,action.value);
-      return {
-        ...state,
-        filteredPlanets: { results: filteredValues },
-      };
-    }
-    
+ 
+   const object = sendObject(state,action);
+   return object;    
      default:
       return { state };
   }

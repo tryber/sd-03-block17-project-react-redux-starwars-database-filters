@@ -23,5 +23,14 @@ const retornaSign = (comparison)=> {
         return results;
       }
   
+      const sendObject = (state,action) =>  {
+        const sign = retornaSign(action.comparison);
+        let filteredValues = null;
+                filteredValues = filtraDataNumeric(sign,state.data.results,action.column,action.value);
+          return {
+            ...state,
+            filteredPlanets: { results: filteredValues },
+          };
+      }  
 
-    export  { retornaSign , filtraDataNumeric } ;
+    export  { retornaSign , filtraDataNumeric , sendObject } ;
