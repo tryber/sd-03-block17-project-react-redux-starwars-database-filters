@@ -27,7 +27,7 @@ function activeFiltersReturn(state, action) {
 }
 
 function filters(state = INITIAL_STATE, action) {
-  const { data, filters } = state;
+  const { data } = state;
   switch (action.type) {
     case REQUEST_PLANETS:
       return {
@@ -39,7 +39,7 @@ function filters(state = INITIAL_STATE, action) {
     case FILTER_BY_NAME:
       return {
         ...state,
-        filters: { ...filters, filterByName: { name: action.name } },
+        filters: { ...state.filters, filterByName: { name: action.name } },
         data: data.filter((planet) => planet.name.includes(action.name)),
       };
     case ACTIVATE_FILTERS:
