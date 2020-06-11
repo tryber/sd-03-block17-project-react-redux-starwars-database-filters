@@ -14,6 +14,11 @@ function columnFilter(filterValue, option) {
 class NavigationBar extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      comparison: '',
+      column: '',
+      value: '',
+    };
     this.sideBar = this.sideBar.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -56,7 +61,7 @@ class NavigationBar extends React.Component {
 
   render() {
     const { selectImput } = this.props;
-    const actualState = this.state;
+    const usa = this.state;
     return (
       <div>
         {this.sideBar()}
@@ -64,7 +69,7 @@ class NavigationBar extends React.Component {
           <button
             type="button"
             data-testid="button-filter"
-            onClick={() => selectImput(actualState)}
+            onClick={() => selectImput(usa)}
           >
             Filtrar
           </button>
@@ -92,15 +97,5 @@ NavigationBar.propTypes = {
       column: PropTypes.string,
       value: PropTypes.string,
     }),
-  ),
-};
-
-NavigationBar.defaultProps = {
-  filterValue: PropTypes.arrayOf(
-    PropTypes.shape({
-      comparison: '',
-      column: '',
-      value: '',
-    }),
-  ),
+  ).isRequired,
 };

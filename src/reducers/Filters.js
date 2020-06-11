@@ -3,7 +3,7 @@ import { NUMERIC_FILTER } from '../actions/NumericFIlterAction';
 import { REMOVE_FILTER } from '../actions/RemoveFIlterAction';
 
 const INITIAL_STATE = {
-  filteByName: {
+  filterByName: {
     name: '',
   },
   filterByNumericValues: [
@@ -20,22 +20,22 @@ const filters = (state = INITIAL_STATE, action) => {
     case NAME_FILTER:
       return {
         ...state,
-        filteByName: {
-          searchText: action.text,
+        filterByName: {
+          name: action.value,
         },
       };
     case NUMERIC_FILTER:
       return {
         ...state,
         filterByNumericValues: (state.filterByNumericValues[0].column === '')
-          ? [{ ...action.numberSearch }]
-          : [...state.filterByNumericValues.concat(action.numberSearch)],
+          ? [{ ...action.payload }]
+          : [...state.filterByNumericValues.concat(action.payload)],
       };
     case REMOVE_FILTER:
       return {
         ...state,
         filterByNumericValues:
-          [...state.filterByNumericValues.filter((elem) => elem !== action.exclude)],
+          [...state.filterByNumericValues.filter((filter) => filter !== action.value)],
       };
     default:
       return state;

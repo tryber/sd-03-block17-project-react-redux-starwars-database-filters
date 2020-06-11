@@ -28,47 +28,40 @@ class Table extends React.Component {
     APIDispatch();
   }
 
-  planetFilter(planetsList) {
-    const { searchText } = this.props;
-    if (searchText !== '') {
-      return planetsList.filter(({ name }) => name.planetsList
-        .toLowerCase().includes(planetsList.toLowerCase()));
-    }
-    return planetsList;
-  }
-
-  selectedFilters(planetsList) {
+  selectedFilters(data) {
     const { selectedImput } = this.props;
     if (selectedImput) {
       return selectedImput.reduce((acc, { column, comparison, value }) => acc
         .filter((planet) => comparasionChosed(column, comparison, value, planet)),
-      this.planetFilter(planetsList));
+      this.planetFilter(data));
     }
-    return this.planetFilter(planetsList);
+    return this.planetFilter(data);
+  }
+
+  planetFilter(data) {
+    const { searchText } = this.props;
+    if (searchText !== '') {
+      return data.filter(({ name }) => name.toLowerCase().includes(data.toLowerCase()));
+    }
+    return data;
   }
 
   render() {
-    const { planetsList, loading } = this.props;
-    if (!loading) {
-      return (
-        <div>
-          <div>
-            <SearchImputs />
-            <NavigationBar />
-            <Remover />
-          </div>
-          <div>
-            <table>
-              <TableHead />
-              <TableBody planetsList={this.selectedImput(planetsList)} />
-            </table>
-          </div>
-        </div>
-      );
-    }
+    const { data, loading } = this.props;
     return (
       <div>
-        <h1>Loading...</h1>
+        <div>
+          <SearchImputs />
+          <NavigationBar />
+          <Remover />
+        </div>
+        <div>
+          <table>
+            <TableHead />
+            <TableBody data={this.selectedFilters(data)} />
+          </table>
+        </div>
+        {loading && <h1>loading....</h1>}
       </div>
     );
   }
@@ -79,9 +72,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  planetsList: state.APIReducer.data,
+  data: state.APIReducer.data,
   loading: state.APIReducer.loading,
-  searchText: state.filters.filterByName.searchText,
+  searchText: state.filters.filterByName.name,
   selectedImput: state.filters.filterByNumericValues,
 });
 
@@ -89,7 +82,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Table);
 
 Table.propTypes = {
   APIDispatch: PropTypes.func.isRequired,
-  planetsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   searchText: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
   selectedImput: PropTypes.arrayOf(

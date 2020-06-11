@@ -1,6 +1,6 @@
 export const NUMERIC_FILTER = 'NUMERIC_FILTER';
 
-export const filterByNumber = (numberSearch) => ({
+export const filterByNumber = (usa) => ({
   type: NUMERIC_FILTER,
-  numberSearch,
+  payload: usa,
 });

@@ -1,35 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TableBody = (props) => {
-  const { planetsList } = props;
+export default function TableBody(props) {
+  const { data } = props;
   return (
     <tbody>
-      {planetsList.map((planets) => (
-        <tr key={planets.name}>
-          <th>{planets.name}</th>
-          <th>{planets.rotation_period}</th>
-          <th>{planets.orbital_period}</th>
-          <th>{planets.diameter}</th>
-          <th>{planets.climate}</th>
-          <th>{planets.gravity}</th>
-          <th>{planets.terrain}</th>
-          <th>{planets.surface_water}</th>
-          <th>{planets.population}</th>
-          <th>{planets.films}</th>
-          <th>{planets.created}</th>
-          <th>{planets.edited}</th>
-          <th>{planets.url}</th>
+      {data.map((planet) => (
+        <tr key={planet.name}>
+          <th>{planet.name}</th>
+          <th>{planet.rotation_period}</th>
+          <th>{planet.orbital_period}</th>
+          <th>{planet.diameter}</th>
+          <th>{planet.climate}</th>
+          <th>{planet.gravity}</th>
+          <th>{planet.terrain}</th>
+          <th>{planet.surface_water}</th>
+          <th>{planet.population}</th>
+          <th>{planet.films}</th>
+          <th>{planet.created}</th>
+          <th>{planet.edited}</th>
+          <th>{planet.url}</th>
         </tr>
       ))}
     </tbody>
   );
-};
-
-export default TableBody;
+}
 
 TableBody.propTypes = {
-  planetsList: PropTypes.arrayOf(
+  data: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       rotation_period: PropTypes.string,

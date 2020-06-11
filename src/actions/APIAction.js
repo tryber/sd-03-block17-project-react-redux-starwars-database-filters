@@ -1,4 +1,4 @@
-import APIRequest from '../service/APIRequest';
+import RootAPI from '../service/RootAPI';
 
 export const API_REQUEST = 'API_REQUEST';
 export const API_REQUEST_SUCCESS = 'API_REQUEST_SUCCESS';
@@ -16,7 +16,7 @@ export function getAPIData() {
   return (dispatch) => {
     dispatch(APIControl());
 
-    return APIRequest()
+    return RootAPI()
       .then(
         (data) => dispatch(APIRequestSuccess(data)),
       );

@@ -1,6 +1,6 @@
 export const REMOVE_FILTER = 'REMOVE_FILTER';
 
-export const removeFilters = (exclude) => ({
+export const removeFilters = (value) => ({
   type: REMOVE_FILTER,
-  exclude,
+  value,
 });

@@ -16,8 +16,8 @@ class Remove extends React.Component {
         key={list.column}
         data-testid="filter"
       >
-        <span>{list.comparison}</span>
         <span>{list.column}</span>
+        <span>{list.comparison}</span>
         <span>{list.value}</span>
         <button
           type="button"
@@ -35,7 +35,7 @@ class Remove extends React.Component {
     return (
       <div>
         <h1>Used Filters</h1>
-        {infoFilters.map((filter) => this.displayFilters(filter))}
+        {infoFilters.map((filter) => this.display(filter))}
       </div>
     );
   }
