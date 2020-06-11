@@ -4,19 +4,21 @@ class TableHead extends React.Component {
   render() {
     return (
       <thead>
-        <th>Name</th>
-        <th>Rotation Period</th>
-        <th>Orbital Period</th>
-        <th>Diameter</th>
-        <th>Climate</th>
-        <th>Gravity</th>
-        <th>Terrain</th>
-        <th>Surface Water</th>
-        <th>Population</th>
-        <th>Films</th>
-        <th>Created</th>
-        <th>Edited</th>
-        <th>URL</th>
+        <tr>
+          <th key="Name">Name</th>
+          <th key="Rotation">Rotation Period</th>
+          <th key="Orbital">Orbital Period</th>
+          <th key="Diameter">Diameter</th>
+          <th key="Climate">Climate</th>
+          <th key="Gravity">Gravity</th>
+          <th key="Terrain">Terrain</th>
+          <th key="Surface">Surface Water</th>
+          <th key="Population">Population</th>
+          <th key="Films">Films</th>
+          <th key="Created">Created</th>
+          <th key="Edited">Edited</th>
+          <th key="URL">URL</th>
+        </tr>
       </thead>
     );
   }
