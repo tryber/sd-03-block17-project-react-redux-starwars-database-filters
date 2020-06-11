@@ -31,7 +31,7 @@ class NavigationBar extends React.Component {
             data-testid="column-filter"
             onChange={(elem) => this.handleChange('column', elem.target.value)}
           >
-            <option value=""> </option>
+            <option value="" />
             {columns.map((column) => (columnFilter(filterValue, column)
               && (<option key={column}>{column}</option>)
             ))}
