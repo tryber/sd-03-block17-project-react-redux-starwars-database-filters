@@ -23,26 +23,24 @@ class FilterBar extends React.Component {
 
   concatFilters() {
     const { filters, data } = this.props;
-    return filters.filterByNumericValues.reduce((acumulator, {column, comparison, value }) => {
-      return acumulator.reduce((dataFiltered, planet) => {
-        if (comparison === 'maior que') {
-          if ((parseInt(planet[column])) > parseInt(value)) {
-            dataFiltered.push(planet);
-          }
-        }
-        else if (comparison === 'menor que') {
-          if (parseInt(planet[column]) < parseInt(value)) {
-            dataFiltered.push(planet);
-          }
-        }
-        else {
-          if (parseInt(planet[column]) === parseInt(value)) {
-            dataFiltered.push(planet);
-          }
-        }
-        return dataFiltered;
-      }, []);
-    }, data);
+    return (
+      filters.filterByNumericValues
+        .reduce((acumulator, { column, comparison, value }) => acumulator
+          .reduce((dataFiltered, planet) => {
+            if (comparison === 'maior que') {
+              if ((parseInt(planet[column], 10)) > parseInt(value, 10)) {
+                dataFiltered.push(planet);
+              }
+            } else if (comparison === 'menor que') {
+              if (parseInt(planet[column], 10) < parseInt(value, 10)) {
+                dataFiltered.push(planet);
+              }
+            } else if (parseInt(planet[column], 10) === parseInt(value, 10)) {
+              dataFiltered.push(planet);
+            }
+            return dataFiltered;
+          }, []), data)
+    );
   }
 
   activateFilter() {
@@ -70,7 +68,9 @@ class FilterBar extends React.Component {
       <div>
         <input
           onChange={this.handleInput}
-          data-testid="value-filter"type="number" placeholder="Digite um Número"
+          data-testid="value-filter"
+          type="number"
+          placeholder="Digite um Número"
         />
         <button data-testid="button-filter" onClick={this.activateFilter}>Filtrar</button>
       </div>
@@ -84,7 +84,9 @@ class FilterBar extends React.Component {
         <form>
           <input
             onChange={(event) => filterByNameTo(event.target.value)}
-            data-testid="name-filter"type="text" placeholder="Filtro"
+            data-testid="name-filter"
+            type="text"
+            placeholder="Filtro"
           />
         </form>
         <div>
@@ -107,7 +109,6 @@ class FilterBar extends React.Component {
       </div>
     );
   }
-
 }
 
 const mapDispatchToProps = (dispatch) => ({

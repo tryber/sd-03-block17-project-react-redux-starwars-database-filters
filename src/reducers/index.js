@@ -3,7 +3,8 @@ import {
   RECEIVE_PLANETS,
   FILTER_BY_NAME,
   ACTIVATE_FILTERS,
-  FILTER_BY_COLUMN } from '../actions';
+  FILTER_BY_COLUMN,
+} from '../actions';
 
 const INITIAL_STATE = {
   isFetching: false,
@@ -20,7 +21,8 @@ function activeFiltersReturn(state, action) {
       filterByNumericValues: [
         ...filterByNumericValues,
         action.payload.actualFilters,
-      ] },
+      ],
+    },
   };
 }
 
@@ -33,7 +35,7 @@ function filters(state = INITIAL_STATE, action) {
         isFetching: true,
       };
     case RECEIVE_PLANETS:
-      return { ...state, isFetching: false, data: action.data.results, };
+      return { ...state, isFetching: false, data: action.data.results };
     case FILTER_BY_NAME:
       return {
         ...state,
