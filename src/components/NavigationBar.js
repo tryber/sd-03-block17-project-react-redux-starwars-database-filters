@@ -14,11 +14,6 @@ function columnFilter(filterValue, option) {
 class NavigationBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      comparison: '',
-      column: '',
-      value: '',
-    };
     this.sideBar = this.sideBar.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -32,7 +27,7 @@ class NavigationBar extends React.Component {
     return (
       <header>
         <nav>
-          <selec
+          <select
             data-testid="column-filter"
             onChange={(elem) => this.handleChange('column', elem.target.value)}
           >
@@ -40,15 +35,15 @@ class NavigationBar extends React.Component {
             {columns.map((column) => (columnFilter(filterValue, column)
               && (<option key={column}>{column}</option>)
             ))}
-          </selec>
-          <selec
+          </select>
+          <select
             data-testid="comparison-filter"
             onChange={(elem) => this.handleChange('comparison', elem.target.value)}
           >
             {comparisons.map((comparison) => (
               <option key={comparison}>{comparison}</option>
             ))}
-          </selec>
+          </select>
           <input
             type="number"
             data-testid="value-filter"

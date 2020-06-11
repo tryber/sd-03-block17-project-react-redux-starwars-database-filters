@@ -41,7 +41,7 @@ class Table extends React.Component {
   planetFilter(data) {
     const { searchText } = this.props;
     if (searchText !== '') {
-      return data.filter(({ name }) => name.toLowerCase().includes(data.toLowerCase()));
+      return data.filter(({ name }) => name.toLowerCase().includes(searchText.toLowerCase()));
     }
     return data;
   }
