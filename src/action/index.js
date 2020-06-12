@@ -4,7 +4,7 @@ export const filterPlanet = (filter) => ({ type: 'FILTER_PLANET_DATA', filters: 
 export const filterNumeric = (column, comparison, value) => ({
   type: 'FILTER_PLANET_NUMERIC',
   column,
-  comparison, 
+  comparison,
   value,
 });
 

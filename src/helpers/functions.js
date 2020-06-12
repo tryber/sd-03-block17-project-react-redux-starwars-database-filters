@@ -17,10 +17,10 @@ const filtraData = (comparisonSignal, results, column, value) => {
   if (comparisonSignal === 0) {
     return results.filter((element) => element[column] > value);
   } if (comparisonSignal === 1) {
-      return results.filter((element) => element[column] < value);
-    } if (comparisonSignal === 2) {
-        return results.filter((element) => element[column] === value);
-          }
+    return results.filter((element) => element[column] < value);
+  } if (comparisonSignal === 2) {
+      return results.filter((element) => element[column] === value);
+    }
   return results;
 };
 
@@ -29,9 +29,9 @@ const sendObject = (state, action) => {
   let filteredValues = null;
   filteredValues = filtraData(sign, state.data.results, action.column, action.value);
   return {
-          ...state,
-          filteredPlanets: { results: filteredValues },
-        };
+    ...state,
+    filteredPlanets: { results: filteredValues },
+  };
 };
 
 export { retornaSign, filtraData, sendObject };
