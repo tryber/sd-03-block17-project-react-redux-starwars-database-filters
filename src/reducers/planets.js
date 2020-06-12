@@ -1,5 +1,5 @@
 
-import { REQUEST_PLANETS, PLANETS_SUCCESS, PLANETS_FAILURE } from '../actions/actions';
+import { REQUEST_PLANETS, PLANETS_SUCCESS, PLANETS_FAILURE } from '../actions';
 
 const INITIAL_STATE = {
   isFetching: false,

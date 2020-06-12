@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { removeFilterNumeric } from '../actions/actions';
+import { removeFilterNumeric } from '../actions';
 
 function RemoveFilter({ numericValues, removeNumeric }) {
   const onClick = (type) => removeNumeric(type);

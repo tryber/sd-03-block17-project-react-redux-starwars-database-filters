@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filterByName, orderColumns } from '../actions/actions';
+import { filterByName, orderColumns } from '../actions';
 import FilterValue from './FilterValue';
 
 class Input extends React.Component {

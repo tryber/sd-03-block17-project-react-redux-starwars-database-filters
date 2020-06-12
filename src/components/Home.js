@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Table from './Table';
 import Remove from './Remove';
 import Input from './Input';
-import { requestFetch } from '../actions/actions';
+import { requestFetch } from '../actions';
 
 class Home extends React.Component {
 
