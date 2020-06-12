@@ -1,4 +1,5 @@
-import {filtraDataNumeric, sendObject } from '../helpers/functions'
+import { sendObject } from '../helpers/functions';
+
 const INITIAL_STATE = {
   filterByName: { name: '' },
   filterByNumericValues: [],
@@ -26,12 +27,12 @@ function requestReducer(state = INITIAL_STATE, action) {
           filteredPlanets: { results: filteredValues },
         };
       }
-    case 'FILTER_PLANET_NUMERIC' : 
+    case 'FILTER_PLANET_NUMERIC' : {
    const object = sendObject(state,action);
    return object;
    // falls through   
      default:
       return { state };
-  }
+  }}
 }
 export default requestReducer;
