@@ -30,7 +30,12 @@ function requestReducer(state = INITIAL_STATE, action) {
       break;
     case 'FILTER_PLANET_NUMERIC' : {
       const object = sendObject(state, action);
-      return object;
+      const { column, comparison, value } = action;
+      return {
+        ...state,
+        filters: { filterByNumericValues: [{column, comparison, value }] },
+        filteredPlanets: { results: object },
+      };
     }
    // falls through
     default:
