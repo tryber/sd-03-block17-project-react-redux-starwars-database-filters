@@ -33,7 +33,6 @@ export function apiData(state = inicialState, action) {
   switch (action.type) {
     case DATA_API: return { ...state, data: action.data, showResults: true };
     case SORT: return { ...state, showResults: true, ...action.obj };
-    case RECEIVE_ISS_LOCATION_FAILURE: return { ...state, data: action.error };
     case NAME_SEARCHED:
       return {
         ...state,

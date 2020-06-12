@@ -132,7 +132,9 @@ class ValueFilters extends Component {
         <input
           type="button"
           data-testid="column-sort-button"
-          onClick={() => test(this.changeSort(orderProp, test, order), { column: orderColumn, order })}
+          onClick={() => test(
+            this.changeSort(orderProp, test, order), { column: orderColumn, order }
+          )}
         />
       </div>
     );
