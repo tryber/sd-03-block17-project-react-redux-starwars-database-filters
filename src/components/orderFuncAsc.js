@@ -1,4 +1,3 @@
-
 import filterFunc from './filterFunc';
 
 const orderName = (array) => (

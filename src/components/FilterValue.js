@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filterByNumericValues } from '../actions';
+import { filterByNumericValues } from '../action';
 
 class FilterValue extends React.Component {
   constructor(props) {

@@ -32,7 +32,7 @@ function Body({ planets, name, numericValues, columnSort, sort }) {
 
 const mapStateToProps = (state) => (
   {
-    planets: state.getPlanets.data,
+    planets: state.ReducerPlanets.data,
     name: state.filters.filterByName.name,
     numericValues: state.filters.filterByNumericValues,
     columnSort: state.filters.order.column,
@@ -74,4 +74,3 @@ Body.propTypes = {
   columnSort: PropTypes.string.isRequired,
   sort: PropTypes.string.isRequired,
 };
-

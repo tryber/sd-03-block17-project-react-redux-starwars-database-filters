@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
-import getPlanets from './planets';
+
+import ReducerPlanets from './ReducerPlanets';
 import filters from './filters';
 
-const rootReducer = combineReducers({ getPlanets, filters });
+const rootReducer = combineReducers({ ReducerPlanets, filters });
 
 export default rootReducer;

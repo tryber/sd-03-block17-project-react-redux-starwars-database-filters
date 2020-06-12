@@ -1,8 +1,8 @@
-import apiPlanets from '../service/api';
+import apiPlanets from '../services/required';
 
 export const REQUEST_PLANETS = 'REQUEST_PLANETS';
-export const PLANETS_SUCCESS = 'SUCCESS_PLANETS';
-export const PLANETS_FAILURE = 'FAILURE_PLANETS';
+export const SUCCESS_PLANETS = 'SUCCESS_PLANETS';
+export const FAILURE_PLANETS = 'FAILURE_PLANETS';
 export const FILTER_BY_NAME = 'FILTER_BY_NAME';
 export const FILTER_BY_NUMERIC = 'FILTER_BY_NUMERIC';
 export const REMOVE_NUMERIC = 'REMOVE_NUMERIC';
@@ -14,12 +14,12 @@ const resquestPlanets = () => ({
 
 const successPlanets = (data) =>
   ({
-    type: PLANETS_SUCCESS,
+    type: SUCCESS_PLANETS,
     data,
   });
 
 const failurePlanets = (error) => ({
-  type: PLANETS_FAILURE,
+  type: FAILURE_PLANETS,
   error,
 });
 

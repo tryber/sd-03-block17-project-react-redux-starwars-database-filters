@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Table from './Table';
-import Remove from './Remove';
+import RemoveFilter from './RemoveFilter';
 import Input from './Input';
-import { requestFetch } from '../actions';
+import { requestFetch } from '../action';
 
 class Home extends React.Component {
 
@@ -19,7 +19,7 @@ class Home extends React.Component {
       <div>
         <h1>StarWars Datatable with Filters</h1>
         <Input />
-        <Remove />
+        <RemoveFilter />
         <Table />
       </div>
     );
@@ -27,7 +27,7 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  loading: state.getPlanets.isFetching,
+  loading: state.ReducerPlanets.isFetching,
 });
 
 const mapDispatchToProps = (dispatch) => ({

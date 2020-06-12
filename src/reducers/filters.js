@@ -1,4 +1,4 @@
-import { FILTER_BY_NAME, FILTER_BY_NUMERIC, REMOVE_NUMERIC, ORDER_COLUMN } from '../actions';
+import { FILTER_BY_NAME, FILTER_BY_NUMERIC, REMOVE_NUMERIC, ORDER_COLUMN } from '../action';
 
 const INITIAL_STATE = {
   filterByName: { name: '' },
