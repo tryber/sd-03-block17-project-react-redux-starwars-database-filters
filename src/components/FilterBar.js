@@ -6,12 +6,33 @@ import { filterByName, activateFilters, filterByNumberValues } from '../actions'
 class FilterBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { actualFilters: { column: '', comparison: '', value: '' } };
+    this.state = {
+      actualFilters: { column: '', comparison: '', value: '' },
+      // disabled: {
+      //   population: false,
+      //   orbital: false,
+      //   diameter: false,
+      //   rotation: false,
+      //   water: false,
+      // },
+    };
     this.handleSelectColumn = this.handleSelectColumn.bind(this);
     this.handleInterval = this.handleInterval.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.activateFilter = this.activateFilter.bind(this);
   }
+
+  // disableButtons() {
+  //   this.setState(() => ({
+  //     disabled: {
+  //       population: this.checkButton('population'),
+  //       orbital: this.checkButton('orbital_period'),
+  //       diameter: this.checkButton('diameter'),
+  //       rotation: this.checkButton('rotation_period'),
+  //       water: this.checkButton('surface_water'),
+  //     },
+  //   }));
+  // }
 
   componentDidUpdate(prevProps) {
     if (prevProps.filters !== this.props.filters) {
@@ -20,6 +41,10 @@ class FilterBar extends React.Component {
       filterByNumberValuesTo({ data: [...newDataFiltered] });
     }
   }
+
+  // componentDidMount() {
+  //   this.disableButtons();
+  // }
 
   concatFilters() {
     const { filters, data } = this.props;
@@ -42,6 +67,12 @@ class FilterBar extends React.Component {
           }, []), data)
     );
   }
+
+  // checkButton(string) {
+  //   const { disableds } = this.props;
+  //   console.log(disableds.some((disabled) => disabled === string));
+  //   return disableds.some((disabled) => disabled === string);
+  // }
 
   activateFilter() {
     const { activateFiltersTo } = this.props;
@@ -77,27 +108,65 @@ class FilterBar extends React.Component {
     );
   }
 
-  render() {
+  renderForm() {
     const { filterByNameTo } = this.props;
     return (
+      <form>
+        <input
+          onChange={(event) => filterByNameTo(event.target.value)}
+          data-testid="name-filter"
+          type="text"
+          placeholder="Filtro"
+        />
+      </form>
+    );
+  }
+
+  renderColumns() {
+    const { filters: { filterByNumericValues } } = this.props;
+    const columns = [
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ];
+    return (
+      <select data-testid="column-filter" onChange={this.handleSelectColumn}>
+        <option value="Coluna">Coluna</option>
+        {filterByNumericValues.every(({ column }) => column !== columns[0])
+          && <option value="population">population</option>}
+        {filterByNumericValues.every(({ column }) => column !== columns[1])
+          && <option value="orbital_period">orbital_period</option>}
+        {filterByNumericValues.every(({ column }) => column !== columns[2])
+          && <option value="diameter">diameter</option>}
+        {filterByNumericValues.every(({ column }) => column !== columns[3])
+          && <option value="rotation_period">rotation_period</option>}
+        {filterByNumericValues.every(({ column }) => column !== columns[4])
+          && <option value="surface_water">surface_water</option>}
+      </select>
+    );
+  }
+
+  render() {
+    // const {
+    //   disabled: {
+    //     population, orbital, diameter, rotation, water,
+    //   },
+    // } = this.state;
+    return (
       <div>
-        <form>
-          <input
-            onChange={(event) => filterByNameTo(event.target.value)}
-            data-testid="name-filter"
-            type="text"
-            placeholder="Filtro"
-          />
-        </form>
+        {this.renderForm()}
         <div>
-          <select data-testid="column-filter" onChange={this.handleSelectColumn}>
+          {this.renderColumns()}
+          {/* <select data-testid="column-filter" onChange={this.handleSelectColumn}>
             <option value="Coluna">Coluna</option>
             <option value="population">population</option>
             <option value="orbital_period">orbital_period</option>
             <option value="diameter">diameter</option>
             <option value="rotation_period">rotation_period</option>
             <option value="surface_water">surface_water</option>
-          </select>
+          </select> */}
           <select data-testid="comparison-filter" onChange={this.handleInterval}>
             <option value="Select">Intervalo</option>
             <option value="maior que">maior que</option>

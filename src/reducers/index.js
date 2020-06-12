@@ -10,19 +10,22 @@ const INITIAL_STATE = {
   isFetching: false,
   filters: { filterByName: { name: '' }, filterByNumericValues: [] },
   data: [],
+  disabled: [],
 };
 
 function activeFiltersReturn(state, action) {
   const { filters: { filterByNumericValues } } = state;
+  const { payload: { actualFilters } } = action;
   return {
     ...state,
     filters: {
       ...state.filters,
       filterByNumericValues: [
         ...filterByNumericValues,
-        action.payload.actualFilters,
+        actualFilters,
       ],
     },
+    disabled: [...state.disabled, actualFilters.column],
   };
 }
 
