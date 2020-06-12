@@ -30,6 +30,7 @@ function requestReducer(state = INITIAL_STATE, action) {
     case 'FILTER_PLANET_NUMERIC' : {
    const object = sendObject(state,action);
    return object;
+    }
    // falls through   
      default:
       return { state };

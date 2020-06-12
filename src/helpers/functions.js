@@ -16,22 +16,22 @@ const retornaSign = (comparison) => {
 const filtraData = (comparisonSignal, results, column, value) => {
   if (comparisonSignal === 0) {
     return results.filter((element) => element[column] > value);
-    } if (comparisonSignal === 1) {
-            return results.filter((element) => element[column] < value);
-          } if (comparisonSignal === 2) {
-          return results.filter((element) => element[column] === value);
-        }
+  } if (comparisonSignal === 1) {
+      return results.filter((element) => element[column] < value);
+    } if (comparisonSignal === 2) {
+        return results.filter((element) => element[column] === value);
+          }
   return results;
 };
 
 const sendObject = (state, action) => {
-        const sign = retornaSign(action.comparison);
-        let filteredValues = null;
-        filteredValues = filtraData(sign, state.data.results, action.column, action.value);
-        return {
-            ...state,
-            filteredPlanets: { results: filteredValues },
-          };
-      }; 
+  const sign = retornaSign(action.comparison);
+  let filteredValues = null;
+  filteredValues = filtraData(sign, state.data.results, action.column, action.value);
+  return {
+          ...state,
+          filteredPlanets: { results: filteredValues },
+        };
+};
 
-export { retornaSign, filtraDataNumeric, sendObject } ;
+export { retornaSign, filtraData, sendObject };

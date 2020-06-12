@@ -3,9 +3,9 @@ export const receiveData = (data) => ({ type: 'RECEIVE_DATA', data });
 export const filterPlanet = (filter) => ({ type: 'FILTER_PLANET_DATA', filters: { filterByName: { name: filter } } });
 export const filterNumeric = (column, comparison, value) => ({
   type: 'FILTER_PLANET_NUMERIC',
-  column, 
+  column,
   comparison, 
-  value 
+  value,
 });
 
 export function fetchData() {
