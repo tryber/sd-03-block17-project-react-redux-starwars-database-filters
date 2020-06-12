@@ -13,7 +13,7 @@ function requestReducer(state = INITIAL_STATE, action) {
     case 'RECEIVE_DATA':
       return { ...state, data: action.data };
     case 'FILTER_PLANET_DATA':
-       // const filteredPlanets = filtraByName(action, state);
+      // const filteredPlanets = filtraByName(action, state);
       if (state.data.results !== undefined) {
         const name = action.filters.filterByName.name.toLowerCase();
         // the value passed from our presentational component
@@ -37,7 +37,7 @@ function requestReducer(state = INITIAL_STATE, action) {
         filteredPlanets: { results: object },
       };
     }
-   // falls through
+    // falls through
     default:
       return { state };
   }
