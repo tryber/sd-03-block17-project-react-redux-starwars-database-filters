@@ -1,21 +1,18 @@
 const INITIAL_STATE = {
   data: [],
-  error: '',
   isFetching: false,
   filters: {
     filterByName: {
       name: '',
+      isFiltered: false,
+    },
+    filterByNumericValues: [],
+    order: {
+      column: 'Name',
+      sort: 'ASC',
     },
   },
-  filterByNumericValues: [
-    {
-      column: 'population',
-      comparison: 'maior que',
-      value: '100000',
-    },
-  ],
 };
-
 
 const getPlanetsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -30,18 +27,30 @@ const getPlanetsReducer = (state = INITIAL_STATE, action) => {
         data: action.data,
         isFetching: false,
       };
-    case 'RECEIVE_PLANETS_FAILURE':
-      return {
-        error: action.error,
-      };
     case 'FILTER_BY_NAME':
       return {
         ...state,
         filters: {
+          ...state.filters,
           filterByName: {
             name: action.name,
             isFiltered: true,
           },
+        },
+      };
+    case 'FILTER_BY_NUMERIC_VALUES':
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          filterByNumericValues: [
+            ...state.filters.filterByNumericValues,
+            {
+              column: action.column,
+              comparison: action.comparison,
+              value: action.value,
+            },
+          ],
         },
       };
     default:
