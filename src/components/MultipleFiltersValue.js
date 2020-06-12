@@ -3,22 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 const apiResults = (value) => value.map((row) => (
-  <tr key={row.name}>
-    <td>{row.map((el) => <tr>{el.name}</tr>)}</td>
-    <td>{row.map((el) => <tr>{el.rotation_period}</tr>)}</td>
-    <td>{row.map((el) => <tr>{el.orbital_period}</tr>)}</td>
-    <td>{row.map((el) => <tr>{el.diameter}</tr>)}</td>
-    <td>{row.map((el) => <tr>{el.diameter}</tr>)}</td>
-    <td>{row.map((el) => <tr>{el.climate}</tr>)}</td>
-    <td>{row.map((el) => <tr>{el.gravity}</tr>)}</td>
-    <td>{row.map((el) => <tr>{el.terrain}</tr>)}</td>
-    <td>{row.map((el) => <tr>{el.surface_water}</tr>)}</td>
-    <td>{row.map((el) => <tr>{el.population}</tr>)}</td>
-    <td>{row.map((el) => <tr>{el.films}</tr>)}</td>
-    <td>{row.map((el) => <tr>{el.created}</tr>)}</td>
-    <td>{row.map((el) => <tr>{el.edited}</tr>)}</td>
-    <td>{row.map((el) => <tr>{el.url}</tr>)}</td>
-  </tr>
+  row.map((el) => (
+    <tr key={el}>
+      <td>{el.name}</td>
+      <td>{el.climate}</td>
+      <td>{el.created}</td>
+      <td>{el.diameter}</td>
+      <td>{el.edited}</td>
+      <td>{el.films}</td>
+      <td>{el.gravity}</td>
+      <td>{el.orbital_period}</td>
+      <td>{el.population}</td>
+      <td>{el.rotation_period}</td>
+      <td>{el.surface_water}</td>
+      <td>{el.terrain}</td>
+      <td>{el.url}</td>
+    </tr>
+  ))
 ));
 
 const objectAccess = (value, access, optionMap, test) => {
@@ -47,6 +48,9 @@ const multipleFilters = (value, planet, comparison, filterByOption) => {
         filterByOption.map((el) => el.value), filterByOption.map((el, index) => el && index));
     case 'diameter':
       return objectAccess(comparison, planet.diameter, filterByOption.map((el) => el.value),
+        filterByOption.map((el, index) => el && index));
+    case 'surface_water':
+      return objectAccess(comparison, planet.surface_water, filterByOption.map((el) => el.value),
         filterByOption.map((el, index) => el && index));
     default:
       return false;

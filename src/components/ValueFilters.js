@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { optionPopulation, erase } from '../actions/apiTbela';
+import { optionPopulation, erase, sort } from '../actions/apiTbela';
 
 const options = (value) => value.columnFilters.map((row) => {
   if (row.avaliable) return <option value={`${row.name}`}>{row.name}</option>;
@@ -51,17 +51,92 @@ class ValueFilters extends Component {
       population: 'population',
       value: 'igual a',
       numbOfPop: '200000',
+      orderColumn: 'name',
+      order: 'ASC',
     });
     this.columnChange = this.columnChange.bind(this);
     this.biggerChange = this.biggerChange.bind(this);
     this.numb = this.numb.bind(this);
+    this.handleSortRadioClick = this.handleSortRadioClick.bind(this);
   }
+
+  handleChange(e) { this.setState({ [e.target.id]: e.target.value }); }
 
   columnChange(value) { this.setState({ population: value.target.value }); }
 
   biggerChange(value) { this.setState({ value: value.target.value }); }
 
   numb(event) { this.setState({ numbOfPop: event.target.value }); }
+
+  handleSortRadioClick(value) { this.setState({ order: value.target.value }); }
+
+  columnSort() {
+    return (
+      <select data-testid="column-sort" id="orderColumn" onChange={(e) => this.handleChange(e)}>
+        <option>name</option>
+        <option>climate</option>
+        <option>created</option>
+        <option>diameter</option>
+        <option>edited</option>
+        <option>films</option>
+        <option>gravity</option>
+        <option>orbital_period</option>
+        <option>population</option>
+        <option>rotation_period</option>
+        <option>surface_water</option>
+        <option>terrain</option>
+        <option>url</option>
+      </select>
+    );
+  }
+
+
+  changeSort(orderProp, test, order) {
+    const { orderColumn } = this.state;
+    if (order === 'ASC') {
+      return orderProp.sort(function (a, b) {
+        if (a[orderColumn] > b[orderColumn]) { return 1; }
+        if (a[orderColumn] < b[orderColumn]) { return -1; }
+        return 0;
+      });
+    }
+    if (order === 'DESC') {
+      return orderProp.sort(function (a, b) {
+        if (a[orderColumn] < b[orderColumn]) { return 1; }
+        if (a[orderColumn] > b[orderColumn]) { return -1; }
+        return 0;
+      });
+    }
+    return 0;
+  }
+
+  sortRadios() {
+    const { orderProp, test } = this.props;
+    const { order, orderColumn } = this.state;
+    return (
+      <div>
+        <input
+          type="radio"
+          data-testid="column-sort-input"
+          name="order"
+          value="ASC"
+          onClick={(e) => this.handleSortRadioClick(e)}
+        />
+        <input
+          type="radio"
+          data-testid="column-sort-input"
+          name="order"
+          value="DESC"
+          onClick={(e) => this.handleSortRadioClick(e)}
+        />
+        <input
+          type="button"
+          data-testid="column-sort-button"
+          onClick={() => test(this.changeSort(orderProp, test, order), { column: orderColumn, order })}
+        />
+      </div>
+    );
+  }
 
   render() {
     const { population, value, numbOfPop } = this.state;
@@ -85,6 +160,8 @@ class ValueFilters extends Component {
         >
           filtrar
         </button>
+        {this.sortRadios()}
+        {this.columnSort()}
         {selected(all, value, numbOfPop, eraseThisElement)}
       </div>
     );
@@ -92,6 +169,7 @@ class ValueFilters extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  orderProp: state.data.results,
   all: state.filters,
 });
 
@@ -100,9 +178,12 @@ const mapDispatchToProps = (dispatch) => ({
     optionPopulation(population, value, numbOfPop),
   ),
   eraseThisElement: (population, newObject) => dispatch(erase(population, newObject)),
+  test: (value, obj) => dispatch(sort(value, obj)),
 });
 
 ValueFilters.propTypes = {
+  orderProp: PropTypes.func.isRequired,
+  test: PropTypes.func.isRequired,
   submitToState: PropTypes.func.isRequired,
   all: PropTypes.func.isRequired,
   eraseThisElement: PropTypes.func.isRequired,

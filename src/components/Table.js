@@ -7,18 +7,20 @@ import ValueFilters from './ValueFilters';
 import MultipleFiltersValue from './MultipleFiltersValue';
 
 const apiResults = (value) => value.map((row) => (
-  <tr key={row.name}>
-    <td key={value.name}>{row.name}</td>
-    <td key={value.rotation_period}>{row.climate}</td>
-    <td key={value.orbital_period}>{row.diameter}</td>
-    <td key={value.diameter}>{row.edited}</td>
-    <td key={value.climate}>{row.gravity}</td>
-    <td key={value.gravity}>{row.orbital_period}</td>
-    <td key={value.terrain}>{row.population}</td>
-    <td key={value.surface_Water}>{row.rotation_period}</td>
-    <td key={value.population}>{row.surface_water}</td>
-    <td key={value.films}>{row.terrain}</td>
-    <td key={value.url}>{row.url}</td>
+  <tr>
+    <td>{row.name}</td>
+    <td>{row.climate}</td>
+    <td>{row.created}</td>
+    <td>{row.diameter}</td>
+    <td>{row.edited}</td>
+    <td>{row.films}</td>
+    <td>{row.gravity}</td>
+    <td>{row.orbital_period}</td>
+    <td>{row.population}</td>
+    <td>{row.rotation_period}</td>
+    <td>{row.surface_water}</td>
+    <td>{row.terrain}</td>
+    <td>{row.url}</td>
   </tr>
 ));
 

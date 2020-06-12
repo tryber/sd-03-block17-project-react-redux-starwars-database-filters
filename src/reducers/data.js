@@ -3,6 +3,7 @@ export const RECEIVE_ISS_LOCATION_FAILURE = 'RECEIVE_ISS_LOCATION_FAILURE';
 export const NAME_SEARCHED = 'NAME_SEARCHED';
 export const SUBMIT_OPTION_POPULATION = 'SUBMIT_OPTION_POPULATION';
 export const ERASE = 'ERASE';
+export const SORT = 'SORT';
 export const inicialState = {
   showResults: false,
   data: [],
@@ -21,12 +22,17 @@ export const inicialState = {
       name: '',
     },
     filterByNumericValues: [],
+    order: {
+      column: 'Name',
+      sort: 'ASC',
+    },
   },
 };
 
 export function apiData(state = inicialState, action) {
   switch (action.type) {
     case DATA_API: return { ...state, data: action.data, showResults: true };
+    case SORT: return { ...state, showResults: true, ...action.obj };
     case RECEIVE_ISS_LOCATION_FAILURE: return { ...state, data: action.error };
     case NAME_SEARCHED:
       return {
