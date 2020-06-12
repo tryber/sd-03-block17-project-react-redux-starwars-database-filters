@@ -27,6 +27,7 @@ function requestReducer(state = INITIAL_STATE, action) {
           filteredPlanets: { results: filteredValues },
         };
       }
+      break;
     case 'FILTER_PLANET_NUMERIC' : {
    const object = sendObject(state,action);
    return object;
