@@ -29,12 +29,13 @@ function requestReducer(state = INITIAL_STATE, action) {
       }
       break;
     case 'FILTER_PLANET_NUMERIC' : {
-   const object = sendObject(state,action);
-   return object;
+      const object = sendObject(state, action);
+      return object;
     }
-   // falls through   
-     default:
+   // falls through
+    default:
       return { state };
   }
+  return null;
 }
 export default requestReducer;
