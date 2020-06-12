@@ -15,9 +15,9 @@ const retornaSign = (comparison) => {
 
 const filtraData = (comparisonSignal, results, column, value) => {
   if (comparisonSignal === 0) {
-    return results.filter((element) => element[column] > value);
+    return results.filter((element) => element[column] > parseFloat(value));
   } if (comparisonSignal === 1) {
-    return results.filter((element) => element[column] < value);
+    return results.filter((element) => element[column] < parseFloat(value));
   } if (comparisonSignal === 2) {
     return results.filter((element) => element[column] === value);
   }
@@ -30,6 +30,7 @@ const sendObject = (state, action) => {
   filteredValues = filtraData(sign, state.data.results, action.column, action.value);
   return {
     ...state,
+    filters: { filterByName: { name } },
     filteredPlanets: { results: filteredValues },
   };
 };
