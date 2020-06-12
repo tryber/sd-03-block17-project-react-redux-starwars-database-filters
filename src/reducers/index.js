@@ -1,5 +1,5 @@
-function emptyReducer() {
-  return {};
-}
+import { apiData } from './data';
 
-export default emptyReducer;
+const rootReducer = apiData;
+
+export default rootReducer;
