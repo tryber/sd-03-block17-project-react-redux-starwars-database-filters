@@ -1,6 +1,6 @@
 export const requestData = () => ({ type: 'REQUEST_DATA' });
 export const receiveData = (data) => ({ type: 'RECEIVE_DATA', data });
-export const filterPlanet = (filter) => ({ type: 'FILTER_PLANET_DATA', filters: { filterByName: { name: filter } } });
+export const filterPlanet = (filter) => ({ type: 'FILTER_PLANET_DATA', filter });
 export const filterNumeric = (column, comparison, value) => ({
   type: 'FILTER_PLANET_NUMERIC',
   column,
@@ -10,7 +10,8 @@ export const filterNumeric = (column, comparison, value) => ({
 
 export function fetchData() {
   return (dispatch) => {
-    fetch('https://swapi-trybe.herokuapp.com/api/planets/')
+    dispatch(requestData());
+    return fetch('https://swapi-trybe.herokuapp.com/api/planets/')
       .then(
         (response) => response.json(),
       )

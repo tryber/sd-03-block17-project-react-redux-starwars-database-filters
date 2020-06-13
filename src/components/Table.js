@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchData, filterPlanet } from '../action/index';
+import { fetchData } from '../action/index';
+import filtraData from '../helpers/functions';
 
 export class Table extends Component {
   static renderizaTableBody(element) {
@@ -26,12 +27,7 @@ export class Table extends Component {
 
   constructor(props) {
     super(props);
-    /*   this.retornaSign = this.retornaSign.bind(this);
-  this.filtraData = this.filtraData.bind(this);
-  this.filterDataByName = this.filterDataByName.bind(this);
-  this.renderTableBody = this.renderTableBody.bind(this); */
     this.fetchUrl = this.fetchUrl.bind(this);
-    // this.renderizaTableBody = this.renderizaTableBody.bind(this);
   }
 
   componentDidMount() {
@@ -43,63 +39,19 @@ export class Table extends Component {
     await request();
   }
 
-  /* retornaSign(comparison) {
-  let comparisonSignal;
-  if (comparison === 'maior que') {
-    comparisonSignal = 0;
-    return comparisonSignal;
-  } if (comparison === 'menor que') {
-    comparisonSignal = 1;
-    return comparisonSignal;
-  } if (comparison === 'igual a') {
-    comparisonSignal = 2;
-    return comparisonSignal;
-  }
-  return null;
-}
-
-filtraData(comparisonSignal, results, column, value, name) {
-  console.log("filtername" + name )
-  if (comparisonSignal === 0) {
-    return results.filter((element) => element[column] > value);
-  } if (comparisonSignal === 1) {
-    return results.filter((element) => element[column] < value);
-  } if (comparisonSignal === 2) {
-    return results.filter((element) => element[column] === value);
-  } if (name !== '') {
-    console.log("filtername")
-   return this.filterDataByName(name, results)
-  } if (comparisonSignal = null && name === ' ') {
-    return results;
-  }
-  return results;
-}
-
-filterDataByName(filtername, results) {
-  if (results.length === 1 ) {
-
-  }else {
-      return results.filter((element) => {
-      const lowerName = element.name.toLowerCase();
-      return lowerName.includes(filtername);
-    })}
-}
-
-  renderTableBody(filtername, filterNumb) {
-    const { value: { data } } = this.props;
-    const { results } = data;
-     return filterNumb.filterByNumericValues.map((element) => {
-      const signal = this.retornaSign(element.comparison);
-      return  this.filtraData(signal, results, element.column, element.value, filtername);
-    });
-  }
- */
   render() {
     const { value } = this.props;
     const { data } = value;
-    const planets = value.filteredPlanets === undefined
-      ? data
-      : value.filteredPlanets;
+    let planets;
+    if (value.isLoading !== undefined && value.isLoading === false) {
+      if (value.filters.filterByName.name === undefined) {
+        planets = data.results;
+      } else {
+        planets = filtraData(data.results,
+          value.filters.filterByName.name,
+          value.filters.filterByNumericValues);
+      }
+    }
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
       <div>
@@ -110,10 +62,10 @@ filterDataByName(filtername, results) {
             </tr>
           </thead>
           <tbody>
-            {planets
-              ? planets.results.map((element) => (
+            {planets !== undefined
+              ? planets.map((element) => (
                 Table.renderizaTableBody(element)))
-              : null }
+              : null}
           </tbody>
         </table>
       </div>
@@ -125,7 +77,6 @@ const mapStateToProps = (state) => ({ value: state });
 
 const mapDispatchToProps = (dispatch) => ({
   request: (e) => dispatch(fetchData(e)),
-  filter: (e) => dispatch(filterPlanet(e)),
 });
 
 Table.propTypes = {
