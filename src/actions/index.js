@@ -8,7 +8,8 @@ const requestStarWars = () => ({
   type: REQUEST_STARWARS,
 });
 
-const receiveStarWarsSuccess = () => ({ // NÃO ESQUECER DE DEFINIR NOS () OS DADOS QUE SERÃO BUSCADOS NA API
+const receiveStarWarsSuccess = () => ({
+  // NÃO ESQUECER DE DEFINIR NOS () OS DADOS QUE SERÃO BUSCADOS NA API
   type: RECEIVE_STARWARS_SUCCESS,
   name: 'Tatooine',
   rotation_period: '23',
