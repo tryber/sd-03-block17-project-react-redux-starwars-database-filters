@@ -39,7 +39,7 @@ function requestReducer(state = INITIAL_STATE, action) {
       };
     }
     default:
-      return state ;
+      return state;
   }
 }
 export default requestReducer;
