@@ -26,8 +26,8 @@ function requestReducer(state = INITIAL_STATE, action) {
         filters: {
           filterByName: state.filters.filterByName,
           filterByNumericValues:
-                 [...state.filters.filterByNumericValues,
-                   { column, comparison, value }],
+          [...state.filters.filterByNumericValues,
+            { column, comparison, value }],
         },
       };
     }
