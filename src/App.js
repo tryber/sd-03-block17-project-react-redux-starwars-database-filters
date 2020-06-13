@@ -43,12 +43,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({ value: state });
-Table.propTypes = {
+
+App.propTypes = {
   request: PropTypes.func,
   value: PropTypes.instanceOf(Object),
 };
 
-Table.defaultProps = {
+App.defaultProps = {
   request: PropTypes.func,
   value: {},
 };
