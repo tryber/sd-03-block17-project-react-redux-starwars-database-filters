@@ -1,23 +1,56 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Table from './components/Table';
 import InputFilter from './components/InputFilter';
 import FilterNumeric from './components/FilterNumeric';
-import './App.css';
+import { fetchData } from './action/index';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.fetchUrl = this.fetchUrl.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchUrl();
+  }
+
+  fetchUrl() {
+    const { request } = this.props;
+    request();
+  }
 
   render() {
+    const { value } = this.props;
+    const { isLoading } = value;
     return (
       <div>
         <InputFilter />
         <FilterNumeric />
-        <Table />
+        {isLoading
+          ? <h1>Loading....</h1>
+          : <Table />}
+
       </div>
 
     );
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  request: (e) => dispatch(fetchData(e)),
+});
 
-export default connect(null, null)(App);
+const mapStateToProps = (state) => ({ value: state });
+Table.propTypes = {
+  request: PropTypes.func,
+  value: PropTypes.instanceOf(Object),
+};
+
+Table.defaultProps = {
+  request: PropTypes.func,
+  value: {},
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -39,26 +39,12 @@ export class Table extends Component {
     return planets;
   }
 
-  constructor(props) {
-    super(props);
-    this.fetchUrl = this.fetchUrl.bind(this);
-  }
-
-
-  componentDidMount() {
-    this.fetchUrl();
-  }
-
-
-  async fetchUrl() {
-    const { request } = this.props;
-    await request();
-  }
 
   render() {
     const { value } = this.props;
     const { data } = value;
     const planets = Table.selectRender(value, data);
+    console.log(planets);
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
       <div>
@@ -88,12 +74,10 @@ const mapDispatchToProps = (dispatch) => ({
 
 Table.propTypes = {
   value: PropTypes.instanceOf(Object),
-  request: PropTypes.func,
 };
 
 Table.defaultProps = {
   value: {},
-  request: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
