@@ -25,17 +25,23 @@ export class Table extends Component {
     );
   }
 
+  static subSelectRender(filters, value, data) {
+    let planets;
+    if (filters.filterByName.name === '' && filters.filterByNumericValues.length === 0) {
+      planets = data.results;
+    } else {
+      planets = filtraData(data.results,
+        value.filters.filterByName.name,
+        value.filters.filterByNumericValues);
+    }
+    return planets;
+  }
+
   static selectRender(value, data) {
     let planets;
     if (value.isLoading !== undefined && value.isLoading === false) {
       const { filters } = value;
-        if (filters.filterByName.name === '' && filters.filterByNumericValues.length === 0) {       
-        planets = data.results;
-        } else {
-        planets = filtraData(data.results,
-          value.filters.filterByName.name,
-          value.filters.filterByNumericValues);
-      }
+      planets = this.subSelectRender(filters, value, data);
     }
     return planets;
   }
