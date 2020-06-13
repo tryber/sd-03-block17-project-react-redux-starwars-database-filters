@@ -8,13 +8,24 @@ class Table extends Component {
         <table>
           <thead>
             <tr>
-              <th>Coluna 1</th>
-              <th>Coluna 2</th>
+              <th>Name</th>
+              <th>Rotation Period</th>
+              <th>Orbital Period</th>
+              <th>Diameter</th>
+              <th>Climate</th>
+              <th>Gravity</th>
+              <th>Terrain</th>
+              <th>Surface Water</th>
+              <th>Population</th>
+              <th>Films</th>
+              <th>Created</th>
+              <th>Edited</th>
+              <th>Url</th>
             </tr>
           </thead>
           <tbody>
-            <td>Dado 1</td>
-            <td>Dado 2</td>
+            <td>Dado</td>
+            <td>Dado</td>
           </tbody>
         </table>
       </div>
