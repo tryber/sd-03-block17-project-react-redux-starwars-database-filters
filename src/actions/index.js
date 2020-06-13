@@ -10,21 +10,21 @@ const requestStarWars = () => ({
 
 const receiveStarWarsSuccess = (data) => ({
   type: RECEIVE_STARWARS_SUCCESS,
-  name: "Tatooine", 
-  rotation_period: "23", 
-  orbital_period: "304", 
-  diameter: "10465", 
-  climate: "arid", 
-  gravity: "1 standard", 
-  terrain: "desert", 
-  surface_water: "1", 
-  population: "200000",
-})
+  name: 'Tatooine', 
+  rotation_period: '23', 
+  orbital_period: '304', 
+  diameter: '10465', 
+  climate: 'arid', 
+  gravity: '1 standard', 
+  terrain: 'desert', 
+  surface_water: '1', 
+  population: '200000',
+});
 
-const receiveStarWarsFailure = (data) => ({
+const receiveStarWarsFailure = (error) => ({
   type: RECEIVE_STARWARS_FAILURE,
   error,
-})
+});
 
 export function fetchStarWars() {
   return (dispatch) => {
@@ -34,6 +34,6 @@ export function fetchStarWars() {
       .then(
         (data) => dispatch(receiveStarWarsSuccess(data)),
         (error) => dispatch(receiveStarWarsFailure(error.message)),
-      )
-  }
+      );
+  };
 }

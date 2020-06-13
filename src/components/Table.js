@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-// const Table = () => <div>StarWars Datatable with Filters</div>;
-
 class Table extends Component {
   render() {
     return (
@@ -20,7 +18,7 @@ class Table extends Component {
           </tbody>
         </table>
       </div>
-    )
+    );
   }
 }
 
