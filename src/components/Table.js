@@ -28,9 +28,10 @@ export class Table extends Component {
   static selectRender(value, data) {
     let planets;
     if (value.isLoading !== undefined && value.isLoading === false) {
-      if (value.filters.filterByName.name === undefined) {
+      const { filters } = value;
+        if (filters.filterByName.name === '' && filters.filterByNumericValues.length === 0) {       
         planets = data.results;
-      } else {
+        } else {
         planets = filtraData(data.results,
           value.filters.filterByName.name,
           value.filters.filterByNumericValues);
@@ -44,7 +45,6 @@ export class Table extends Component {
     const { value } = this.props;
     const { data } = value;
     const planets = Table.selectRender(value, data);
-    console.log(planets);
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
       <div>

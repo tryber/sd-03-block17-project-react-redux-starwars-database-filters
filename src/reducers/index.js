@@ -9,7 +9,7 @@ function requestReducer(state = INITIAL_STATE, action) {
       return { isLoading: true };
     case 'RECEIVE_DATA':
       return {
-        ...state, data: action.data, filters: { filterByName: '', filterByNumericValues: [] }, isLoading: false,
+        ...state, data: action.data, filters: { filterByName: { name : ''}, filterByNumericValues: [] }, isLoading: false,
       };
     case 'FILTER_PLANET_DATA':
       return {

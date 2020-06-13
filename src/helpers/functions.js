@@ -21,7 +21,7 @@ const filtraData = (planets, name, numericValues) => (
                     && parseFloat(planet[column]) === parseFloat(value)
             );
           default:
-            return planet.results;
+            return planet;
         }
       }),
       planets,
