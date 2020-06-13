@@ -1,15 +1,22 @@
 
 const INITIAL_STATE = {
+  filters: {
+    filterByName: { name: '' },
+    filterByNumericValues: [],
+  },
+  data: { results: [] },
   isLoading: false,
 };
 
 function requestReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'REQUEST_DATA':
-      return { isLoading: true };
+      return { ...state, isLoading: true };
     case 'RECEIVE_DATA':
       return {
-        ...state, data: action.data, filters: { filterByName: { name: '' }, filterByNumericValues: [] }, isLoading: false,
+        ...state,
+        data: action.data,
+        isLoading: false,
       };
     case 'FILTER_PLANET_DATA':
       return {
@@ -32,7 +39,7 @@ function requestReducer(state = INITIAL_STATE, action) {
       };
     }
     default:
-      return { state };
+      return state ;
   }
 }
 export default requestReducer;
