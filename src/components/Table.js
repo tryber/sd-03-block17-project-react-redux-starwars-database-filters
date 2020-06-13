@@ -25,23 +25,7 @@ export class Table extends Component {
     );
   }
 
-  constructor(props) {
-    super(props);
-    this.fetchUrl = this.fetchUrl.bind(this);
-  }
-
-  componentDidMount() {
-    this.fetchUrl();
-  }
-
-  async fetchUrl() {
-    const { request } = this.props;
-    await request();
-  }
-
-  render() {
-    const { value } = this.props;
-    const { data } = value;
+  static selectRender(value, data) {
     let planets;
     if (value.isLoading !== undefined && value.isLoading === false) {
       if (value.filters.filterByName.name === undefined) {
@@ -52,6 +36,29 @@ export class Table extends Component {
           value.filters.filterByNumericValues);
       }
     }
+    return planets;
+  }
+
+  constructor(props) {
+    super(props);
+    this.fetchUrl = this.fetchUrl.bind(this);
+  }
+
+
+  componentDidMount() {
+    this.fetchUrl();
+  }
+
+
+  async fetchUrl() {
+    const { request } = this.props;
+    await request();
+  }
+
+  render() {
+    const { value } = this.props;
+    const { data } = value;
+    const planets = Table.selectRender(value, data);
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
       <div>
