@@ -13,11 +13,7 @@ function requestReducer(state = INITIAL_STATE, action) {
     case 'REQUEST_DATA':
       return { ...state, isLoading: true };
     case 'RECEIVE_DATA':
-      return {
-        ...state,
-        data: action.data,
-        isLoading: false,
-      };
+      return { ...state, data: action.data, isLoading: false };
     case 'FILTER_PLANET_DATA':
       return {
         ...state,
