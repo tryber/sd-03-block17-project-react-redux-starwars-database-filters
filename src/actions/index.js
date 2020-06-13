@@ -8,16 +8,16 @@ const requestStarWars = () => ({
   type: REQUEST_STARWARS,
 });
 
-const receiveStarWarsSuccess = (data) => ({
+const receiveStarWarsSuccess = () => ({ // NÃO ESQUECER DE DEFINIR NOS () OS DADOS QUE SERÃO BUSCADOS NA API
   type: RECEIVE_STARWARS_SUCCESS,
-  name: 'Tatooine', 
-  rotation_period: '23', 
-  orbital_period: '304', 
-  diameter: '10465', 
-  climate: 'arid', 
-  gravity: '1 standard', 
-  terrain: 'desert', 
-  surface_water: '1', 
+  name: 'Tatooine',
+  rotation_period: '23',
+  orbital_period: '304',
+  diameter: '10465',
+  climate: 'arid',
+  gravity: '1 standard',
+  terrain: 'desert',
+  surface_water: '1',
   population: '200000',
 });
 
