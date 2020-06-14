@@ -13,7 +13,7 @@ class Table extends Component {
 
   render() {
     const { data } = this.props;
-    
+
     return (
       <div>
         <div>StarWars Datatable with Filters</div>
