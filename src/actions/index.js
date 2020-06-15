@@ -24,7 +24,7 @@ export function fetchStarWars() {
 
     return getStarWarsPlanetsData()
       .then(
-        (data) => dispatch(receiveStarWarsSuccess(data)),
+        (planets) => dispatch(receiveStarWarsSuccess(planets.results)),
         (error) => dispatch(receiveStarWarsFailure(error.message)),
       );
   };

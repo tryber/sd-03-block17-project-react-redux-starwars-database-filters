@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { receiveStarWarsSuccess } from '../actions';
+import { fetchStarWars } from '../actions';
 import TableHead from './TableHead';
 
 class Table extends Component {
@@ -49,7 +49,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getStarWarsPlanetsData: () => dispatch(receiveStarWarsSuccess()),
+  getStarWarsPlanetsData: () => dispatch(fetchStarWars()),
 });
 
 Table.propTypes = {
