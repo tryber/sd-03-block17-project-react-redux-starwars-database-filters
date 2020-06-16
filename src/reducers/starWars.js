@@ -6,6 +6,7 @@ import {
 
 const INITIAL_STATE = {
   isFetching: false,
+  data: [],
 };
 
 const starWars = (state = INITIAL_STATE, action) => {
@@ -24,7 +25,7 @@ const starWars = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFetching: false,
-        error: action.error,
+        data: action.error,
       };
     default:
       return state;

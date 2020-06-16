@@ -8,9 +8,9 @@ const requestStarWars = () => ({
   type: REQUEST_STARWARS,
 });
 
-const receiveStarWarsSuccess = (data) => ({
+const receiveStarWarsSuccess = ({ results }) => ({
   type: RECEIVE_STARWARS_SUCCESS,
-  data,
+  data: results,
 });
 
 const receiveStarWarsFailure = (error) => ({
@@ -24,7 +24,7 @@ export function fetchStarWars() {
 
     return getStarWarsPlanetsData()
       .then(
-        (planets) => dispatch(receiveStarWarsSuccess(planets.results)),
+        (planets) => dispatch(receiveStarWarsSuccess(planets)),
         (error) => dispatch(receiveStarWarsFailure(error.message)),
       );
   };
