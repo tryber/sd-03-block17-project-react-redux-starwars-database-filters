@@ -1,17 +1,15 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-function filterTable(props) {
+const filterTable = (props) => {
   return (
     <div>
-      <input id='name-filter' data-testid='name-filter' type="text"/>
+      <input id="name-filter" data-testid="name-filter" type="text" />
       <label htmlFor="name-filter">Search Planets</label>
     </div>
-  )
-}
+  );
+};
 
-filterTable.propTypes = {
+filterTable.propTypes = {};
 
-}
-
-export default filterTable
+export default filterTable;
