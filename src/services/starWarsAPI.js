@@ -7,5 +7,3 @@ export default async function fetchAPI() {
     planets.json().then((data) => (planets.ok ? Promise.resolve(data) : Promise.reject(data))),
   );
 }
-
-export default fetchAPI;

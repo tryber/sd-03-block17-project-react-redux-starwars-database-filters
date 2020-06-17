@@ -4,7 +4,7 @@ import FilterTable from './filterTable';
 const Table = () => (
   <main>
     <FilterTable />
-  <h3>StarWars Datatable with Filters</h3>
+    <h3>StarWars Datatable with Filters</h3>
   </main>
 );
 

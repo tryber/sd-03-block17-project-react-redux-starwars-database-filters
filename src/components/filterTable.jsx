@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
-const filterTable = (props) => {
+const filterTable = () => {
   return (
     <div>
       <input id="name-filter" data-testid="name-filter" type="text" />
@@ -10,6 +10,6 @@ const filterTable = (props) => {
   );
 };
 
-filterTable.propTypes = {};
+// filterTable.propTypes = {};
 
 export default filterTable;
