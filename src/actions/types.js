@@ -1,1 +1,3 @@
-export const TABLE_FILTER = 'TABLE_FILTER';
+const TABLE_FILTER = 'TABLE_FILTER';
+
+export default TABLE_FILTER;
