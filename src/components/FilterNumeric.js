@@ -47,9 +47,9 @@ export class FilterNumeric extends Component {
   render() {
     const optionListToRender = this.filterOptions();
     return (
-      <div>lumn-filter" id="filter">
-          {optionListToRender.m
-        <select data-testid="coap((option) => (
+      <div>
+        <select data-testid="column-filter" id="filter">
+          {optionListToRender.map((option) => (
             <option key={option} value={option}>
               {option}
             </option>
