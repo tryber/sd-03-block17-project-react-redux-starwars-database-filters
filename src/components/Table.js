@@ -28,7 +28,6 @@ export class Table extends Component {
   render() {
     const { value } = this.props;
     const { data } = value;
-    console.log(value);
     const planets = filtraData(data.results,
       value.filters.filterByName.name,
       value.filters.filterByNumericValues);

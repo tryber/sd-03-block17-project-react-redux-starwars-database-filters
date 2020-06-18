@@ -4,9 +4,16 @@ import { connect } from 'react-redux';
 import { filterNumeric } from '../action/index';
 
 export class FilterNumeric extends Component {
+  static translateStateToArray(state) {
+    const finalArray = [];
+    state.map((option) => finalArray.push(option.column));
+    return finalArray;
+  }
+
   constructor(props) {
     super(props);
     this.filterNumbers = this.filterNumbers.bind(this);
+    this.filterOptions = this.filterOptions.bind(this);
   }
 
   filterNumbers() {
@@ -28,16 +35,25 @@ export class FilterNumeric extends Component {
     }
   }
 
+
+  filterOptions() {
+    const { numericValues } = this.props;
+    const optionList = ['Selecione uma Opção', 'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
+    const arrayColumState = FilterNumeric.translateStateToArray(numericValues);
+    const filteredOptions = optionList.filter((option) => !arrayColumState.includes(option));
+    return filteredOptions;
+  }
+
   render() {
+    const optionListToRender = this.filterOptions();
     return (
-      <div>
-        <select data-testid="column-filter" id="filter">
-          <option value=" ">Selecione Uma Opção </option>
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+      <div>lumn-filter" id="filter">
+          {optionListToRender.m
+        <select data-testid="coap((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
         </select>
         <select data-testid="comparison-filter" id="comparation">
           <option value=" ">Selecione Uma Opção </option>
@@ -58,6 +74,9 @@ export class FilterNumeric extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  numericValues: state.filters.filterByNumericValues,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   filterNumber: (e, v, h) => dispatch(filterNumeric(e, v, h)),
@@ -65,9 +84,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 FilterNumeric.propTypes = {
   filterNumber: PropTypes.instanceOf(Function),
+  numericValues: PropTypes.instanceOf(Array),
 };
 
 FilterNumeric.defaultProps = {
   filterNumber: '',
+  numericValues: [],
 };
-export default connect(null, mapDispatchToProps)(FilterNumeric);
+export default connect(mapStateToProps, mapDispatchToProps)(FilterNumeric);
