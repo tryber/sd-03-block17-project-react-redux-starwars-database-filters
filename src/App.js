@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Table from './components/Table';
 import InputFilter from './components/InputFilter';
 import FilterNumeric from './components/FilterNumeric';
+import TagNumericFilters from './components/TagNumericFilters';
 import { fetchData } from './action/index';
 
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
       <div>
         <InputFilter />
         <FilterNumeric />
+        <TagNumericFilters />
         {isLoading
           ? <h1>Loading....</h1>
           : <Table />}
