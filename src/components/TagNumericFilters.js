@@ -36,7 +36,7 @@ TagNumericFilters.propTypes = {
 
 TagNumericFilters.defaultProps = {
   filters: '',
-  removeFilter: '',
+  removeFilter: '', 
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TagNumericFilters);
