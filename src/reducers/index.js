@@ -34,6 +34,18 @@ function requestReducer(state = INITIAL_STATE, action) {
         },
       };
     }
+    case 'REMOVE_NUMERIC_FILTER':
+      return {
+        ...state,
+        filters: {
+          filterByName: state.filters.filterByName,
+          filterByNumericValues:
+            [...state.filters.filterByNumericValues.filter(
+              (element) => element.column !== action.filterColumn,
+            )],
+        },
+      };
+
     default:
       return state;
   }

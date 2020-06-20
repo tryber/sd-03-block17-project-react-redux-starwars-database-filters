@@ -7,6 +7,7 @@ export const filterNumeric = (column, comparison, value) => ({
   comparison,
   value,
 });
+export const removeNumericFilter = (filterColumn) => ({ type: 'REMOVE_NUMERIC_FILTER', filterColumn });
 
 export function fetchData() {
   return (dispatch) => {
