@@ -13,7 +13,14 @@ export class TagNumericFilters extends React.Component {
         {filters.map((element) => (
           <div data-testid="filter" key={element.column}>
             {element.column}
-            <button name={element.column} data-testid="filter" onClick={(event) => removeFilter(event.target.name)} type="button">x</button>
+            <button
+              name={element.column}
+              data-testid="filter"
+              onClick={(event) => removeFilter(event.target.name)}
+              type="button"
+            >
+                  x
+            </button>
           </div>
         ))}
       </div>

@@ -14,9 +14,9 @@ function removeFilter(state, action) {
     filters: {
       filterByName: state.filters.filterByName,
       filterByNumericValues:
-            [...state.filters.filterByNumericValues.filter(
-              (element) => element.column !== action.filterColumn,
-            )],
+      [...state.filters.filterByNumericValues.filter(
+        (element) => element.column !== action.filterColumn,
+      )],
     },
   };
 }
