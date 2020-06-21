@@ -8,6 +8,20 @@ const INITIAL_STATE = {
   isLoading: false,
 };
 
+function removeFilter(state, action) {
+  return {
+    ...state,
+    filters: {
+      filterByName: state.filters.filterByName,
+      filterByNumericValues:
+            [...state.filters.filterByNumericValues.filter(
+              (element) => element.column !== action.filterColumn,
+            )],
+    },
+  };
+}
+
+
 function requestReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'REQUEST_DATA':
@@ -35,17 +49,7 @@ function requestReducer(state = INITIAL_STATE, action) {
       };
     }
     case 'REMOVE_NUMERIC_FILTER':
-      return {
-        ...state,
-        filters: {
-          filterByName: state.filters.filterByName,
-          filterByNumericValues:
-            [...state.filters.filterByNumericValues.filter(
-              (element) => element.column !== action.filterColumn,
-            )],
-        },
-      };
-
+      return removeFilter(state, action);
     default:
       return state;
   }
