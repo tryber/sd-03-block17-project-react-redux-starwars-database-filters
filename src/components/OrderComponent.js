@@ -40,15 +40,37 @@ export class OrderComponent extends React.Component {
           <label htmlFor="seletion">
           Column Select
           </label>
-          <select onChange={(event) => this.changeSelectValue(event)} name="seletion" data-testid="column-sort">
+          <select
+            onChange={(event) => this.changeSelectValue(event)}
+            name="seletion"
+            data-testid="column-sort"
+          >
             {options.map((element) => (<option>{element}</option>))}
           </select>
           <div onChange={this.changeRadioValue}>
-            <input type="radio" id="ASC" name="order" value="ASC" data-testid="column-sort-input" />
+            <input
+              type="radio"
+              id="ASC"
+              name="order"
+              value="ASC"
+              data-testid="column-sort-input"
+            />
             <label htmlFor="ASC">ASC</label>
-            <input type="radio" id="DESC" name="order" value="DESC" data-testid="column-sort-input" />
+            <input
+              type="radio"
+              id="DESC"
+              name="order"
+              value="DESC"
+              data-testid="column-sort-input"
+            />
             <label htmlFor="DESC">DESC</label>
-            <button type="button" data-testid="column-sort-button" onClick={() => this.changeOrder()}> set order </button>
+            <button
+              type="button"
+              data-testid="column-sort-button"
+              onClick={() => this.changeOrder()}
+            >
+               set order
+            </button>
           </div>
         </fieldset>
       </div>

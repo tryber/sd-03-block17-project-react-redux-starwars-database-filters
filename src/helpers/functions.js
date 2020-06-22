@@ -38,6 +38,17 @@ const compareDesc = (a, b) => {
   if (b.name < a.name) return -1;
   return 0;
 };
+
+function orderNumeric(order, results) {
+  if (order.sort === 'DESC') {
+    console.log('acessou desc !');
+    results.sort((a, b) => Number(b[order.column]) - Number(a[order.column]));
+  } else {
+    console.log('acessou asc !');
+    results.sort((a, b) => Number(a[order.column]) - Number(b[order.column]));
+  }
+}
+
 const OrderColumn = (planets, name, numericValues, order) => {
   const results = filtraData(planets, name, numericValues, order);
   if (order.column === 'Name') {
@@ -52,14 +63,4 @@ const OrderColumn = (planets, name, numericValues, order) => {
   }
   return results;
 };
-
 export default OrderColumn;
-function orderNumeric(order, results) {
-  if (order.sort === 'DESC') {
-    console.log('acessou desc !');
-    results.sort((a, b) => Number(b[order.column]) - Number(a[order.column]));
-  } else {
-    console.log('acessou asc !');
-    results.sort((a, b) => Number(a[order.column]) - Number(b[order.column]));
-  }
-}
