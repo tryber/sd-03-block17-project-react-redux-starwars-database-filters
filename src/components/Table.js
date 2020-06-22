@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchData } from '../action/index';
-import filtraData from '../helpers/functions';
+import OrderColumn from '../helpers/functions';
 
 export class Table extends Component {
   static renderizaTableBody(element) {
@@ -27,10 +27,12 @@ export class Table extends Component {
 
   render() {
     const { value } = this.props;
+    const { filters } = value;
+    const { filterByName, filterByNumericValues, order } = filters;
     const { data } = value;
-    const planets = filtraData(data.results,
-      value.filters.filterByName.name,
-      value.filters.filterByNumericValues);
+    const planets = OrderColumn(data.results,
+      filterByName.name,
+      filterByNumericValues, order);
     const headers = ['name', 'rotation_period', 'orbital_period', 'diameter', 'climate', 'gravity', 'terrain', 'surface_water', 'population', 'films', 'created', 'edited', 'url'];
     return (
       <div>

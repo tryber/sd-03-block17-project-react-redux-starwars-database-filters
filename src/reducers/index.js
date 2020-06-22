@@ -3,6 +3,7 @@ const INITIAL_STATE = {
   filters: {
     filterByName: { name: '' },
     filterByNumericValues: [],
+    order: { column: 'Name', sort: 'ASC' },
   },
   data: { results: [] },
   isLoading: false,
@@ -17,10 +18,10 @@ function removeFilter(state, action) {
       [...state.filters.filterByNumericValues.filter(
         (element) => element.column !== action.filterColumn,
       )],
+      order: { column: 'Name', sort: 'ASC' },
     },
   };
 }
-
 
 function requestReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -34,6 +35,7 @@ function requestReducer(state = INITIAL_STATE, action) {
         filters: {
           filterByName: { name: action.filter },
           filterByNumericValues: [...state.filters.filterByNumericValues],
+          order: { column: 'Name', sort: 'ASC' },
         },
       };
     case 'FILTER_PLANET_NUMERIC': {
@@ -45,11 +47,22 @@ function requestReducer(state = INITIAL_STATE, action) {
           filterByNumericValues:
           [...state.filters.filterByNumericValues,
             { column, comparison, value }],
+          order: { column: 'Name', sort: 'ASC' },
         },
       };
     }
     case 'REMOVE_NUMERIC_FILTER':
       return removeFilter(state, action);
+    case 'ORDER_COLUMN':
+      return {
+        ...state,
+        filters: {
+          filterByName: state.filters.filterByName,
+          filterByNumericValues:
+            [...state.filters.filterByNumericValues],
+          order: { column: action.column, sort: action.order },
+        },
+      };
     default:
       return state;
   }

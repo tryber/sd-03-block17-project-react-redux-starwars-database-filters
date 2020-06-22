@@ -5,6 +5,7 @@ import Table from './components/Table';
 import InputFilter from './components/InputFilter';
 import FilterNumeric from './components/FilterNumeric';
 import TagNumericFilters from './components/TagNumericFilters';
+import OrderComponent from './components/OrderComponent';
 import { fetchData } from './action/index';
 
 class App extends Component {
@@ -30,6 +31,7 @@ class App extends Component {
         <InputFilter />
         <FilterNumeric />
         <TagNumericFilters />
+        <OrderComponent />
         {isLoading
           ? <h1>Loading....</h1>
           : <Table />}
