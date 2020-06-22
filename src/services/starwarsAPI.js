@@ -1,6 +1,6 @@
 const BASE_API = 'https://swapi-trybe.herokuapp.com/api';
 
-const getStarWarsPlanetsData = () => (
+export const getStarWarsPlanetsData = () => (
   fetch(`${BASE_API}/planets`)
   .then((response) => (
     response
