@@ -32,6 +32,29 @@ export class OrderComponent extends React.Component {
     orderer(column, sort);
   }
 
+  renderRadioButton() {
+    return (
+      <div onChange={this.changeRadioValue}>
+        <input
+          type="radio"
+          id="ASC"
+          name="order"
+          value="ASC"
+          data-testid="column-sort-input"
+        />
+        <label htmlFor="ASC">ASC</label>
+        <input
+          type="radio"
+          id="DESC"
+          name="order"
+          value="DESC"
+          data-testid="column-sort-input"
+        />
+        <label htmlFor="DESC">DESC</label>
+      </div>
+    );
+  }
+
   renderComponent(options) {
     return (
       <fieldset>
@@ -45,31 +68,16 @@ export class OrderComponent extends React.Component {
         >
           {options.map((element) => (<option>{element}</option>))}
         </select>
-        <div onChange={this.changeRadioValue}>
-          <input
-            type="radio"
-            id="ASC"
-            name="order"
-            value="ASC"
-            data-testid="column-sort-input"
-          />
-          <label htmlFor="ASC">ASC</label>
-          <input
-            type="radio"
-            id="DESC"
-            name="order"
-            value="DESC"
-            data-testid="column-sort-input"
-          />
-          <label htmlFor="DESC">DESC</label>
-          <button
-            type="button"
-            data-testid="column-sort-button"
-            onClick={() => this.changeOrder()}
-          >
+
+        {this.renderRadioButton()}
+        <button
+          type="button"
+          data-testid="column-sort-button"
+          onClick={() => this.changeOrder()}
+        >
                set order
-          </button>
-        </div>
+        </button>
+
       </fieldset>
     );
   }
