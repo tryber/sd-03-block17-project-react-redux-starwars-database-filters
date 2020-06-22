@@ -34,7 +34,7 @@ describe('1 - Fazer uma requisição para o endpoint /planets da API de Star War
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
-  test('it calls SWAPI', () => {   
+  test('it calls SWAPI', () => {
     renderApp();
     expect(fetch).toHaveBeenCalled();
   })
