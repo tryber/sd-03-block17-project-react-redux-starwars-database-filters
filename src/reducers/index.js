@@ -41,8 +41,8 @@ function filterNumeric(state, action) {
     filters: {
       filterByName: state.filters.filterByName,
       filterByNumericValues:
-        [...state.filters.filterByNumericValues,
-          { column, comparison, value }],
+      [...state.filters.filterByNumericValues,
+        { column, comparison, value }],
       order: { column: 'Name', sort: 'ASC' },
     },
   };
