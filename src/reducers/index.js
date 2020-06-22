@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
+import planetsData from './data';
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({ planetsData });
 
 export default rootReducer;
