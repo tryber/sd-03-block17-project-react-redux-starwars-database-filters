@@ -9,7 +9,7 @@ export class OrderComponent extends React.Component {
     this.changeSelectValue = this.changeSelectValue.bind(this);
     this.changeRadioValue = this.changeRadioValue.bind(this);
     this.state = {
-      column: 'name',
+      column: 'Name',
       sort: 'ASC',
     };
   }
@@ -38,7 +38,7 @@ export class OrderComponent extends React.Component {
           </label>
           <select onClick={(event) => this.changeSelectValue(event)} name="seletion" data-testid="column-sort">
             <option>
-             name
+             Name
             </option>
             <option>
             rotation_period

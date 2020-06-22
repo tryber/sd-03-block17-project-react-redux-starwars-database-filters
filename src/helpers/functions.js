@@ -1,4 +1,3 @@
-
 const filtraData = (planets, name, numericValues) => (
   numericValues.length === 0
     ? planets.filter((planet) => planet.name.includes(name))
@@ -35,19 +34,28 @@ const compareAsc = (a, b) => {
 };
 
 const compareDesc = (a, b) => {
-    if (a.name < b.name) return 1;
-    if (b.name < a.name) return -1;
-    return 0;
-  };
+  if (a.name < b.name) return 1;
+  if (b.name < a.name) return -1;
+  return 0;
+};
 const OrderColumn = (planets, name, numericValues, order) => {
   const results = filtraData(planets, name, numericValues, order);
-  if (order.sort === 'DESC') {
-    results.sort(compareDesc);
+  if (order.column === 'Name') {
+    if (order.sort === 'DESC') {
+      results.sort(compareDesc);
+      return results;
+    }
+    results.sort(compareAsc);
     return results;
   }
-  console.log('ascendente');
-  results.sort(compareAsc);
-  return results;
+  if (order.column !== 'Name') {
+    if (order.sort === 'DESC') {
+      results.sort((a, b) => b[order.column] - a[order.column]);
+      return results;
+    }
+    results.sort((a, b) => a[order.column] - b[order.column]);
+    return results;
+  }
 };
 
 export default OrderColumn;
