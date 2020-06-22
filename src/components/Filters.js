@@ -5,7 +5,7 @@ class Filters extends Component {
     return (
       <div>
         <h3>Filtrar resultados</h3>
-        <input type="text" placeholder="Digite o nome de um Planeta"></input>
+        <input data-testid='name-filter' type="text" placeholder="Digite o nome de um Planeta"></input>
       </div>
     )
   }
