@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { fetchStarWars } from '../actions';
 import TableHead from './TableHead';
+import Filters from './Filters';
 
 class Table extends Component {
   componentDidMount() {
@@ -16,7 +17,8 @@ class Table extends Component {
 
     return (
       <div>
-        <div>StarWars Datatable with Filters</div>
+        <h1 className="table-title" >StarWars Datatable with Filters</h1>
+        <Filters />
         <table>
           <TableHead />
           <tbody>
@@ -31,7 +33,7 @@ class Table extends Component {
                 <td>{planet.terrain}</td>
                 <td>{planet.surface_water}</td>
                 <td>{planet.population}</td>
-                <td>{planet.films}</td>
+                <td>{planet.films.map(film => <p key={film}>{film}</p>)}</td>
                 <td>{planet.created}</td>
                 <td>{planet.edited}</td>
                 <td>{planet.url}</td>
