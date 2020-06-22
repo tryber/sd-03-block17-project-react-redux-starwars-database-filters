@@ -13,15 +13,15 @@ class Table extends React.Component {
 
   render() {
     const { isFetching, data } = this.props;
-    if(isFetching) return <Loading />;
+    if (isFetching) return <Loading />;
     return (
       <table className="container">
         <TableHeader />
         {data.map((planet) => <TableLine planet={planet} key={planet.name} />)};
       </table>
-    )
+    );
   }
-};
+}
 
 const mapDispatchToProps = (dispatch) => ({
   getPlanetsData: () => dispatch(requestFetchPlanet()),
@@ -37,5 +37,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Table);
 Table.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   getPlanetsData: PropTypes.func.isRequired,
-  data: PropTypes.arrayOf(PropTypes.object),
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
