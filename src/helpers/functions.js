@@ -46,16 +46,19 @@ const OrderColumn = (planets, name, numericValues, order) => {
       return results;
     }
     results.sort(compareAsc);
-    return results;
+
   }
   if (order.column !== 'Name') {
     if (order.sort === 'DESC') {
-      results.sort((a, b) => b[order.column] - a[order.column]);
-      return results;
+      console.log("acessou desc !");
+      results.sort((a, b) => Number(b[order.column]) - Number(a[order.column]));
+
+    } else {
+        console.log("acessou asc !");
+    results.sort((a, b) => Number(a[order.column]) - Number(b[order.column]));
     }
-    results.sort((a, b) => a[order.column] - b[order.column]);
-    return results;
   }
+  return results;
 };
 
 export default OrderColumn;

@@ -15,11 +15,12 @@ export class OrderComponent extends React.Component {
   }
 
   changeRadioValue(event) {
-    console.log('clicou no 1');
+    console.log('clicou no 1', event.target.value);
     this.setState({ sort: event.target.value });
   }
 
   changeSelectValue(event) {
+    console.log('clicou no 1', event.target.value);
     this.setState({ column: event.target.value });
   }
 
@@ -36,7 +37,7 @@ export class OrderComponent extends React.Component {
           <label htmlFor="seletion">
           Column Select
           </label>
-          <select onClick={(event) => this.changeSelectValue(event)} name="seletion" data-testid="column-sort">
+          <select onChange={(event) => this.changeSelectValue(event)} name="seletion" data-testid="column-sort">
             <option>
              Name
             </option>
