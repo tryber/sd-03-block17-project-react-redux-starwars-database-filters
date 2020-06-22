@@ -1,4 +1,3 @@
-
 const INITIAL_STATE = {
   filters: {
     filterByName: { name: '' },
@@ -19,6 +18,18 @@ function removeFilter(state, action) {
         (element) => element.column !== action.filterColumn,
       )],
       order: { column: 'Name', sort: 'ASC' },
+    },
+  };
+}
+
+function orderColum(state, action) {
+  return {
+    ...state,
+    filters: {
+      filterByName: state.filters.filterByName,
+      filterByNumericValues:
+            [...state.filters.filterByNumericValues],
+      order: { column: action.column, sort: action.order },
     },
   };
 }
@@ -54,15 +65,7 @@ function requestReducer(state = INITIAL_STATE, action) {
     case 'REMOVE_NUMERIC_FILTER':
       return removeFilter(state, action);
     case 'ORDER_COLUMN':
-      return {
-        ...state,
-        filters: {
-          filterByName: state.filters.filterByName,
-          filterByNumericValues:
-            [...state.filters.filterByNumericValues],
-          order: { column: action.column, sort: action.order },
-        },
-      };
+      return orderColum(state, action);
     default:
       return state;
   }

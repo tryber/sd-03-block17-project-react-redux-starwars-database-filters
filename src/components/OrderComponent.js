@@ -57,7 +57,6 @@ export class OrderComponent extends React.Component {
           <div onChange={this.changeRadioValue}>
             <input type="radio" id="ASC" name="order" value="ASC" data-testid="column-sort-input" />
             <label htmlFor="ASC">ASC</label>
-
             <input type="radio" id="DESC" name="order" value="DESC" data-testid="column-sort-input" />
             <label htmlFor="DESC">DESC</label>
             <button type="button" data-testid="column-sort-button" onClick={() => this.changeOrder()}> set order </button>
