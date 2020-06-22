@@ -1,4 +1,5 @@
 import React from 'react';
+import Proptypes from 'prop-types';
 import { connect } from 'react-redux';
 import { columnOrder } from '../action/index';
 
@@ -26,11 +27,13 @@ export class OrderComponent extends React.Component {
 
   changeOrder() {
     const { orderer } = this.props;
+    const { column, sort } = this.state;
 
-    orderer(this.state.column, this.state.sort);
+    orderer(column, sort);
   }
 
   render() {
+    const options = ['Name', 'rotation_period', 'orbital_period', 'diameter', 'climate'];
     return (
       <div>
         <fieldset>
@@ -38,21 +41,7 @@ export class OrderComponent extends React.Component {
           Column Select
           </label>
           <select onChange={(event) => this.changeSelectValue(event)} name="seletion" data-testid="column-sort">
-            <option>
-             Name
-            </option>
-            <option>
-            rotation_period
-            </option>
-            <option>
-            orbital_period
-            </option>
-            <option>
-            diameter
-            </option>
-            <option>
-            climate
-            </option>
+            {options.map((element) => (<option>{element}</option>))}
           </select>
           <div onChange={this.changeRadioValue}>
             <input type="radio" id="ASC" name="order" value="ASC" data-testid="column-sort-input" />
@@ -74,4 +63,12 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   orderer: (column, sort) => dispatch(columnOrder(column, sort)),
 });
+
+OrderComponent.propTypes = {
+  orderer: Proptypes.instanceOf(Function),
+};
+
+OrderComponent.defaultProps = {
+  orderer: '',
+};
 export default connect(mapStateToProps, mapDispatchToProps)(OrderComponent);
