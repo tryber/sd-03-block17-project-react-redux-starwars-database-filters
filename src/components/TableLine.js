@@ -21,7 +21,7 @@ const TableLine = ({ planet }) => (
 
 export default TableLine;
 
-TableLine.protoTypes = {
+TableLine.propTypes = {
   planet: PropTypes.shape({
     name: PropTypes.string,
     climate: PropTypes.string,
@@ -36,5 +36,5 @@ TableLine.protoTypes = {
     surface_water: PropTypes.string,
     terrain: PropTypes.string,
     url: PropTypes.string,
-  }).isRequired
+  }).isRequired,
 };
