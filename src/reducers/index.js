@@ -34,6 +34,20 @@ function orderColum(state, action) {
   };
 }
 
+function filterNumeric(state, action) {
+  const { column, comparison, value } = action;
+  return {
+    ...state,
+    filters: {
+      filterByName: state.filters.filterByName,
+      filterByNumericValues:
+        [...state.filters.filterByNumericValues,
+          { column, comparison, value }],
+      order: { column: 'Name', sort: 'ASC' },
+    },
+  };
+}
+
 function requestReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case 'REQUEST_DATA':
@@ -49,19 +63,9 @@ function requestReducer(state = INITIAL_STATE, action) {
           order: { column: 'Name', sort: 'ASC' },
         },
       };
-    case 'FILTER_PLANET_NUMERIC': {
-      const { column, comparison, value } = action;
-      return {
-        ...state,
-        filters: {
-          filterByName: state.filters.filterByName,
-          filterByNumericValues:
-          [...state.filters.filterByNumericValues,
-            { column, comparison, value }],
-          order: { column: 'Name', sort: 'ASC' },
-        },
-      };
-    }
+    case 'FILTER_PLANET_NUMERIC':
+      return filterNumeric(state, action);
+
     case 'REMOVE_NUMERIC_FILTER':
       return removeFilter(state, action);
     case 'ORDER_COLUMN':
