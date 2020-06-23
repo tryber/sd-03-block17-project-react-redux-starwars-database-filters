@@ -4,11 +4,13 @@ import React from 'react';
 // import { filterByName } from '../actions/filters';
 import FilterByName from './FilterByName';
 import FilterByNumberValues from './FilterByNumberValues';
+import OrderColumns from './OrderColumns';
 
 const SearchBar = () => (
   <div>
     <FilterByName />
     <FilterByNumberValues />
+    <OrderColumns />
   </div>
 );
 
