@@ -8,14 +8,14 @@ const TableLine = ({ planet }) => (
     <td>{planet.created}</td>
     <td>{planet.diameter}</td>
     <td>{planet.edited}</td>
-    <td>{planet.films}</td>
+    <td><a href={planet.films} target="_blank" rel="noopener noreferrer">{planet.films}</a></td>
     <td>{planet.gravity}</td>
     <td>{planet.orbital_period}</td>
     <td>{planet.population}</td>
     <td>{planet.rotation_period}</td>
     <td>{planet.surface_water}</td>
     <td>{planet.terrain}</td>
-    <td>{planet.url}</td>
+    <td><a href={planet.url} target="_blank" rel="noopener noreferrer">{planet.url}</a></td>
   </tr>
 );
 

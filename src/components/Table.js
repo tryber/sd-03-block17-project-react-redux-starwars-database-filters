@@ -17,7 +17,9 @@ class Table extends React.Component {
     return (
       <table className="container">
         <TableHead />
-        {data.map((planet) => <TableLine planet={planet} key={planet.name} />)};
+        <tbody>
+          {data.map((planet) => <TableLine planet={planet} key={planet.name} />)};
+        </tbody>
       </table>
     );
   }
