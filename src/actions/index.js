@@ -31,7 +31,7 @@ export function fetchStarWars() {
   };
 }
 
-export const filterByName = (name) => ({
+export const filterName = (name) => ({
   type: FILTER_BY_NAME,
   name,
 });

@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-getFilteredName = (event) => {
-  const { name } = this.props
-  return name: event.target.value;
-}
+import { filterName } from '../actions';
 
 class Filters extends Component {
   render() {
+    const { getFilterByName } = this.props;
+
+    console.log('My name:', this.props.name);
     return (
       <div>
         <h3>Filter results</h3>
-        <input data-testid='name-filter' type="text" placeholder="Type a planet name" onChange={this.getFilteredName}></input>
+        <input data-testid='name-filter' type="text" placeholder="Type a planet name" value={this.props.name} onChange={(event) => getFilterByName(event.target.value)}></input>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  name: state.filterName.name,
+  name: state.filters.filterByName.name,
 })
 
-export default connect(mapStateToProps)(Filters);
+const mapDispatchToProps = (dispatch) => ({
+  getFilterByName: () => dispatch(filterName()),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);

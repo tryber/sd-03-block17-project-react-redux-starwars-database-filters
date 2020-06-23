@@ -3,25 +3,18 @@ import {
 } from '../actions';
 
 const INITIAL_STATE = {
-  filters: {
-    filterByName: {
-      name: '',
-    }
+  filterByName: {
+    name: 'name no estado inicial',
   }
 };
 
-const filterName = (state = INITIAL_STATE, action) => {
+const filters = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FILTER_BY_NAME:
       return {
         ...state,
-        filters: {
-          ...state.filters,
-          filterByName: {
-            filterByName: {
-              name: action.name
-            }
-          }
+        filterByName: {
+          name: action.name
         },
       };
     default:
@@ -29,4 +22,4 @@ const filterName = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default filterName;
+export default filters;
