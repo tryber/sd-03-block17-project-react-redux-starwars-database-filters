@@ -13,7 +13,9 @@ class Table extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, nameToData } = this.props;
+
+    const getFilteredName = data.filter((planet) => planet.name.includes(nameToData))
 
     return (
       <div>
@@ -22,7 +24,7 @@ class Table extends Component {
         <table>
           <TableHead />
           <tbody>
-            {data.map((planet) => (
+            {getFilteredName.map((planet) => (
               <tr key="planet.name">
                 <td>{planet.name}</td>
                 <td>{planet.rotation_period}</td>
@@ -48,6 +50,7 @@ class Table extends Component {
 
 const mapStateToProps = (state) => ({
   data: state.starWars.data,
+  nameToData: state.filters.filterByName.name,
 });
 
 const mapDispatchToProps = (dispatch) => ({

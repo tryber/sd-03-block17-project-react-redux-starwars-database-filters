@@ -22,7 +22,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getFilterByName: () => dispatch(filterName()),
+  getFilterByName: (name) => dispatch(filterName(name)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);
