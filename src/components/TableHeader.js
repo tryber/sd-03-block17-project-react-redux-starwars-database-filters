@@ -3,19 +3,19 @@ import React from 'react';
 const TableHeader = () => (
   <thead>
     <tr>
-      <th>name</th>
-      <th>climate</th>
-      <th>created</th>
-      <th>diameter</th>
-      <th>edited</th>
-      <th>films</th>
-      <th>gravity</th>
-      <th>orbital_period</th>
-      <th>population</th>
-      <th>rotation_period</th>
-      <th>surface_water</th>
-      <th>terrain</th>
-      <th>url</th>
+      <th>Name</th>
+      <th>Climate</th>
+      <th>Created</th>
+      <th>Diameter</th>
+      <th>Edited</th>
+      <th>Films</th>
+      <th>Gravity</th>
+      <th>Orbital Period</th>
+      <th>Population</th>
+      <th>Rotation Period</th>
+      <th>Surface Water</th>
+      <th>Terrain</th>
+      <th>URL</th>
     </tr>
   </thead>
 );
