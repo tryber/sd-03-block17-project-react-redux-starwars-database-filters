@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { requestFetchPlanet } from '../actions/data';
 import TableLine from './TableLine';
-import TableHeader from './TableHeader';
+import TableHead from './TableHead';
 import Loading from './Loading';
 
 class Table extends React.Component {
@@ -16,7 +16,7 @@ class Table extends React.Component {
     if (isFetching) return <Loading />;
     return (
       <table className="container">
-        <TableHeader />
+        <TableHead />
         {data.map((planet) => <TableLine planet={planet} key={planet.name} />)};
       </table>
     );

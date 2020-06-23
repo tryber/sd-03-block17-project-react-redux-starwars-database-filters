@@ -1,8 +1,18 @@
-import { FILTER_BY_NAME, FILTER_BY_NUMERIC_VALUE, REMOVE_FILTER } from '../actions/filters';
+import { FILTER_BY_NAME, FILTER_BY_NUMERIC_VALUE, REMOVE_FILTER, SORT_COLUMNS } from '../actions/filters';
 
 const INITIAL_STATE = {
-  filterByName: { name: '' },
-  filterByNumericValue: [],
+  filterByName: {
+    name: ''
+  },
+  filterByNumericValue: {
+    column: '',
+    comparison: '',
+    value: '',
+  },
+  order: {
+    column: 'Name',
+    sort: 'ASC',
+  },
 }
 
 const filters = (state = INITIAL_STATE, action) => {
@@ -15,7 +25,10 @@ const filters = (state = INITIAL_STATE, action) => {
     case FILTER_BY_NUMERIC_VALUE:
       return {
         ...state,
-        filterByNumericValue: [...state.filterByNumericValue, action.value],
+        filterByNumericValue:
+          state.filterByNumericValues[0].column === ''
+            ? action.parameters
+            : [...state.filterByNumericValue, action.parameters],
       };
       case REMOVE_FILTER:
         return {
@@ -26,8 +39,13 @@ const filters = (state = INITIAL_STATE, action) => {
             ),
           ]
         };
-    default:
-      return state;
+      case SORT_COLUMNS:
+        return {
+          ...state,
+          order: { column: action.value.column, sort: action.value.order },
+        };
+      default:
+        return state;
   }
 }
 

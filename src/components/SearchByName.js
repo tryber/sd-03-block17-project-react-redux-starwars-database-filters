@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filterByName } from '../actions/filters';
 
-const SearchByName = () => (
+const SearchByName = ({ filterByName }) => (
   <input
     type="text"
     data-testid="name-filter"
