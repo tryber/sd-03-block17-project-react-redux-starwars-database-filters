@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 
 import starWars from './starWars';
+import filterName from './filterName';
 
 const rootReducer = combineReducers({
-  starWars, // INCLUIR AQUI OUTROS REDUCERS
+  starWars, filterName,
 });
 
 export default rootReducer;

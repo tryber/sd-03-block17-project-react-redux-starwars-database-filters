@@ -1,8 +1,9 @@
-import { getStarWarsPlanetsData } from '../services/starwarsAPI';
+import getStarWarsPlanetsData from '../services/starwarsAPI';
 
 export const REQUEST_STARWARS = 'REQUEST_STARWARS';
 export const RECEIVE_STARWARS_SUCCESS = 'RECEIVE_STARWARS_SUCCESS';
 export const RECEIVE_STARWARS_FAILURE = 'RECEIVE_STARWARS_FAILURE';
+export const FILTER_BY_NAME = 'FILTER_BY_NAME';
 
 const requestStarWars = () => ({
   type: REQUEST_STARWARS,
@@ -29,3 +30,8 @@ export function fetchStarWars() {
       );
   };
 }
+
+export const filterByName = (name) => ({
+  type: FILTER_BY_NAME,
+  name,
+});
