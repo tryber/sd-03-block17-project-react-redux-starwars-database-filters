@@ -5,6 +5,7 @@ import { requestFetchPlanet } from '../actions/data';
 import TableLine from './TableLine';
 import TableHead from './TableHead';
 import Loading from './Loading';
+import filterDataByNumericValue from '../helpers';
 
 class Table extends React.Component {
   componentDidMount() {
@@ -12,13 +13,15 @@ class Table extends React.Component {
   }
 
   render() {
-    const { isFetching, data } = this.props;
+    const { isFetching, data, nameFilter } = this.props;
+    const { sortColumnFilter, sortOrderFilter, valueFilters } = this.props;
+    const filtered = filterDataByNumericValue(data, nameFilter,sortColumnFilter, sortOrderFilter, valueFilters);
     if (isFetching) return <Loading />;
     return (
       <table className="container">
         <TableHead />
         <tbody>
-          {data.map((planet) => <TableLine planet={planet} key={planet.name} />)};
+          {filtered.map((planet) => <TableLine planet={planet} key={planet.name} />)};
         </tbody>
       </table>
     );
@@ -32,6 +35,10 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   isFetching: state.planetsData.isFetching,
   data: state.planetsData.data,
+  nameFilter: state.filters.filterByName.name,
+  sortColumnFilter: state.filters.order.column,
+  orderColumns: state.filters.order.sort,
+  valueFilters: state.filters.filterByNumericValues,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

@@ -13,7 +13,7 @@ export const filterByNumericValue = (...parameters) => ({
   parameters,
 });
 
-export const removeFilter = (value) => ({
+export const removeFilters = (value) => ({
   type: REMOVE_FILTER,
   value,
 });
