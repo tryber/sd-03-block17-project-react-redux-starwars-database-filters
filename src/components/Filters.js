@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { filterName } from '../actions';
 
@@ -11,8 +12,9 @@ class Filters extends Component {
       <div>
         <h3>Filter results</h3>
         <input
-        data-testid="name-filter" type="text" placeholder="Type a planet name"
-        onChange={(event) => getFilterByName(event.target.value)} />
+          data-testid="name-filter" type="text" placeholder="Type a planet name"
+          onChange={(event) => getFilterByName(event.target.value)}
+        />
       </div>
     );
   }
@@ -28,12 +30,10 @@ const mapDispatchToProps = (dispatch) => ({
 
 Filters.propTypes = {
   getFilterByName: PropTypes.func,
-  name: PropTypes.string,
 };
 
 Filters.defaultProps = {
   getFilterByName: null,
-  name: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);
