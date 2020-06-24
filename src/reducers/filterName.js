@@ -4,8 +4,8 @@ import {
 
 const INITIAL_STATE = {
   filterByName: {
-    name: 'name no estado inicial',
-  }
+    name: '',
+  },
 };
 
 const filters = (state = INITIAL_STATE, action) => {
@@ -14,7 +14,7 @@ const filters = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         filterByName: {
-          name: action.name
+          name: action.name,
         },
       };
     default:

@@ -15,7 +15,7 @@ class Table extends Component {
   render() {
     const { data, nameToData } = this.props;
 
-    const getFilteredName = data.filter((planet) => planet.name.includes(nameToData))
+    const getFilteredName = data.filter((planet) => planet.name.includes(nameToData));
 
     return (
       <div>
@@ -35,7 +35,7 @@ class Table extends Component {
                 <td>{planet.terrain}</td>
                 <td>{planet.surface_water}</td>
                 <td>{planet.population}</td>
-                <td>{planet.films.map(film => <p key={film}>{film}</p>)}</td>
+                <td>{planet.films.map((film) => <p key={film}>{film}</p>)}</td>
                 <td>{planet.created}</td>
                 <td>{planet.edited}</td>
                 <td>{planet.url}</td>
@@ -74,10 +74,12 @@ Table.propTypes = {
     edited: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
   }),
+  nameToData: PropTypes.string,
 };
 
 Table.defaultProps = {
   data: null,
+  nameToData: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
