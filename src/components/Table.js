@@ -16,6 +16,7 @@ class Table extends Component {
     const { data, nameToData } = this.props;
 
     const getFilteredName = data.filter((planet) => planet.name.includes(nameToData));
+    const getFilteredNumber = data.filter((planet) => planet.selectedCondition.selectedValue)
 
     return (
       <div>
@@ -51,6 +52,9 @@ class Table extends Component {
 const mapStateToProps = (state) => ({
   data: state.starWars.data,
   nameToData: state.filters.filterByName.name,
+  columnToData: state.filters.filterByNumericValues.column,
+  comparisonToData: state.filters.filterByNumericValues.comparison,
+  valueToData: state.filters.filterByNumericValues.value,
 });
 
 const mapDispatchToProps = (dispatch) => ({

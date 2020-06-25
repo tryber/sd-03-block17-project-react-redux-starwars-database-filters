@@ -1,11 +1,19 @@
 import {
   FILTER_BY_NAME,
+  FILTER_BY_NUM_VALUE,
 } from '../actions';
 
 const INITIAL_STATE = {
   filterByName: {
     name: '',
-  },
+  }, 
+  filterByNumericValues: [
+    {
+      column: 'population',
+      comparison: 'maior que',
+      value: '100000',
+    }
+  ]
 };
 
 const filters = (state = INITIAL_STATE, action) => {
@@ -15,6 +23,15 @@ const filters = (state = INITIAL_STATE, action) => {
         ...state,
         filterByName: {
           name: action.name,
+        },
+      };
+    case FILTER_BY_NUM_VALUE:
+      return {
+        ...state,
+        filterByNumericValues: {
+          column: action.column,
+          comparison: action.comparison,
+          value: action.value,
         },
       };
     default:
