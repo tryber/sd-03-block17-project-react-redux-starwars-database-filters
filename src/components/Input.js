@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filterByNameAction, sortColumns } from '../actions/filtersActions';
+import { filterByName, orderColumns } from '../actions';
 import FilterValue from './FilterValue';
 
 class Input extends React.Component {
@@ -52,7 +52,9 @@ class Input extends React.Component {
         data-testid="column-sort"
         value={this.state.columnSort}
       >
-        {columns.map((option) => <option key={option} value={option}>{option}</option>)}
+        {columns.map((option) =>
+          <option key={option} value={option}>{option}</option>)
+        }
       </select>
     );
   }
@@ -108,12 +110,12 @@ class Input extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  numericValues: state.filtersReducer.filterByNumericValues,
+  numericValues: state.filters.filterByNumericValues,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  filterByName: (name) => dispatch(filterByNameAction(name)),
-  orderFunc: (column, sort) => dispatch(sortColumns(column, sort)),
+  filterByName: (name) => dispatch(filterByName(name)),
+  orderFunc: (column, sort) => dispatch(orderColumns(column, sort)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Input);

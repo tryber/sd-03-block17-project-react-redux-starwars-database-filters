@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { removeFilterAction } from '../actions/filtersActions';
+import { removeFilterNumeric } from '../actions';
 
-function FilterRemove({ numericValues, removeNumeric }) {
+function RemoveFilter({ numericValues, removeNumeric }) {
   const onClick = (type) => removeNumeric(type);
-  return numericValues.map(
-    (type) => (
-      <div data-testid="filter" key={type.column}>
+  return numericValues.map((type) =>
+    (
+      <div data-testid="filter" key={type.column} >
         <span>
           {`${type.column} - ${type.comparison} - ${type.value} `}
         </span>
@@ -18,16 +18,17 @@ function FilterRemove({ numericValues, removeNumeric }) {
 }
 
 const mapStateToProps = (state) => ({
-  numericValues: state.filtersReducer.filterByNumericValues,
+  numericValues: state.filters.filterByNumericValues,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeNumeric: (type) => dispatch(removeFilterAction(type)),
+  removeNumeric: (type) =>
+    dispatch(removeFilterNumeric(type)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilterRemove);
+export default connect(mapStateToProps, mapDispatchToProps)(RemoveFilter);
 
-FilterRemove.propTypes = {
+RemoveFilter.propTypes = {
   numericValues: PropTypes.arrayOf(PropTypes.shape({
     column: PropTypes.string,
     comparison: PropTypes.string,

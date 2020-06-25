@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filterByNumericValues } from '../actions/filtersActions';
+import { filterByNumericValues as FilterByNumVal } from '../actions';
 
 class FilterValue extends React.Component {
   constructor(props) {
@@ -36,7 +36,8 @@ class FilterValue extends React.Component {
 
   onClick() {
     const { number, column, comparation } = this.state;
-    this.props.filterByNumericValues(column, comparation, number);
+    const { filterByNumericValues } = this.props;
+    filterByNumericValues(column, comparation, number);
     this.setState({ number: '', column: '', comparation: '' });
   }
 
@@ -87,6 +88,7 @@ class FilterValue extends React.Component {
   }
 
   render() {
+    const { number } = this.state;
     return (
       <div>
         {this.getColumns()}
@@ -95,14 +97,17 @@ class FilterValue extends React.Component {
           className="input"
           type="number"
           data-testid="value-filter"
-          value={this.state.number}
+          value={number}
           onChange={(event) => this.onNumberChange(event)}
         />
         <button
           className="button is-info"
           data-testid="button-filter"
           onClick={this.onClick}
-        >Filtrar</button>
+          type="button"
+        >
+          Filtrar
+        </button>
       </div>
 
     );
@@ -110,15 +115,13 @@ class FilterValue extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  numericValues: state.filtersReducer.filterByNumericValues,
+  numericValues: state.filters.filterByNumericValues,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  filterByNumericValues: (
-    column,
-    comparison,
-    value,
-  ) => dispatch(filterByNumericValues(column, comparison, value)),
+  filterByNumericValues: (column, comparison, value) => dispatch(
+    FilterByNumVal(column, comparison, value),
+  ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterValue);

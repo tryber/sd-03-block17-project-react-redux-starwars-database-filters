@@ -1,10 +1,8 @@
-import {
-  RECEIVED_API, REQUEST_API, REQUEST_FAILED,
-} from '../actions/apiActions';
+import { REQUEST_PLANETS, SUCCESS_PLANETS, FAILURE_PLANETS } from '../actions';
 
 const INITIAL_STATE = {
+  isFetching: false,
   data: [],
-  isLoading: false,
   filteredData: [],
   filters: {
     filterByName: { name: '' },
@@ -12,24 +10,21 @@ const INITIAL_STATE = {
   },
 };
 
-const apiReducer = (state = INITIAL_STATE, action) => {
+const ReducerPlanets = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case REQUEST_API:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case RECEIVED_API:
+    case REQUEST_PLANETS:
+      return { ...state, isFetching: true };
+    case SUCCESS_PLANETS:
       return {
         ...state,
         data: [...action.data],
         filteredData: [...action.data],
-        isLoading: false,
+        isFetching: false,
       };
-    case REQUEST_FAILED:
+    case FAILURE_PLANETS:
       return {
         ...state,
-        isLoading: false,
+        isFetching: false,
         error: action.error,
       };
     default:
@@ -37,4 +32,4 @@ const apiReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default apiReducer;
+export default ReducerPlanets;
