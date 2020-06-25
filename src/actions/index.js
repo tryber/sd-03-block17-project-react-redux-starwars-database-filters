@@ -3,6 +3,7 @@ import getStarWarsDataBase from '../Services/starWarsAPI';
 export const REQUESTING_STAR_WARS_DATA = 'REQUESTING_STAR_WARS_DATA';
 export const REQUESTING_STAR_WARS_DATA_SUCCESS = 'REQUESTING_STAR_WARS_DATA_SUCCESS';
 export const REQUESTING_STAR_WARS_DATA_FAIL = 'REQUESTING_STAR_WARS_DATA_FAIL';
+export const ON_CHANGE_NAME_VALUE = 'ON_CHANGE_NAME_VALUE';
 
 const requestStarWarsDataBase = () => ({
   type: REQUESTING_STAR_WARS_DATA,
@@ -29,3 +30,8 @@ export function FetchStarWarsDataBase() {
       );
   };
 }
+
+export const changeNameValue = (name) => ({
+  type: ON_CHANGE_NAME_VALUE,
+  filterName: name,
+});

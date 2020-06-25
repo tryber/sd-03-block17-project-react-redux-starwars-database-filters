@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FetchStarWarsDataBase } from '../actions/index';
 import Table from './Table';
+import NameFilter from './NameFilter';
 
 class Home extends Component {
   componentDidMount() {
@@ -13,7 +14,10 @@ class Home extends Component {
 
   render() {
     return (
-      <Table />
+      <div>
+        <NameFilter />
+        <Table />
+      </div>
     );
   }
 }

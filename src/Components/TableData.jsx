@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 
 class TableData extends Component {
   render() {
-    const { planets } = this.props;
+    const { planets, name } = this.props;
+    const data = planets.filter((el) => el.name.toLowerCase().includes(name))
     return (
       <tbody>
-        {planets.map((planet) => (
+        {data.map((planet) => (
           <tr key={planet.name}>
             <td>{planet.name}</td>
             <td>{planet.rotation_period}</td>
@@ -33,8 +34,9 @@ class TableData extends Component {
   }
 }
 
-const mapStateToProps = ({ SWreducer }) => ({
+const mapStateToProps = ({ SWreducer, filterReducer }) => ({
   planets: SWreducer.data,
+  name: filterReducer.filterByName.name
 });
 
 TableData.propTypes = {
