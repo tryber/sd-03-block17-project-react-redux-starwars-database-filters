@@ -1,8 +1,8 @@
 import React from 'react';
 
 const HeaderTable = () => (
-  <thead>
-    <tr className="table-header">
+  <tbody>
+    <tr>
       <th>Name</th>
       <th>Rotation Period</th>
       <th>Orbital Period</th>
@@ -17,21 +17,7 @@ const HeaderTable = () => (
       <th>Edited</th>
       <th>URL</th>
     </tr>
-  </thead>
+  </tbody>
 );
 
 export default HeaderTable;
-
-/* <table>
-  <thead>
-    <tr>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-      </td>
-    </tr>
-  </tbody>
-</table> */
