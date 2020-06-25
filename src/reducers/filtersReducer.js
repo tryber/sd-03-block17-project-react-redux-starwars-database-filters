@@ -33,7 +33,8 @@ const filtersReducer = (state = INITIAL_STATE, action) => {
     case REMOVE_FILTER:
       return {
         ...state,
-        filterByNumericValues: [...state.filterByNumericValues.filter((filter) => filter !== action.obj)],
+        filterByNumericValues: [
+          ...state.filterByNumericValues.filter((filter) => filter !== action.obj)],
       };
     case SORT_COLUMN:
       return {
