@@ -1,10 +1,6 @@
-const functionFilter = (
-  planet,
-  name,
-  numericValues,
-) => (
-  numericValues.length === 0 ? planet.filter((planets) => planets.name.includes(name)) : numericValues.reduce(
-    (aux, { column, comparison, value }) => (
+const functionFilter = (planet, name, numericValues) => (
+  numericValues.length === 0 ? planet.filter((planets) => planets.name.includes(name)) :
+  numericValues.reduce((aux, { column, comparison, value }) => (
       aux.filter((planets) => {
         switch (comparison) {
           case 'maior que':
@@ -17,8 +13,7 @@ const functionFilter = (
             return planets.name.includes(name);
         }
       })
-    ), planet,
-  )
+    ), planet)
 );
 
 export default functionFilter;

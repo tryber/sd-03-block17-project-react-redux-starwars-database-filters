@@ -26,21 +26,21 @@ function TableInfo({
   );
   return (
     <tbody>
-      {data.map((planets) =>
-        <tr key={planets.name}>
-          <td>{planets.name}</td>
-          <td>{planets.rotation_period}</td>
-          <td>{planets.orbital_period}</td>
-          <td>{planets.diameter}</td>
-          <td>{planets.climate}</td>
-          <td>{planets.gravity}</td>
-          <td>{planets.terrain}</td>
-          <td>{planets.surface_water}</td>
-          <td>{planets.population}</td>
-          <td>{planets.films.map((film) => <span key={film}>{film}</span>)}</td>
-          <td>{planets.created}</td>
-          <td>{planets.edited}</td>
-          <td>{planets.url}</td>
+      {data.map((obj) =>
+        <tr key={obj.name}>
+          <td>{obj.name}</td>
+          <td>{obj.rotation_period}</td>
+          <td>{obj.orbital_period}</td>
+          <td>{obj.diameter}</td>
+          <td>{obj.climate}</td>
+          <td>{obj.gravity}</td>
+          <td>{obj.terrain}</td>
+          <td>{obj.surface_water}</td>
+          <td>{obj.population}</td>
+          <td>{obj.films.map((film) => <span key={film}>{film}</span>)}</td>
+          <td>{obj.created}</td>
+          <td>{obj.edited}</td>
+          <td>{obj.url}</td>
         </tr>,
       )}
     </tbody>
