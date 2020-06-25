@@ -3,108 +3,63 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { filterByNumericValue } from '../actions/filters';
 
-const columns = [
-  'population',
-  'orbital_period',
-  'diameter',
-  'rotation_period',
-  'surface_water',
-];
-
-const comparisons = [
-  'maior que',
-  'menor que',
-  'igual a'
-];
-
-const columnFilter = (filters, value) => !filters/*.find(({ column }) => column === value);*/
+const columnFilter = (filters, value) => !filters.find(({ column }) => column === value);
 
 class filterByNumberValues extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       column: '',
       comparison: '',
       value: '',
-    }
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  renderColumnFilter() {
-    const { numericFilterValue} = this.props;
-    const { column: columnValue } = this.state;
-    return (
-      <select
-        data-testid="column-filter"
-        value={columnValue}
-        onChange={(event) => this.setState({ column: event.target.value })}
-      >
-        <option value="" />
-        {columns.map((column) => (columnFilter(numericFilterValue, column)
-          && (
-          <option value={column} key={column}>
-            {column}
-          </option>
-          )
-        ))}
-      </select>
-    );
+  handleChange(event, key) {
+    this.setState({
+      [key]: event.target.value,
+    });
   }
 
-  renderComparisonFilter() {
-    const { comparison: comparisonValue } = this.state;
-    return (
-      <select
-        name="comparison-filter"
-        value={comparisonValue}
-        data-testid="comparison-filter"
-        onChange={(event) => this.setState({ comparison: event.target.value })}
-      >
-        <option value="" />
-        {comparisons.map((comparison) => (
-          <option value={comparison} key={comparison}>
-            {comparison}
-          </option>
-        ))}
-      </select>
-    );
-  }
-
-  renderValueFilter() {
-    const { value: valueState } = this.state;
-    return (
-      <input
-        type="number"
-        name="value-filter"
-        value={valueState}
-        data-testid="value-filter"
-        placeholder="digite um valor"
-        onChange={(event) => this.setState({ value: event.target.value })}
-      />
-    );
-  }
-
-  renderSubmitFiltersButton() {
-    const { column, comparison, value } = this.state;
-    const { numericFilterParameters } = this.props;
-    return (
-      <button
-        type="button"
-        data-testid="button-filter"
-        onClick={() => (numericFilterParameters({ column, comparison, value }, this.setState({ column: '', comparison: '', value: '' })))}
-        disabled={column === '' || comparison === '' || value === ''}
-      >
-        Filtrar
-      </button>
-    );
+  handleClick() {
+    const searchFilters = {
+      column: this.state.column,
+      comparison: this.state.comparison,
+      value: this.state.value,
+    };
+    this.props.numericFilterParameters(searchFilters);
   }
 
   render() {
+    const columns = ['', 'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
+    const comparison = ['', 'maior que', 'igual a', 'menor que'];
+    const { numericFilterValue } = this.props;
     return (
-      <div>
-        {this.renderColumnFilter()}
-        {this.renderComparisonFilter()}
-        {this.renderValueFilter()}
-        {this.renderSubmitFiltersButton()}
+      <div className="filters-div">
+        <select
+          id="column-filter"
+          data-testid="column-filter"
+          onChange={(event) => this.handleChange(event, 'column')}
+        >
+          {columns.map((column) => (columnFilter(numericFilterValue, column) &&
+            (<option value={column} key={column}>{column}</option>)
+          ))}
+        </select>
+        <select
+          onChange={(event) => this.handleChange(event, 'comparison')}
+          data-testid="comparison-filter"
+        >
+          {comparison.map((option) => <option value={option} key={option}>{option}</option>)}
+        </select>
+        <input
+          type="number"
+          data-testid="value-filter"
+          onChange={(event) => this.handleChange(event, 'value')}
+        />
+        <button data-testid="button-filter" onClick={this.handleClick}>Filter</button>
       </div>
     );
   }

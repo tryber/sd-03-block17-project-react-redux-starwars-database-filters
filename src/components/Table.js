@@ -5,7 +5,7 @@ import { requestFetchPlanet } from '../actions/data';
 import TableLine from './TableLine';
 import TableHead from './TableHead';
 import Loading from './Loading';
-import filterDataByNumericValue from '../helpers';
+import filterPlanets from '../helpers/filterFunction';
 
 class Table extends React.Component {
   componentDidMount() {
@@ -13,18 +13,22 @@ class Table extends React.Component {
   }
 
   render() {
-    const { isFetching, data, nameFilter } = this.props;
-    const { sortColumnFilter, sortOrderFilter, valueFilters } = this.props;
-    const filtered = filterDataByNumericValue(data, nameFilter,sortColumnFilter, sortOrderFilter, valueFilters);
+    const { nameFilter, numericFilters, data } = this.props
+    const { isFetching  } = this.props;
     if (isFetching) return <Loading />;
-    return (
-      <table className="container">
-        <TableHead />
-        <tbody>
-          {filtered.map((planet) => <TableLine planet={planet} key={planet.name} />)};
-        </tbody>
-      </table>
-    );
+    if (data) {
+      return (
+        <table className="container">
+          <TableHead />
+          <tbody>
+            {filterPlanets({ nameFilter, numericFilters, data }).map((planet) => 
+              <TableLine planet={planet} key={planet.name} />
+            )};
+          </tbody>
+        </table>
+      );
+    }
+    return <p>No Planet Found</p>;
   }
 }
 
@@ -36,9 +40,9 @@ const mapStateToProps = (state) => ({
   isFetching: state.planetsData.isFetching,
   data: state.planetsData.data,
   nameFilter: state.filters.filterByName.name,
-  sortColumnFilter: state.filters.order.column,
-  orderColumns: state.filters.order.sort,
-  valueFilters: state.filters.filterByNumericValues,
+  numericFilters: state.filters.filterByNumericValue,
+  // sortColumnFilter: state.filters.order.column,
+  // orderColumns: state.filters.order.sort,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
