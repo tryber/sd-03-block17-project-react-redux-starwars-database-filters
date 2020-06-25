@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TableHeader = () => (
-  <tbody>
+  <thead>
     <tr>
       <th>Name</th>
       <th>Rotation Period</th>
@@ -17,7 +17,7 @@ const TableHeader = () => (
       <th>Edited</th>
       <th>URL</th>
     </tr>
-  </tbody>
+  </thead>
 );
 
 export default TableHeader;

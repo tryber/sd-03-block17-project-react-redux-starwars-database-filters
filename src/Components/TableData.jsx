@@ -55,6 +55,6 @@ TableData.propTypes = {
       url: PropTypes.string,
     }),
   ).isRequired,
-}
+};
 
 export default connect(mapStateToProps)(TableData);

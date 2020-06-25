@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FetchStarWarsDataBase } from '../actions/index';
 import PropTypes from 'prop-types';
+import { FetchStarWarsDataBase } from '../actions/index';
 import Table from './Table';
 
 class Home extends Component {
@@ -24,6 +24,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 Home.propTypes = {
   getFetchStarWarsDataBase: PropTypes.func.isRequired,
-}
+};
 
 export default connect(null, mapDispatchToProps)(Home);
