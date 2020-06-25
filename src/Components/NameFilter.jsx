@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { changeNameValue } from '../actions';
 import PropTypes from 'prop-types';
+import { changeNameValue } from '../actions';
 
 const NameFilter = (props) => {
   const { nameValueChange } = props;
