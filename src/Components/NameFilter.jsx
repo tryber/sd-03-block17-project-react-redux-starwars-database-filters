@@ -23,6 +23,6 @@ const mapDispatchToprops = (dispatch) => ({
 
 NameFilter.propTypes = {
   nameValueChange: PropTypes.func.isRequired,
-}
+};
 
 export default connect(null, mapDispatchToprops)(NameFilter);
