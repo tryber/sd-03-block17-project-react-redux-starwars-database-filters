@@ -3,15 +3,9 @@ import { connect } from 'react-redux';
 import { FetchStarWarsDataBase } from '../actions/index';
 
 class TableData extends Component {
-  componentDidMount() {
-    const { getFetchStarWarsDataBase } = this.props;
-
-    getFetchStarWarsDataBase()
-  }
-
   render() {
-    const { planets } = this.props
-    return(
+    const { planets } = this.props;
+    return (
       <tbody>
         {planets.map((planet) => (
           <tr key={planet.name}>
@@ -40,7 +34,7 @@ class TableData extends Component {
 }
 
 const mapStateToProps = ({ SWreducer }) => ({
-  planets: SWreducer.data
+  planets: SWreducer.data,
 });
 
 const mapDispatchToProps = (dispatch) => ({

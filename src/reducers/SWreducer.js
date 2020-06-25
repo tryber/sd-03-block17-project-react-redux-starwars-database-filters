@@ -20,15 +20,16 @@ const SWreducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFetching: false,
-        data: action.dataBase
+        data: action.dataBase,
       };
     case REQUESTING_STAR_WARS_DATA_FAIL:
       return {
         ...state,
-        error: action.error
+        error: action.error,
       };
     default:
-      return state
-  };
-}
+      return state;
+  }
+};
+
 export default SWreducer;
