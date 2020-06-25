@@ -1,10 +1,6 @@
 import {
-  FILTER_BY_NAME,
-  SORT_COLUMN,
-  FILTER_BY_NUMERIC,
-  REMOVE_FILTER,
+  FILTER_BY_NAME, SORT_COLUMN, FILTER_BY_NUMERIC, REMOVE_FILTER,
 } from '../actions/filtersActions';
-
 
 const INITIAL_STATE = {
   filterByName: {
