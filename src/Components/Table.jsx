@@ -1,16 +1,13 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import TableHeader from './TableHeader';
+import TableData from './TableData';
 
 class Table extends Component {
-  componentDidMount() {
-
-  }
-
   render() {
     return (
       <table>
         <TableHeader />
+        <TableData />
       </table>
     );
   }

@@ -10,6 +10,7 @@ const TableHeader = () => (
     <th>Gravity</th>
     <th>Terrain</th>
     <th>Surface Water</th>
+    <th>Population</th>
     <th>Film</th>
     <th>Created</th>
     <th>Edited</th>

@@ -2,7 +2,7 @@ import {
   REQUESTING_STAR_WARS_DATA,
   REQUESTING_STAR_WARS_DATA_SUCCESS,
   REQUESTING_STAR_WARS_DATA_FAIL,
-} from '../actions/index';
+} from '../actions';
 
 const INITIAL_STATE = {
   isFetching: false,
@@ -20,17 +20,15 @@ const SWreducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFetching: false,
-        data: [...action.dataBase],
+        data: action.dataBase
       };
     case REQUESTING_STAR_WARS_DATA_FAIL:
       return {
         ...state,
-        isFetching: false,
-        error: action.error,
+        error: action.error
       };
     default:
-      return state;
-  }
-};
-
+      return state
+  };
+}
 export default SWreducer;

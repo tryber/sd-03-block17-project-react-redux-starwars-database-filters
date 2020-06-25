@@ -10,7 +10,7 @@ const requestStarWarsDataBase = () => ({
 
 const requestStarWarsDataBaseSuccess = (planets) => ({
   type: REQUESTING_STAR_WARS_DATA_SUCCESS,
-  dataBase: [...planets],
+  dataBase: planets,
 });
 
 const requestStarWarsDataBaseFail = (errorMsg) => ({
@@ -25,7 +25,7 @@ export function FetchStarWarsDataBase() {
     return getStarWarsDataBase()
       .then(
         (data) => dispatch(requestStarWarsDataBaseSuccess(data.results)),
-        (error) => dispatch(requestStarWarsDataBaseFail(error.message)),
+        (error) => dispatch(requestStarWarsDataBaseFail(error)),
       );
   };
 }
