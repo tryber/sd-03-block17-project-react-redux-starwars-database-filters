@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   },
 };
 
-const filterReducer = (state = INITIAL_STATE, action) => {
+const filters = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ON_CHANGE_NAME_VALUE:
       return {
@@ -22,4 +22,4 @@ const filterReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default filterReducer;
+export default filters;

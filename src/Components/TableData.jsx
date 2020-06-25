@@ -34,9 +34,9 @@ class TableData extends Component {
   }
 }
 
-const mapStateToProps = ({ SWreducer, filterReducer }) => ({
+const mapStateToProps = ({ SWreducer, filters }) => ({
   planets: SWreducer.data,
-  name: filterReducer.filterByName.name,
+  name: filters.filterByName.name,
 });
 
 TableData.propTypes = {
