@@ -5,7 +5,7 @@ import {
 const INITIAL_STATE = {
   filterByName: {
     name: '',
-  }
+  },
 };
 
 const filterReducer = (state = INITIAL_STATE, action) => {
@@ -20,6 +20,6 @@ const filterReducer = (state = INITIAL_STATE, action) => {
         ...state,
       };
   }
-}
+};
 
 export default filterReducer;

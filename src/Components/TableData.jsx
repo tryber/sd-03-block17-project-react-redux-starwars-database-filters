@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 class TableData extends Component {
   render() {
     const { planets, name } = this.props;
-    const data = planets.filter((el) => el.name.toLowerCase().includes(name))
+    const data = planets.filter((el) => el.name.toLowerCase().includes(name));
     return (
       <tbody>
         {data.map((planet) => (
@@ -36,7 +36,7 @@ class TableData extends Component {
 
 const mapStateToProps = ({ SWreducer, filterReducer }) => ({
   planets: SWreducer.data,
-  name: filterReducer.filterByName.name
+  name: filterReducer.filterByName.name,
 });
 
 TableData.propTypes = {
@@ -57,6 +57,7 @@ TableData.propTypes = {
       url: PropTypes.string,
     }),
   ).isRequired,
+  name: PropTypes.string,
 };
 
 export default connect(mapStateToProps)(TableData);
