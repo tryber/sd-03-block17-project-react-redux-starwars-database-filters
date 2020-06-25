@@ -8,7 +8,7 @@ class Table extends Component {
   }
 
   render() {
-    return(
+    return (
       <table>
         <TableHeader />
       </table>

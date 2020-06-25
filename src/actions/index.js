@@ -1,4 +1,4 @@
-import { getStarWarsDataBase } from '../Services/starWarsAPI';
+import getStarWarsDataBase from '../Services/starWarsAPI';
 
 export const REQUESTING_STAR_WARS_DATA = 'REQUESTING_STAR_WARS_DATA';
 export const REQUESTING_STAR_WARS_DATA_SUCCESS = 'REQUESTING_STAR_WARS_DATA_SUCCESS';
@@ -20,12 +20,12 @@ const requestStarWarsDataBaseFail = (errorMsg) => ({
 
 export function FetchStarWarsDataBase() {
   return (dispatch) => {
-    dispatch(requestStarWarsDataBase())
+    dispatch(requestStarWarsDataBase());
 
     return getStarWarsDataBase()
       .then(
         (data) => dispatch(requestStarWarsDataBaseSuccess(data.results)),
-        (error) => dispatch(requestStarWarsDataBaseFail(error.message))
+        (error) => dispatch(requestStarWarsDataBaseFail(error.message)),
       );
   };
 }

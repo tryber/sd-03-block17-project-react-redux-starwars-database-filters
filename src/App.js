@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
-import { Provider } from 'react-redux';
-import store from './store/index'
+import store from './store/index';
 import Table from './Components/Table';
+
+import { Provider } from 'react-redux';
 
 function App() {
   return (
