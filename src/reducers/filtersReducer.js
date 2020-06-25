@@ -18,9 +18,7 @@ const filtersReducer = (state = INITIAL_STATE, action) => {
     case FILTER_BY_NAME:
       return {
         ...state,
-        filterByName: {
-          name: action.name,
-        },
+        filterByName: { name: action.name },
       };
     case FILTER_BY_NUMERIC:
       return {
