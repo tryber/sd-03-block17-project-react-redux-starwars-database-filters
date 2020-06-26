@@ -6,7 +6,7 @@ import {
 } from '../actions';
 
 const INITIAL_STATE = {
-  filterByName: { name: '', },
+  filterByName: { name: '' },
   filterByNumericValues: [],
   order: {
     column: 'Name',
@@ -35,14 +35,14 @@ const filters = (state = INITIAL_STATE, action) => {
         ...state,
         filterByNumericValues: [
           ...state.filterByNumericValues.filter((el) => el !== action.obj),
-        ]};
+        ] };
     case ORDER_COLUMN:
       return {
         ...state,
         order: { column: action.column, sort: action.sort },
       };
     default:
-      return { ...state, };
+      return { ...state };
   }
 };
 

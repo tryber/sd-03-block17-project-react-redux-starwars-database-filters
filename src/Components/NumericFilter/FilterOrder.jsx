@@ -25,6 +25,7 @@ class FilterOrder extends React.Component {
 
   onClick() {
     const { columnSort, inputSort } = this.state;
+    console.log('test')
     this.props.orderFunc(columnSort, inputSort);
   }
 
