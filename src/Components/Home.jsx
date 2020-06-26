@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FetchStarWarsDataBase } from '../actions/index';
+import FilterOrder from '../Components/NumericFilter/FilterOrder';
+import FilterValue from '../Components/NumericFilter/FilterValue';
+import RemoveFilter from '../Components/NumericFilter/RemoveFilter';
 import Table from './Table';
 import NameFilter from './NameFilter';
 
@@ -16,6 +19,9 @@ class Home extends Component {
     return (
       <div>
         <NameFilter />
+        <FilterValue />
+        <FilterOrder />
+        <RemoveFilter />
         <Table />
       </div>
     );
