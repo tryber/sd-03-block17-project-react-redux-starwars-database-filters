@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import orderFuncAsc from '../Components/NumericFilter/orderFuncAsc';
+import orderFuncDesc from '../Components/NumericFilter/orderFuncDesc';
 
 class TableData extends Component {
   render() {
-    const { planets, name } = this.props;
-    const data = planets.filter((el) => el.name.toLowerCase().includes(name));
+    const { planets, name, numericValues, columnSort, sort } = this.props;
+    const data =
+    sort === 'ASC'
+      ? orderFuncAsc(planets, name, numericValues, columnSort)
+      : orderFuncDesc(planets, name, numericValues, columnSort);
     return (
       <tbody>
         {data.map((planet) => (
@@ -37,7 +42,15 @@ class TableData extends Component {
 const mapStateToProps = ({ SWreducer, filters }) => ({
   planets: SWreducer.data,
   name: filters.filterByName.name,
+  numericValues: filters.filterByNumericValues,
+  columnSort: filters.order.column,
+  sort: filters.order.sort,
 });
+
+TableData.defaultProps = {
+  columnSort: 'Name',
+  sort: 'ASC',
+};
 
 TableData.propTypes = {
   planets: PropTypes.arrayOf(
@@ -58,6 +71,17 @@ TableData.propTypes = {
     }),
   ).isRequired,
   name: PropTypes.string.isRequired,
+  numericValues: PropTypes.arrayOf(
+    PropTypes.shape({
+      column: PropTypes.string,
+      comparison: PropTypes.string,
+      value: PropTypes.string,
+      columnSort: PropTypes.string,
+      sort: PropTypes.string,
+    }),
+  ).isRequired,
+  columnSort: PropTypes.string.isRequired,
+  sort: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(TableData);
