@@ -13,7 +13,7 @@ function Reducer(state = initialState, action) {
     case REQUEST_API:
       return { ...state, request: action.payload, isFetching: true };
     case RECEIVE_API_SUCCESS:
-      return { ...state, planets: [...action.data], isFetching: false };
+      return { ...state, planets: [...action.payload], isFetching: true };
     case RECEIVE_API_FAILURE:
       return { ...state, error: action.error, isFetching: false };
     default:

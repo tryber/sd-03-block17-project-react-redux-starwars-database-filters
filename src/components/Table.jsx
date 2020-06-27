@@ -9,21 +9,22 @@ class Table extends Component {
     this.props.requestAPIPlanets();
   }
   render() {
+    const { planets } = this.props;
     console.log(this.props);
-    console.log(this.props.planets);
+    // console.log(planets);
 
     return (
       <main>
-        {/* <FilterTable /> */}
-        {/* <TableData planets={this.props.planets} /> */}
         <h3>StarWars Datatable with Filters</h3>
+        <FilterTable />
+        <TableData planets={planets} />
       </main>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  planets: state.Reducer.planets,
+const mapStateToProps = ({ planets }) => ({
+  planets,
 });
 
 const mapDispatchToProps = (dispatch) => ({

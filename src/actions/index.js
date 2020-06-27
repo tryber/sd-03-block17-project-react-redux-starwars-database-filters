@@ -7,7 +7,7 @@ const requestPlanets = () => ({
 
 const receiveAPISuccess = ({ results }) => ({
   type: RECEIVE_API_SUCCESS,
-  data: results,
+  payload: results,
 });
 
 const receiveAPIFailure = (error) => ({
@@ -15,7 +15,7 @@ const receiveAPIFailure = (error) => ({
   payload: error,
 });
 
-export default function fetchPlanets() {
+function fetchPlanets() {
   return (dispatch) => {
     dispatch(requestPlanets());
     return fetchAPI()
@@ -25,3 +25,5 @@ export default function fetchPlanets() {
       );
   };
 }
+
+export default fetchPlanets;
