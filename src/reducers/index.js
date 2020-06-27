@@ -6,7 +6,7 @@ const initialState = {
   isFetching: false,
 };
 
-const requestAPI = (state = initialState, action) => {
+const Reducer = (state = initialState, action) => {
   switch (action.type) {
     case REQUEST_API:
       return {
@@ -26,4 +26,4 @@ const requestAPI = (state = initialState, action) => {
   }
 };
 
-export default requestAPI;
+export default Reducer;

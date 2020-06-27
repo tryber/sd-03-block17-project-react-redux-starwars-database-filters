@@ -17,8 +17,7 @@ const headers = [
   'url',
 ];
 
-export default function TableData(props) {
-  const { data } = props;
+export default function TableData({ data }) {
   return (
     <table>
       <thead>
