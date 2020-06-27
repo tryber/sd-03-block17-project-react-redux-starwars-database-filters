@@ -1,12 +1,11 @@
-import { compose, createStore, applyMiddleware } from 'redux';
-import { combineReducers } from 'redux';
+import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import reducer from '../reducers';
+import requestAPI from '../reducers/index';
 
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const RootReducer = combineReducers({
-  reducer,
+  requestAPI,
 });
 
 const store = createStore(RootReducer, devTools(applyMiddleware(thunk)));
