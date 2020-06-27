@@ -8,7 +8,7 @@ const initialState = {
 
 function Reducer(state = initialState, action) {
   console.log('action chamada');
-  
+
   switch (action.type) {
     case REQUEST_API:
       return { ...state, request: action.payload, isFetching: true };
