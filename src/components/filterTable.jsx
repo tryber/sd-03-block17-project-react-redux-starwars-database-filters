@@ -1,19 +1,20 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
+// pode gerar dinamicos esses aqui
+
+const columns = ['population', 'orbital_period', 'diameter',
+  'rotation_period', 'surface_water'];
+
+// const comparisons = ['', 'maior que', 'igual a', 'menor que'];
 
 export default function filterTable() {
   return (
     <div className="filter-container">
-      <div>
-        <select name="column-filter" id="column-filter" data-testid="column-filter">
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
-        </select>
-      </div>
-
+      <select data-testid="column-filter">
+        {columns.map((list) => (
+          <option key={list}>{list}</option>
+        ))}
+      </select>
       <div>
         <select name="comparision-filter" id="comparision-filter" data-testid="comparision-filter">
           <option value="">Maior que</option>
@@ -44,3 +45,12 @@ export default function filterTable() {
 }
 
 // filterTable.propTypes = {};
+{/* <div>
+<select name="column-filter" id="column-filter" data-testid="column-filter">
+  <option value="population">population</option>
+  <option value="orbital_period">orbital_period</option>
+  <option value="diameter">diameter</option>
+  <option value="rotation_period">rotation_period</option>
+  <option value="surface_water">surface_water</option>
+</select>
+</div> */}

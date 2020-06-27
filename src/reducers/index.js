@@ -1,4 +1,4 @@
-import { REQUEST_API, RECEIVE_API_SUCCESS } from '../actions/types';
+import { REQUEST_API, RECEIVE_API_SUCCESS, RECEIVE_API_FAILURE } from '../actions/types';
 
 const initialState = {
   error: '',
@@ -19,8 +19,8 @@ const requestAPI = (state = initialState, action) => {
         planets: [...action.data],
         isFetching: false,
       };
-    // case RECEIVE_API_FAILURE:
-    //   return { ...state, error: action.error, isFetching: false };
+    case RECEIVE_API_FAILURE:
+      return { ...state, error: action.error, isFetching: false };
     default:
       return state;
   }
