@@ -5,7 +5,7 @@ import React from 'react';
 const columns = ['population', 'orbital_period', 'diameter',
   'rotation_period', 'surface_water'];
 
-// const comparisons = ['', 'maior que', 'igual a', 'menor que'];
+const comparisons = ['', 'maior que', 'igual a', 'menor que'];
 
 export default function filterTable() {
   return (
@@ -15,28 +15,24 @@ export default function filterTable() {
           <option key={list}>{list}</option>
         ))}
       </select>
-      <div>
-        <select name="comparision-filter" id="comparision-filter" data-testid="comparision-filter">
-          <option value="">Maior que</option>
-          <option value="">Menor que</option>
-          <option value="">Igual a</option>
-        </select>
-      </div>
+      <select
+        data-testid="comparison-filter"
+      >
+        {comparisons.map((list) => <option key={list}>{list}</option>)}
+      </select>
       <div>
         <input type="number" data-testid="value-filter" />
       </div>
       <div>
         <button data-testid="button-filter">Filter</button>
       </div>
-      <div>
-        <input
-          id="name-filter"
-          data-testid="name-filter"
-          placeholder="planet name here..."
-          type="text"
-        />
-        <label htmlFor="name-filter">Search Planets</label>
-      </div>
+      <input
+        id="name-filter"
+        data-testid="name-filter"
+        placeholder="planet name here..."
+        type="text"
+      />
+      <label htmlFor="name-filter">Search Planets</label>
     </div>
   );
 }
@@ -51,3 +47,9 @@ export default function filterTable() {
 //   <option value="surface_water">surface_water</option>
 // </select>
 // }
+
+// {/* <select name="comparision-filter" id="comparision-filter" data-testid="comparision-filter">
+// <option value="">Maior que</option>
+// <option value="">Menor que</option>
+// <option value="">Igual a</option>
+// </select> */}

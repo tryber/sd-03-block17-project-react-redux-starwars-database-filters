@@ -6,10 +6,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './store/store';
 
+// // <Provider store={store}>
+// {/* </Provider>, */}
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <App />,
   document.getElementById('root'),
 );
 
