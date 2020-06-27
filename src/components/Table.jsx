@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import FilterTable from './filterTable';
+import TableData from './TableData';
+import fetchPlanets from '../actions';
 
-const Table = (props) => (
-  <main>
-    <FilterTable />
-    <h3>StarWars Datatable with Filters</h3>
-    <p>{props.results}</p>
-  </main>
-);
+class Table extends Component {
+  componentDidMount() {
+    this.props.requestAPIPlanets();
+  }
+  render() {
+    console.log(this.props);
+    console.log(this.props.planets);
 
-export default Table;
+    return (
+      <main>
+        {/* <FilterTable /> */}
+        {/* <TableData planets={this.props.planets} /> */}
+        <h3>StarWars Datatable with Filters</h3>
+      </main>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  planets: state.Reducer.planets,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  requestAPIPlanets: () => dispatch(fetchPlanets()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

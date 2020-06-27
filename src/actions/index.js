@@ -7,7 +7,7 @@ const requestPlanets = () => ({
 
 const receiveAPISuccess = ({ results }) => ({
   type: RECEIVE_API_SUCCESS,
-  payload: results,
+  data: results,
 });
 
 const receiveAPIFailure = (error) => ({

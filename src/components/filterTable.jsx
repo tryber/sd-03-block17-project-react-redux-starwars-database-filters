@@ -3,23 +3,19 @@ import React from 'react';
 
 export default function filterTable() {
   return (
-    <div>
+    <div className="filter-container">
       <div>
         <select name="column-filter" id="column-filter" data-testid="column-filter">
-          <option value="">population</option>
-          <option value="">orbital_period</option>
-          <option value="">diameter</option>
-          <option value="">rotation_period</option>
-          <option value="">surface_water</option>
+          <option value="population">population</option>
+          <option value="orbital_period">orbital_period</option>
+          <option value="diameter">diameter</option>
+          <option value="rotation_period">rotation_period</option>
+          <option value="surface_water">surface_water</option>
         </select>
       </div>
 
       <div>
-        <select
-          name="comparision-filter"
-          id="comparision-filter"
-          data-testid="comparision-filter"
-        >
+        <select name="comparision-filter" id="comparision-filter" data-testid="comparision-filter">
           <option value="">Maior que</option>
           <option value="">Menor que</option>
           <option value="">Igual a</option>

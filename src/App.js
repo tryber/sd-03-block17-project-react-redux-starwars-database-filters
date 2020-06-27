@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Table results={12} />
+        <Table />
       </header>
     </div>
   );
