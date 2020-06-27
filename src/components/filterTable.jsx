@@ -22,15 +22,12 @@ export default function filterTable() {
           <option value="">Igual a</option>
         </select>
       </div>
-
       <div>
         <input type="number" data-testid="value-filter" />
       </div>
-
       <div>
         <button data-testid="button-filter">Filter</button>
       </div>
-
       <div>
         <input
           id="name-filter"
@@ -45,12 +42,12 @@ export default function filterTable() {
 }
 
 // filterTable.propTypes = {};
-{/* <div>
-<select name="column-filter" id="column-filter" data-testid="column-filter">
-  <option value="population">population</option>
-  <option value="orbital_period">orbital_period</option>
-  <option value="diameter">diameter</option>
-  <option value="rotation_period">rotation_period</option>
-  <option value="surface_water">surface_water</option>
-</select>
-</div> */}
+// {
+// <select name="column-filter" id="column-filter" data-testid="column-filter">
+//   <option value="population">population</option>
+//   <option value="orbital_period">orbital_period</option>
+//   <option value="diameter">diameter</option>
+//   <option value="rotation_period">rotation_period</option>
+//   <option value="surface_water">surface_water</option>
+// </select>
+// }
