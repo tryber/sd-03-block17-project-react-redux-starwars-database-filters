@@ -15,15 +15,13 @@ const receiveAPIFailure = (error) => ({
   payload: error,
 });
 
-function fetchPlanets() {
+export default function fetchRequestPlanets() {
   return (dispatch) => {
     dispatch(requestPlanets());
-    return fetchAPI()
-      .then(
-        (data) => dispatch(receiveAPISuccess(data)),
-        (error) => dispatch(receiveAPIFailure(error.message)),
-      );
+
+    return fetchAPI().then(
+      (data) => dispatch(receiveAPISuccess(data)),
+      (error) => dispatch(receiveAPIFailure(error.message)),
+    );
   };
 }
-
-export default fetchPlanets;
