@@ -1,6 +1,6 @@
 import React from 'react';
-import './App.css';
 import { Provider } from 'react-redux';
+import './App.css';
 import Table from './components/Table';
 import store from './store/store';
 
