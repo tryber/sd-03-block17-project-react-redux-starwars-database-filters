@@ -6,7 +6,7 @@ import { combineReducers } from 'redux';
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const RootReducer = combineReducers({
-  reducer
+  reducer,
 });
 
 const store = createStore(RootReducer, devTools(applyMiddleware(thunk)));
