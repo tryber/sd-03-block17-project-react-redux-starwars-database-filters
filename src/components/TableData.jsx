@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
 
 const headers = [
   'Name',
@@ -17,13 +18,13 @@ const headers = [
   'url',
 ];
 
-export default function TableData({ data }) {
+function TableData({ data }) {
   return (
     <table>
       <thead>
         <tr>
-          {headers.map((el) => (
-            <th key={el}>{el}</th>
+          {headers.map((header) => (
+            <th key={header}>{header}</th>
           ))}
         </tr>
       </thead>
@@ -69,3 +70,5 @@ TableData.propTypes = {
     }),
   ).isRequired,
 };
+
+export default TableData;

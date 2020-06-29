@@ -6,7 +6,7 @@ const initialState = {
   isFetching: false,
 };
 
-const Reducer = (state = initialState, action) => {
+const reducerAPI = (state = initialState, action) => {
   switch (action.type) {
     case REQUEST_API:
       return {
@@ -16,7 +16,7 @@ const Reducer = (state = initialState, action) => {
     case RECEIVE_API_SUCCESS:
       return {
         ...state,
-        planets: [...action.payload],
+        planets: [...action.planets],
         isFetching: false,
       };
     case RECEIVE_API_FAILURE:
@@ -26,4 +26,4 @@ const Reducer = (state = initialState, action) => {
   }
 };
 
-export default Reducer;
+export default reducerAPI;

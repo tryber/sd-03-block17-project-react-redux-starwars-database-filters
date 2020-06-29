@@ -11,9 +11,13 @@ const columns = [
   'surface_water',
 ];
 
+// const handleChange = () => {
+  
+// }
+
 const comparisons = ['', 'maior que', 'igual a', 'menor que'];
 
-export default function filterTable() {
+export default function FilterTable() {
   return (
     <div className="filter-container">
       <select data-testid="column-filter">
@@ -31,19 +35,12 @@ export default function filterTable() {
       </div>
       <div>
         <button data-testid="button-filter">Filter</button>
-      </div>
-      <input
-        id="name-filter"
-        data-testid="name-filter"
-        placeholder="planet name here..."
-        type="text"
-      />
-      <label htmlFor="name-filter">Search Planets</label>
+      </div>      
     </div>
   );
 }
 
-// filterTable.propTypes = {};
+// FilterTable.propTypes = {};
 // {
 // <select name="column-filter" id="column-filter" data-testid="column-filter">
 //   <option value="population">population</option>

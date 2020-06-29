@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import FilterTable from './filterTable';
+import FilterTable from './FilterTable';
 import TableData from './TableData';
 
 import fetchRequestPlanets from '../actions/index';
+import FilterName from './FilterName';
 
 class Table extends Component {
   componentDidMount() {
@@ -15,20 +16,22 @@ class Table extends Component {
 
   render() {
     const { isFetching, planets } = this.props;
+    console.log('props: ', this.props);
 
     return (
       <main>
         <h3>StarWars Datatable with Filters</h3>
         <FilterTable />
-        {isFetching ? 'Loading' : <TableData data={planets} />}
+        <FilterName />
+        {isFetching ? 'Loading...' : <TableData data={planets} />}
       </main>
     );
   }
 }
 
-const mapStateToProps = ({ requestAPI: { isFetching, planets } }) => ({
-  isFetching,
-  planets,
+const mapStateToProps = (state) => ({
+  isFetching: state.reducerAPI.isFetching,
+  planets: state.reducerAPI.planets,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -42,3 +45,29 @@ Table.propTypes = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
+
+
+
+// Diego
+
+
+
+// filterSelectedValues(data) {
+//   const { selectInput } = this.props;
+//   if (selectInput) {
+//   return selectInput.reduce(
+//   (acc, { column, comparison, value }) =>
+//   acc.filter((planet) => switchComparison(column, comparison, value, planet)),
+//   this.filteredPlanet(data),
+//   );
+//   }
+//   return this.filteredPlanet(data);
+//   }
+  
+//   filteredPlanet(data) {
+//   const { nameInput } = this.props;
+//   if (nameInput !== '') {
+//   return data.filter(({ name }) => name.toLowerCase().includes(nameInput.toLowerCase()));
+//   }
+//   return data;
+//   } 
