@@ -6,17 +6,43 @@ import { fetchStarWars } from '../actions';
 import TableHead from './TableHead';
 import Filters from './Filters';
 
+function switchComparison(column, comparison, value, planet) {
+  switch (comparison) {
+    case 'Maior que':
+      return Number(planet[column]) > Number(value);
+    case 'Igual a':
+      return Number(planet[column]) === Number(value);
+    case 'Menor que':
+      return Number(planet[column]) < Number(value);
+    default:
+      return [];
+  }
+}
+
 class Table extends Component {
   componentDidMount() {
     const { getStarWarsPlanetsData } = this.props;
     getStarWarsPlanetsData();
   }
 
-  render() {
-    const { data, nameToData } = this.props;
+  getFilteredValues() {
+    const { getFilterByNumber } = this.props;
+    if (getFilterByNumber) {
+      return getFilterByNumber.reduce(
+        (acc, { column, comparison, value }) =>
+          acc.filter((planet) => switchComparison(column, comparison, value, planet)),
+        this.getFilteredName(),
+      );
+    }
+    return this.getFilteredName();
+  }
 
-    const getFilteredName = data.filter((planet) => planet.name.includes(nameToData));
-    const getFilteredNumber = data.filter((planet) => planet.selectedCondition.selectedValue)
+  getFilteredName() {
+    const { data, name } = this.props;
+    return data.filter((planet) => planet.name.includes(name));
+  }
+
+  render() {
 
     return (
       <div>
@@ -25,7 +51,7 @@ class Table extends Component {
         <table>
           <TableHead />
           <tbody>
-            {getFilteredName.map((planet) => (
+            {this.getFilteredValues().map((planet) => (
               <tr key="planet.name">
                 <td>{planet.name}</td>
                 <td>{planet.rotation_period}</td>
@@ -51,10 +77,8 @@ class Table extends Component {
 
 const mapStateToProps = (state) => ({
   data: state.starWars.data,
-  nameToData: state.filters.filterByName.name,
-  columnToData: state.filters.filterByNumericValues.column,
-  comparisonToData: state.filters.filterByNumericValues.comparison,
-  valueToData: state.filters.filterByNumericValues.value,
+  name: state.filters.filterByName.name,
+  getFilterByNumber: state.filters.filterByNumericValues,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -78,12 +102,19 @@ Table.propTypes = {
     edited: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
   }),
-  nameToData: PropTypes.string,
+  name: PropTypes.string,
+  getFilterByNumber: PropTypes.arrayOf(
+    PropTypes.shape({
+      column: PropTypes.string,
+      comparison: PropTypes.string,
+      value: PropTypes.string,
+    }),
+  ).isRequired,
 };
 
 Table.defaultProps = {
   data: null,
-  nameToData: null,
+  name: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
