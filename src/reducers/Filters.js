@@ -1,39 +1,31 @@
-import {
-  FILTER_BY_NAME,
-  FILTER_BY_NUMERIC_VALUES,
-  REMOVE_FILTER_BY_NUMERIC_VALUES,
-  ORDER_COLUMN,
-} from '../actions/types';
+import { FILTER_BY_NAME, FILTER_BY_NUMERIC, REMOVE_NUMERIC, ORDER_COLUMN } from '../actions';
 
 const INITIAL_STATE = {
   filterByName: { name: '' },
   filterByNumericValues: [],
   order: {
-    column: 'Name',
+    colmun: 'Name',
     sort: 'ASC',
   },
 };
 
-const filterReducer = (state = INITIAL_STATE, action) => {
+const filters = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FILTER_BY_NAME:
       return {
         ...state,
         filterByName: { name: action.name },
       };
-    case FILTER_BY_NUMERIC_VALUES:
+    case FILTER_BY_NUMERIC:
       return {
         ...state,
-        filterByNumericValues: [
-          ...state.filterByNumericValues,
-          {
-            column: action.column,
-            comparison: action.comparison,
-            value: action.value,
-          },
-        ],
+        filterByNumericValues: [...state.filterByNumericValues, {
+          column: action.column,
+          comparison: action.comparison,
+          value: action.value,
+        }],
       };
-    case REMOVE_FILTER_BY_NUMERIC_VALUES:
+    case REMOVE_NUMERIC:
       return {
         ...state,
         filterByNumericValues: [
@@ -45,9 +37,8 @@ const filterReducer = (state = INITIAL_STATE, action) => {
         ...state,
         order: { column: action.column, sort: action.sort },
       };
-    default:
-      return state;
+    default: return state;
   }
 };
 
-export default filterReducer;
+export default filters;
