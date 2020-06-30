@@ -42,6 +42,27 @@ class Table extends Component {
     return data.filter((planet) => planet.name.includes(name));
   }
 
+  sortPlanets(planetA, planetB) {
+    const { order } = this.props;
+    console.log(planetA, planetB);
+    let columnA = planetA[order.column.toLowerCase()];
+    let columnB = planetB[order.column.toLowerCase()];
+
+    if (order.column.toLowerCase() !== 'name') {
+      columnA = Number(columnA);
+      columnB = Number(columnB);
+    }
+    if (order.sort === 'ASC') {
+      if (columnA > columnB) return 1
+      return -1;
+    } 
+    if (order.sort === 'DESC') {
+      if (columnA < columnB) return 1
+      return -1;
+    }
+    return 0;
+  }
+
   render() {
     return (
       <div>
@@ -50,7 +71,9 @@ class Table extends Component {
         <table>
           <TableHead />
           <tbody>
-            {this.getFilteredValues().map((planet) => (
+            {this.getFilteredValues()
+            .sort((planetA, planetB) => this.sortPlanets(planetA, planetB))
+            .map((planet) => (
               <tr key={planet.name}>
                 <td>{planet.name}</td>
                 <td>{planet.rotation_period}</td>
@@ -78,6 +101,7 @@ const mapStateToProps = (state) => ({
   data: state.starWars.data,
   name: state.filters.filterByName.name,
   getFilterByNumber: state.filters.filterByNumericValues,
+  order: state.filters.order,
 });
 
 const mapDispatchToProps = (dispatch) => ({

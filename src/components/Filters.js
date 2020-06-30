@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { filterName, filterNumValues, deleteFilter, disableColumn, enableColumn } from '../actions';
+import { filterName, filterNumValues, deleteFilter, disableColumn, enableColumn, changeOrder } from '../actions';
 
 class Filters extends Component {
   constructor(props) {
@@ -13,6 +13,8 @@ class Filters extends Component {
       comparison: '',
       value: '',
       filters: ["population", "orbital_period", "diameter", "rotation_period", "surface_water"],
+      orderColumn: 'name',
+      orderSort: 'ASC',
     };
 
     this.disableOption = this.disableOption.bind(this);
@@ -87,8 +89,8 @@ class Filters extends Component {
   }
 
   render() {
-    const { getFilterByName, getFilterByNumber, filterByNumeric } = this.props;
-    const { column, comparison, value } = this.state;
+    const { getFilterByName, getFilterByNumber, filterByNumeric, changeOrd } = this.props;
+    const { column, comparison, value, orderColumn, orderSort } = this.state;
 
     return (
       <div>
@@ -123,6 +125,48 @@ class Filters extends Component {
             </button>
           </div>
         ))}
+        <select
+          data-testid="column-sort"
+          id="orderColumn"
+          onChange={(event) => this.setState({ orderColumn: event.target.value })}
+        >
+          <option>name</option>
+          <option>climate</option>
+          <option>created</option>
+          <option>diameter</option>
+          <option>edited</option>
+          <option>films</option>
+          <option>gravity</option>
+          <option>orbital_period</option>
+          <option>population</option>
+          <option>rotation_period</option>
+          <option>surface_water</option>
+          <option>terrain</option>
+          <option>url</option>
+        </select>
+        <input
+          data-testid="column-sort-input"
+          type="radio"
+          name="order"
+          value="ASC"
+          onClick={(event) => this.setState({ orderSort: event.target.value })}
+        >
+        </input>
+        <input
+          data-testid="column-sort-input"
+          type="radio"
+          name="order"
+          value="DESC"
+          onClick={(event) => this.setState({ orderSort: event.target.value })}
+        >
+        </input>
+        <button
+          data-testid="column-sort-button"
+          type="button"
+          onClick={() => changeOrd({ column: orderColumn, sort: orderSort })}
+        >
+          Order
+        </button>
       </div>
     );
   }
@@ -139,6 +183,7 @@ const mapDispatchToProps = (dispatch) => ({
   deleteFil: (filters) => dispatch(deleteFilter(filters)),
   disableCol: (column) => dispatch(disableColumn(column)),
   enableCol: (column) => dispatch(enableColumn(column)),
+  changeOrd: (order) => dispatch(changeOrder(order)),
 });
 
 Filters.propTypes = {

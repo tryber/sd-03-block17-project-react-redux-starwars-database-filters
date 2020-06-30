@@ -4,6 +4,7 @@ import {
   DELETE_FILTER,
   DISABLE_COLUMN,
   ENABLE_COLUMN,
+  CHANGE_ORDER,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -18,6 +19,10 @@ const INITIAL_STATE = {
     { name: 'rotation_period', avaliable: true },
     { name: 'surface_water', avaliable: true },
   ],
+  order: {
+    column: 'Name',
+    sort: 'ASC',
+  },
 };
 
 const filters = (state = INITIAL_STATE, action) => {
@@ -48,6 +53,11 @@ const filters = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         avaliableFilters: [...action.column],
+      }
+    case CHANGE_ORDER:
+      return {
+        ...state,
+        order: {...action.order},
       }
     default:
       return state;

@@ -8,6 +8,7 @@ export const FILTER_BY_NUM_VALUE = 'FILTER_BY_NUM_VALUE';
 export const DELETE_FILTER = 'DELETE_FILTER';
 export const DISABLE_COLUMN = 'DISABLE_COLUMN';
 export const ENABLE_COLUMN = 'ENABLE_COLUMN';
+export const CHANGE_ORDER = 'CHANGE_ORDER';
 
 const requestStarWars = () => ({
   type: REQUEST_STARWARS,
@@ -58,4 +59,9 @@ export const disableColumn = (column) => ({
 export const enableColumn = (column) => ({
   type: ENABLE_COLUMN,
   column,
+})
+
+export const changeOrder = (order) => ({
+  type: CHANGE_ORDER,
+  order,
 })
