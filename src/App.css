@@ -83,3 +83,7 @@ h2 a {
   transition-property: all;
   transition-timing-function: line;
 }
+
+body {
+  color: white
+}

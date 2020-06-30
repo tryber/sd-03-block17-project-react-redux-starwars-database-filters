@@ -4,13 +4,7 @@ const INITIAL_STATE = {
   filterByName: {
     name: ''
   },
-  filterByNumericValue: [
-    {
-      column: '',
-      comparison: '',
-      value: '',
-    }
-  ],
+  filterByNumericValue: [],
   order: {
     column: 'Name',
     sort: 'ASC',
@@ -28,9 +22,7 @@ const filters = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         filterByNumericValue:
-          state.filterByNumericValue[0].column === ''
-            ? action.parameters
-            : [...state.filterByNumericValue, action.parameters],
+          [...state.filterByNumericValue, action.parameters[0]],
       };
       case REMOVE_FILTER:
         return {

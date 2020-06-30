@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { removeFilters } from '../actions/filters';
 
-const RemoveFilters = ({ filters, removeSelectedFilters }) => {
+const RemoveFilters = ({ filters, removeSelectedFilter }) => {
   if (filters.lenght !== 0) {
     return (
       <div>
@@ -13,7 +13,7 @@ const RemoveFilters = ({ filters, removeSelectedFilters }) => {
               <span>{filter.column}</span>
               <span>{filter.comparison}</span>
               <span>{filter.value}</span>
-              <button type="button" onClick={() => removeSelectedFilters(filter)}>
+              <button type="button" onClick={() => removeSelectedFilter(filter)}>
                 X
               </button>
             </p>
@@ -25,11 +25,11 @@ const RemoveFilters = ({ filters, removeSelectedFilters }) => {
 };
 
 const mapStateToProps = (state) => ({
-  filters: state.filters.filterByNumericValues,
+  filters: state.filters.filterByNumericValue,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeSelectedFilters: (filters) => dispatch(removeFilters(filters)),
+  removeSelectedFilter: (filter) => dispatch(removeFilters(filter)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RemoveFilters);

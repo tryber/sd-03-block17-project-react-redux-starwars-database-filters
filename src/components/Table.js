@@ -6,6 +6,7 @@ import TableLine from './TableLine';
 import TableHead from './TableHead';
 import Loading from './Loading';
 import filterPlanets from '../helpers/filterFunction';
+import orderFunction from '../helpers/orderFunction';
 
 class Table extends React.Component {
   componentDidMount() {
@@ -14,14 +15,16 @@ class Table extends React.Component {
 
   render() {
     const { nameFilter, numericFilters, data } = this.props
-    const { isFetching  } = this.props;
+    const { isFetching, sortColumnFilter, orderColumns  } = this.props;
+    const filteredPlanets = filterPlanets({ nameFilter, numericFilters, data })
+    const orderedPlanets = orderFunction( filteredPlanets, sortColumnFilter, orderColumns )
     if (isFetching) return <Loading />;
     if (data) {
       return (
         <table className="container">
           <TableHead />
           <tbody>
-            {filterPlanets({ nameFilter, numericFilters, data }).map((planet) => 
+            {orderedPlanets.map((planet) => 
               <TableLine planet={planet} key={planet.name} />
             )};
           </tbody>
@@ -41,8 +44,8 @@ const mapStateToProps = (state) => ({
   data: state.planetsData.data,
   nameFilter: state.filters.filterByName.name,
   numericFilters: state.filters.filterByNumericValue,
-  // sortColumnFilter: state.filters.order.column,
-  // orderColumns: state.filters.order.sort,
+  sortColumnFilter: state.filters.order.column,
+  orderColumns: state.filters.order.sort,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

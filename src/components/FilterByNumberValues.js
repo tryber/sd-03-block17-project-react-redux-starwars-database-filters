@@ -59,7 +59,13 @@ class filterByNumberValues extends React.Component {
           data-testid="value-filter"
           onChange={(event) => this.handleChange(event, 'value')}
         />
-        <button data-testid="button-filter" onClick={this.handleClick}>Filter</button>
+        <button
+          data-testid="button-filter"
+          onClick={this.handleClick}
+          disabled={!this.state.column}
+        >
+            Filter
+        </button>
       </div>
     );
   }
