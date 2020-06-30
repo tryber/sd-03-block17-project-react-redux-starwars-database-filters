@@ -74,7 +74,8 @@ class Filters extends Component {
         {this.inputNumber()}
         <button
           data-testid="button-filter"
-          onClick={() => getFilterByNumber(column, comparison, value)}
+          type="button"
+          onClick={() => getFilterByNumber({column, comparison, value})}
         >
           Filtrar
         </button>
@@ -84,25 +85,24 @@ class Filters extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  name: state.filters.filterByName.name,
-  column: state.filters.filterByNumericValues.column,
-  comparison: state.filters.filterByNumericValues.comparison,
-  value: state.filters.filterByNumericValues.value,
+  // column: state.filters.filterByNumericValues.column,
+  // comparison: state.filters.filterByNumericValues.comparison,
+  // value: state.filters.filterByNumericValues.value,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getFilterByName: (name) => dispatch(filterName(name)),
-  getFilterByNumber: (column, comparison, value) => dispatch(filterNumValues(column, comparison, value)),
+  getFilterByNumber: (getFilterByNumber) => dispatch(filterNumValues(getFilterByNumber)),
 });
 
 Filters.propTypes = {
-  getFilterByName: PropTypes.func,
-  getFilterByNumber: PropTypes.func,
+  getFilterByName: PropTypes.func.isRequired,
+  getFilterByNumber: PropTypes.func.isRequired,
 };
 
-Filters.defaultProps = {
-  getFilterByName: null,
-  getFilterByNumber: null,
-};
+// Filters.defaultProps = {
+//   getFilterByName: null,
+//   getFilterByNumber: null,
+// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);

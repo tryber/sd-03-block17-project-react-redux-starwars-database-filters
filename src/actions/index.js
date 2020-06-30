@@ -37,9 +37,7 @@ export const filterName = (name) => ({
   name,
 });
 
-export const filterNumValues = (column, comparison, value) => ({
+export const filterNumValues = (...params) => ({
   type: FILTER_BY_NUM_VALUE,
-  column,
-  comparison,
-  value,
+  params,
 })

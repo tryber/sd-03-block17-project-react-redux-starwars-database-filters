@@ -7,13 +7,7 @@ const INITIAL_STATE = {
   filterByName: {
     name: '',
   }, 
-  filterByNumericValues: [
-    {
-      column: '',
-      comparison: '',
-      value: '',
-    }
-  ]
+  filterByNumericValues: []
 };
 
 const filters = (state = INITIAL_STATE, action) => {
@@ -26,13 +20,10 @@ const filters = (state = INITIAL_STATE, action) => {
         },
       };
     case FILTER_BY_NUM_VALUE:
+      console.log('recebendo dados', action.params, filters);
       return {
         ...state,
-        filterByNumericValues: {
-          column: action.column,
-          comparison: action.comparison,
-          value: action.value,
-        },
+        filterByNumericValues: [ ...state.filterByNumericValues, action.params],
       };
     default:
       return state;

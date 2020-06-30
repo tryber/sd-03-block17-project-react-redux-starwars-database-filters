@@ -87,7 +87,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Table.propTypes = {
   getStarWarsPlanetsData: PropTypes.func.isRequired,
-  data: PropTypes.shape({
+  data: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     rotation_period: PropTypes.string.isRequired,
     orbital_period: PropTypes.string.isRequired,
@@ -101,7 +101,7 @@ Table.propTypes = {
     created: PropTypes.string.isRequired,
     edited: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
-  }),
+  })),
   name: PropTypes.string,
   getFilterByNumber: PropTypes.arrayOf(
     PropTypes.shape({
