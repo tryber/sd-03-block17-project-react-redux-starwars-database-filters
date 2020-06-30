@@ -173,15 +173,6 @@ class Filters extends Component {
         {this.selectACondition()}
         {this.inputNumber()}
         {this.filterBtn()}
-        {/* <button
-          data-testid="button-filter" type="button"
-          onClick={() => {
-            getFilterByNumber({ column, comparison, value });
-            this.disableOption(column);
-          }}
-        >
-          Filtrar
-        </button> */}
         {filterByNumeric.map((filter, index) => (
           <div data-testid="filter">
             {`${filter.column} ${filter.comparison} ${filter.value}`}
