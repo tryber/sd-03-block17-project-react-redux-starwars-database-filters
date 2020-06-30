@@ -8,7 +8,7 @@ export const filterByName = (value) => ({
   value,
 });
 
-export const filterByNumericValue = (...parameters) => ({
+export const filterByNumericValues = (...parameters) => ({
   type: FILTER_BY_NUMERIC_VALUE,
   parameters,
 });

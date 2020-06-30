@@ -25,7 +25,7 @@ const RemoveFilters = ({ filters, removeSelectedFilter }) => {
 };
 
 const mapStateToProps = (state) => ({
-  filters: state.filters.filterByNumericValue,
+  filters: state.filters.filterByNumericValues,
 });
 
 const mapDispatchToProps = (dispatch) => ({

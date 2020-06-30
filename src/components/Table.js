@@ -43,7 +43,7 @@ const mapStateToProps = (state) => ({
   isFetching: state.planetsData.isFetching,
   data: state.planetsData.data,
   nameFilter: state.filters.filterByName.name,
-  numericFilters: state.filters.filterByNumericValue,
+  numericFilters: state.filters.filterByNumericValues,
   sortColumnFilter: state.filters.order.column,
   orderColumns: state.filters.order.sort,
 });

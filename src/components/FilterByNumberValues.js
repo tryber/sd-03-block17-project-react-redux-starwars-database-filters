@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filterByNumericValue } from '../actions/filters';
+import { filterByNumericValues } from '../actions/filters';
 
 const columns = ['', 'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
 const comparison = ['', 'maior que', 'igual a', 'menor que'];
@@ -61,11 +61,11 @@ class filterByNumberValues extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  numericFilterParameters: (parameters) => dispatch(filterByNumericValue(parameters)),
+  numericFilterParameters: (parameters) => dispatch(filterByNumericValues(parameters)),
 });
 
 const mapStateToProps = (state) => ({
-  numericFilterValue: state.filters.filterByNumericValue,
+  numericFilterValue: state.filters.filterByNumericValues,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(filterByNumberValues);
