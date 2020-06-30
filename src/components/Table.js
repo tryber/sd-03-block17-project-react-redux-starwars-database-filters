@@ -49,13 +49,21 @@ class Table extends Component {
     let columnB = planetB[order.column.toLowerCase()];
 
     const ascOrder = () => {
-      if (columnA > columnB) return 1;
-      return -1;
+      switch (columnA > columnB) {
+        case true:
+          return 1;
+        default:
+          return -1;
+      }
     };
 
     const descOrder = () => {
-      if (columnA < columnB) return 1;
-      return -1;
+      switch (columnA < columnB) {
+        case true:
+          return 1;
+        default:
+          return -1;
+      }
     };
 
     if (order.column.toLowerCase() !== 'name') {
@@ -71,12 +79,6 @@ class Table extends Component {
       default:
         return 0;
     }
-
-
-
-    // if (order.sort === 'ASC') return ascOrder(columnA, columnB);
-    // if (order.sort === 'DESC') return descOrder(columnA, columnB);
-    // return 0;
   }
 
   render() {
