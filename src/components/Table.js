@@ -25,7 +25,7 @@ class Table extends React.Component {
           <TableHead />
           <tbody>
             {orderedPlanets.map((planet) =>
-              <TableLine planet={planet} key={planet.name} />
+              <TableLine planet={planet} key={planet.name} />,
             )};
           </tbody>
         </table>

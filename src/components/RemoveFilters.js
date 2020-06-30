@@ -21,7 +21,7 @@ const RemoveFilters = ({ filters, removeSelectedFilter }) => {
       </div>
     );
   }
-  return <p>Nenhum filtro selecionado</p>
+  return <p>Nenhum filtro selecionado</p>;
 };
 
 const mapStateToProps = (state) => ({

@@ -48,8 +48,12 @@ class filterByNumberValues extends React.Component {
           {comparison.map((option) => <option value={option} key={option}>{option}</option>)}
         </select>
         <input type="number" data-testid=" value-filter" onChange={(event) => this.handleChange(event, 'value')} />
-        <button data-testid="button-filter" onClick={this.handleClick} disabled={!this.state.column}>
-            Filter
+        <button
+          data-testid="button-filter"
+          onClick={this.handleClick}
+          disabled={!this.state.column}
+        >
+          Filter
         </button>
       </div>
     );

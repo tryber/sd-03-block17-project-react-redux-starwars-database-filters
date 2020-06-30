@@ -11,6 +11,6 @@ const filterPlanets = ({ nameFilter, numericFilters, data }) => {
       , filterbyName);
   }
   return filterbyName;
-}
+};
 
 export default filterPlanets;
