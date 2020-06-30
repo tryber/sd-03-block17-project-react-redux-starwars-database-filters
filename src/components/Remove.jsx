@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { removeFilterNumeric } from '../actions';
 
-function Remove({ numericValues, removeNumeric }) {
+function Remove({ nmericValues, removeNumeric }) {
   const onClick = (type) => removeNumeric(type);
-  return numericValues.map((type) => (
+  return nmericValues.map((type) => (
     <div data-testid="filter" key={type.column}>
       <span>
         {type.column} - {type.comparison} - {type.value}
