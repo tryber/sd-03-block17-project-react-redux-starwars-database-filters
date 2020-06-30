@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { removeFilters } from '../actions/filters';
 
 const RemoveFilters = ({ filters, removeSelectedFilter }) => {
+  console.log(123, removeSelectedFilter)
   if (filters.lenght !== 0) {
     return (
       <div>
