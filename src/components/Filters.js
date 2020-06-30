@@ -21,6 +21,59 @@ class Filters extends Component {
     this.enableOption = this.enableOption.bind(this);
   }
 
+  selectOrder() {
+    return (
+      <div>
+        <select
+          data-testid="column-sort" id="orderColumn"
+          onChange={(event) => this.setState({ orderColumn: event.target.value })}
+        >
+          <option>name</option>
+          <option>climate</option>
+          <option>created</option>
+          <option>diameter</option>
+          <option>edited</option>
+          <option>films</option>
+          <option>gravity</option>
+          <option>orbital_period</option>
+          <option>population</option>
+          <option>rotation_period</option>
+          <option>surface_water</option>
+          <option>terrain</option>
+          <option>url</option>
+        </select>
+      </div>
+    );
+  }
+
+  getOrdered() {
+    const { changeOrd } = this.props;
+    const { orderColumn, orderSort } = this.state;
+    return (
+      <div>
+        <p>Select order:</p>
+        {this.selectOrder()}
+        <input
+          data-testid="column-sort-input"
+          type="radio" name="order" value="ASC"
+          onClick={(event) => this.setState({ orderSort: event.target.value })}
+        />
+        <input
+          data-testid="column-sort-input"
+          type="radio" name="order" value="DESC"
+          onClick={(event) => this.setState({ orderSort: event.target.value })}
+        />
+        <button
+          data-testid="column-sort-button"
+          type="button"
+          onClick={() => changeOrd({ column: orderColumn, sort: orderSort })}
+        >
+          Order
+        </button>
+      </div>
+    );
+  }
+
   selectAnOption() {
     const { column } = this.state;
     const { avaliableFilters } = this.props;
@@ -88,50 +141,6 @@ class Filters extends Component {
     deleteFil(response2);
   }
 
-  getOrdered() {
-    const { changeOrd } = this.props;
-    const { orderColumn, orderSort } = this.state;
-    return (
-      <div>
-        <select
-          data-testid="column-sort" id="orderColumn"
-          onChange={(event) => this.setState({ orderColumn: event.target.value })}
-        >
-          <option>name</option>
-          <option>climate</option>
-          <option>created</option>
-          <option>diameter</option>
-          <option>edited</option>
-          <option>films</option>
-          <option>gravity</option>
-          <option>orbital_period</option>
-          <option>population</option>
-          <option>rotation_period</option>
-          <option>surface_water</option>
-          <option>terrain</option>
-          <option>url</option>
-        </select>
-        <input
-          data-testid="column-sort-input"
-          type="radio" name="order" value="ASC"
-          onClick={(event) => this.setState({ orderSort: event.target.value })}
-        />
-        <input
-          data-testid="column-sort-input"
-          type="radio" name="order" value="DESC"
-          onClick={(event) => this.setState({ orderSort: event.target.value })}
-        />
-        <button
-          data-testid="column-sort-button"
-          type="button"
-          onClick={() => changeOrd({ column: orderColumn, sort: orderSort })}
-        >
-          Order
-        </button>
-      </div>
-    );
-  }
-
   render() {
     const { getFilterByName, getFilterByNumber, filterByNumeric } = this.props;
     const { column, comparison, value } = this.state;
@@ -149,8 +158,7 @@ class Filters extends Component {
         {this.selectACondition()}
         {this.inputNumber()}
         <button
-          data-testid="button-filter"
-          type="button"
+          data-testid="button-filter" type="button"
           onClick={() => {
             getFilterByNumber({ column, comparison, value });
             this.disableOption(column);
@@ -161,10 +169,7 @@ class Filters extends Component {
         {filterByNumeric.map((filter, index) => (
           <div data-testid="filter">
             {`${filter.column} ${filter.comparison} ${filter.value}`}
-            <button
-              type="button"
-              onClick={() => this.enableOption(filter.column, index)}
-            >
+            <button type="button" onClick={() => this.enableOption(filter.column, index)} >
               X
             </button>
           </div>
