@@ -19,6 +19,16 @@ function switchComparison(column, comparison, value, planet) {
   }
 }
 
+function ascOrder(columnA, columnB) {
+  if (columnA > columnB) return 1;
+  return -1;
+}
+
+function descOrder(columnA, columnB) {
+  if (columnA < columnB) return 1;
+  return -1;
+}
+
 class Table extends Component {
 
   componentDidMount() {
@@ -43,16 +53,6 @@ class Table extends Component {
     return data.filter((planet) => planet.name.includes(name));
   }
 
-  ascOrder(columnA, columnB) {
-    if (columnA > columnB) return 1;
-    return -1;
-  }
-
-  descOrder(columnA, columnB) {
-    if (columnA < columnB) return 1;
-    return -1;
-  }
-
   sortPlanets(planetA, planetB) {
     const { order } = this.props;
 
@@ -66,9 +66,9 @@ class Table extends Component {
 
     switch (order.sort) {
       case 'ASC':
-        return this.ascOrder(columnA, columnB);
+        return ascOrder(columnA, columnB);
       case 'DESC':
-        return this.descOrder(columnA, columnB);
+        return descOrder(columnA, columnB);
       default:
         return 0;
     }
