@@ -38,9 +38,9 @@ class Filters extends Component {
         onChange={(event) => this.setState({comparison: event.target.value})}
       >
         <option value="select">Select</option>
-        <option value="maior_que">Maior que</option>
-        <option value="menor_que">Menor que</option>
-        <option value="igual_a">Igual a</option>
+        <option value="maior_que">maior que</option>
+        <option value="menor_que">menor que</option>
+        <option value="igual_a">igual a</option>
       </select>
     )
   }

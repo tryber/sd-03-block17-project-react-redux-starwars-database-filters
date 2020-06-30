@@ -8,11 +8,11 @@ import Filters from './Filters';
 
 function switchComparison(column, comparison, value, planet) {
   switch (comparison) {
-    case 'Maior que':
+    case 'maior_que':
       return Number(planet[column]) > Number(value);
-    case 'Igual a':
+    case 'igual_a':
       return Number(planet[column]) === Number(value);
-    case 'Menor que':
+    case 'menor_que':
       return Number(planet[column]) < Number(value);
     default:
       return [];
@@ -52,7 +52,7 @@ class Table extends Component {
           <TableHead />
           <tbody>
             {this.getFilteredValues().map((planet) => (
-              <tr key="planet.name">
+              <tr key={planet.name}>
                 <td>{planet.name}</td>
                 <td>{planet.rotation_period}</td>
                 <td>{planet.orbital_period}</td>
