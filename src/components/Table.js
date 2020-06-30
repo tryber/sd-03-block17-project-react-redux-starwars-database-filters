@@ -44,6 +44,10 @@ class Table extends Component {
 
   sortPlanets(planetA, planetB) {
     const { order } = this.props;
+
+    let columnA = planetA[order.column.toLowerCase()];
+    let columnB = planetB[order.column.toLowerCase()];
+    
     const ascOrder = (columnA, columnB) => {
       if (columnA > columnB) return 1;
       return -1;
@@ -52,9 +56,6 @@ class Table extends Component {
       if (columnA < columnB) return 1;
       return -1;
     };
-
-    let columnA = planetA[order.column.toLowerCase()];
-    let columnB = planetB[order.column.toLowerCase()];
 
     if (order.column.toLowerCase() !== 'name') {
       columnA = Number(columnA);
