@@ -133,7 +133,12 @@ Table.propTypes = {
       value: PropTypes.string,
     }),
   ).isRequired,
-  order: PropTypes.object.isRequired,
+  order: PropTypes.objectOf(
+    PropTypes.shape({
+      column: PropTypes.string,
+      sort: PropTypes.string,
+    }),
+  ).isRequired,
 };
 
 Table.defaultProps = {

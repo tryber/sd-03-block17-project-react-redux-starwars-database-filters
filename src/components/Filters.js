@@ -187,8 +187,19 @@ const mapDispatchToProps = (dispatch) => ({
 Filters.propTypes = {
   getFilterByName: PropTypes.func.isRequired,
   getFilterByNumber: PropTypes.func.isRequired,
-  filterByNumeric: PropTypes.array.isRequired,
-  avaliableFilters: PropTypes.array.isRequired,
+  filterByNumeric: PropTypes.arrayOf(
+    PropTypes.shape({
+      column: PropTypes.string,
+      comparison: PropTypes.string,
+      value: PropTypes.string,
+    }),
+  ).isRequired,
+  avaliableFilters: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      avaliableFilters: PropTypes.bool,
+    }),
+  ).isRequired,
   deleteFil: PropTypes.func.isRequired,
   disableCol: PropTypes.func.isRequired,
   enableCol: PropTypes.func.isRequired,
