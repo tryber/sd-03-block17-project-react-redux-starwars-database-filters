@@ -36,10 +36,7 @@ const filters = (state = INITIAL_STATE, action) => {
         ],
       };
     case ORDER_COLUMN:
-      return {
-        ...state,
-        order: { column: action.column, sort: action.sort },
-      };
+      return { ...state, order: { column: action.column, sort: action.sort } };
     default:
       return state;
   }
