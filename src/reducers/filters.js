@@ -1,6 +1,7 @@
 import {
   FILTER_BY_NAME,
   FILTER_BY_NUM_VALUE,
+  DELETE_FILTER,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -20,11 +21,15 @@ const filters = (state = INITIAL_STATE, action) => {
         },
       };
     case FILTER_BY_NUM_VALUE:
-      console.log('recebendo dados', action.params, filters);
       return {
         ...state,
         filterByNumericValues: [...state.filterByNumericValues, ...action.params],
       };
+    case DELETE_FILTER:
+      return {
+        ...state,
+        filterByNumericValues: [...action.filters],
+      }
     default:
       return state;
   }

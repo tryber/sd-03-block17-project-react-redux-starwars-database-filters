@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { filterName, filterNumValues } from '../actions';
+import { filterName, filterNumValues, deleteFilter } from '../actions';
+import filters from '../reducers/filters';
 
 class Filters extends Component {
   constructor(props) {
@@ -12,35 +13,39 @@ class Filters extends Component {
       column: '',
       comparison: '',
       value: '',
+      filters: ["population", "orbital_period", "diameter", "rotation_period", "surface_water"],
     };
+
+    this.disableOption = this.disableOption.bind(this);
+    this.enableOption = this.enableOption.bind(this);
   }
 
   selectAnOption() {
+    const { column, filters } = this.state;
     return (
       <select
         data-testid="column-filter"
+        value={column}
         onChange={(event) => this.setState({ column: event.target.value })}
       >
-        <option value="select">Select</option>
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        <option value="" />
+        {filters.map((filter) => <option value={filter} key={filter}>{filter}</option>)}
       </select>
     );
   }
 
   selectACondition() {
+    const { comparison } = this.state;
     return (
       <select
         data-testid="comparison-filter"
+        value={comparison}
         onChange={(event) => this.setState({ comparison: event.target.value })}
       >
-        <option value="select">Select</option>
-        <option value="maior_que">maior que</option>
-        <option value="menor_que">menor que</option>
-        <option value="igual_a">igual a</option>
+        <option value="" />
+        <option value="maior que">maior que</option>
+        <option value="menor que">menor que</option>
+        <option value="igual a">igual a</option>
       </select>
     );
   }
@@ -56,8 +61,28 @@ class Filters extends Component {
     );
   }
 
+  disableOption(column) {
+    const { filters } = this.state;
+    const response = filters;
+    response.splice(response.findIndex((filter) => filter === column), 1);
+    this.setState({ filters: response });
+  }
+
+  enableOption(column, index) {
+    const { deleteFil, filterByNumeric } = this.props;
+    const { filters } = this.state;
+
+    const response = filters;
+    response.push(column);
+    this.setState({ filters: response });
+
+    const response2 = filterByNumeric;
+    response2.splice(index, 1);
+    deleteFil(response2);
+  }
+
   render() {
-    const { getFilterByName, getFilterByNumber } = this.props;
+    const { getFilterByName, getFilterByNumber, filterByNumeric } = this.props;
     const { column, comparison, value } = this.state;
 
     return (
@@ -75,24 +100,38 @@ class Filters extends Component {
         <button
           data-testid="button-filter"
           type="button"
-          onClick={() => getFilterByNumber({ column, comparison, value })}
+          onClick={() => {
+            getFilterByNumber({ column, comparison, value })
+            this.disableOption(column)
+          }}
         >
           Filtrar
         </button>
+        {filterByNumeric.map((filter, index) => (
+          <div>
+            {`${filter.column} ${filter.comparison} ${filter.value}`}
+            <button
+              data-testid="filter"
+              type="button"
+              onClick={() => this.enableOption(filter.column, index)}
+            >
+              X
+            </button>
+          </div>
+        ))}
       </div>
     );
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   column: state.filters.filterByNumericValues.column,
-//   comparison: state.filters.filterByNumericValues.comparison,
-//   value: state.filters.filterByNumericValues.value,
-// });
+const mapStateToProps = (state) => ({
+  filterByNumeric: state.filters.filterByNumericValues,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   getFilterByName: (name) => dispatch(filterName(name)),
   getFilterByNumber: (getFilterByNumber) => dispatch(filterNumValues(getFilterByNumber)),
+  deleteFil: (filters) => dispatch(deleteFilter(filters)),
 });
 
 Filters.propTypes = {
@@ -105,4 +144,4 @@ Filters.propTypes = {
 //   getFilterByNumber: null,
 // };
 
-export default connect(mapDispatchToProps)(Filters);
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);

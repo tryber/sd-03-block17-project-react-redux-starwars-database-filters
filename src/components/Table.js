@@ -8,11 +8,11 @@ import Filters from './Filters';
 
 function switchComparison(column, comparison, value, planet) {
   switch (comparison) {
-    case 'maior_que':
+    case 'maior que':
       return Number(planet[column]) > Number(value);
-    case 'igual_a':
+    case 'igual a':
       return Number(planet[column]) === Number(value);
-    case 'menor_que':
+    case 'menor que':
       return Number(planet[column]) < Number(value);
     default:
       return [];
