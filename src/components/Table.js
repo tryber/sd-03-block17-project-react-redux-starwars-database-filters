@@ -44,7 +44,15 @@ class Table extends Component {
 
   sortPlanets(planetA, planetB) {
     const { order } = this.props;
-    console.log(planetA, planetB);
+    const ascOrder = (columnA, columnB) => {
+      if (columnA > columnB) return 1;
+      return -1;
+    };
+    const descOrder = (columnA, columnB) => {
+      if (columnA < columnB) return 1;
+      return -1;
+    };
+
     let columnA = planetA[order.column.toLowerCase()];
     let columnB = planetB[order.column.toLowerCase()];
 
@@ -52,14 +60,8 @@ class Table extends Component {
       columnA = Number(columnA);
       columnB = Number(columnB);
     }
-    if (order.sort === 'ASC') {
-      if (columnA > columnB) return 1;
-      return -1;
-    }
-    if (order.sort === 'DESC') {
-      if (columnA < columnB) return 1;
-      return -1;
-    }
+    if (order.sort === 'ASC') return ascOrder(columnA, columnB);
+    if (order.sort === 'DESC') return descOrder(columnA, columnB);
     return 0;
   }
 
