@@ -28,20 +28,20 @@ const INITIAL_STATE = {
 const filters = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FILTER_BY_NAME:
-      return { ...state, filterByName: { name: action.name, }, };
+      return { ...state, filterByName: { name: action.name } };
     case FILTER_BY_NUM_VALUE:
       return {
         ...state,
         filterByNumericValues: [...state.filterByNumericValues, ...action.params],
       };
     case DELETE_FILTER:
-      return { ...state, filterByNumericValues: [...action.filters], };
+      return { ...state, filterByNumericValues: [...action.filters] };
     case DISABLE_COLUMN:
-      return { ...state, avaliableFilters: [...action.column], };
+      return { ...state, avaliableFilters: [...action.column] };
     case ENABLE_COLUMN:
-      return { ...state, avaliableFilters: [...action.column], };
+      return { ...state, avaliableFilters: [...action.column] };
     case CHANGE_ORDER:
-      return { ...state, order: { ...action.order }, };
+      return { ...state, order: { ...action.order } };
     default:
       return state;
   }
