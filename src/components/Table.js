@@ -49,12 +49,12 @@ class Table extends Component {
     return data.filter((planet) => planet.name.includes(name));
   }
 
-  ascOrder(columnA, columnB) {
+  ascOrder = (columnA, columnB) => {
     if (columnA > columnB) return 1;
     return -1;
   }
 
-  descOrder(columnA, columnB) {
+  descOrder = (columnA, columnB) => {
     if (columnA < columnB) return 1;
     return -1;
   }
