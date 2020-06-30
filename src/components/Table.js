@@ -63,8 +63,20 @@ class Table extends Component {
       columnB = Number(columnB);
     }
 
-    if (order.sort === 'ASC') return ascOrder(columnA, columnB);
-    if (order.sort === 'DESC') return descOrder(columnA, columnB);
+    switch (order.sort) {
+      case 'ASC':
+        return ascOrder(columnA, columnB);
+      case 'DESC':
+        return descOrder(columnA, columnB);
+      default:
+        return 0;
+    }
+
+
+
+    // if (order.sort === 'ASC') return ascOrder(columnA, columnB);
+    // if (order.sort === 'DESC') return descOrder(columnA, columnB);
+    // return 0;
   }
 
   render() {
