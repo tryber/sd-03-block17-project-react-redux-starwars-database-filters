@@ -21,31 +21,6 @@ class Filters extends Component {
     this.enableOption = this.enableOption.bind(this);
   }
 
-  selectOrder() {
-    return (
-      <div>
-        <select
-          data-testid="column-sort" id="orderColumn"
-          onChange={(event) => this.setState({ orderColumn: event.target.value })}
-        >
-          <option>name</option>
-          <option>climate</option>
-          <option>created</option>
-          <option>diameter</option>
-          <option>edited</option>
-          <option>films</option>
-          <option>gravity</option>
-          <option>orbital_period</option>
-          <option>population</option>
-          <option>rotation_period</option>
-          <option>surface_water</option>
-          <option>terrain</option>
-          <option>url</option>
-        </select>
-      </div>
-    );
-  }
-
   getOrdered() {
     const { changeOrd } = this.props;
     const { orderColumn, orderSort } = this.state;
@@ -70,6 +45,31 @@ class Filters extends Component {
         >
           Order
         </button>
+      </div>
+    );
+  }
+
+  selectOrder() {
+    return (
+      <div>
+        <select
+          data-testid="column-sort" id="orderColumn"
+          onChange={(event) => this.setState({ orderColumn: event.target.value })}
+        >
+          <option>name</option>
+          <option>climate</option>
+          <option>created</option>
+          <option>diameter</option>
+          <option>edited</option>
+          <option>films</option>
+          <option>gravity</option>
+          <option>orbital_period</option>
+          <option>population</option>
+          <option>rotation_period</option>
+          <option>surface_water</option>
+          <option>terrain</option>
+          <option>url</option>
+        </select>
       </div>
     );
   }
@@ -141,9 +141,24 @@ class Filters extends Component {
     deleteFil(response2);
   }
 
-  render() {
-    const { getFilterByName, getFilterByNumber, filterByNumeric } = this.props;
+  filterBtn() {
+    const { getFilterByNumber } = this.props;
     const { column, comparison, value } = this.state;
+    return (
+      <button
+        data-testid="button-filter" type="button"
+        onClick={() => {
+          getFilterByNumber({ column, comparison, value });
+          this.disableOption(column);
+        }}
+      >
+        Filtrar
+      </button>
+    );
+  }
+
+  render() {
+    const { getFilterByName, filterByNumeric } = this.props;
 
     return (
       <div>
@@ -157,7 +172,8 @@ class Filters extends Component {
         <p>Select a condition:</p>
         {this.selectACondition()}
         {this.inputNumber()}
-        <button
+        {this.filterBtn()}
+        {/* <button
           data-testid="button-filter" type="button"
           onClick={() => {
             getFilterByNumber({ column, comparison, value });
@@ -165,7 +181,7 @@ class Filters extends Component {
           }}
         >
           Filtrar
-        </button>
+        </button> */}
         {filterByNumeric.map((filter, index) => (
           <div data-testid="filter">
             {`${filter.column} ${filter.comparison} ${filter.value}`}
