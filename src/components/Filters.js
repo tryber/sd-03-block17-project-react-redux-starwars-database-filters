@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { filterName, filterNumValues, deleteFilter } from '../actions';
-import filters from '../reducers/filters';
+import { filterName, filterNumValues, deleteFilter, disableColumn, enableColumn } from '../actions';
 
 class Filters extends Component {
   constructor(props) {
@@ -21,7 +20,8 @@ class Filters extends Component {
   }
 
   selectAnOption() {
-    const { column, filters } = this.state;
+    const { column } = this.state;
+    const { avaliableFilters } = this.props;
     return (
       <select
         data-testid="column-filter"
@@ -29,7 +29,12 @@ class Filters extends Component {
         onChange={(event) => this.setState({ column: event.target.value })}
       >
         <option value="" />
-        {filters.map((filter) => <option value={filter} key={filter}>{filter}</option>)}
+        {avaliableFilters.reduce((acc, filter) => {
+          if (filter.avaliable) {
+            acc.push(<option value={filter.name} key={filter.name}>{filter.name}</option>);
+          }
+          return acc;
+        }, [])}
       </select>
     );
   }
@@ -62,19 +67,19 @@ class Filters extends Component {
   }
 
   disableOption(column) {
-    const { filters } = this.state;
-    const response = filters;
-    response.splice(response.findIndex((filter) => filter === column), 1);
-    this.setState({ filters: response });
+    const { avaliableFilters, disableCol } = this.props;
+    const response = avaliableFilters;
+
+    response[response.findIndex((filter) => filter.name === column)].avaliable = false;
+    disableCol(response);
   }
 
   enableOption(column, index) {
-    const { deleteFil, filterByNumeric } = this.props;
-    const { filters } = this.state;
-
-    const response = filters;
-    response.push(column);
-    this.setState({ filters: response });
+    const { deleteFil, filterByNumeric, avaliableFilters, enableCol } = this.props;
+    const response = avaliableFilters;
+  
+    response[response.findIndex((filter) => filter.name === column)].avaliable = true;
+    enableCol(response);
 
     const response2 = filterByNumeric;
     response2.splice(index, 1);
@@ -108,10 +113,9 @@ class Filters extends Component {
           Filtrar
         </button>
         {filterByNumeric.map((filter, index) => (
-          <div>
+          <div data-testid="filter">
             {`${filter.column} ${filter.comparison} ${filter.value}`}
             <button
-              data-testid="filter"
               type="button"
               onClick={() => this.enableOption(filter.column, index)}
             >
@@ -126,22 +130,20 @@ class Filters extends Component {
 
 const mapStateToProps = (state) => ({
   filterByNumeric: state.filters.filterByNumericValues,
+  avaliableFilters: state.filters.avaliableFilters,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getFilterByName: (name) => dispatch(filterName(name)),
   getFilterByNumber: (getFilterByNumber) => dispatch(filterNumValues(getFilterByNumber)),
   deleteFil: (filters) => dispatch(deleteFilter(filters)),
+  disableCol: (column) => dispatch(disableColumn(column)),
+  enableCol: (column) => dispatch(enableColumn(column)),
 });
 
 Filters.propTypes = {
   getFilterByName: PropTypes.func.isRequired,
   getFilterByNumber: PropTypes.func.isRequired,
 };
-
-// Filters.defaultProps = {
-//   getFilterByName: null,
-//   getFilterByNumber: null,
-// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);

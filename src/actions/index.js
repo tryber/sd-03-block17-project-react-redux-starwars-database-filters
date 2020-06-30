@@ -6,6 +6,8 @@ export const RECEIVE_STARWARS_FAILURE = 'RECEIVE_STARWARS_FAILURE';
 export const FILTER_BY_NAME = 'FILTER_BY_NAME';
 export const FILTER_BY_NUM_VALUE = 'FILTER_BY_NUM_VALUE';
 export const DELETE_FILTER = 'DELETE_FILTER';
+export const DISABLE_COLUMN = 'DISABLE_COLUMN';
+export const ENABLE_COLUMN = 'ENABLE_COLUMN';
 
 const requestStarWars = () => ({
   type: REQUEST_STARWARS,
@@ -46,4 +48,14 @@ export const filterNumValues = (...params) => ({
 export const deleteFilter = (filters) => ({
   type: DELETE_FILTER,
   filters,
+})
+
+export const disableColumn = (column) => ({
+  type: DISABLE_COLUMN,
+  column,
+})
+
+export const enableColumn = (column) => ({
+  type: ENABLE_COLUMN,
+  column,
 })

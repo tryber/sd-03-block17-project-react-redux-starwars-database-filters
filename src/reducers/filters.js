@@ -2,6 +2,8 @@ import {
   FILTER_BY_NAME,
   FILTER_BY_NUM_VALUE,
   DELETE_FILTER,
+  DISABLE_COLUMN,
+  ENABLE_COLUMN,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -9,6 +11,13 @@ const INITIAL_STATE = {
     name: '',
   },
   filterByNumericValues: [],
+  avaliableFilters: [
+    { name: 'population', avaliable: true },
+    { name: 'orbital_period', avaliable: true },
+    { name: 'diameter', avaliable: true },
+    { name: 'rotation_period', avaliable: true },
+    { name: 'surface_water', avaliable: true },
+  ],
 };
 
 const filters = (state = INITIAL_STATE, action) => {
@@ -29,6 +38,16 @@ const filters = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         filterByNumericValues: [...action.filters],
+      };
+    case DISABLE_COLUMN:
+      return {
+        ...state,
+        avaliableFilters: [...action.column],
+      }
+    case ENABLE_COLUMN:
+      return {
+        ...state,
+        avaliableFilters: [...action.column],
       }
     default:
       return state;
