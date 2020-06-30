@@ -42,29 +42,21 @@ class Table extends Component {
     return data.filter((planet) => planet.name.includes(name));
   }
 
+  ascOrder(columnA, columnB) {
+    if (columnA > columnB) return 1;
+    return -1;
+  };
+
+  descOrder(columnA, columnB) {
+    if (columnA < columnB) return 1;
+    return -1;
+  };
+
   sortPlanets(planetA, planetB) {
     const { order } = this.props;
 
     let columnA = planetA[order.column.toLowerCase()];
     let columnB = planetB[order.column.toLowerCase()];
-
-    const ascOrder = () => {
-      switch (columnA > columnB) {
-        case true:
-          return 1;
-        default:
-          return -1;
-      }
-    };
-
-    const descOrder = () => {
-      switch (columnA < columnB) {
-        case true:
-          return 1;
-        default:
-          return -1;
-      }
-    };
 
     if (order.column.toLowerCase() !== 'name') {
       columnA = Number(columnA);
@@ -73,9 +65,9 @@ class Table extends Component {
 
     switch (order.sort) {
       case 'ASC':
-        return ascOrder(columnA, columnB);
+        return this.ascOrder(columnA, columnB);
       case 'DESC':
-        return descOrder(columnA, columnB);
+        return this.descOrder(columnA, columnB);
       default:
         return 0;
     }
