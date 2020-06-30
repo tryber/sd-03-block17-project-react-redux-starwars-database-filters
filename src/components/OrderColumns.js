@@ -24,8 +24,8 @@ class OrderColumns extends Component {
     super(props);
 
     this.state = {
-      column: 'name',
-      order: '',
+      column: 'Name',
+      order: 'ASC',
     };
   }
 

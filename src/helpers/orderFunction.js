@@ -18,6 +18,7 @@ const orderStringAsc = (data, column) => data.sort((a, b) => {
 });
 
 const orderFunction = (data, column, order) => {
+  column = column.toLowerCase();
   const sortedData = integersColumns.includes(column)
     ? orderIntegerAsc(data, column)
     : orderStringAsc(data, column);
