@@ -20,12 +20,6 @@ function switchComparison(column, comparison, value, planet) {
 }
 
 class Table extends Component {
-  constructor(props) {
-    super(props);
-
-    this.ascOrder = this.ascOrder.bind(this);
-    this.descOrder = this.descOrder.bind(this);
-  }
 
   componentDidMount() {
     const { getStarWarsPlanetsData } = this.props;
