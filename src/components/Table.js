@@ -14,17 +14,17 @@ class Table extends React.Component {
   }
 
   render() {
-    const { nameFilter, numericFilters, data } = this.props
-    const { isFetching, sortColumnFilter, orderColumns  } = this.props;
-    const filteredPlanets = filterPlanets({ nameFilter, numericFilters, data })
-    const orderedPlanets = orderFunction( filteredPlanets, sortColumnFilter, orderColumns )
+    const { nameFilter, numericFilters, data } = this.props;
+    const { isFetching, sortColumnFilter, orderColumns } = this.props;
+    const filteredPlanets = filterPlanets({ nameFilter, numericFilters, data });
+    const orderedPlanets = orderFunction(filteredPlanets, sortColumnFilter, orderColumns);
     if (isFetching) return <Loading />;
     if (data) {
       return (
         <table className="container">
           <TableHead />
           <tbody>
-            {orderedPlanets.map((planet) => 
+            {orderedPlanets.map((planet) =>
               <TableLine planet={planet} key={planet.name} />
             )};
           </tbody>
@@ -54,4 +54,8 @@ Table.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   getPlanetsData: PropTypes.func.isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  sortColumnFilter: PropTypes.string.isRequired,
+  orderColumns: PropTypes.string.isRequired,
+  nameFilter: PropTypes.string.isRequired,
+  numericFilters: PropTypes.arrayOf(PropTypes.number).isRequired,
 };

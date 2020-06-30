@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filterByName } from '../actions/filters'
+import { filterByName } from '../actions/filters';
 
 const FilterByName = ({ filterByPlanetName }) => (
   <input
@@ -19,5 +19,5 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(null, mapDispatchToProps)(FilterByName);
 
 FilterByName.propTypes = {
-  filterByPlanetName: PropTypes.func,
+  filterByPlanetName: PropTypes.func.isRequired,
 };

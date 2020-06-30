@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { filterByNumericValue } from '../actions/filters';
 
+const columns = ['', 'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
+const comparison = ['', 'maior que', 'igual a', 'menor que'];
 const columnFilter = (filters, value) => !filters.find(({ column }) => column === value);
 
 class filterByNumberValues extends React.Component {
@@ -34,36 +36,19 @@ class filterByNumberValues extends React.Component {
   }
 
   render() {
-    const columns = ['', 'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
-    const comparison = ['', 'maior que', 'igual a', 'menor que'];
     const { numericFilterValue } = this.props;
     return (
       <div className="filters-div">
-        <select
-          id="column-filter"
-          data-testid="column-filter"
-          onChange={(event) => this.handleChange(event, 'column')}
-        >
+        <select data-testid="column-filter" onChange={(event) => this.handleChange(event, 'column')}>
           {columns.map((column) => (columnFilter(numericFilterValue, column) &&
             (<option value={column} key={column}>{column}</option>)
           ))}
         </select>
-        <select
-          onChange={(event) => this.handleChange(event, 'comparison')}
-          data-testid="comparison-filter"
-        >
+        <select onChange={(event) => this.handleChange(event, 'comparison')} data-testid="comparison-filter">
           {comparison.map((option) => <option value={option} key={option}>{option}</option>)}
         </select>
-        <input
-          type="number"
-          data-testid="value-filter"
-          onChange={(event) => this.handleChange(event, 'value')}
-        />
-        <button
-          data-testid="button-filter"
-          onClick={this.handleClick}
-          disabled={!this.state.column}
-        >
+        <input type="number" data-testid=" value-filter" onChange={(event) => this.handleChange(event, 'value')} />
+        <button data-testid="button-filter" onClick={this.handleClick} disabled={!this.state.column}>
             Filter
         </button>
       </div>
@@ -73,11 +58,11 @@ class filterByNumberValues extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   numericFilterParameters: (parameters) => dispatch(filterByNumericValue(parameters)),
-})
+});
 
 const mapStateToProps = (state) => ({
   numericFilterValue: state.filters.filterByNumericValue,
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(filterByNumberValues);
 

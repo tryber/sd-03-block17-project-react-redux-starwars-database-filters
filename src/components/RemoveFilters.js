@@ -4,21 +4,20 @@ import PropTypes from 'prop-types';
 import { removeFilters } from '../actions/filters';
 
 const RemoveFilters = ({ filters, removeSelectedFilter }) => {
-  console.log(123, removeSelectedFilter)
   if (filters.lenght !== 0) {
     return (
       <div>
         <h3>Filtros Selecionados</h3>
         {filters.map((filter) => (
-            <p key={filter.column} data-testid="filter">
-              <span>{filter.column}</span>
-              <span>{filter.comparison}</span>
-              <span>{filter.value}</span>
-              <button type="button" onClick={() => removeSelectedFilter(filter)}>
-                X
+          <p key={filter.column} data-testid="filter">
+            <span>{filter.column}</span>
+            <span>{filter.comparison}</span>
+            <span>{filter.value}</span>
+            <button type="button" onClick={() => removeSelectedFilter(filter)}>
+              X
               </button>
-            </p>
-          ))}
+          </p>
+        ))}
       </div>
     );
   }
