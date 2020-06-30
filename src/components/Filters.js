@@ -12,14 +12,14 @@ class Filters extends Component {
       column: '',
       comparison: '',
       value: '',
-    }
+    };
   }
 
   selectAnOption() {
     return (
       <select
         data-testid="column-filter"
-        onChange={(event) => this.setState({column: event.target.value})}
+        onChange={(event) => this.setState({ column: event.target.value })}
       >
         <option value="select">Select</option>
         <option value="population">population</option>
@@ -28,21 +28,21 @@ class Filters extends Component {
         <option value="rotation_period">rotation_period</option>
         <option value="surface_water">surface_water</option>
       </select>
-    )
+    );
   }
 
   selectACondition() {
     return (
       <select
         data-testid="comparison-filter"
-        onChange={(event) => this.setState({comparison: event.target.value})}
+        onChange={(event) => this.setState({ comparison: event.target.value })}
       >
         <option value="select">Select</option>
         <option value="maior_que">maior que</option>
         <option value="menor_que">menor que</option>
         <option value="igual_a">igual a</option>
       </select>
-    )
+    );
   }
 
   inputNumber() {
@@ -51,9 +51,9 @@ class Filters extends Component {
         data-testid="value-filter"
         type="number"
         placeholder="Digit a number"
-        onChange={(event) => this.setState({value: event.target.value})}
+        onChange={(event) => this.setState({ value: event.target.value })}
       />
-    )
+    );
   }
 
   render() {
@@ -75,7 +75,7 @@ class Filters extends Component {
         <button
           data-testid="button-filter"
           type="button"
-          onClick={() => getFilterByNumber({column, comparison, value})}
+          onClick={() => getFilterByNumber({ column, comparison, value })}
         >
           Filtrar
         </button>
@@ -84,11 +84,11 @@ class Filters extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  // column: state.filters.filterByNumericValues.column,
-  // comparison: state.filters.filterByNumericValues.comparison,
-  // value: state.filters.filterByNumericValues.value,
-});
+// const mapStateToProps = (state) => ({
+//   column: state.filters.filterByNumericValues.column,
+//   comparison: state.filters.filterByNumericValues.comparison,
+//   value: state.filters.filterByNumericValues.value,
+// });
 
 const mapDispatchToProps = (dispatch) => ({
   getFilterByName: (name) => dispatch(filterName(name)),

@@ -40,4 +40,4 @@ export const filterName = (name) => ({
 export const filterNumValues = (...params) => ({
   type: FILTER_BY_NUM_VALUE,
   params,
-})
+});

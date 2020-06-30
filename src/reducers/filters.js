@@ -6,8 +6,8 @@ import {
 const INITIAL_STATE = {
   filterByName: {
     name: '',
-  }, 
-  filterByNumericValues: []
+  },
+  filterByNumericValues: [],
 };
 
 const filters = (state = INITIAL_STATE, action) => {
@@ -23,7 +23,7 @@ const filters = (state = INITIAL_STATE, action) => {
       console.log('recebendo dados', action.params, filters);
       return {
         ...state,
-        filterByNumericValues: [ ...state.filterByNumericValues, ...action.params],
+        filterByNumericValues: [...state.filterByNumericValues, ...action.params],
       };
     default:
       return state;
