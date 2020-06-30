@@ -48,17 +48,17 @@ const filters = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         avaliableFilters: [...action.column],
-      }
+      };
     case ENABLE_COLUMN:
       return {
         ...state,
         avaliableFilters: [...action.column],
-      }
+      };
     case CHANGE_ORDER:
       return {
         ...state,
-        order: {...action.order},
-      }
+        order: { ...action.order },
+      };
     default:
       return state;
   }

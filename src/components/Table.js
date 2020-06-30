@@ -53,11 +53,11 @@ class Table extends Component {
       columnB = Number(columnB);
     }
     if (order.sort === 'ASC') {
-      if (columnA > columnB) return 1
+      if (columnA > columnB) return 1;
       return -1;
-    } 
+    }
     if (order.sort === 'DESC') {
-      if (columnA < columnB) return 1
+      if (columnA < columnB) return 1;
       return -1;
     }
     return 0;
@@ -133,6 +133,7 @@ Table.propTypes = {
       value: PropTypes.string,
     }),
   ).isRequired,
+  order: PropTypes.object.isRequired,
 };
 
 Table.defaultProps = {

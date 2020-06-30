@@ -12,7 +12,7 @@ class Filters extends Component {
       column: '',
       comparison: '',
       value: '',
-      filters: ["population", "orbital_period", "diameter", "rotation_period", "surface_water"],
+      filters: ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
       orderColumn: 'name',
       orderSort: 'ASC',
     };
@@ -79,7 +79,7 @@ class Filters extends Component {
   enableOption(column, index) {
     const { deleteFil, filterByNumeric, avaliableFilters, enableCol } = this.props;
     const response = avaliableFilters;
-  
+
     response[response.findIndex((filter) => filter.name === column)].avaliable = true;
     enableCol(response);
 
@@ -108,8 +108,8 @@ class Filters extends Component {
           data-testid="button-filter"
           type="button"
           onClick={() => {
-            getFilterByNumber({ column, comparison, value })
-            this.disableOption(column)
+            getFilterByNumber({ column, comparison, value });
+            this.disableOption(column);
           }}
         >
           Filtrar
@@ -150,16 +150,14 @@ class Filters extends Component {
           name="order"
           value="ASC"
           onClick={(event) => this.setState({ orderSort: event.target.value })}
-        >
-        </input>
+        />
         <input
           data-testid="column-sort-input"
           type="radio"
           name="order"
           value="DESC"
           onClick={(event) => this.setState({ orderSort: event.target.value })}
-        >
-        </input>
+        />
         <button
           data-testid="column-sort-button"
           type="button"
@@ -189,6 +187,12 @@ const mapDispatchToProps = (dispatch) => ({
 Filters.propTypes = {
   getFilterByName: PropTypes.func.isRequired,
   getFilterByNumber: PropTypes.func.isRequired,
+  filterByNumeric: PropTypes.array.isRequired,
+  avaliableFilters: PropTypes.array.isRequired,
+  deleteFil: PropTypes.func.isRequired,
+  disableCol: PropTypes.func.isRequired,
+  enableCol: PropTypes.func.isRequired,
+  changeOrd: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filters);

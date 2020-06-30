@@ -49,19 +49,19 @@ export const filterNumValues = (...params) => ({
 export const deleteFilter = (filters) => ({
   type: DELETE_FILTER,
   filters,
-})
+});
 
 export const disableColumn = (column) => ({
   type: DISABLE_COLUMN,
   column,
-})
+});
 
 export const enableColumn = (column) => ({
   type: ENABLE_COLUMN,
   column,
-})
+});
 
 export const changeOrder = (order) => ({
   type: CHANGE_ORDER,
   order,
-})
+});
