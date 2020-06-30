@@ -47,10 +47,12 @@ class Table extends Component {
 
     let columnA = planetA[order.column.toLowerCase()];
     let columnB = planetB[order.column.toLowerCase()];
+
     const ascOrder = () => {
       if (columnA > columnB) return 1;
       return -1;
     };
+
     const descOrder = () => {
       if (columnA < columnB) return 1;
       return -1;
@@ -60,9 +62,9 @@ class Table extends Component {
       columnA = Number(columnA);
       columnB = Number(columnB);
     }
+
     if (order.sort === 'ASC') return ascOrder(columnA, columnB);
     if (order.sort === 'DESC') return descOrder(columnA, columnB);
-    return 0;
   }
 
   render() {
