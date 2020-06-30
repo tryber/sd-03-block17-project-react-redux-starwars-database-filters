@@ -105,4 +105,4 @@ Filters.propTypes = {
 //   getFilterByNumber: null,
 // };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filters);
+export default connect(mapDispatchToProps)(Filters);
