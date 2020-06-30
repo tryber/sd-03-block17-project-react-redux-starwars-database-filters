@@ -18,7 +18,7 @@ function Remove({ numericValues, removeNumeric }) {
 }
 
 const mapStateToProps = (state) => ({
-  numericValues: state.filters.filterByNumericValues,
+  nmericValues: state.filters.filterByNumericValues,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Remove.propTypes = {
-  numericValues: PropTypes.arrayOf(
+  nmericValues: PropTypes.arrayOf(
     PropTypes.shape({
       column: PropTypes.string,
       comparison: PropTypes.string,
