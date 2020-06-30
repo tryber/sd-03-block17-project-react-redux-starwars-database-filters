@@ -47,12 +47,11 @@ class Table extends Component {
 
     let columnA = planetA[order.column.toLowerCase()];
     let columnB = planetB[order.column.toLowerCase()];
-    
-    const ascOrder = (columnA, columnB) => {
+    const ascOrder = () => {
       if (columnA > columnB) return 1;
       return -1;
     };
-    const descOrder = (columnA, columnB) => {
+    const descOrder = () => {
       if (columnA < columnB) return 1;
       return -1;
     };
