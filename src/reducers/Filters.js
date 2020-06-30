@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   filterByName: { name: '' },
   filterByNumericValues: [],
   order: {
-    colmun: 'Name',
+    column: 'Name',
     sort: 'ASC',
   },
 };
@@ -19,11 +19,14 @@ const filters = (state = INITIAL_STATE, action) => {
     case FILTER_BY_NUMERIC:
       return {
         ...state,
-        filterByNumericValues: [...state.filterByNumericValues, {
-          column: action.column,
-          comparison: action.comparison,
-          value: action.value,
-        }],
+        filterByNumericValues: [
+          ...state.filterByNumericValues,
+          {
+            column: action.column,
+            comparison: action.comparison,
+            value: action.value,
+          },
+        ],
       };
     case REMOVE_NUMERIC:
       return {
@@ -37,7 +40,8 @@ const filters = (state = INITIAL_STATE, action) => {
         ...state,
         order: { column: action.column, sort: action.sort },
       };
-    default: return state;
+    default:
+      return state;
   }
 };
 
