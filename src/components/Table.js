@@ -43,15 +43,15 @@ class Table extends Component {
     return data.filter((planet) => planet.name.includes(name));
   }
 
-  ascOrder(columnA, columnB) {
-    if (columnA > columnB) return 1;
-    return -1;
-  }
+  // ascOrder(columnA, columnB) {
+  //   if (columnA > columnB) return 1;
+  //   return -1;
+  // }
 
-  descOrder(columnA, columnB) {
-    if (columnA < columnB) return 1;
-    return -1;
-  }
+  // descOrder(columnA, columnB) {
+  //   if (columnA < columnB) return 1;
+  //   return -1;
+  // }
 
   sortPlanets(planetA, planetB) {
     const { order } = this.props;
@@ -64,11 +64,24 @@ class Table extends Component {
       columnB = Number(columnB);
     }
 
+    // const ascOrder = (columnA, columnB) => {(columnA > columnB) ? 1 : -1};
+    // const descOrder = (columnA, columnB) => {(columnA < columnB) ? 1 : -1};
+
+    const ascOrder = (columnA, columnB) => {
+      if (columnA > columnB) return 1;
+      return -1;
+    }
+  
+    const descOrder = (columnA, columnB) => {
+      if (columnA < columnB) return 1;
+      return -1;
+    }
+
     switch (order.sort) {
       case 'ASC':
-        return this.ascOrder(columnA, columnB);
+        return ascOrder(columnA, columnB);
       case 'DESC':
-        return this.descOrder(columnA, columnB);
+        return descOrder(columnA, columnB);
       default:
         return 0;
     }
