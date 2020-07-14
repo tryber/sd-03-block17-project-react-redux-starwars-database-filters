@@ -1,17 +1,17 @@
 import React from 'react';
+import Home from './components/Home';
 import './App.css';
 import fetchh from './components/Fetchh';
 import Table from './components/Table';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Table />
-        <fetchh />
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Home />
+      </div>
+    );
+  }
 }
 
 export default App;
