@@ -1,26 +1,50 @@
 import React from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Filter from './components/Filter';
+import Table from './components/Table';
+import { requestFetch } from './action';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  componentDidMount() {
+    const { getPlanets } = this.props;
+    getPlanets();
+  }
+
+  render() {
+    const { isFetching } = this.props;
+    if (isFetching) {
+      return (
+        <div>
+          <h1>StarWars Datatable with Filters</h1>
+          <p>Loading...</p>
+        </div>
+      );
+    }
+    return (
+      <div>
+        <h1>StarWars Datatable with Filters</h1>
+        <Filter />
+        <Table />
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = ({
+  planetReducer: { isFetching },
+}) => ({
+  isFetching,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getPlanets: () => dispatch(requestFetch()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+App.propTypes = {
+  getPlanets: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+};
